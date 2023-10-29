@@ -95,6 +95,10 @@
     color: var(--dark) !important;
 }
 
+.sticky-top.navbar-light .logo-name {
+    color: var(--dark) !important;
+}
+
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
     color: var(--primary) !important;
