@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/ahglcr9nnw3n/repositories/KonkanArabia-Tourism-Events
+    - export DEPLOYPATH=/home/ahglcr9nnw3n/public_html/KonkanArabia-Tourism-Events
     - /bin/cp -a * $DEPLOYPATH
