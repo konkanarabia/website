@@ -1,0 +1,38 @@
+import './globals.css'
+import { Inter } from 'next/font/google'
+import Header from './components/header'
+import Footer from './components/footer'
+import { Toaster } from "@/components/ui/toaster"
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'KonkanArabia Hospitality & Holiday Group',
+  description: 'KonkanArabia Hospitality & Holiday Group',
+  keywords: 'KonkanArabia, Hospitality, Holiday, Group, Travel, Tourism',
+  authors: [{ name: 'KonkanArabia' }],
+  creator: 'KonkanArabia',
+  publisher: 'KonkanArabia',
+  generator: 'v0.dev'
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body
+        className={inter.className}
+        data-gramm="false"
+        suppressHydrationWarning={true}
+      >
+        <Header />
+        <main>{children}</main>
+        <Footer />
+        <Toaster />
+      </body>
+    </html>
+  )
+}
