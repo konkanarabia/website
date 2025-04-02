@@ -8,59 +8,147 @@ import { Button } from "@/components/ui/button";
 const destinations = [
   {
     id: 1,
-    name: "India",
-    description: "Incredible India",
-    image: "/img/julian-yu-_WuPjE-MPHo-unsplash.jpg?height=200&width=300",
+    name: "Kashmir",
+    description: "Paradise on Earth",
+    image: "/img/kashmir.jpg?height=200&width=300",
     details:
-      "India, a country in South Asia, is known for its rich cultural heritage, diverse landscapes, and historical landmarks. From the majestic Himalayas to the serene beaches of Goa, India offers a plethora of experiences including vibrant festivals, delicious cuisine, and ancient temples.",
+      "Kashmir, with its breathtaking landscapes, snow-capped mountains, and serene lakes, truly lives up to its nickname 'Paradise on Earth'. Explore the Dal Lake in Srinagar, visit the beautiful gardens, or enjoy skiing in Gulmarg's snow-covered slopes.",
   },
   {
     id: 2,
-    name: "Dubai",
-    description: "The City of Gold",
-    image: "/img/sascha-bosshard-gfMEelIy7r8-unsplash.jpg?height=200&width=300",
+    name: "Himachal Pradesh",
+    description: "Land of Gods",
+    image: "/img/himachal.jpg?height=200&width=300",
     details:
-      "Dubai, a city in the United Arab Emirates, is known for its modern architecture, luxury shopping, and vibrant nightlife. Key attractions include the Burj Khalifa, the world's tallest building, and the Palm Jumeirah, an artificial archipelago.",
+      "Himachal Pradesh offers stunning Himalayan landscapes, lush valleys, and charming hill stations. From the vibrant culture of Shimla to the spiritual atmosphere of Dharamshala, experience adventure sports, ancient temples, and pristine natural beauty.",
   },
   {
     id: 3,
-    name: "Bali",
-    description: "Island of the Gods",
-    image: "/img/sara-dubler-Koei_7yYtIo-unsplash.jpg?height=200&width=300",
+    name: "Golden Triangle",
+    description: "Amritsar, Delhi, Agra & Rajasthan",
+    image: "/img/golden-triangle.jpg?height=200&width=300",
     details:
-      "Bali, Indonesia, is a tropical paradise known for its stunning beaches, lush rice terraces, and vibrant culture. Visitors can explore ancient temples, enjoy world-class surfing, and indulge in traditional Balinese cuisine.",
+      "The Golden Triangle circuit connects the iconic cities of Delhi, Agra, and Jaipur, with an extension to Amritsar. Experience India's rich heritage through historic monuments like the Taj Mahal, Red Fort, and Hawa Mahal, alongside the spiritual Golden Temple.",
   },
   {
     id: 4,
-    name: "Thailand",
-    description: "The Land of Smiles",
-    image: "/img/jakob-owens-5F_c9i3JP0I-unsplash.jpg?height=200&width=300",
+    name: "Goa",
+    description: "Pearl of the Orient",
+    image: "/img/goa.jpg?height=200&width=300",
     details:
-      "Thailand, a Southeast Asian country, is famous for its tropical beaches, opulent palaces, and ancient ruins. Visitors can explore bustling markets, enjoy delicious street food, and relax on beautiful islands like Phuket and Koh Samui.",
+      "Goa offers the perfect blend of sun, sand, and sea with a unique Portuguese-influenced culture. Enjoy its pristine beaches, vibrant nightlife, delicious seafood, water sports, and historic churches and forts that dot this coastal paradise.",
   },
   {
     id: 5,
-    name: "Sri Lanka",
-    description: "The Pearl of the Indian Ocean",
-    image: "/img/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg?height=200&width=300",
+    name: "Konkan",
+    description: "Coastal Haven",
+    image: "/img/konkan.jpg?height=200&width=300",
     details:
-      "Sri Lanka, an island nation in South Asia, is known for its stunning beaches, lush tea plantations, and rich wildlife. Visitors can explore ancient ruins, enjoy vibrant festivals, and experience the warm hospitality of the locals.",
+      "The Konkan coast stretches along the western coastline of India, featuring pristine beaches, quaint fishing villages, and lush green landscapes. Explore ancient temples, enjoy authentic coastal cuisine, and experience the rich cultural heritage of this region.",
   },
   {
     id: 6,
-    name: "Europe",
-    description: "The Old Continent",
-    image: "/img/joss-woodhead-3wFRlwS91yk-unsplash.jpg?height=200&width=300",
+    name: "Kerala",
+    description: "God's Own Country",
+    image: "/img/kerala.jpg?height=200&width=300",
     details:
-      "Europe, the world's second-smallest continent, is known for its rich history, diverse cultures, and stunning landscapes. From the fjords of Norway to the beaches of Greece, Europe offers a wide range of experiences including art, architecture, and cuisine.",
+      "Kerala dazzles with its backwaters, lush hill stations, pristine beaches, and vibrant culture. Experience houseboat cruises through the backwaters, Ayurvedic treatments, wildlife sanctuaries, and the unique blend of traditional arts, cuisine, and festivals.",
   },
   {
     id: 7,
+    name: "Karnataka",
+    description: "Mysore, Bangalore & Ooty",
+    image: "/img/karnataka.jpg?height=200&width=300",
+    details:
+      "Karnataka offers diverse attractions from the tech hub of Bangalore to the royal heritage of Mysore and the hill station beauty of nearby Ooty. Explore magnificent palaces, ancient temples, lush coffee plantations, and stunning Western Ghat landscapes.",
+  },
+  {
+    id: 8,
+    name: "Lakshadweep",
+    description: "Coral Paradise",
+    image: "/img/lakshadweep.jpg?height=200&width=300",
+    details:
+      "Lakshadweep, India's smallest union territory, consists of stunning coral atolls and pristine beaches. Experience crystal-clear waters perfect for snorkeling and diving, rich marine life, and the unique culture of these remote islands in the Arabian Sea.",
+  },
+  {
+    id: 11,
+    name: "Dubai",
+    description: "The City of Gold",
+    image: "/img/dubai.jpg?height=200&width=300",
+    details:
+      "Dubai, a city in the United Arab Emirates, is known for its ultramodern architecture, luxury shopping, and vibrant nightlife. Home to Burj Khalifa, the world's tallest building, and artificial islands like Palm Jumeirah.",
+  },
+  {
+    id: 12,
+    name: "Thailand",
+    description: "The Land of Smiles",
+    image: "/img/thailand.jpg?height=200&width=300",
+    details:
+      "Thailand offers beautiful tropical beaches, opulent royal palaces, ancient ruins and temples. Experience Bangkok's vibrant street life, explore Chiang Mai's mountains, or relax on the islands of Phuket and Koh Samui.",
+  },
+  {
+    id: 13,
+    name: "Sri Lanka",
+    description: "Pearl of the Indian Ocean",
+    image: "/img/sri-lanka.jpg?height=200&width=300",
+    details:
+      "Sri Lanka features endless beaches, timeless ruins, welcoming people, and abundant wildlife. Explore ancient Buddhist ruins, hike through tea plantations, and witness elephants in their natural habitat.",
+  },
+  {
+    id: 14,
+    name: "Nepal",
+    description: "Land of the Himalayas",
+    image: "/img/nepal.jpg?height=200&width=300",
+    details:
+      "Nepal, home to Mount Everest, offers stunning Himalayan views, historic temples, and rich cultural heritage. Trek through spectacular mountain scenery or explore medieval city squares in Kathmandu Valley.",
+  },
+  {
+    id: 15,
+    name: "Vietnam",
+    description: "The Hidden Charm",
+    image: "/img/vietnam.jpg?height=200&width=300",
+    details:
+      "Vietnam features dramatic landscapes, from the lush rice terraces of Sapa to the limestone islands of Halong Bay. Experience bustling cities, tranquil villages, and incredible food culture throughout this diverse country.",
+  },
+  {
+    id: 16,
     name: "Maldives",
     description: "Tropical Paradise",
-    image: "/img/rayyu-maldives-xPsFXsbXJRg-unsplash.jpg?height=200&width=300",
+    image: "/img/maldives.jpg?height=200&width=300",
     details:
-      "Maldives, a tropical paradise in the Indian Ocean, is known for its stunning coral reefs, crystal-clear waters, and luxurious resorts. Visitors can enjoy snorkeling, diving, and relaxing on pristine beaches surrounded by turquoise lagoons.",
+      "The Maldives is known for its crystal clear waters, overwater bungalows, and pristine beaches. This archipelago of 1,000+ coral islands offers world-class diving, snorkeling, and the ultimate luxury retreat.",
+  },
+  {
+    id: 17,
+    name: "Indonesia",
+    description: "Unity in Diversity",
+    image: "/img/indonesia.jpg?height=200&width=300",
+    details:
+      "Indonesia spans over 17,000 islands with incredible diversity. From the spiritual Bali to the komodo dragons of Flores, experience volcanoes, jungles, pristine beaches, and vibrant cultural traditions.",
+  },
+  {
+    id: 18,
+    name: "Azerbaijan",
+    description: "Land of Fire",
+    image: "/img/azerbaijan.jpg?height=200&width=300",
+    details:
+      "Azerbaijan blends ancient culture with modern development. Explore Baku's UNESCO-listed Old City, mud volcanoes, and the burning mountain of Yanar Dag, while experiencing the country's unique East-meets-West atmosphere.",
+  },
+  {
+    id: 19,
+    name: "Armenia",
+    description: "Land of Mountains",
+    image: "/img/armenia.jpg?height=200&width=300",
+    details:
+      "Armenia boasts dramatic mountain landscapes and ancient Christian heritage. Visit centuries-old monasteries perched on hilltops, explore the vibrant capital Yerevan, and enjoy traditional hospitality and cuisine.",
+  },
+  {
+    id: 20,
+    name: "Georgia",
+    description: "Cradle of Wine",
+    image: "/img/georgia.jpg?height=200&width=300",
+    details:
+      "Georgia offers stunning mountain scenery, ancient cave cities, and 8,000 years of winemaking tradition. Experience the unique hospitality, rich folklore, delicious cuisine, and beautiful Orthodox churches.",
   },
 ];
 

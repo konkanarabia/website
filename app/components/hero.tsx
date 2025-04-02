@@ -21,7 +21,7 @@ const heroSlides = [
     subtitle: "Explore the world's most beautiful destinations",
     image: "/img/luca-bravo-O453M2Liufs-unsplash.jpg?height=800&width=1200",
     cta: "Start Exploring",
-    link: "/destinations"
+    link: "/services"
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ const heroSlides = [
     subtitle: "Travel off the beaten path",
     image: "/img/zq-lee-VbDjv8-8ibc-unsplash.jpg?height=800&width=1200",
     cta: "Find Unique Destinations",
-    link: "/destinations"
+    link: "/services"
   }
 ]
 
