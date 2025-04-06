@@ -9,8 +9,10 @@ import { Menu, X, ChevronDown } from "lucide-react";
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileServicesDropdownOpen, setIsMobileServicesDropdownOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -20,10 +22,17 @@ export default function Header() {
     setIsServicesDropdownOpen(!isServicesDropdownOpen);
   };
 
+  const toggleMobileServicesDropdown = () => {
+    setIsMobileServicesDropdownOpen(!isMobileServicesDropdownOpen);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsServicesDropdownOpen(false);
+      }
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setIsMobileServicesDropdownOpen(false);
       }
     };
 
@@ -127,17 +136,17 @@ export default function Header() {
               {navItems.map((item) => (
                 <li key={item.name}>
                   {item.dropdown ? (
-                    <div>
+                    <div ref={mobileDropdownRef}>
                       <button
-                        onClick={toggleServicesDropdown}
+                        onClick={toggleMobileServicesDropdown}
                         className={`flex items-center w-full py-2 text-left text-gray-600 hover:text-primary transition-colors ${
                           pathname.startsWith(item.href) ? "font-semibold text-primary" : ""
                         }`}
                       >
                         {item.name}
-                        <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isMobileServicesDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
-                      {isServicesDropdownOpen && (
+                      {isMobileServicesDropdownOpen && (
                         <div className="pl-4 mt-1 space-y-1">
                           {item.subItems.map((subItem) => (
                             <Link
