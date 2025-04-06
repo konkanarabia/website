@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -64,9 +65,18 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link
           href="/"
-          className="text-lg md:text-xl lg:text-2xl font-bold text-primary max-w-[150px] md:max-w-none truncate"
+          className="flex items-center gap-2"
         >
-          KonkanArabia Hospitality & Holiday Group
+          <Image 
+            src="./img/KonkanArabia-logo.jpg" 
+            alt="KonkanArabia Hospitality & Holiday Group" 
+            width={50} 
+            height={50}
+            className="object-contain"
+          />
+          <span className="text-lg md:text-xl lg:text-2xl font-bold text-primary hidden sm:block">
+            KonkanArabia Hospitality & Holiday Group
+          </span>
         </Link>
         {/* Navigation moved to right side */}
         <div className="flex items-center justify-end flex-1">

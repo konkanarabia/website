@@ -112,9 +112,7 @@ export default function ServicePage() {
             /
           </li>
           <li>
-            <Link href="/services" className="hover:underline">
-              Services
-            </Link>{" "}
+            <span className="font-medium">Our Services</span>{" "}
             /
           </li>
           <li className="font-medium">{service.name}</li>
@@ -235,14 +233,6 @@ export default function ServicePage() {
           <span className="md:hidden">Next</span>
         </Button>
       </div>
-
-      {/* <div className="hidden md:block text-center mt-12">
-        <Link href="/enquiry" passHref>
-          <Button size="lg" className="px-8">
-            Enquire About This Service
-          </Button>
-        </Link>
-      </div> */}
     </div>
   );
 }
