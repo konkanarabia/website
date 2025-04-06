@@ -44,7 +44,7 @@ export default function Footer() {
                   href="/destinations"
                   className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
                 >
-                  <span className="mr-2">→</span> Destinations
+                  <span className="mr-2">→</span> Packages
                 </Link>
               </li>
               <li>
