@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { MapPin, Calendar, Users, PhoneCall, ArrowLeft } from "lucide-react";
 
 const destinations = [
   {
@@ -13,6 +14,15 @@ const destinations = [
     image: "/img/kashmir.jpg?height=200&width=300",
     details:
       "Kashmir, with its breathtaking landscapes, snow-capped mountains, and serene lakes, truly lives up to its nickname 'Paradise on Earth'. Explore the Dal Lake in Srinagar, visit the beautiful gardens, or enjoy skiing in Gulmarg's snow-covered slopes.",
+    highlights: [
+      "Take a Shikara ride on Dal Lake",
+      "Visit the beautiful Mughal Gardens",
+      "Enjoy skiing in Gulmarg",
+      "Experience local Kashmiri cuisine",
+      "Shop for authentic Kashmiri handicrafts"
+    ],
+    duration: "5-7 days",
+    bestTime: "March to October"
   },
   {
     id: 2,
@@ -21,6 +31,15 @@ const destinations = [
     image: "/img/himachal.jpg?height=200&width=300",
     details:
       "Himachal Pradesh offers stunning Himalayan landscapes, lush valleys, and charming hill stations. From the vibrant culture of Shimla to the spiritual atmosphere of Dharamshala, experience adventure sports, ancient temples, and pristine natural beauty.",
+    highlights: [
+      "Explore the colonial architecture of Shimla",
+      "Visit the residence of Dalai Lama in Dharamshala",
+      "Adventure activities in Manali",
+      "Trek in the scenic Parvati Valley",
+      "Experience the unique culture of Spiti Valley"
+    ],
+    duration: "6-8 days",
+    bestTime: "March to June, September to November"
   },
   {
     id: 3,
@@ -149,6 +168,15 @@ const destinations = [
     image: "/img/georgia.jpg?height=200&width=300",
     details:
       "Georgia offers stunning mountain scenery, ancient cave cities, and 8,000 years of winemaking tradition. Experience the unique hospitality, rich folklore, delicious cuisine, and beautiful Orthodox churches.",
+    highlights: [
+      "Explore the ancient streets of Tbilisi",
+      "Visit traditional wine cellars in Kakheti",
+      "Discover the cave city of Uplistsikhe",
+      "Hike in the stunning Caucasus mountains",
+      "Experience traditional Georgian supra (feast)"
+    ],
+    duration: "7-10 days",
+    bestTime: "May to October"
   },
 ];
 
@@ -159,36 +187,128 @@ export default function DestinationPage() {
 
   if (!destination) {
     return (
-      <div className="container mx-auto px-4 py-8">Destination not found</div>
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Destination Not Found</h1>
+        <p className="text-gray-600 mb-8">We couldn't find the destination you're looking for.</p>
+        <Link href="/destinations" passHref>
+          <Button className="bg-primary">View All Destinations</Button>
+        </Link>
+      </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-6">{destination.name}</h1>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <Image
-            src={destination.image}
-            alt={destination.name}
-            width={800}
-            height={600}
-            className="rounded-lg shadow-md"
-          />
-        </div>
-        <div>
-          <p className="text-xl mb-4">{destination.description}</p>
-          <p className="mb-6">{destination.details}</p>
-          <Link href="/contact" passHref>
-            <Button>Book This Trip</Button>
-          </Link>
+    <div className="bg-gray-50">
+      {/* Hero Section with Large Image */}
+      <div className="relative h-[40vh] md:h-[60vh]">
+        <Image
+          src={destination.image}
+          alt={destination.name}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{destination.name}</h1>
+            <p className="text-xl md:text-2xl text-white/90">{destination.description}</p>
+          </div>
         </div>
       </div>
-      <div className="mt-8">
-        <Link href="/" passHref>
-          <Button variant="outline">Back to Home</Button>
-        </Link>
+
+      <div className="container mx-auto px-4 py-12">
+        {/* Quick Info Card */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-12 -mt-16 md:-mt-24 relative z-10 mx-4 md:mx-auto max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-center">
+              <Calendar className="text-primary h-6 w-6 mr-3" />
+              <div>
+                <p className="text-sm text-gray-500">Duration</p>
+                <p className="font-medium">{destination.duration || "5-10 days"}</p>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <MapPin className="text-primary h-6 w-6 mr-3" />
+              <div>
+                <p className="text-sm text-gray-500">Location</p>
+                <p className="font-medium">{destination.name}</p>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Users className="text-primary h-6 w-6 mr-3" />
+              <div>
+                <p className="text-sm text-gray-500">Best Time to Visit</p>
+                <p className="font-medium">{destination.bestTime || "All Year"}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="md:col-span-2">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">About {destination.name}</h2>
+            <p className="text-gray-700 leading-relaxed mb-8">{destination.details}</p>
+            
+            <h3 className="text-xl font-bold mb-4">Highlights</h3>
+            <ul className="space-y-3 mb-8">
+              {(destination.highlights || [
+                "Experience the local culture and traditions",
+                "Visit popular attractions and landmarks",
+                "Enjoy authentic local cuisine",
+                "Explore natural beauty and landscapes",
+                "Engage with friendly locals"
+              ]).map((highlight, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="bg-primary/10 text-primary p-1 rounded-full mr-3 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8">
+              <Link href="/destinations" className="inline-flex items-center text-primary hover:underline mb-8">
+                <ArrowLeft className="h-4 w-4 mr-2" /> Back to all destinations
+              </Link>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
+              <h3 className="text-xl font-bold mb-4 pb-4 border-b">Book This Trip</h3>
+              
+              <div className="space-y-6 mb-6">
+                <p className="text-gray-700">
+                  Ready to experience the beauty of {destination.name}? Contact our travel experts to create your perfect itinerary.
+                </p>
+                
+                <div className="flex items-center">
+                  <PhoneCall className="h-5 w-5 text-primary mr-2" />
+                  <span className="font-medium">+971-58 993 7446</span>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <Link href="/contact" passHref>
+                  <Button className="w-full bg-primary hover:bg-primary/90 mb-4">Enquire Now</Button>
+                </Link>
+                <Link href="/destinations" passHref>
+                  <Button variant="outline" className="w-full">View Other Destinations</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Related Destinations Section (Optional) */}
+      {/* You could add related destinations here */}
     </div>
   );
 }
