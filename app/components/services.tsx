@@ -162,75 +162,9 @@ const domestic_destinations = [
   },
 ];
 
-const additional_services = [
-  {
-    id: 1,
-    name: "Vehicle Rental",
-    description: "Car Rental & Bike Rental",
-    image: "/img/vehicle-rental.jpg?height=200&width=300",
-    details:
-      "Explore destinations at your own pace with our comprehensive vehicle rental services. Choose from a wide range of cars, from economy to luxury options, or rent bikes for adventure trips and city exploration. All vehicles are well-maintained with competitive rates and flexible pickup/drop-off locations.",
-  },
-  {
-    id: 2,
-    name: "Event Management",
-    description: "Destination Events & Parties",
-    image: "/img/event-management.jpg?height=200&width=300",
-    details:
-      "Make your special occasions truly memorable with our destination event management services. From beach weddings to corporate retreats, anniversary celebrations to birthday parties at exotic locations - our team handles everything from venue selection to catering, decorations, entertainment, and accommodations.",
-  },
-  {
-    id: 3,
-    name: "Visa Services",
-    description: "Hassle-free Travel Documentation",
-    image: "/img/visa-services.jpg?height=200&width=300",
-    details:
-      "Navigate complex visa requirements with ease through our comprehensive visa assistance services. Our experts provide guidance on documentation, application preparation, appointment scheduling, and follow-ups. We assist with tourist visas, business visas, work permits, and more for destinations worldwide.",
-  },
-];
-
 export default function OurServices() {
   return (
     <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4 mb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {additional_services.map((service) => (
-            <Card key={service.id} className="overflow-hidden">
-              <CardHeader className="p-0">
-                <Image
-                  src={service.image}
-                  alt={service.name}
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-              </CardHeader>
-              <CardContent className="p-6">
-                <CardTitle className="mb-2">{service.name}</CardTitle>
-                <CardDescription>{service.description}</CardDescription>
-                <p className="mt-4 text-sm text-gray-600">
-                  {service.details.substring(0, 120)}...
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link href={`/services/${service.id}`} passHref>
-                  <Button className="w-full">Learn More</Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      <h1 className="text-4xl font-bold text-center mb-8">Holiday Packages</h1>
-
-      <p className="text-center text-lg mb-12">
-        Explore our curated holiday packages designed to offer you the best
-        travel experiences. Whether you're looking for a relaxing beach getaway,
-        an adventurous mountain retreat, or a cultural city tour, we have
-        something for everyone.
-      </p>
-
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">
           Domestic Destinations

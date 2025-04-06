@@ -4,10 +4,9 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const services = [
   {
@@ -24,7 +23,8 @@ const services = [
       { type: "Mountain Bike", price: "$20/day" },
       { type: "City Bike", price: "$15/day" },
     ],
-    availabilityNotes: "24-hour advance booking recommended. All vehicles subject to availability."
+    availabilityNotes:
+      "24-hour advance booking recommended. All vehicles subject to availability.",
   },
   {
     id: 2,
@@ -39,7 +39,8 @@ const services = [
       { type: "Large Events (150+ people)", price: "Custom quote" },
       { type: "Wedding Package", price: "Starting from $7,500" },
     ],
-    availabilityNotes: "Book at least 3 months in advance for best venue options."
+    availabilityNotes:
+      "Book at least 3 months in advance for best venue options.",
   },
   {
     id: 3,
@@ -54,7 +55,8 @@ const services = [
       { type: "Work Permit Assistance", price: "$250" },
       { type: "Express Processing", price: "+$75" },
     ],
-    availabilityNotes: "Processing times vary by destination country and visa type."
+    availabilityNotes:
+      "Processing times vary by destination country and visa type.",
   },
 ];
 
@@ -63,13 +65,25 @@ export default function ServicePage() {
   const router = useRouter();
   const id = parseInt(params.id as string);
   const service = services.find((s) => s.id === id);
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!service) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h2 className="text-2xl font-bold mb-4">Service not found</h2>
-        <p className="mb-8">The service you're looking for doesn't exist or has been removed.</p>
+      <div className="container mx-auto px-4 py-8 md:py-16 text-center">
+        <h2 className="text-xl md:text-2xl font-bold mb-4">
+          Service not found
+        </h2>
+        <p className="mb-6 md:mb-8">
+          The service you're looking for doesn't exist or has been removed.
+        </p>
         <Link href="/services" passHref>
           <Button>View All Services</Button>
         </Link>
@@ -88,79 +102,147 @@ export default function ServicePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-wrap items-center justify-between mb-8">
-        <h1 className="text-4xl font-bold">{service.name}</h1>
-        <Badge variant="outline" className="text-lg py-1.5">
-          {service.description}
+    <div className="container mx-auto px-4 py-6 md:py-12">
+      <div className="text-sm breadcrumbs mb-4 hidden md:block">
+        <ul className="flex flex-wrap space-x-2">
+          <li>
+            <Link href="/" className="hover:underline">
+              Home
+            </Link>{" "}
+            /
+          </li>
+          <li>
+            <Link href="/services" className="hover:underline">
+              Services
+            </Link>{" "}
+            /
+          </li>
+          <li className="font-medium">{service.name}</li>
+        </ul>
+      </div>
+
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-0 break-words">
+          {service.name}
+        </h1>
+        <Badge
+          variant="outline"
+          className="text-sm md:text-lg py-1 md:py-1.5 self-start md:self-auto"
+        >
+          <span className="truncate">{service.description}</span>
         </Badge>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-10 mb-12">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12">
         <div>
           <Image
-            src={service.image}
+            src={imageError ? "/placeholder.svg" : service.image}
             alt={service.name}
             width={800}
             height={600}
-            className="rounded-lg shadow-md object-cover w-full h-[400px]"
+            className="rounded-lg shadow-md object-cover w-full h-[250px] md:h-[400px]"
+            priority
+            onError={handleImageError}
           />
         </div>
-        
-        <div>
+
+        <div className="mt-4 md:mt-0">
           <Tabs defaultValue="details" className="w-full">
-            <TabsList className="w-full mb-6">
-              <TabsTrigger value="details" className="flex-1">Details</TabsTrigger>
-              <TabsTrigger value="pricing" className="flex-1">Pricing</TabsTrigger>
-              {/* <TabsTrigger value="booking" className="flex-1">Booking</TabsTrigger> */}
+            <TabsList className="mb-4 md:mb-6 grid grid-cols-2">
+              <TabsTrigger value="details" className="text-sm md:text-base">
+                Details
+              </TabsTrigger>
+              <TabsTrigger value="pricing" className="text-sm md:text-base">
+                Pricing
+              </TabsTrigger>
             </TabsList>
-            
-            <TabsContent value="details" className="text-lg space-y-4">
-              <p>{service.details}</p>
-              <p className="italic text-muted-foreground mt-4">{service.availabilityNotes}</p>
+
+            <TabsContent
+              value="details"
+              className="text-base md:text-lg space-y-3 md:space-y-4"
+            >
+              <p className="break-words">{service.details}</p>
+              <p className="italic text-muted-foreground mt-2 md:mt-4 text-sm md:text-base">
+                {service.availabilityNotes}
+              </p>
             </TabsContent>
-            
+
             <TabsContent value="pricing">
-              <div className="space-y-2">
+              <div className="space-y-1 md:space-y-2">
                 {service.pricing.map((item, i) => (
-                  <div key={i} className="flex justify-between items-center border-b py-3">
-                    <span className="font-medium">{item.type}</span>
-                    <span className="text-lg">{item.price}</span>
+                  <div
+                    key={i}
+                    className="flex flex-wrap justify-between items-center border-b py-2 md:py-3"
+                  >
+                    <span className="font-medium text-sm md:text-base pr-2">
+                      {item.type}
+                    </span>
+                    <span className="text-base md:text-lg">{item.price}</span>
                   </div>
                 ))}
               </div>
             </TabsContent>
-            
-            {/* <TabsContent value="booking" className="space-y-6">
-              <p className="text-lg">Select your preferred date:</p>
-              <div className="flex justify-center mb-6">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                  disabled={(date) => date < new Date()}
-                />
-              </div>
-              <Link href="/enquiry" passHref>
-                <Button className="w-full">Make Enquiry</Button>
-              </Link>
-            </TabsContent> */}
           </Tabs>
+
+          <div className="mt-6 md:hidden">
+            <Link href="/enquiry" passHref>
+              <Button className="w-full">Enquire About This Service</Button>
+            </Link>
+          </div>
         </div>
       </div>
-      
-      <div className="flex justify-between items-center mt-16">
-        <Button variant="outline" onClick={handlePrevService}>
-          Previous Service
+
+      <div className="border-t mt-8 pt-6 mb-8 hidden md:block">
+        <h3 className="text-xl font-semibold mb-4">
+          You might also be interested in
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {services
+            .filter((s) => s.id !== id)
+            .slice(0, 3)
+            .map((s) => (
+              <Link href={`/services/${s.id}`} key={s.id} className="group">
+                <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 transition-all hover:shadow-md">
+                  <h4 className="font-medium group-hover:text-primary break-words">
+                    {s.name}
+                  </h4>
+                  <p className="text-sm text-muted-foreground truncate">
+                    {s.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center mt-8 md:mt-16 gap-1 sm:gap-2">
+        <Button
+          variant="outline"
+          onClick={handlePrevService}
+          size="sm"
+          className="text-xs md:text-sm px-1 sm:px-2"
+        >
+          <span className="hidden md:inline">Previous Service</span>
+          <span className="md:hidden">Previous</span>
         </Button>
-        <Link href="/services" passHref>
-          <Button variant="secondary">All Services</Button>
-        </Link>
-        <Button variant="outline" onClick={handleNextService}>
-          Next Service
+        <Button
+          variant="outline"
+          onClick={handleNextService}
+          size="sm"
+          className="text-xs md:text-sm px-1 sm:px-2"
+        >
+          <span className="hidden md:inline">Next Service</span>
+          <span className="md:hidden">Next</span>
         </Button>
       </div>
+
+      {/* <div className="hidden md:block text-center mt-12">
+        <Link href="/enquiry" passHref>
+          <Button size="lg" className="px-8">
+            Enquire About This Service
+          </Button>
+        </Link>
+      </div> */}
     </div>
   );
 }
