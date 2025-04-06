@@ -15,59 +15,51 @@ import { Button } from "@/components/ui/button";
 const destinations = [
   {
     id: 1,
-    name: "India",
-    description: "Incredible India",
-    image: "/img/chetan-kolte-E43T1qjXtQM-unsplash.jpg?height=200&width=300",
+    name: "Kashmir",
+    description: "Paradise on Earth",
+    image: "/img/kashmir.jpg?height=200&width=300",
     details:
-      "India, a country in South Asia, is known for its rich cultural heritage, diverse landscapes, and historical landmarks. From the majestic Himalayas to the serene beaches of Goa, India offers a plethora of experiences including vibrant festivals, delicious cuisine, and ancient temples.",
-  },
-  {
-    id: 2,
-    name: "Dubai",
-    description: "The City of Gold",
-    image: "/img/david-rodrigo-Fr6zexbmjmc-unsplash.jpg?height=200&width=300",
-    details:
-      "Dubai, a city in the United Arab Emirates, is known for its modern architecture, luxury shopping, and vibrant nightlife. Key attractions include the Burj Khalifa, the world's tallest building, and the Palm Jumeirah, an artificial archipelago.",
-  },
-  {
-    id: 3,
-    name: "Bali",
-    description: "Island of the Gods",
-    image: "/img/kharl-anthony-paica-7sqY83ONLMU-unsplash.jpg?height=200&width=300",
-    details:
-      "Bali, Indonesia, is a tropical paradise known for its stunning beaches, lush rice terraces, and vibrant culture. Visitors can explore ancient temples, enjoy world-class surfing, and indulge in traditional Balinese cuisine.",
+      "Kashmir, with its breathtaking landscapes, snow-capped mountains, and serene lakes, truly lives up to its nickname 'Paradise on Earth'. Explore the Dal Lake in Srinagar, visit the beautiful gardens, or enjoy skiing in Gulmarg's snow-covered slopes.",
   },
   {
     id: 4,
-    name: "Thailand",
-    description: "The Land of Smiles",
-    image: "/img/alfiano-sutianto-exFdOWkYBQw-unsplash.jpg?height=200&width=300",
+    name: "Goa",
+    description: "Pearl of the Orient",
+    image: "/img/goa.jpg?height=200&width=300",
     details:
-      "Thailand, a Southeast Asian country, is famous for its tropical beaches, opulent palaces, and ancient ruins. Visitors can explore bustling markets, enjoy delicious street food, and relax on beautiful islands like Phuket and Koh Samui.",
-  },
-  {
-    id: 5,
-    name: "Sri Lanka",
-    description: "The Pearl of the Indian Ocean",
-    image: "/img/daniele-franchi-S9LN3vb47gw-unsplash.jpg?height=200&width=300",
-    details:
-      "Sri Lanka, an island nation in South Asia, is known for its stunning beaches, lush tea plantations, and rich wildlife. Visitors can explore ancient ruins, enjoy vibrant festivals, and experience the warm hospitality of the locals.",
+      "Goa offers the perfect blend of sun, sand, and sea with a unique Portuguese-influenced culture. Enjoy its pristine beaches, vibrant nightlife, delicious seafood, water sports, and historic churches and forts that dot this coastal paradise.",
   },
   {
     id: 6,
-    name: "Europe",
-    description: "The Old Continent",
-    image: "/img/alex-vasey-3lxrM5yvkcI-unsplash.jpg?height=200&width=300",
+    name: "Kerala",
+    description: "God's Own Country",
+    image: "/img/kerala.jpg?height=200&width=300",
     details:
-      "Europe, the world's second-smallest continent, is known for its rich history, diverse cultures, and stunning landscapes. From the fjords of Norway to the beaches of Greece, Europe offers a wide range of experiences including art, architecture, and cuisine.",
+      "Kerala dazzles with its backwaters, lush hill stations, pristine beaches, and vibrant culture. Experience houseboat cruises through the backwaters, Ayurvedic treatments, wildlife sanctuaries, and the unique blend of traditional arts, cuisine, and festivals.",
   },
   {
-    id: 7,
+    id: 11,
+    name: "Dubai",
+    description: "The City of Gold",
+    image: "/img/dubai.jpg?height=200&width=300",
+    details:
+      "Dubai, a city in the United Arab Emirates, is known for its ultramodern architecture, luxury shopping, and vibrant nightlife. Home to Burj Khalifa, the world's tallest building, and artificial islands like Palm Jumeirah.",
+  },
+  {
+    id: 12,
+    name: "Thailand",
+    description: "The Land of Smiles",
+    image: "/img/thailand.jpg?height=200&width=300",
+    details:
+      "Thailand offers beautiful tropical beaches, opulent royal palaces, ancient ruins and temples. Experience Bangkok's vibrant street life, explore Chiang Mai's mountains, or relax on the islands of Phuket and Koh Samui.",
+  },
+  {
+    id: 16,
     name: "Maldives",
     description: "Tropical Paradise",
-    image: "/img/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg?height=200&width=300",
+    image: "/img/maldives.jpg?height=200&width=300",
     details:
-      "Maldives, a tropical paradise in the Indian Ocean, is known for its stunning coral reefs, crystal-clear waters, and luxurious resorts. Visitors can enjoy snorkeling, diving, and relaxing on pristine beaches surrounded by turquoise lagoons.",
+      "The Maldives is known for its crystal clear waters, overwater bungalows, and pristine beaches. This archipelago of 1,000+ coral islands offers world-class diving, snorkeling, and the ultimate luxury retreat.",
   },
 ];
 

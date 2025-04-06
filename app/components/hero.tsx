@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
+import type { SwiperRef } from 'swiper/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
@@ -21,7 +22,7 @@ const heroSlides = [
     subtitle: "Explore the world's most beautiful destinations",
     image: "/img/luca-bravo-O453M2Liufs-unsplash.jpg?height=800&width=1200",
     cta: "Start Exploring",
-    link: "/services"
+    link: "/destinations"
   },
   {
     id: 2,
@@ -37,12 +38,53 @@ const heroSlides = [
     subtitle: "Travel off the beaten path",
     image: "/img/zq-lee-VbDjv8-8ibc-unsplash.jpg?height=800&width=1200",
     cta: "Find Unique Destinations",
-    link: "/services"
+    link: "/destinations"
+  },
+  {
+    id: 4,
+    title: "Luxury Travel Experiences",
+    subtitle: "Indulge in premium accommodations and services",
+    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    cta: "View Luxury Packages",
+    link: "/destinations"
+  },
+  {
+    id: 5,
+    title: "Family-Friendly Vacations",
+    subtitle: "Create lasting memories with your loved ones",
+    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    cta: "Find Family Packages",
+    link: "/destinations"
+  },
+  {
+    id: 6,
+    title: "Adventure Awaits",
+    subtitle: "Thrilling experiences for the daring traveler",
+    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    cta: "Explore Adventures",
+    link: "/destinations"
   }
 ]
 
 export default function Hero() {
-  const swiperRef = useRef(null)
+  // Use a more specific type for the Swiper instance
+  const swiperRef = useRef<SwiperRef>(null);
+
+  const handlePrevSlide = () => {
+    // Ensure swiper is available before accessing it
+    const swiper = swiperRef.current?.swiper;
+    if (swiper) {
+      swiper.slidePrev();
+    }
+  };
+  
+  const handleNextSlide = () => {
+    // Ensure swiper is available before accessing it
+    const swiper = swiperRef.current?.swiper;
+    if (swiper) {
+      swiper.slideNext();
+    }
+  };
 
   return (
     <section className="relative h-[300px] md:h-[550px]">
@@ -68,6 +110,7 @@ export default function Hero() {
                 alt={slide.title}
                 fill
                 className="object-cover"
+                priority={slide.id === 1} // Only prioritize the first image
               />
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
@@ -87,7 +130,8 @@ export default function Hero() {
         variant="outline"
         size="icon"
         className="absolute top-1/2 left-4 z-10 -translate-y-1/2 bg-white/80 hover:bg-white"
-        onClick={() => swiperRef.current.swiper.slidePrev()}
+        onClick={handlePrevSlide}
+        aria-label="Previous slide"
       >
         <ChevronLeft className="h-6 w-6" />
       </Button>
@@ -95,7 +139,8 @@ export default function Hero() {
         variant="outline"
         size="icon"
         className="absolute top-1/2 right-4 z-10 -translate-y-1/2 bg-white/80 hover:bg-white"
-        onClick={() => swiperRef.current.swiper.slideNext()}
+        onClick={handleNextSlide}
+        aria-label="Next slide"
       >
         <ChevronRight className="h-6 w-6" />
       </Button>
