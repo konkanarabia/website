@@ -85,7 +85,10 @@ export default function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="text-sm flex items-center">
             <span className="flex items-center mr-4">
-              <Phone className="h-4 w-4 mr-1" /> +971-58 993 7446
+              <Phone className="h-4 w-4 mr-1" /> +971-55 155 6238
+            </span>
+            <span className="flex items-center mr-4">
+              <Phone className="h-4 w-4 mr-1" /> +9193705 28517
             </span>
             <span className="flex items-center">
               <Mail className="h-4 w-4 mr-1" />{" "}
@@ -136,7 +139,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3">
             <div className="relative">
               <Image
-                src="/img/KonkanArabia-logo.jpg"
+                src="/KonkanArabia-logo.jpg"
                 alt="KonkanArabia Hospitality & Holiday Group"
                 width={60}
                 height={60}
@@ -145,12 +148,24 @@ export default function Header() {
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 animate-pulse -z-10"></div>
             </div>
             <div>
-                <span className="text-xl font-serif italic text-primary hidden sm:block leading-tight">
-                KonkanArabia Hospitality & Holiday Group
-                </span>
-                <span className="text-sm text-gray-600 hidden sm:block leading-tight font-light">
-                Hospitality is Our Passion & Culture
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-xl font-serif text-primary hidden sm:flex items-center space-x-1 leading-tight">
+                    <span className="font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">KonkanArabia</span>
+                    <span className="italic">Hospitality & Holiday Group</span>
+                  </span>
+                  <span className="text-xs sm:text-sm hidden sm:block leading-tight tracking-wide relative pl-3 mt-1.5">
+                    <span className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary via-primary/60 to-primary/20 rounded-full"></span>
+                    <span className="font-medium bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Hospitality</span> is Our 
+                    <span className="italic mx-1 relative inline-block">
+                      <span className="relative z-10">Passion</span>
+                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary/10 -z-0"></span>
+                    </span> & 
+                    <span className="italic ml-1 relative inline-block">
+                      <span className="relative z-10">Culture</span>
+                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary/10 -z-0"></span>
+                    </span>
+                  </span>
+                </div>
             </div>
           </Link>
 

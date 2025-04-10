@@ -290,7 +290,7 @@ export default function DestinationPage() {
                 
                 <div className="flex items-center">
                   <PhoneCall className="h-5 w-5 text-primary mr-2" />
-                  <span className="font-medium">+971-58 993 7446</span>
+                  <span className="font-medium">+971-55 155 6238</span>
                 </div>
               </div>
 

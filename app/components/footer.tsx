@@ -76,7 +76,7 @@ export default function Footer() {
               </div>
               <div className="text-gray-300 flex flex-col sm:flex-row sm:items-start">
                 <span className="font-semibold mr-2 whitespace-nowrap">Phone:</span>
-                <span>+971-58 993 7446</span>
+                <span>+971-55 155 6238</span>
               </div>
               <div className="pt-3 border-t border-gray-800">
                 <p className="text-gray-300 font-semibold mb-1">

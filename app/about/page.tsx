@@ -7,7 +7,7 @@ export default function AboutPage() {
       {/* Header section with logo and title */}
       <div className="flex flex-col items-center mb-12">
         <Image 
-          src="/img/KonkanArabia-logo.jpg" 
+          src="/KonkanArabia-logo.jpg" 
           alt="KonkanArabia Hospitality & Holiday Group" 
           width={160} 
           height={160}

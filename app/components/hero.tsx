@@ -44,7 +44,7 @@ const heroSlides = [
     id: 4,
     title: "Luxury Travel Experiences",
     subtitle: "Indulge in premium accommodations and services",
-    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    image: "/img/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg?height=800&width=1200",
     cta: "View Luxury Packages",
     link: "/destinations"
   },
@@ -52,7 +52,7 @@ const heroSlides = [
     id: 5,
     title: "Family-Friendly Vacations",
     subtitle: "Create lasting memories with your loved ones",
-    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    image: "/img/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg?height=800&width=1200",
     cta: "Find Family Packages",
     link: "/destinations"
   },
@@ -60,7 +60,7 @@ const heroSlides = [
     id: 6,
     title: "Adventure Awaits",
     subtitle: "Thrilling experiences for the daring traveler",
-    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    image: "/img/kharl-anthony-paica-7sqY83ONLMU-unsplash.jpg?height=800&width=1200",
     cta: "Explore Adventures",
     link: "/destinations"
   }
