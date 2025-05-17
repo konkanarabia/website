@@ -21,12 +21,13 @@ export default function ContactPage() {
     const { name, value } = e.target
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     
     try {
+      console.log('Submitting form data:', formData);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -35,11 +36,14 @@ export default function ContactPage() {
         body: JSON.stringify(formData),
       })
       
+      const data = await response.json()
+      
       if (!response.ok) {
-        throw new Error('Failed to submit the form')
+        console.error('Server error:', data);
+        throw new Error(data.error || 'Failed to submit the form')
       }
       
-      const data = await response.json()
+      console.log('Form submission successful:', data);
       
       toast({
         title: "Message Sent",
@@ -49,12 +53,13 @@ export default function ContactPage() {
       
       setFormData({ name: '', email: '', phone: '', message: '' })
     } catch (error) {
+      console.error('Error submitting form:', error)
+      
       toast({
         title: "Something went wrong",
-        description: "Unable to send your message. Please try again later.",
+        description: error instanceof Error ? error.message : "Unable to send your message. Please try again later.",
         variant: "destructive",
       })
-      console.error('Error submitting form:', error)
     } finally {
       setIsSubmitting(false)
     }
