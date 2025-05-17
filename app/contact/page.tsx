@@ -11,6 +11,7 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -46,7 +47,7 @@ export default function ContactPage() {
         variant: "default",
       })
       
-      setFormData({ name: '', email: '', message: '' })
+      setFormData({ name: '', email: '', phone: '', message: '' })
     } catch (error) {
       toast({
         title: "Something went wrong",
@@ -85,6 +86,18 @@ export default function ContactPage() {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={isSubmitting}
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
+            <Input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="e.g., +1 (123) 456-7890"
               disabled={isSubmitting}
             />
           </div>

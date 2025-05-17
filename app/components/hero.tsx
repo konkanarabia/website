@@ -18,50 +18,50 @@ import 'swiper/css/effect-fade'
 const heroSlides = [
   {
     id: 1,
-    title: "Discover Your Next Adventure",
-    subtitle: "Explore the world's most beautiful destinations",
+    title: "Journey Beyond Boundaries",
+    subtitle: "Handcrafted experiences in breathtaking destinations",
     image: "/img/luca-bravo-O453M2Liufs-unsplash.jpg?height=800&width=1200",
-    cta: "Start Exploring",
+    cta: "Find Your Dream Destination",
     link: "/destinations"
   },
   {
     id: 2,
-    title: "Experience Unforgettable Journeys",
-    subtitle: "Create memories that last a lifetime",
+    title: "Craft Your Perfect Escape",
+    subtitle: "Personalized itineraries tailored to your travel style",
     image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
-    cta: "Plan Your Trip",
+    cta: "Design Your Journey",
     link: "/contact"
   },
   {
     id: 3,
-    title: "Uncover Hidden Gems",
-    subtitle: "Travel off the beaten path",
+    title: "Uncharted Territories Await",
+    subtitle: "Discover secret locations cherished by locals",
     image: "/img/zq-lee-VbDjv8-8ibc-unsplash.jpg?height=800&width=1200",
-    cta: "Find Unique Destinations",
+    cta: "Explore Hidden Gems",
     link: "/destinations"
   },
   {
     id: 4,
-    title: "Luxury Travel Experiences",
-    subtitle: "Indulge in premium accommodations and services",
+    title: "Elevate Your Travel Experience",
+    subtitle: "Immerse yourself in world-class comfort and exclusivity",
     image: "/img/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg?height=800&width=1200",
-    cta: "View Luxury Packages",
+    cta: "Browse Premium Collections",
     link: "/destinations"
   },
   {
     id: 5,
-    title: "Family-Friendly Vacations",
-    subtitle: "Create lasting memories with your loved ones",
+    title: "Unforgettable Family Moments",
+    subtitle: "Multi-generational adventures with something for everyone",
     image: "/img/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg?height=800&width=1200",
-    cta: "Find Family Packages",
+    cta: "Discover Family Adventures",
     link: "/destinations"
   },
   {
     id: 6,
-    title: "Adventure Awaits",
-    subtitle: "Thrilling experiences for the daring traveler",
+    title: "Adrenaline & Inspiration",
+    subtitle: "Push boundaries with curated thrill-seeking experiences",
     image: "/img/kharl-anthony-paica-7sqY83ONLMU-unsplash.jpg?height=800&width=1200",
-    cta: "Explore Adventures",
+    cta: "Seek Your Adventure",
     link: "/destinations"
   }
 ]

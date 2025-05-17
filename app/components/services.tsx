@@ -33,7 +33,7 @@ const international_destinations = [
     id: 13,
     name: "Sri Lanka",
     description: "Pearl of the Indian Ocean",
-    image: "/img/sri-lanka.jpg?height=200&width=300",
+    image: "/img/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg?height=200&width=300",
     details:
       "Sri Lanka features endless beaches, timeless ruins, welcoming people, and abundant wildlife. Explore ancient Buddhist ruins, hike through tea plantations, and witness elephants in their natural habitat.",
   },

@@ -17,11 +17,11 @@ const services = [
     details:
       "Explore destinations at your own pace with our comprehensive vehicle rental services. Choose from a wide range of cars, from economy to luxury options, or rent bikes for adventure trips and city exploration. All vehicles are well-maintained with competitive rates and flexible pickup/drop-off locations.",
     pricing: [
-      { type: "Economy Car", price: "$45/day" },
-      { type: "Mid-size Car", price: "$65/day" },
-      { type: "Luxury Car", price: "$120/day" },
-      { type: "Mountain Bike", price: "$20/day" },
-      { type: "City Bike", price: "$15/day" },
+      { type: "Economy Car", price: "₹3,500/day" },
+      { type: "Mid-size Car", price: "₹5,000/day" },
+      { type: "Luxury Car", price: "₹9,500/day" },
+      { type: "Mountain Bike", price: "₹1,600/day" },
+      { type: "City Bike", price: "₹1,200/day" },
     ],
     availabilityNotes:
       "24-hour advance booking recommended. All vehicles subject to availability.",
@@ -34,10 +34,9 @@ const services = [
     details:
       "Make your special occasions truly memorable with our destination event management services. From beach weddings to corporate retreats, anniversary celebrations to birthday parties at exotic locations - our team handles everything from venue selection to catering, decorations, entertainment, and accommodations.",
     pricing: [
-      { type: "Small Events (up to 50 people)", price: "Starting from $2,000" },
-      { type: "Medium Events (50-150 people)", price: "Starting from $5,000" },
+      { type: "Small Events (up to 50 people)", price: "Starting from ₹50,000" },
+      { type: "Medium Events (50-150 people)", price: "Starting from ₹4,00,000" },
       { type: "Large Events (150+ people)", price: "Custom quote" },
-      { type: "Wedding Package", price: "Starting from $7,500" },
     ],
     availabilityNotes:
       "Book at least 3 months in advance for best venue options.",
@@ -50,10 +49,10 @@ const services = [
     details:
       "Navigate complex visa requirements with ease through our comprehensive visa assistance services. Our experts provide guidance on documentation, application preparation, appointment scheduling, and follow-ups. We assist with tourist visas, business visas, work permits, and more for destinations worldwide.",
     pricing: [
-      { type: "Tourist Visa Assistance", price: "$100" },
-      { type: "Business Visa Assistance", price: "$150" },
-      { type: "Work Permit Assistance", price: "$250" },
-      { type: "Express Processing", price: "+$75" },
+      { type: "Tourist Visa Assistance", price: "₹8,000" },
+      { type: "Business Visa Assistance", price: "₹12,000" },
+      { type: "Work Permit Assistance", price: "₹20,000" },
+      { type: "Express Processing", price: "+₹6,000" },
     ],
     availabilityNotes:
       "Processing times vary by destination country and visa type.",
@@ -200,14 +199,14 @@ export default function ServicePage() {
             .slice(0, 3)
             .map((s) => (
               <Link href={`/services/${s.id}`} key={s.id} className="group">
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 transition-all hover:shadow-md">
-                  <h4 className="font-medium group-hover:text-primary break-words">
-                    {s.name}
-                  </h4>
-                  <p className="text-sm text-muted-foreground truncate">
-                    {s.description}
-                  </p>
-                </div>
+          <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 transition-all border border-slate-200 dark:border-slate-800 hover:border-transparent hover:shadow-md">
+            <h4 className="font-medium group-hover:text-primary break-words">
+              {s.name}
+            </h4>
+            <p className="text-sm text-muted-foreground truncate">
+              {s.description}
+            </p>
+          </div>
               </Link>
             ))}
         </div>
