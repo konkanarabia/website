@@ -9,19 +9,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
-import { CalendarIcon } from 'lucide-react'
+import { CalendarIcon, Loader2 } from 'lucide-react'
 import { cn } from "@/lib/utils"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function EnquiryForm() {
   const router = useRouter()
+  const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     travelType: '',
     destination: '',
-    departureDate: null,
-    returnDate: null,
+    departureDate: null as Date | null,
+    returnDate: null as Date | null,
     message: ''
   })
 
@@ -35,13 +38,66 @@ export default function EnquiryForm() {
   }
 
   const handleDateChange = (name: string) => (date: Date | undefined) => {
-    setFormData(prevState => ({ ...prevState, [name]: date }))
+    setFormData(prevState => ({ ...prevState, [name]: date || null }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    router.push('/thank-you')
+    setIsSubmitting(true)
+    
+    try {
+      // Format dates for API submission
+      const formattedData = {
+        ...formData,
+        departureDate: formData.departureDate ? format(formData.departureDate, 'yyyy-MM-dd') : null,
+        returnDate: formData.returnDate ? format(formData.returnDate, 'yyyy-MM-dd') : null,
+      }
+      
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedData),
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to submit enquiry')
+      }
+      
+      const data = await response.json()
+      
+      toast({
+        title: "Enquiry Submitted",
+        description: "Your travel enquiry has been received. We'll contact you soon!",
+        variant: "default",
+      })
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        travelType: '',
+        destination: '',
+        departureDate: null,
+        returnDate: null,
+        message: ''
+      })
+      
+      // Redirect to thank you page
+      router.push('/thank-you')
+    } catch (error) {
+      console.error('Error submitting enquiry:', error)
+      toast({
+        title: "Submission Failed",
+        description: error instanceof Error ? error.message : "Unable to submit your enquiry. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -57,6 +113,7 @@ export default function EnquiryForm() {
             onChange={handleChange}
             required
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -69,6 +126,7 @@ export default function EnquiryForm() {
             onChange={handleChange}
             required
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -81,11 +139,16 @@ export default function EnquiryForm() {
             onChange={handleChange}
             required
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
         <div>
           <label htmlFor="travelType" className="block text-sm font-medium text-gray-700 mb-1">Travel Type</label>
-          <Select onValueChange={handleSelectChange('travelType')}>
+          <Select 
+            onValueChange={handleSelectChange('travelType')} 
+            value={formData.travelType}
+            disabled={isSubmitting}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select travel type" />
             </SelectTrigger>
@@ -107,6 +170,7 @@ export default function EnquiryForm() {
             onChange={handleChange}
             required
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -120,6 +184,7 @@ export default function EnquiryForm() {
                     "w-full justify-start text-left font-normal",
                     !formData.departureDate && "text-muted-foreground"
                   )}
+                  disabled={isSubmitting}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {formData.departureDate ? format(formData.departureDate, "PPP") : <span>Pick a date</span>}
@@ -131,6 +196,7 @@ export default function EnquiryForm() {
                   selected={formData.departureDate}
                   onSelect={handleDateChange('departureDate')}
                   initialFocus
+                  disabled={isSubmitting}
                 />
               </PopoverContent>
             </Popover>
@@ -145,6 +211,7 @@ export default function EnquiryForm() {
                     "w-full justify-start text-left font-normal",
                     !formData.returnDate && "text-muted-foreground"
                   )}
+                  disabled={isSubmitting}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {formData.returnDate ? format(formData.returnDate, "PPP") : <span>Pick a date</span>}
@@ -156,6 +223,7 @@ export default function EnquiryForm() {
                   selected={formData.returnDate}
                   onSelect={handleDateChange('returnDate')}
                   initialFocus
+                  disabled={isSubmitting}
                 />
               </PopoverContent>
             </Popover>
@@ -170,10 +238,24 @@ export default function EnquiryForm() {
             value={formData.message}
             onChange={handleChange}
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
       </div>
-      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded-lg shadow-md">Submit Enquiry</Button>
+      <Button 
+        type="submit" 
+        className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Submitting...
+          </>
+        ) : (
+          'Submit Enquiry'
+        )}
+      </Button>
     </form>
   )
 }

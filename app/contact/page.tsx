@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
+import { Loader2 } from "lucide-react"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function ContactPage() {
     email: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -19,15 +21,42 @@ export default function ContactPage() {
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData)
-    toast({
-      title: "Message Sent",
-      description: "We've received your message and will get back to you soon!",
-    })
-    setFormData({ name: '', email: '', message: '' })
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit the form')
+      }
+      
+      const data = await response.json()
+      
+      toast({
+        title: "Message Sent",
+        description: "We've received your message and will get back to you soon!",
+        variant: "default",
+      })
+      
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Unable to send your message. Please try again later.",
+        variant: "destructive",
+      })
+      console.error('Error submitting form:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -44,6 +73,7 @@ export default function ContactPage() {
               value={formData.name}
               onChange={handleChange}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div>
@@ -55,6 +85,7 @@ export default function ContactPage() {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div>
@@ -66,9 +97,19 @@ export default function ContactPage() {
               value={formData.message}
               onChange={handleChange}
               required
+              disabled={isSubmitting}
             />
           </div>
-          <Button type="submit" className="w-full">Send Message</Button>
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Sending...
+              </>
+            ) : (
+              'Send Message'
+            )}
+          </Button>
         </form>
       </div>
     </div>
