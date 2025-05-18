@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -93,9 +94,9 @@ export default function Header() {
             <span className="flex items-center">
               <Mail className="h-4 w-4 mr-1" />{" "}
               info@konkanarabiahospitalitygroup.com
-            </span>
-          </div>
-          <div className="flex space-x-2">
+            </span>          </div>
+          <div className="flex space-x-2 items-center">
+            <LocaleSwitcher className="mr-2" />
             <Link
               href="https://www.facebook.com/konkanarabiahospitalitygroup"
               className="hover:text-gray-200 transition-colors"
@@ -303,13 +304,15 @@ export default function Header() {
                       </Link>
                     )}
                   </li>
-                ))}
-                <li className="pt-2">
+                ))}                <li className="pt-2">
                   <Link href="/enquiry">
                     <Button className="w-full bg-primary hover:bg-primary/90 text-white">
                       Enquire Now
                     </Button>
                   </Link>
+                </li>
+                <li className="pt-4 flex justify-center">
+                  <LocaleSwitcher />
                 </li>
               </ul>
             </nav>

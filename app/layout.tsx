@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import Header from './components/header'
 import Footer from './components/footer'
 import { Toaster } from "@/components/ui/toaster"
+import { I18nProvider } from '@/lib/i18n-provider'
+import ExchangeRatesInitializer from '@/components/exchange-rates-initializer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,18 +22,20 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
-  return (
+}) {  return (
     <html lang="en">
       <body
         className={inter.className}
         data-gramm="false"
         suppressHydrationWarning={true}
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <Toaster />
+        <I18nProvider>
+          <ExchangeRatesInitializer />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <Toaster />
+        </I18nProvider>
       </body>
     </html>
   )

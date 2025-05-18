@@ -1,6 +1,7 @@
-// filepath: c:\Users\manth\tours-travel-website\app\api\enquiry\route.ts
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/email';
+import { formatServerCurrency, formatServerPriceRange } from '@/lib/server-currency';
+import { formatServerDate, formatServerDateRange, formatServerDuration } from '@/lib/server-date';
 
 export async function POST(request: Request) {
   try {
@@ -28,11 +29,26 @@ export async function POST(request: Request) {
         { error: 'Missing required fields' },
         { status: 400 }
       );
+    }    // Format dates for display
+    let formattedDepartureDate = 'Not specified';
+    let formattedReturnDate = 'Not specified';
+    let tripDuration;
+    
+    if (departureDate) {
+      formattedDepartureDate = formatServerDate(new Date(departureDate), { dateStyle: 'long' });
+      
+      if (returnDate) {
+        formattedReturnDate = formatServerDate(new Date(returnDate), { dateStyle: 'long' });
+        
+        // Calculate trip duration
+        const start = new Date(departureDate);
+        const end = new Date(returnDate);
+        const durationInDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        tripDuration = formatServerDuration(durationInDays, { includeNights: true });
+      }
     }
-
-    // Format dates for display
-    const formattedDepartureDate = departureDate || 'Not specified';
-    const formattedReturnDate = returnDate || 'Not specified';    console.log('Processing travel enquiry:', { name, email, destination });
+    
+    console.log('Processing travel enquiry:', { name, email, destination });
     
     let adminEmailSent = false;
     let customerEmailSent = false;
@@ -51,15 +67,15 @@ export async function POST(request: Request) {
           Email: ${email}
           Phone: ${phone || 'Not provided'}
           Preferred Contact Method: ${preferredContact || 'Email'}
-          
-          Trip Details:
+            Trip Details:
           ------------
           Travel Type: ${travelType}
           Destination: ${destination}
           Departure Date: ${formattedDepartureDate}
           Return Date: ${formattedReturnDate}
+          ${tripDuration ? `Duration: ${tripDuration}` : ''}
           Number of Travelers: ${travelers}
-          Budget Range: ₹${budgetMin.toLocaleString('en-IN')} - ₹${budgetMax.toLocaleString('en-IN')}
+          Budget Range: ${formatServerPriceRange(budgetMin, budgetMax)}
           
           Additional Information:
           ---------------------
@@ -77,15 +93,15 @@ export async function POST(request: Request) {
             <li><strong>Phone:</strong> ${phone || 'Not provided'}</li>
             <li><strong>Preferred Contact Method:</strong> ${preferredContact || 'Email'}</li>
           </ul>
-          
-          <h3>Trip Details:</h3>
+            <h3>Trip Details:</h3>
           <ul>
             <li><strong>Travel Type:</strong> ${travelType}</li>
             <li><strong>Destination:</strong> ${destination}</li>
             <li><strong>Departure Date:</strong> ${formattedDepartureDate}</li>
             <li><strong>Return Date:</strong> ${formattedReturnDate}</li>
+            ${tripDuration ? `<li><strong>Duration:</strong> ${tripDuration}</li>` : ''}
             <li><strong>Number of Travelers:</strong> ${travelers}</li>
-            <li><strong>Budget Range:</strong> ₹${budgetMin.toLocaleString('en-IN')} - ₹${budgetMax.toLocaleString('en-IN')}</li>
+            <li><strong>Budget Range:</strong> ${formatServerPriceRange(budgetMin, budgetMax)}</li>
           </ul>
           
           <h3>Additional Information:</h3>
@@ -112,14 +128,14 @@ export async function POST(request: Request) {
           Thank you for your travel enquiry to ${destination}. We have received your request and our travel specialists will review it shortly.
           
           We aim to respond to all enquiries within 24 hours during business days.
-          
-          Trip Details:
+            Trip Details:
           - Travel Type: ${travelType}
           - Destination: ${destination}
           - Departure Date: ${formattedDepartureDate}
           - Return Date: ${formattedReturnDate}
+          ${tripDuration ? `- Duration: ${tripDuration}` : ''}
           - Number of Travelers: ${travelers}
-          - Budget Range: ₹${budgetMin.toLocaleString('en-IN')} - ₹${budgetMax.toLocaleString('en-IN')}
+          - Budget Range: ${formatServerPriceRange(budgetMin, budgetMax)}
           
           ${message ? `Your message: ${message}` : ''}
           
@@ -136,15 +152,15 @@ export async function POST(request: Request) {
           <p>Thank you for your travel enquiry to <strong>${destination}</strong>. We have received your request and our travel specialists will review it shortly.</p>
           
           <p>We aim to respond to all enquiries within 24 hours during business days.</p>
-          
-          <h3>Your Trip Details:</h3>
+            <h3>Your Trip Details:</h3>
           <ul>
             <li><strong>Travel Type:</strong> ${travelType}</li>
             <li><strong>Destination:</strong> ${destination}</li>
             <li><strong>Departure Date:</strong> ${formattedDepartureDate}</li>
             <li><strong>Return Date:</strong> ${formattedReturnDate}</li>
+            ${tripDuration ? `<li><strong>Duration:</strong> ${tripDuration}</li>` : ''}
             <li><strong>Number of Travelers:</strong> ${travelers}</li>
-            <li><strong>Budget Range:</strong> ₹${budgetMin.toLocaleString('en-IN')} - ₹${budgetMax.toLocaleString('en-IN')}</li>
+            <li><strong>Budget Range:</strong> ${formatServerPriceRange(budgetMin, budgetMax)}</li>
           </ul>
           
           ${message ? `<p><strong>Your message:</strong> ${message}</p>` : ''}

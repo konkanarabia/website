@@ -20,6 +20,20 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Star, MapPin, Wifi, Coffee, Utensils } from "lucide-react";
+import { Price } from "@/components/ui/price";
+
+// Define hotel type for type safety
+interface Hotel {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  rating: number;
+  location: string;
+  price: string;
+  amenities: string[];
+  details: string;
+}
 
 const hotels = [
   {
@@ -61,7 +75,7 @@ const hotels = [
 ];
 
 export default function HotelList() {
-  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -91,10 +105,8 @@ export default function HotelList() {
             <CardDescription>{hotel.description}</CardDescription>
             <div className="mt-4 flex items-center text-sm text-gray-500">
               <MapPin className="mr-2 h-4 w-4" />
-              <span>{hotel.location}</span>
-            </div>
-            <div className="mt-2 text-lg font-semibold">
-              {hotel.price} per night
+              <span>{hotel.location}</span>            </div>            <div className="mt-2 text-lg font-semibold">
+              <Price amount={hotel.price} sourceCurrency="USD" showConversion={true} showOriginal={false} /> per night
             </div>
           </CardContent>
           <CardFooter>
@@ -113,38 +125,41 @@ export default function HotelList() {
                 </DialogHeader>
                 <DialogDescription asChild>
                   <div>
-                    <Image
-                      src={selectedHotel?.image}
-                      alt={selectedHotel?.name}
-                      width={400}
-                      height={300}
-                      className="w-full h-48 object-cover rounded-md mb-4"
-                    />
-                    <p className="mb-4">{selectedHotel?.details}</p>
-                    <div className="flex items-center mb-2">
-                      <MapPin className="mr-2 h-4 w-4" />
-                      <span>{selectedHotel?.location}</span>
-                    </div>
-                    <p className="mb-4 text-lg font-semibold">
-                      {selectedHotel?.price} per night
-                    </p>
-                    <h4 className="font-semibold mb-2">Amenities:</h4>
-                    <ul className="list-disc list-inside">
-                      {selectedHotel?.amenities.map((amenity, index) => (
-                        <li key={index} className="flex items-center">
-                          {amenity.includes("Wi-Fi") && (
-                            <Wifi className="mr-2 h-4 w-4" />
-                          )}
-                          {amenity.includes("Spa") && (
-                            <Coffee className="mr-2 h-4 w-4" />
-                          )}
-                          {amenity.includes("Restaurant") && (
-                            <Utensils className="mr-2 h-4 w-4" />
-                          )}
-                          {amenity}
-                        </li>
-                      ))}
-                    </ul>
+                    {selectedHotel && (
+                      <>
+                        <Image
+                          src={selectedHotel.image}
+                          alt={selectedHotel.name}
+                          width={400}
+                          height={300}
+                          className="w-full h-48 object-cover rounded-md mb-4"
+                        />
+                        <p className="mb-4">{selectedHotel.details}</p>
+                        <div className="flex items-center mb-2">
+                          <MapPin className="mr-2 h-4 w-4" />
+                          <span>{selectedHotel.location}</span>
+                        </div>                        <p className="mb-4 text-lg font-semibold">
+                          <Price amount={selectedHotel.price} sourceCurrency="USD" showConversion={true} showOriginal={false} /> per night
+                        </p>
+                        <h4 className="font-semibold mb-2">Amenities:</h4>
+                        <ul className="list-disc list-inside">
+                          {selectedHotel.amenities.map((amenity, index) => (
+                            <li key={index} className="flex items-center">
+                              {amenity.includes("Wi-Fi") && (
+                                <Wifi className="mr-2 h-4 w-4" />
+                              )}
+                              {amenity.includes("Spa") && (
+                                <Coffee className="mr-2 h-4 w-4" />
+                              )}
+                              {amenity.includes("Restaurant") && (
+                                <Utensils className="mr-2 h-4 w-4" />
+                              )}
+                              {amenity}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                   </div>
                 </DialogDescription>
               </DialogContent>

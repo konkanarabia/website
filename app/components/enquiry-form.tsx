@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Price } from "@/components/ui/price";
 
 export default function EnquiryForm() {
   const router = useRouter();
@@ -43,6 +44,7 @@ export default function EnquiryForm() {
     travelers: 2, // Default number of travelers
     budgetMin: 10000, // Default minimum budget in INR
     budgetMax: 200000, // Default maximum budget in INR
+    budgetCurrency: "INR", // Default currency for budget
     message: "",
     subscribe: false, // Newsletter subscription
   });
@@ -183,25 +185,26 @@ export default function EnquiryForm() {
 
     setIsSubmitting(true);
 
-    try {      // Make an API call to the enquiry endpoint
-      const response = await fetch('/api/enquiry', {
-        method: 'POST',
+    try {
+      // Make an API call to the enquiry endpoint
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       const responseData = await response.json();
-      
+
       if (!response.ok) {
-        console.error('API Error:', responseData);
-        throw new Error(responseData.error || 'Failed to submit enquiry');
-      }toast({
+        console.error("API Error:", responseData);
+        throw new Error(responseData.error || "Failed to submit enquiry");
+      }
+      toast({
         title: "Enquiry Submitted!",
         description: "Thank you for your enquiry. We'll be in touch soon.",
       });
-      
       // Reset form
       setFormData({
         name: "",
@@ -215,14 +218,15 @@ export default function EnquiryForm() {
         travelers: 2,
         budgetMin: 10000,
         budgetMax: 200000,
+        budgetCurrency: "INR",
         message: "",
         subscribe: false,
       });
 
       // Redirect user to thank you page
-      router.push('/thank-you');
+      router.push("/thank-you");
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error("Submission error:", error);
       toast({
         title: "Submission Failed",
         description:
@@ -372,7 +376,8 @@ export default function EnquiryForm() {
                 </p>
               )}
             </div>
-          </div>{" "}          <div className="grid gap-4 md:grid-cols-2">
+          </div>{" "}
+          <div className="grid gap-4 md:grid-cols-2">
             <div>
               <Label htmlFor="departureDate">Departure Date</Label>
               <div className="relative">
@@ -444,14 +449,19 @@ export default function EnquiryForm() {
                 </p>
               )}
             </div>
-          </div>          <div>
+          </div>
+          <div>
             <Label>Number of Travelers</Label>
             <Select
-              value={formData.travelers === 11 ? "morethan10" : formData.travelers.toString()}
+              value={
+                formData.travelers === 11
+                  ? "morethan10"
+                  : formData.travelers.toString()
+              }
               onValueChange={(value) =>
-                setFormData((prev) => ({ 
-                  ...prev, 
-                  travelers: value === "morethan10" ? 11 : parseInt(value) 
+                setFormData((prev) => ({
+                  ...prev,
+                  travelers: value === "morethan10" ? 11 : parseInt(value),
                 }))
               }
               disabled={isSubmitting}
@@ -470,7 +480,7 @@ export default function EnquiryForm() {
             </Select>
           </div>
           <div className="space-y-4">
-            <Label>Budget Range (₹)</Label>
+            <Label>Budget Range</Label>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <Label
@@ -521,12 +531,45 @@ export default function EnquiryForm() {
                 )}
               </div>
             </div>
+            <div className="grid gap-4 md:grid-cols-2 mb-4">
+              <div>
+                <Label htmlFor="budgetCurrency">Budget Currency</Label>
+                <Select
+                  value={formData.budgetCurrency}
+                  onValueChange={handleSelectChange("budgetCurrency")}
+                  disabled={isSubmitting}
+                >
+                  <SelectTrigger id="budgetCurrency">
+                    <SelectValue placeholder="Select currency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="INR">Indian Rupee (₹)</SelectItem>
+                    <SelectItem value="USD">US Dollar ($)</SelectItem>
+                    <SelectItem value="EUR">Euro (€)</SelectItem>
+                    <SelectItem value="GBP">British Pound (£)</SelectItem>
+                    <SelectItem value="AED">UAE Dirham (د.إ)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
             <div className="flex items-center justify-between mt-2">
               <Badge variant="outline" className="text-xs">
-                Min: ₹{formData.budgetMin.toLocaleString("en-IN")}
+                Min:{" "}
+                <Price
+                  amount={formData.budgetMin}
+                  sourceCurrency={formData.budgetCurrency || "USD"}
+                  showConversion={true}
+                  showOriginal={false}
+                />
               </Badge>
               <Badge variant="outline" className="text-xs">
-                Max: ₹{formData.budgetMax.toLocaleString("en-IN")}
+                Max:{" "}
+                <Price
+                  amount={formData.budgetMax}
+                  sourceCurrency={formData.budgetCurrency || "USD"}
+                  showConversion={true}
+                  showOriginal={false}
+                />
               </Badge>
             </div>
           </div>
