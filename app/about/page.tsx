@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import CertificateShowcase from "../components/certificate-showcase";
 
 export default function AboutPage() {
   return (
@@ -127,6 +128,10 @@ export default function AboutPage() {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mt-16">
+        <CertificateShowcase />
+      </div>
     </div>
   );
 }
