@@ -11,7 +11,7 @@ const destinations = [
     id: 1,
     name: "Kashmir",
     description: "Paradise on Earth",
-    image: "/img/kashmir.jpg?height=200&width=300",
+    image: "/destinations/domestic/Kashmir.png",
     details:
       "Kashmir, with its breathtaking landscapes, snow-capped mountains, and serene lakes, truly lives up to its nickname 'Paradise on Earth'. Explore the Dal Lake in Srinagar, visit the beautiful gardens, or enjoy skiing in Gulmarg's snow-covered slopes.",
     highlights: [
@@ -26,9 +26,9 @@ const destinations = [
   },
   {
     id: 2,
-    name: "Himachal Pradesh",
+    name: "Himachal",
     description: "Land of Gods",
-    image: "/img/himachal.jpg?height=200&width=300",
+    image: "/destinations/domestic/Himachal.png",
     details:
       "Himachal Pradesh offers stunning Himalayan landscapes, lush valleys, and charming hill stations. From the vibrant culture of Shimla to the spiritual atmosphere of Dharamshala, experience adventure sports, ancient temples, and pristine natural beauty.",
     highlights: [
@@ -44,139 +44,175 @@ const destinations = [
   {
     id: 3,
     name: "Golden Triangle",
-    description: "Amritsar, Delhi, Agra & Rajasthan",
-    image: "/img/golden-triangle.jpg?height=200&width=300",
+    description: "Amritsar, Delhi & Agra",
+    image: "/destinations/domestic/Golden Triangle.png",
     details:
-      "The Golden Triangle circuit connects the iconic cities of Delhi, Agra, and Jaipur, with an extension to Amritsar. Experience India's rich heritage through historic monuments like the Taj Mahal, Red Fort, and Hawa Mahal, alongside the spiritual Golden Temple.",
+      "The Golden Triangle circuit connects the iconic cities of Delhi, Agra, and Amritsar. Experience India's rich heritage through historic monuments like the Taj Mahal, Red Fort, and the spiritual Golden Temple.",
+    highlights: [
+      "Visit the iconic Taj Mahal in Agra",
+      "Explore the historic Red Fort in Delhi",
+      "Visit the spiritual Golden Temple in Amritsar",
+      "Shop at Chandni Chowk in Delhi",
+      "Witness the Wagah Border ceremony"
+    ],
+    duration: "5-7 days",
+    bestTime: "October to March"
   },
   {
-    id: 4,
-    name: "Goa",
-    description: "Pearl of the Orient",
-    image: "/img/goa.jpg?height=200&width=300",
-    details:
-      "Goa offers the perfect blend of sun, sand, and sea with a unique Portuguese-influenced culture. Enjoy its pristine beaches, vibrant nightlife, delicious seafood, water sports, and historic churches and forts that dot this coastal paradise.",
-  },
-  {
-    id: 5,
-    name: "Konkan",
-    description: "Coastal Haven",
-    image: "/img/konkan.jpg?height=200&width=300",
-    details:
-      "The Konkan coast stretches along the western coastline of India, featuring pristine beaches, quaint fishing villages, and lush green landscapes. Explore ancient temples, enjoy authentic coastal cuisine, and experience the rich cultural heritage of this region.",
+    id: 9,
+    name: "Rajasthan",
+    description: "The Land of Kings",
+    details: "Experience the royal grandeur of the 'Land of Kings'. Rajasthan is a symphony of vibrant colors, majestic forts, and opulent palaces. From the pink-hued streets of Jaipur to the golden sands of Jaisalmer, every corner tells a story of chivalry and romance. Immerse yourself in the rich culture, spicy cuisine, and majestic landscapes of India's most regal state.",
+    image: "/destinations/domestic/Rajasthan.jpg",
+    priceMin: 25000,
+    priceMax: 85000,
+    highlights: ["Majestic Amber Fort", "Hawa Mahal (Palace of Winds)", "Golden Desert Safari", "Lakes of Udaipur", "Royal City Palace"],
+    duration: "7-10 days",
+    bestTime: "October to March"
   },
   {
     id: 6,
     name: "Kerala",
     description: "God's Own Country",
-    image: "/img/kerala.jpg?height=200&width=300",
+    image: "/destinations/domestic/Kerala.png",
     details:
       "Kerala dazzles with its backwaters, lush hill stations, pristine beaches, and vibrant culture. Experience houseboat cruises through the backwaters, Ayurvedic treatments, wildlife sanctuaries, and the unique blend of traditional arts, cuisine, and festivals.",
+    highlights: [
+      "Cruise the backwaters in a traditional houseboat",
+      "Visit the tea plantations of Munnar",
+      "Relax on the beaches of Varkala or Kovalam",
+      "Watch a Kathakali performance",
+      "Explore the Periyar Wildlife Sanctuary"
+    ],
+    duration: "6-8 days",
+    bestTime: "September to March"
+  },
+  {
+    id: 10,
+    name: "Kanyakumari",
+    description: "The Southernmost Tip",
+    image: "/destinations/domestic/Kanyakumari.jpg",
+    details:
+      "Kanyakumari, at the southernmost tip of India, is where the Arabian Sea, Bay of Bengal, and Indian Ocean meet. Witness breathtaking sunrises and sunsets over the three oceans and visit the iconic Vivekananda Rock Memorial.",
+    highlights: [
+      "Visit the Vivekananda Rock Memorial",
+      "See the giant Thiruvalluvar Statue",
+      "Witness the meeting of three oceans",
+      "Watch the spectacular sunset and sunrise",
+      "Visit the Kumari Amman Temple"
+    ],
+    duration: "2-3 days",
+    bestTime: "October to March"
+  },
+  {
+    id: 5,
+    name: "Konkan",
+    description: "Coastal Haven",
+    image: "/destinations/domestic/Konkan.png",
+    details:
+      "The Konkan coast stretches along the western coastline of India, featuring pristine beaches, quaint fishing villages, and lush green landscapes. Explore ancient temples, enjoy authentic coastal cuisine, and experience the rich cultural heritage of this region.",
+    highlights: [
+      "Visit Ganpatipule beach and temple",
+      "Explore the historic Sindhudurg Fort",
+      "Enjoy authentic Malvani cuisine",
+      "Relax on the pristine beaches of Tarkarli",
+      "Experience the lush mango orchards"
+    ],
+    duration: "4-6 days",
+    bestTime: "October to March"
+  },
+  {
+    id: 4,
+    name: "Goa",
+    description: "Pearl of the Orient",
+    image: "/destinations/domestic/Goa.png",
+    details:
+      "Goa offers the perfect blend of sun, sand, and sea with a unique Portuguese-influenced culture. Enjoy its pristine beaches, vibrant nightlife, delicious seafood, water sports, and historic churches and forts that dot this coastal paradise.",
+    highlights: [
+      "Relax on the famous beaches of North and South Goa",
+      "Explore the UNESCO World Heritage churches in Old Goa",
+      "Experience the vibrant nightlife and shacks",
+      "Enjoy water sports like parasailing and scuba diving",
+      "Visit the beautiful Dudhsagar Waterfalls"
+    ],
+    duration: "4-7 days",
+    bestTime: "November to February"
   },
   {
     id: 7,
-    name: "Karnataka",
-    description: "Mysore, Bangalore & Ooty",
-    image: "/img/karnataka.jpg?height=200&width=300",
-    details:
-      "Karnataka offers diverse attractions from the tech hub of Bangalore to the royal heritage of Mysore and the hill station beauty of nearby Ooty. Explore magnificent palaces, ancient temples, lush coffee plantations, and stunning Western Ghat landscapes.",
+    name: "Mysore",
+    description: "The City of Palaces",
+    details: "Known as the Cultural Capital of Karnataka, Mysore is a city of royal elegance and heritage. Famous for its dazzling Mysore Palace, fragrant sandalwood, and Mysore Silk, the city offers a blend of historical grandeur and modern charm. Witness the spectacular illumination of the Palace and explore the bustling Devaraja Market.",
+    image: "/destinations/domestic/Mysore.jpg",
+    priceMin: 12000,
+    priceMax: 35000,
+    highlights: ["Royal Mysore Palace", "Chamundi Hill & Temple", "Brindavan Gardens", "Philomenas Cathedral"],
+    duration: "2-3 days",
+    bestTime: "October to February"
   },
   {
     id: 8,
-    name: "Lakshadweep",
-    description: "Coral Paradise",
-    image: "/img/lakshadweep.jpg?height=200&width=300",
-    details:
-      "Lakshadweep, India's smallest union territory, consists of stunning coral atolls and pristine beaches. Experience crystal-clear waters perfect for snorkeling and diving, rich marine life, and the unique culture of these remote islands in the Arabian Sea.",
+    name: "Bangalore",
+    description: "Silicon Valley of India",
+    details: "The 'Silicon Valley of India', Bangalore (Bengaluru) is a dynamic metropolis that seamlessly blends its colonial heritage with modern technology. Known for its pleasant weather and lush green parks like Cubbon Park and Lalbagh, it is a city of gardens, vibrant nightlife, and architectural marvels like the Vidhana Soudha.",
+    image: "/destinations/domestic/Bangalore.png",
+    priceMin: 15000,
+    priceMax: 45000,
+    highlights: ["Vidhana Soudha Architecture", "Lalbagh Botanical Garden", "Cubbon Park", "Bangalore Palace", "Bannerghatta National Park"],
+    duration: "2-4 days",
+    bestTime: "All Year Round"
+  },
+  {
+    id: 21,
+    name: "Ooty",
+    description: "Queen of Hill Stations",
+    details: "The 'Queen of Hill Stations', Ooty (Udhagamandalam) is a picturesque retreat nestled in the Nilgiri Hills. Famous for its rolling tea gardens, colonial bungalows, and the UNESCO heritage Toy Train, Ooty offers a refreshing escape with its mist-covered peaks and serene lakes. It's the perfect destination for nature lovers and honeymooners.",
+    image: "/destinations/domestic/Ooty.jpg",
+    priceMin: 18000,
+    priceMax: 55000,
+    highlights: ["Nilgiri Mountain Railway", "Ooty Lake & Boating", "Botanical Gardens", "Doddabetta Peak View", "Tea Garden Walk"],
+    duration: "3-5 days",
+    bestTime: "April to June & September to November"
   },
   {
     id: 11,
     name: "Dubai",
     description: "The City of Gold",
-    image: "/img/dubai.jpg?height=200&width=300",
-    details:
-      "Dubai, a city in the United Arab Emirates, is known for its ultramodern architecture, luxury shopping, and vibrant nightlife. Home to Burj Khalifa, the world's tallest building, and artificial islands like Palm Jumeirah.",
+    image: "/destinations/international/Dubai.png",
+    details: "Dubai is a city and emirate in the United Arab Emirates luxury shopping, ultramodern architecture and a lively nightlife scene. Burj Khalifa, an 830m-tall tower, dominates the skyscraper-filled skyline. At its foot lies Dubai Fountain, with jets and lights choreographed to music. On artificial islands just offshore is Atlantis, The Palm, a resort with water and marine-animal parks.",
+    highlights: ["Burj Khalifa Top View", "Desert Safari with Dinner", "Dubai Mall & Fountain Show", "Palm Jumeirah Island", "Traditional Gold Souk"],
+    duration: "4-6 days",
+    bestTime: "November to March"
   },
   {
     id: 12,
     name: "Thailand",
     description: "The Land of Smiles",
-    image: "/img/thailand.jpg?height=200&width=300",
-    details:
-      "Thailand offers beautiful tropical beaches, opulent royal palaces, ancient ruins and temples. Experience Bangkok's vibrant street life, explore Chiang Mai's mountains, or relax on the islands of Phuket and Koh Samui.",
+    image: "/destinations/international/Thailand.png",
+    details: "Thailand is a Southeast Asian country known for tropical beaches, opulent royal palaces, ancient ruins and ornate temples displaying figures of Buddha. In Bangkok, the capital, an ultramodern cityscape rises next to quiet canalside communities and the iconic temples of Wat Arun, Wat Pho and the Emerald Buddha Temple (Wat Phra Kaew).",
+    highlights: ["Bangkok Grand Palace", "Phuket Beach Escape", "Chiang Mai Temples", "Phi Phi Island Tour", "Authentic Thai Street Food"],
+    duration: "6-10 days",
+    bestTime: "November to February"
   },
   {
     id: 13,
     name: "Sri Lanka",
     description: "Pearl of the Indian Ocean",
-    image: "/img/sri-lanka.jpg?height=200&width=300",
-    details:
-      "Sri Lanka features endless beaches, timeless ruins, welcoming people, and abundant wildlife. Explore ancient Buddhist ruins, hike through tea plantations, and witness elephants in their natural habitat.",
-  },
-  {
-    id: 14,
-    name: "Nepal",
-    description: "Land of the Himalayas",
-    image: "/img/nepal.jpg?height=200&width=300",
-    details:
-      "Nepal, home to Mount Everest, offers stunning Himalayan views, historic temples, and rich cultural heritage. Trek through spectacular mountain scenery or explore medieval city squares in Kathmandu Valley.",
+    image: "/destinations/international/Sri Lanka.png",
+    details: "Sri Lanka is an island nation south of India in the Indian Ocean. Its diverse landscapes range from rainforest and arid plains to highlands and sandy beaches. It’s famed for its ancient Buddhist ruins, including the 5th-century citadel Sigiriya, with its palace and frescoes. The city of Anuradhapura, Sri Lanka's ancient capital, has many ruins dating back more than 2,000 years.",
+    highlights: ["Sigiriya Rock Fortress", "Kandy Tooth Relic Temple", "Ella Tea Plantations", "Galle Dutch Fort", "Yala National Park Safari"],
+    duration: "7-10 days",
+    bestTime: "December to March"
   },
   {
     id: 15,
     name: "Vietnam",
     description: "The Hidden Charm",
-    image: "/img/vietnam.jpg?height=200&width=300",
-    details:
-      "Vietnam features dramatic landscapes, from the lush rice terraces of Sapa to the limestone islands of Halong Bay. Experience bustling cities, tranquil villages, and incredible food culture throughout this diverse country.",
-  },
-  {
-    id: 16,
-    name: "Maldives",
-    description: "Tropical Paradise",
-    image: "/img/maldives.jpg?height=200&width=300",
-    details:
-      "The Maldives is known for its crystal clear waters, overwater bungalows, and pristine beaches. This archipelago of 1,000+ coral islands offers world-class diving, snorkeling, and the ultimate luxury retreat.",
-  },
-  {
-    id: 17,
-    name: "Indonesia",
-    description: "Unity in Diversity",
-    image: "/img/indonesia.jpg?height=200&width=300",
-    details:
-      "Indonesia spans over 17,000 islands with incredible diversity. From the spiritual Bali to the komodo dragons of Flores, experience volcanoes, jungles, pristine beaches, and vibrant cultural traditions.",
-  },
-  {
-    id: 18,
-    name: "Azerbaijan",
-    description: "Land of Fire",
-    image: "/img/azerbaijan.jpg?height=200&width=300",
-    details:
-      "Azerbaijan blends ancient culture with modern development. Explore Baku's UNESCO-listed Old City, mud volcanoes, and the burning mountain of Yanar Dag, while experiencing the country's unique East-meets-West atmosphere.",
-  },
-  {
-    id: 19,
-    name: "Armenia",
-    description: "Land of Mountains",
-    image: "/img/armenia.jpg?height=200&width=300",
-    details:
-      "Armenia boasts dramatic mountain landscapes and ancient Christian heritage. Visit centuries-old monasteries perched on hilltops, explore the vibrant capital Yerevan, and enjoy traditional hospitality and cuisine.",
-  },
-  {
-    id: 20,
-    name: "Georgia",
-    description: "Cradle of Wine",
-    image: "/img/georgia.jpg?height=200&width=300",
-    details:
-      "Georgia offers stunning mountain scenery, ancient cave cities, and 8,000 years of winemaking tradition. Experience the unique hospitality, rich folklore, delicious cuisine, and beautiful Orthodox churches.",
-    highlights: [
-      "Explore the ancient streets of Tbilisi",
-      "Visit traditional wine cellars in Kakheti",
-      "Discover the cave city of Uplistsikhe",
-      "Hike in the stunning Caucasus mountains",
-      "Experience traditional Georgian supra (feast)"
-    ],
-    duration: "7-10 days",
-    bestTime: "May to October"
+    image: "/destinations/international/Vietnam.png",
+    details: "Vietnam is a Southeast Asian country known for its beaches, rivers, Buddhist pagodas and bustling cities. Hanoi, the capital, pays homage to the nation’s iconic Communist-era leader, Ho Chi Minh, via a huge marble mausoleum. Ho Chi Minh City (formerly Saigon) has French colonial landmarks, plus Vietnamese War history museums and the Củ Chi tunnels, used by Viet Cong soldiers.",
+    highlights: ["Ha Long Bay Cruise", "Hoi An Ancient Town", "Ho Chi Minh City Tour", "Cu Chi Tunnels", "Mekong Delta Boat Trip"],
+    duration: "8-12 days",
+    bestTime: "February to April & August to October"
   },
 ];
 
@@ -199,8 +235,7 @@ export default function DestinationPage() {
 
   return (
     <div className="bg-gray-50">
-      {/* Hero Section with Large Image */}
-      <div className="relative h-[40vh] md:h-[60vh]">
+      <div className="relative h-[65vh] md:h-[75vh]">
         <Image
           src={destination.image}
           alt={destination.name}
@@ -208,42 +243,56 @@ export default function DestinationPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
         <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{destination.name}</h1>
-            <p className="text-xl md:text-2xl text-white/90">{destination.description}</p>
+          <div className="container mx-auto px-6 md:px-20">
+            <div className="max-w-2xl">
+              <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight drop-shadow-2xl">
+                {destination.name}
+              </h1>
+              <p className="text-2xl md:text-3xl text-white font-medium drop-shadow-lg">
+                {destination.description}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Info Bar */}
+        <div className="absolute left-1/2 -bottom-12 -translate-x-1/2 w-full max-w-5xl px-4 z-20">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-100 py-6">
+            <div className="flex-1 px-8 py-2 flex items-center gap-5">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
+                <Calendar className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Duration</p>
+                <p className="text-xl font-bold text-slate-900">{destination.duration || "5-7 days"}</p>
+              </div>
+            </div>
+            <div className="flex-1 px-8 py-2 flex items-center gap-5">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
+                <MapPin className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Location</p>
+                <p className="text-xl font-bold text-slate-900">{destination.name}</p>
+              </div>
+            </div>
+            <div className="flex-1 px-8 py-2 flex items-center gap-5">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
+                <Users className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Best Time to Visit</p>
+                <p className="text-xl font-bold text-slate-900">{destination.bestTime || "March to October"}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
-        {/* Quick Info Card */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-12 -mt-16 md:-mt-24 relative z-10 mx-4 md:mx-auto max-w-4xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-center">
-              <Calendar className="text-primary h-6 w-6 mr-3" />
-              <div>
-                <p className="text-sm text-gray-500">Duration</p>
-                <p className="font-medium">{destination.duration || "5-10 days"}</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <MapPin className="text-primary h-6 w-6 mr-3" />
-              <div>
-                <p className="text-sm text-gray-500">Location</p>
-                <p className="font-medium">{destination.name}</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Users className="text-primary h-6 w-6 mr-3" />
-              <div>
-                <p className="text-sm text-gray-500">Best Time to Visit</p>
-                <p className="font-medium">{destination.bestTime || "All Year"}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 pt-24 pb-12">
+        {/* Main Content */}
 
         {/* Main Content */}
         <div className="grid md:grid-cols-3 gap-8">
@@ -288,9 +337,15 @@ export default function DestinationPage() {
                   Ready to experience the beauty of {destination.name}? Contact our travel experts to create your perfect itinerary.
                 </p>
                 
-                <div className="flex items-center">
-                  <PhoneCall className="h-5 w-5 text-primary mr-2" />
-                  <span className="font-medium">+971-55 155 6238</span>
+                <div className="flex flex-col space-y-1">
+                  <div className="flex items-center">
+                    <PhoneCall className="h-4 w-4 text-primary mr-2" />
+                    <span className="font-medium text-sm">+91-9370528517</span>
+                  </div>
+                  <div className="flex items-center">
+                    <PhoneCall className="h-4 w-4 text-primary mr-2" />
+                    <span className="font-medium text-sm">+971-555995260</span>
+                  </div>
                 </div>
               </div>
 

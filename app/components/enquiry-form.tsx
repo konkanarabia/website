@@ -28,6 +28,11 @@ export default function EnquiryForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [today, setToday] = useState<string>("");
+
+  useEffect(() => {
+    setToday(format(new Date(), "yyyy-MM-dd"));
+  }, []);
 
   useEffect(() => {
     console.log("isSubmitting status:", isSubmitting);
@@ -387,7 +392,7 @@ export default function EnquiryForm() {
                   type="date"
                   value={formData.departureDate}
                   onChange={handleChange}
-                  min={format(new Date(), "yyyy-MM-dd")}
+                  min={today}
                   className={cn(
                     errors.departureDate && "border-destructive",
                     "appearance-none pr-10 focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -424,7 +429,7 @@ export default function EnquiryForm() {
                           ),
                           "yyyy-MM-dd"
                         )
-                      : format(new Date(), "yyyy-MM-dd")
+                      : today
                   }
                   className={cn(
                     errors.returnDate && "border-destructive",

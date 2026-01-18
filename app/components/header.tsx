@@ -82,19 +82,16 @@ export default function Header() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-primary/90 to-primary py-2 text-white hidden md:block">
+      <div className="bg-[#0066a1] py-2 text-white hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="text-sm flex items-center">
-            <span className="flex items-center mr-4">
-              <Phone className="h-4 w-4 mr-1" /> +971-55 155 6238
-            </span>
-            <span className="flex items-center mr-4">
-              <Phone className="h-4 w-4 mr-1" /> +9193705 28517
+          <div className="text-[13px] flex items-center">
+            <span className="flex items-center mr-6">
+              <Phone className="h-3.5 w-3.5 mr-2" /> +91-9370528517 | 8625807465 | +971-555995260 | 0557337618
             </span>
             <span className="flex items-center">
-              <Mail className="h-4 w-4 mr-1" />{" "}
-              info@konkanarabiahospitalitygroup.com
-            </span>          </div>
+              <Mail className="h-3.5 w-3.5 mr-2" /> bookings@konkanarabiahospitalitygroup.com
+            </span>
+          </div>
           <div className="flex space-x-2 items-center">
             <LocaleSwitcher className="mr-2" />
             <Link
@@ -140,7 +137,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3">
             <div className="relative">
               <Image
-                src="/KonkanArabia-logo.jpg"
+                src="/logo/KonkanArabia-logo.png"
                 alt="KonkanArabia Hospitality & Holiday Group"
                 width={60}
                 height={60}
@@ -148,41 +145,31 @@ export default function Header() {
               />
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 animate-pulse -z-10"></div>
             </div>
-            <div>
-                <div className="flex flex-col">
-                  <span className="text-xl font-serif text-primary hidden sm:flex items-center space-x-1 leading-tight">
-                    <span className="font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">KonkanArabia</span>
-                    <span className="italic">Hospitality & Holiday Group</span>
-                  </span>
-                  <span className="text-xs sm:text-sm hidden sm:block leading-tight tracking-wide relative pl-3 mt-1.5">
-                    <span className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary via-primary/60 to-primary/20 rounded-full"></span>
-                    <span className="font-medium bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Hospitality</span> is Our 
-                    <span className="italic mx-1 relative inline-block">
-                      <span className="relative z-10">Passion</span>
-                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary/10 -z-0"></span>
-                    </span> & 
-                    <span className="italic ml-1 relative inline-block">
-                      <span className="relative z-10">Culture</span>
-                      <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary/10 -z-0"></span>
-                    </span>
-                  </span>
-                </div>
+            <div className="flex flex-col">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold tracking-tight text-[#0066a1]">KonkanArabia</span>
+                <span className="text-xl font-medium italic text-[#0066a1] opacity-90 hidden lg:inline">Hospitality & Holiday Group</span>
+              </div>
+              <div className="flex items-center gap-2 mt-0.5">
+                <div className="h-4 w-1 bg-[#0066a1] rounded-full"></div>
+                <span className="text-[13px] font-medium text-slate-600 tracking-wide uppercase">Hospitality is Our Passion & Culture</span>
+              </div>
             </div>
           </Link>
 
           <div className="flex items-center justify-end flex-1">
-            <nav className="hidden md:block ml-auto">
-              <ul className="flex space-x-1 lg:space-x-2 items-center">
+            <nav className="hidden md:block">
+              <ul className="flex items-center space-x-1 lg:space-x-4">
                 {navItems.map((item) => (
                   <li key={item.name} className="relative">
                     {item.dropdown ? (
                       <div ref={dropdownRef}>
                         <button
                           onClick={toggleServicesDropdown}
-                          className={`flex items-center text-sm lg:text-base px-3 py-2 rounded-md hover:bg-primary/10 transition-colors ${
+                          className={`flex items-center text-[15px] font-medium px-3 py-2 rounded-lg transition-all ${
                             pathname.startsWith(item.href)
-                              ? "font-semibold text-primary"
-                              : "text-gray-700"
+                              ? "text-[#0066a1] bg-slate-50"
+                              : "text-slate-700 hover:text-[#0066a1] hover:bg-slate-50"
                           }`}
                         >
                           {item.name}
@@ -193,12 +180,12 @@ export default function Header() {
                           />
                         </button>
                         {isServicesDropdownOpen && (
-                          <div className="absolute top-full right-0 mt-1 w-52 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
+                          <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl py-2 z-[100] border border-slate-100 overflow-hidden">
                             {item.subItems.map((subItem) => (
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary"
+                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#0066a1] hover:text-white transition-colors"
                                 onClick={() => setIsServicesDropdownOpen(false)}
                               >
                                 {subItem.name}
@@ -210,10 +197,10 @@ export default function Header() {
                     ) : (
                       <Link
                         href={item.href}
-                        className={`text-sm lg:text-base px-3 py-2 rounded-md hover:bg-primary/10 transition-colors block ${
+                        className={`text-[15px] font-medium px-3 py-2 rounded-lg transition-all block ${
                           pathname === item.href
-                            ? "font-semibold text-primary"
-                            : "text-gray-700"
+                            ? "text-[#0066a1] bg-slate-50"
+                            : "text-slate-700 hover:text-[#0066a1] hover:bg-slate-50"
                         }`}
                       >
                         {item.name}
@@ -221,18 +208,15 @@ export default function Header() {
                     )}
                   </li>
                 ))}
-                <li>
-                  <Link href="/enquiry">
-                    <Button
-                      size="sm"
-                      className="bg-primary hover:bg-primary/90 text-white ml-2"
-                    >
-                      Enquire Now
-                    </Button>
-                  </Link>
-                </li>
               </ul>
             </nav>
+            <Link href="/enquiry" className="hidden sm:block">
+              <Button
+                className="bg-[#0066a1] hover:bg-[#00558a] text-white font-bold px-6 py-5 rounded-lg shadow-lg shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Enquire Now
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"

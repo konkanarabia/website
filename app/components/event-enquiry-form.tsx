@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,12 @@ export default function EventEnquiryForm() {
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [today, setToday] = useState<string>("");
+
+  useEffect(() => {
+    setToday(new Date().toISOString().split('T')[0]);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -121,7 +127,7 @@ export default function EventEnquiryForm() {
           <Label htmlFor="eventDate">Event Date</Label>
           <div className="relative">
             <Calendar className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-            <Input id="eventDate" name="eventDate" type="date" required value={formData.eventDate} onChange={handleChange} className="pl-10" />
+            <Input id="eventDate" name="eventDate" type="date" required min={today} value={formData.eventDate} onChange={handleChange} className="pl-10" />
           </div>
         </div>
       </div>

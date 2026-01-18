@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,12 @@ export default function VehicleEnquiryForm() {
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [today, setToday] = useState<string>("");
+
+  useEffect(() => {
+    setToday(format(new Date(), "yyyy-MM-dd"));
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -177,11 +183,11 @@ export default function VehicleEnquiryForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="pickupDate">Pickup Date</Label>
-          <Input id="pickupDate" name="pickupDate" type="date" required min={format(new Date(), "yyyy-MM-dd")} value={formData.pickupDate} onChange={handleChange} />
+          <Input id="pickupDate" name="pickupDate" type="date" required min={today} value={formData.pickupDate} onChange={handleChange} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="dropoffDate">Drop-off Date</Label>
-          <Input id="dropoffDate" name="dropoffDate" type="date" required min={formData.pickupDate || format(new Date(), "yyyy-MM-dd")} value={formData.dropoffDate} onChange={handleChange} />
+          <Input id="dropoffDate" name="dropoffDate" type="date" required min={formData.pickupDate || today} value={formData.dropoffDate} onChange={handleChange} />
         </div>
       </div>
 

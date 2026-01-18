@@ -20,7 +20,7 @@ const heroSlides = [
     id: 1,
     title: "Journey Beyond Boundaries",
     subtitle: "Handcrafted experiences in breathtaking destinations",
-    image: "/img/luca-bravo-O453M2Liufs-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-1.jpg",
     cta: "Find Your Dream Destination",
     link: "/destinations"
   },
@@ -28,7 +28,7 @@ const heroSlides = [
     id: 2,
     title: "Craft Your Perfect Escape",
     subtitle: "Personalized itineraries tailored to your travel style",
-    image: "/img/jennvmy_-uWpggIb3iHs-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-2.jpg",
     cta: "Design Your Journey",
     link: "/contact"
   },
@@ -36,7 +36,7 @@ const heroSlides = [
     id: 3,
     title: "Uncharted Territories Await",
     subtitle: "Discover secret locations cherished by locals",
-    image: "/img/zq-lee-VbDjv8-8ibc-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-3.jpg",
     cta: "Explore Hidden Gems",
     link: "/destinations"
   },
@@ -44,7 +44,7 @@ const heroSlides = [
     id: 4,
     title: "Elevate Your Travel Experience",
     subtitle: "Immerse yourself in world-class comfort and exclusivity",
-    image: "/img/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-4.jpg",
     cta: "Browse Premium Collections",
     link: "/destinations"
   },
@@ -52,7 +52,7 @@ const heroSlides = [
     id: 5,
     title: "Unforgettable Family Moments",
     subtitle: "Multi-generational adventures with something for everyone",
-    image: "/img/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-5.jpg",
     cta: "Discover Family Adventures",
     link: "/destinations"
   },
@@ -60,7 +60,7 @@ const heroSlides = [
     id: 6,
     title: "Adrenaline & Inspiration",
     subtitle: "Push boundaries with curated thrill-seeking experiences",
-    image: "/img/kharl-anthony-paica-7sqY83ONLMU-unsplash.jpg?height=800&width=1200",
+    image: "/hero/hero-6.jpg",
     cta: "Seek Your Adventure",
     link: "/destinations"
   }

@@ -72,19 +72,24 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="text-gray-300 flex flex-col sm:flex-row sm:items-start">
                 <span className="font-semibold mr-2 whitespace-nowrap">Email:</span>
-                <span className="break-all">info@konkanarabiahospitalitygroup.com</span>
+                <div className="flex flex-col">
+                  <span className="break-all text-sm md:text-base">bookings@konkanarabiahospitalitygroup.com</span>
+                  <span className="break-all text-sm md:text-base">konkanarabiatourism@gmail.com</span>
+                </div>
               </div>
               <div className="text-gray-300 flex flex-col sm:flex-row sm:items-start">
                 <span className="font-semibold mr-2 whitespace-nowrap">Phone:</span>
-                <span>+971-55 155 6238</span>
+                <div className="flex flex-col">
+                  <span>India: +91-9370528517 | 8625807465</span>
+                  <span>UAE: +971-555995260 | 0557337618</span>
+                </div>
               </div>
               <div className="pt-3 border-t border-gray-800">
                 <p className="text-gray-300 font-semibold mb-1">
                   India Office:
                 </p>
                 <p className="text-gray-400 leading-relaxed break-words">
-                  Off. No. 14, Almita A1 Building, H.No.2/175, Calangute Beach
-                  Rd, Naika Waddo, Calangute, Goa, 403516, India
+                  Mumbai
                 </p>
               </div>
               <div className="pt-3 border-t border-gray-800">
@@ -97,7 +102,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-          <p className="text-gray-400 text-sm md:text-base break-words">
+          <p className="text-gray-400 text-sm md:text-base break-words" suppressHydrationWarning={true}>
             &copy; {new Date().getFullYear()} KonkanArabia Hospitality & Holiday
             Group. All rights reserved.
           </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,13 @@ export default function VisaEnquiryForm() {
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [today, setToday] = useState<string>("");
+
+  useEffect(() => {
+    // Only used for min date constraint if needed, but good practice
+    setToday(new Date().toISOString().split('T')[0]);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -128,7 +135,7 @@ export default function VisaEnquiryForm() {
           <Label htmlFor="tentativeDate">Tentative Travel Date</Label>
           <div className="relative">
             <Calendar className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-            <Input id="tentativeDate" name="tentativeDate" type="date" required value={formData.tentativeDate} onChange={handleChange} className="pl-10" />
+            <Input id="tentativeDate" name="tentativeDate" type="date" required min={today} value={formData.tentativeDate} onChange={handleChange} className="pl-10" />
           </div>
         </div>
         <div className="space-y-2">

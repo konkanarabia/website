@@ -15,8 +15,19 @@ const services = [
 		id: 1,
 		name: "Vehicle Rental",
 		description: "Car Rental & Bike Rental",
-		image: "/vehicles/image-1.jpg",
-		images: ["/vehicles/image-1.jpg", "/vehicles/image-2.jpg"],
+		image: "/services/Vehicle Rental-1.jpg",
+		images: [
+			"/vehicles/vehicle-1.jpg",
+			"/vehicles/vehicle-2.jpg",
+			"/vehicles/vehicle-3.jpg",
+			"/vehicles/vehicle-4.jpg",
+			"/vehicles/vehicle-5.jpg",
+			"/vehicles/vehicle-6.jpg",
+			"/vehicles/vehicle-7.jpg",
+			"/vehicles/vehicle-8.jpg",
+			"/vehicles/vehicle-9.jpg",
+			"/vehicles/vehicle-10.jpg"
+		],
 		details:
 			"Explore destinations at your own pace with our comprehensive vehicle rental services. Choose from a wide range of cars, from economy to luxury options, or rent bikes for adventure trips and city exploration. All vehicles are well-maintained with competitive rates and flexible pickup/drop-off locations.",
 		features: [
@@ -59,7 +70,7 @@ const services = [
 		id: 2,
 		name: "Event Management",
 		description: "Destination Events & Parties",
-		image: "/img/event-management.jpg",
+		image: "/services/Event Management.png",
 		details:
 			"Make your special occasions truly memorable with our destination event management services. From beach weddings to corporate retreats, anniversary celebrations to birthday parties at exotic locations - our team handles everything from venue selection to catering, decorations, entertainment, and accommodations.",
 		features: [
@@ -94,7 +105,7 @@ const services = [
 		id: 3,
 		name: "Visa Services",
 		description: "Hassle-free Travel Documentation",
-		image: "/img/visa-services.jpg",
+		image: "/services/Visa Services.png",
 		details:
 			"Navigate complex visa requirements with ease through our comprehensive visa assistance services. Our experts provide guidance on documentation, application preparation, appointment scheduling, and follow-ups. We assist with tourist visas, business visas, work permits, and more for destinations worldwide.",
 		features: [
