@@ -8,15 +8,42 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import { Price } from "@/components/ui/price";
+import { CheckCircle2, Car, ShieldCheck, Clock, Shield, MapPin, Sparkles } from "lucide-react";
 
 const services = [
 	{
 		id: 1,
 		name: "Vehicle Rental",
 		description: "Car Rental & Bike Rental",
-		image: "/img/vehicle-rental.jpg",
+		image: "/vehicles/image-1.jpg",
+		images: ["/vehicles/image-1.jpg", "/vehicles/image-2.jpg"],
 		details:
 			"Explore destinations at your own pace with our comprehensive vehicle rental services. Choose from a wide range of cars, from economy to luxury options, or rent bikes for adventure trips and city exploration. All vehicles are well-maintained with competitive rates and flexible pickup/drop-off locations.",
+		features: [
+			"Well-maintained latest models",
+			"24/7 Roadside Assistance",
+			"Unlimited Kilometers (on select cars)",
+			"Clean & Sanitized Vehicles",
+			"Flexible Pickup & Drop-off",
+			"Comprehensive Insurance"
+		],
+		whyChooseUs: [
+			{
+				icon: <Shield className="w-5 h-5 text-primary" />,
+				title: "Safe & Secure",
+				description: "Every vehicle undergoes a 50-point safety check before every rental."
+			},
+			{
+				icon: <Clock className="w-5 h-5 text-primary" />,
+				title: "24/7 Support",
+				description: "Dedicated support team available round the clock for any assistance."
+			},
+			{
+				icon: <Sparkles className="w-5 h-5 text-primary" />,
+				title: "Premium Fleet",
+				description: "Wide range of premium vehicles from top luxury brands."
+			}
+		],
 		pricing: [
 			{ type: "Economy Car", price: "₹3,500/day" },
 			{ type: "Mid-size Car", price: "₹5,000/day" },
@@ -26,6 +53,7 @@ const services = [
 		],
 		availabilityNotes:
 			"24-hour advance booking recommended. All vehicles subject to availability.",
+		enquiryLink: "/enquiry/vehicle-rental"
 	},
 	{
 		id: 2,
@@ -34,6 +62,25 @@ const services = [
 		image: "/img/event-management.jpg",
 		details:
 			"Make your special occasions truly memorable with our destination event management services. From beach weddings to corporate retreats, anniversary celebrations to birthday parties at exotic locations - our team handles everything from venue selection to catering, decorations, entertainment, and accommodations.",
+		features: [
+			"Professional Event Planners",
+			"Custom Theme Decorations",
+			"Premium Catering Services",
+			"End-to-end Logistics Support",
+			"Venue Selection & Booking"
+		],
+		whyChooseUs: [
+			{
+				icon: <Sparkles className="w-5 h-5 text-primary" />,
+				title: "Unique Themes",
+				description: "We create bespoke themes that reflect your personality and vision."
+			},
+			{
+				icon: <Clock className="w-5 h-5 text-primary" />,
+				title: "Stress-Free",
+				description: "We handle everything from A-Z so you can enjoy your special day."
+			}
+		],
 		pricing: [
 			{ type: "Small Events (up to 50 people)", price: "Starting from ₹50,000" },
 			{ type: "Medium Events (50-150 people)", price: "Starting from ₹4,00,000" },
@@ -41,6 +88,7 @@ const services = [
 		],
 		availabilityNotes:
 			"Book at least 3 months in advance for best venue options.",
+		enquiryLink: "/enquiry/event-management"
 	},
 	{
 		id: 3,
@@ -49,6 +97,25 @@ const services = [
 		image: "/img/visa-services.jpg",
 		details:
 			"Navigate complex visa requirements with ease through our comprehensive visa assistance services. Our experts provide guidance on documentation, application preparation, appointment scheduling, and follow-ups. We assist with tourist visas, business visas, work permits, and more for destinations worldwide.",
+		features: [
+			"Expert Documentation Support",
+			"Interview Preparation",
+			"Fast-track Processing",
+			"Global Visa Assistance",
+			"Real-time Application Tracking"
+		],
+		whyChooseUs: [
+			{
+				icon: <ShieldCheck className="w-5 h-5 text-primary" />,
+				title: "High Success Rate",
+				description: "Our experts ensure all documentation is perfect for maximum success."
+			},
+			{
+				icon: <Clock className="w-5 h-5 text-primary" />,
+				title: "Quick Turnaround",
+				description: "We work efficiently to get your travel documents as soon as possible."
+			}
+		],
 		pricing: [
 			{ type: "Tourist Visa Assistance", price: "₹8,000" },
 			{ type: "Business Visa Assistance", price: "₹12,000" },
@@ -57,6 +124,7 @@ const services = [
 		],
 		availabilityNotes:
 			"Processing times vary by destination country and visa type.",
+		enquiryLink: "/enquiry/visa-services"
 	},
 ];
 
@@ -65,11 +133,18 @@ export default function ServicePage() {
 	const router = useRouter();
 	const id = parseInt(params.id as string);
 	const service = services.find((s) => s.id === id);
+	const [activeImage, setActiveImage] = useState(service?.image || "");
 	const [imageError, setImageError] = useState(false);
 
 	const handleImageError = () => {
 		setImageError(true);
 	};
+
+	useEffect(() => {
+		if (service) {
+			setActiveImage(service.image);
+		}
+	}, [service]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -132,16 +207,41 @@ export default function ServicePage() {
 			</div>
 
 			<div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12">
-				<div>
-					<Image
-						src={imageError ? "/placeholder.svg" : service.image}
-						alt={service.name}
-						width={800}
-						height={600}
-						className="rounded-lg shadow-md object-cover w-full h-[250px] md:h-[400px]"
-						priority
-						onError={handleImageError}
-					/>
+				<div className="space-y-4">
+					<div className="relative aspect-video lg:aspect-[4/3] overflow-hidden rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+						<Image
+							src={imageError ? "/placeholder.svg" : activeImage}
+							alt={service.name}
+							fill
+							className="object-cover transition-all duration-700 hover:scale-110"
+							priority
+							onError={handleImageError}
+						/>
+						<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+					</div>
+					
+					{(service as any).images && (service as any).images.length > 1 && (
+						<div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+							{(service as any).images.map((img: string, idx: number) => (
+								<button
+									key={idx}
+									onClick={() => setActiveImage(img)}
+									className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
+										activeImage === img 
+											? "border-primary shadow-md scale-95" 
+											: "border-transparent opacity-70 hover:opacity-100"
+									}`}
+								>
+									<Image
+										src={img}
+										alt={`${service.name} view ${idx + 1}`}
+										fill
+										className="object-cover"
+									/>
+								</button>
+							))}
+						</div>
+					)}
 				</div>
 
 				<div className="mt-4 md:mt-0">
@@ -157,10 +257,30 @@ export default function ServicePage() {
 
 						<TabsContent
 							value="details"
-							className="text-base md:text-lg space-y-3 md:space-y-4"
+							className="text-base md:text-lg space-y-6 pt-2"
 						>
-							<p className="break-words">{service.details}</p>
-							<p className="italic text-muted-foreground mt-2 md:mt-4 text-sm md:text-base">
+							<div>
+								<p className="leading-relaxed">{service.details}</p>
+							</div>
+
+							{(service as any).features && (
+								<div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+									<h3 className="text-lg font-bold mb-4 flex items-center">
+										<Sparkles className="w-5 h-5 mr-2 text-primary" />
+										Key Features
+									</h3>
+									<ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+										{(service as any).features.map((feature: string, i: number) => (
+											<li key={i} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
+												<CheckCircle2 className="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
+												<span>{feature}</span>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+
+							<p className="italic text-muted-foreground text-sm border-l-2 border-primary/30 pl-4 py-1">
 								{service.availabilityNotes}
 							</p>
 						</TabsContent>
@@ -188,9 +308,30 @@ export default function ServicePage() {
 						</TabsContent>
 					</Tabs>
 
-					<div className="mt-6 md:hidden">
-						<Link href="/enquiry" passHref>
-							<Button className="w-full">Enquire About This Service</Button>
+					{(service as any).whyChooseUs && (
+						<div className="mt-8 space-y-4">
+							<h3 className="text-lg font-bold px-1">Why Choose Us?</h3>
+							<div className="grid grid-cols-1 gap-3">
+								{(service as any).whyChooseUs.map((item: any, i: number) => (
+									<div key={i} className="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+										<div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+											{item.icon}
+										</div>
+										<div>
+											<h4 className="font-bold text-sm text-slate-900 dark:text-white">{item.title}</h4>
+											<p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{item.description}</p>
+										</div>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
+
+					<div className="mt-8">
+						<Link href={(service as any).enquiryLink || "/enquiry"} passHref>
+							<Button size="lg" className="w-full py-7 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all">
+								Enquire About This Service
+							</Button>
 						</Link>
 					</div>
 				</div>
