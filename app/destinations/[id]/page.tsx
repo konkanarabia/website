@@ -4,217 +4,10 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar, Users, PhoneCall, ArrowLeft } from "lucide-react";
+import { MapPin, Calendar, Users, PhoneCall, ArrowLeft, CheckCircle2, XCircle, Clock } from "lucide-react";
 
-const destinations = [
-  {
-    id: 1,
-    name: "Kashmir",
-    description: "Paradise on Earth",
-    image: "/destinations/domestic/Kashmir.png",
-    details:
-      "Kashmir, with its breathtaking landscapes, snow-capped mountains, and serene lakes, truly lives up to its nickname 'Paradise on Earth'. Explore the Dal Lake in Srinagar, visit the beautiful gardens, or enjoy skiing in Gulmarg's snow-covered slopes.",
-    highlights: [
-      "Take a Shikara ride on Dal Lake",
-      "Visit the beautiful Mughal Gardens",
-      "Enjoy skiing in Gulmarg",
-      "Experience local Kashmiri cuisine",
-      "Shop for authentic Kashmiri handicrafts"
-    ],
-    duration: "5-7 days",
-    bestTime: "March to October"
-  },
-  {
-    id: 2,
-    name: "Himachal",
-    description: "Land of Gods",
-    image: "/destinations/domestic/Himachal.png",
-    details:
-      "Himachal Pradesh offers stunning Himalayan landscapes, lush valleys, and charming hill stations. From the vibrant culture of Shimla to the spiritual atmosphere of Dharamshala, experience adventure sports, ancient temples, and pristine natural beauty.",
-    highlights: [
-      "Explore the colonial architecture of Shimla",
-      "Visit the residence of Dalai Lama in Dharamshala",
-      "Adventure activities in Manali",
-      "Trek in the scenic Parvati Valley",
-      "Experience the unique culture of Spiti Valley"
-    ],
-    duration: "6-8 days",
-    bestTime: "March to June, September to November"
-  },
-  {
-    id: 3,
-    name: "Golden Triangle",
-    description: "Amritsar, Delhi & Agra",
-    image: "/destinations/domestic/Golden Triangle.png",
-    details:
-      "The Golden Triangle circuit connects the iconic cities of Delhi, Agra, and Amritsar. Experience India's rich heritage through historic monuments like the Taj Mahal, Red Fort, and the spiritual Golden Temple.",
-    highlights: [
-      "Visit the iconic Taj Mahal in Agra",
-      "Explore the historic Red Fort in Delhi",
-      "Visit the spiritual Golden Temple in Amritsar",
-      "Shop at Chandni Chowk in Delhi",
-      "Witness the Wagah Border ceremony"
-    ],
-    duration: "5-7 days",
-    bestTime: "October to March"
-  },
-  {
-    id: 9,
-    name: "Rajasthan",
-    description: "The Land of Kings",
-    details: "Experience the royal grandeur of the 'Land of Kings'. Rajasthan is a symphony of vibrant colors, majestic forts, and opulent palaces. From the pink-hued streets of Jaipur to the golden sands of Jaisalmer, every corner tells a story of chivalry and romance. Immerse yourself in the rich culture, spicy cuisine, and majestic landscapes of India's most regal state.",
-    image: "/destinations/domestic/Rajasthan.jpg",
-    priceMin: 25000,
-    priceMax: 85000,
-    highlights: ["Majestic Amber Fort", "Hawa Mahal (Palace of Winds)", "Golden Desert Safari", "Lakes of Udaipur", "Royal City Palace"],
-    duration: "7-10 days",
-    bestTime: "October to March"
-  },
-  {
-    id: 6,
-    name: "Kerala",
-    description: "God's Own Country",
-    image: "/destinations/domestic/Kerala.png",
-    details:
-      "Kerala dazzles with its backwaters, lush hill stations, pristine beaches, and vibrant culture. Experience houseboat cruises through the backwaters, Ayurvedic treatments, wildlife sanctuaries, and the unique blend of traditional arts, cuisine, and festivals.",
-    highlights: [
-      "Cruise the backwaters in a traditional houseboat",
-      "Visit the tea plantations of Munnar",
-      "Relax on the beaches of Varkala or Kovalam",
-      "Watch a Kathakali performance",
-      "Explore the Periyar Wildlife Sanctuary"
-    ],
-    duration: "6-8 days",
-    bestTime: "September to March"
-  },
-  {
-    id: 10,
-    name: "Kanyakumari",
-    description: "The Southernmost Tip",
-    image: "/destinations/domestic/Kanyakumari.jpg",
-    details:
-      "Kanyakumari, at the southernmost tip of India, is where the Arabian Sea, Bay of Bengal, and Indian Ocean meet. Witness breathtaking sunrises and sunsets over the three oceans and visit the iconic Vivekananda Rock Memorial.",
-    highlights: [
-      "Visit the Vivekananda Rock Memorial",
-      "See the giant Thiruvalluvar Statue",
-      "Witness the meeting of three oceans",
-      "Watch the spectacular sunset and sunrise",
-      "Visit the Kumari Amman Temple"
-    ],
-    duration: "2-3 days",
-    bestTime: "October to March"
-  },
-  {
-    id: 5,
-    name: "Konkan",
-    description: "Coastal Haven",
-    image: "/destinations/domestic/Konkan.png",
-    details:
-      "The Konkan coast stretches along the western coastline of India, featuring pristine beaches, quaint fishing villages, and lush green landscapes. Explore ancient temples, enjoy authentic coastal cuisine, and experience the rich cultural heritage of this region.",
-    highlights: [
-      "Visit Ganpatipule beach and temple",
-      "Explore the historic Sindhudurg Fort",
-      "Enjoy authentic Malvani cuisine",
-      "Relax on the pristine beaches of Tarkarli",
-      "Experience the lush mango orchards"
-    ],
-    duration: "4-6 days",
-    bestTime: "October to March"
-  },
-  {
-    id: 4,
-    name: "Goa",
-    description: "Pearl of the Orient",
-    image: "/destinations/domestic/Goa.png",
-    details:
-      "Goa offers the perfect blend of sun, sand, and sea with a unique Portuguese-influenced culture. Enjoy its pristine beaches, vibrant nightlife, delicious seafood, water sports, and historic churches and forts that dot this coastal paradise.",
-    highlights: [
-      "Relax on the famous beaches of North and South Goa",
-      "Explore the UNESCO World Heritage churches in Old Goa",
-      "Experience the vibrant nightlife and shacks",
-      "Enjoy water sports like parasailing and scuba diving",
-      "Visit the beautiful Dudhsagar Waterfalls"
-    ],
-    duration: "4-7 days",
-    bestTime: "November to February"
-  },
-  {
-    id: 7,
-    name: "Mysore",
-    description: "The City of Palaces",
-    details: "Known as the Cultural Capital of Karnataka, Mysore is a city of royal elegance and heritage. Famous for its dazzling Mysore Palace, fragrant sandalwood, and Mysore Silk, the city offers a blend of historical grandeur and modern charm. Witness the spectacular illumination of the Palace and explore the bustling Devaraja Market.",
-    image: "/destinations/domestic/Mysore.jpg",
-    priceMin: 12000,
-    priceMax: 35000,
-    highlights: ["Royal Mysore Palace", "Chamundi Hill & Temple", "Brindavan Gardens", "Philomenas Cathedral"],
-    duration: "2-3 days",
-    bestTime: "October to February"
-  },
-  {
-    id: 8,
-    name: "Bangalore",
-    description: "Silicon Valley of India",
-    details: "The 'Silicon Valley of India', Bangalore (Bengaluru) is a dynamic metropolis that seamlessly blends its colonial heritage with modern technology. Known for its pleasant weather and lush green parks like Cubbon Park and Lalbagh, it is a city of gardens, vibrant nightlife, and architectural marvels like the Vidhana Soudha.",
-    image: "/destinations/domestic/Bangalore.png",
-    priceMin: 15000,
-    priceMax: 45000,
-    highlights: ["Vidhana Soudha Architecture", "Lalbagh Botanical Garden", "Cubbon Park", "Bangalore Palace", "Bannerghatta National Park"],
-    duration: "2-4 days",
-    bestTime: "All Year Round"
-  },
-  {
-    id: 21,
-    name: "Ooty",
-    description: "Queen of Hill Stations",
-    details: "The 'Queen of Hill Stations', Ooty (Udhagamandalam) is a picturesque retreat nestled in the Nilgiri Hills. Famous for its rolling tea gardens, colonial bungalows, and the UNESCO heritage Toy Train, Ooty offers a refreshing escape with its mist-covered peaks and serene lakes. It's the perfect destination for nature lovers and honeymooners.",
-    image: "/destinations/domestic/Ooty.jpg",
-    priceMin: 18000,
-    priceMax: 55000,
-    highlights: ["Nilgiri Mountain Railway", "Ooty Lake & Boating", "Botanical Gardens", "Doddabetta Peak View", "Tea Garden Walk"],
-    duration: "3-5 days",
-    bestTime: "April to June & September to November"
-  },
-  {
-    id: 11,
-    name: "Dubai",
-    description: "The City of Gold",
-    image: "/destinations/international/Dubai.png",
-    details: "Dubai is a city and emirate in the United Arab Emirates luxury shopping, ultramodern architecture and a lively nightlife scene. Burj Khalifa, an 830m-tall tower, dominates the skyscraper-filled skyline. At its foot lies Dubai Fountain, with jets and lights choreographed to music. On artificial islands just offshore is Atlantis, The Palm, a resort with water and marine-animal parks.",
-    highlights: ["Burj Khalifa Top View", "Desert Safari with Dinner", "Dubai Mall & Fountain Show", "Palm Jumeirah Island", "Traditional Gold Souk"],
-    duration: "4-6 days",
-    bestTime: "November to March"
-  },
-  {
-    id: 12,
-    name: "Thailand",
-    description: "The Land of Smiles",
-    image: "/destinations/international/Thailand.png",
-    details: "Thailand is a Southeast Asian country known for tropical beaches, opulent royal palaces, ancient ruins and ornate temples displaying figures of Buddha. In Bangkok, the capital, an ultramodern cityscape rises next to quiet canalside communities and the iconic temples of Wat Arun, Wat Pho and the Emerald Buddha Temple (Wat Phra Kaew).",
-    highlights: ["Bangkok Grand Palace", "Phuket Beach Escape", "Chiang Mai Temples", "Phi Phi Island Tour", "Authentic Thai Street Food"],
-    duration: "6-10 days",
-    bestTime: "November to February"
-  },
-  {
-    id: 13,
-    name: "Sri Lanka",
-    description: "Pearl of the Indian Ocean",
-    image: "/destinations/international/Sri Lanka.png",
-    details: "Sri Lanka is an island nation south of India in the Indian Ocean. Its diverse landscapes range from rainforest and arid plains to highlands and sandy beaches. It’s famed for its ancient Buddhist ruins, including the 5th-century citadel Sigiriya, with its palace and frescoes. The city of Anuradhapura, Sri Lanka's ancient capital, has many ruins dating back more than 2,000 years.",
-    highlights: ["Sigiriya Rock Fortress", "Kandy Tooth Relic Temple", "Ella Tea Plantations", "Galle Dutch Fort", "Yala National Park Safari"],
-    duration: "7-10 days",
-    bestTime: "December to March"
-  },
-  {
-    id: 15,
-    name: "Vietnam",
-    description: "The Hidden Charm",
-    image: "/destinations/international/Vietnam.png",
-    details: "Vietnam is a Southeast Asian country known for its beaches, rivers, Buddhist pagodas and bustling cities. Hanoi, the capital, pays homage to the nation’s iconic Communist-era leader, Ho Chi Minh, via a huge marble mausoleum. Ho Chi Minh City (formerly Saigon) has French colonial landmarks, plus Vietnamese War history museums and the Củ Chi tunnels, used by Viet Cong soldiers.",
-    highlights: ["Ha Long Bay Cruise", "Hoi An Ancient Town", "Ho Chi Minh City Tour", "Cu Chi Tunnels", "Mekong Delta Boat Trip"],
-    duration: "8-12 days",
-    bestTime: "February to April & August to October"
-  },
-];
+import { destinations } from "@/lib/destinations-data";
+
 
 export default function DestinationPage() {
   const params = useParams();
@@ -234,8 +27,8 @@ export default function DestinationPage() {
   }
 
   return (
-    <div className="bg-gray-50">
-      <div className="relative h-[65vh] md:h-[75vh]">
+    <div className="bg-gray-50 min-h-screen">
+      <div className="relative h-[60vh] md:h-[70vh] min-h-[500px]">
         <Image
           src={destination.image}
           alt={destination.name}
@@ -243,14 +36,17 @@ export default function DestinationPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60"></div>
         <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-6 md:px-20">
-            <div className="max-w-2xl">
-              <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight drop-shadow-2xl">
+          <div className="container mx-auto px-6 md:px-20 lg:px-32">
+            <div className="max-w-4xl">
+               <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-bold uppercase tracking-widest mb-6 border border-white/20">
+                  <MapPin className="h-3 w-3" /> {destination.name}
+               </div>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
                 {destination.name}
               </h1>
-              <p className="text-2xl md:text-3xl text-white font-medium drop-shadow-lg">
+              <p className="text-xl md:text-2xl text-white/90 font-medium drop-shadow-lg max-w-2xl leading-relaxed">
                 {destination.description}
               </p>
             </div>
@@ -258,67 +54,118 @@ export default function DestinationPage() {
         </div>
 
         {/* Floating Info Bar */}
-        <div className="absolute left-1/2 -bottom-12 -translate-x-1/2 w-full max-w-5xl px-4 z-20">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-100 py-6">
-            <div className="flex-1 px-8 py-2 flex items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
+        <div className="absolute left-1/2 -bottom-12 -translate-x-1/2 w-full max-w-4xl px-4 z-20">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex divide-x divide-slate-100 py-6 px-4 md:px-10">
+            <div className="flex-1 px-4 md:px-8 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
                 <Calendar className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Duration</p>
-                <p className="text-xl font-bold text-slate-900">{destination.duration || "5-7 days"}</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Duration</p>
+                <p className="text-sm md:text-base font-bold text-slate-900 leading-tight">{destination.duration || "5-7 days"}</p>
               </div>
             </div>
-            <div className="flex-1 px-8 py-2 flex items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
+            <div className="flex-1 px-4 md:px-8 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
                 <MapPin className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Location</p>
-                <p className="text-xl font-bold text-slate-900">{destination.name}</p>
-              </div>
-            </div>
-            <div className="flex-1 px-8 py-2 flex items-center gap-5">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#0066a1]">
-                <Users className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wider mb-0.5">Best Time to Visit</p>
-                <p className="text-xl font-bold text-slate-900">{destination.bestTime || "March to October"}</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Location</p>
+                <p className="text-sm md:text-base font-bold text-slate-900 leading-tight truncate max-w-[200px]">{destination.name}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 pt-24 pb-12">
+      <div className="container mx-auto px-4 md:px-20 pt-32 pb-20">
         {/* Main Content */}
-
-        {/* Main Content */}
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">About {destination.name}</h2>
-            <p className="text-gray-700 leading-relaxed mb-8">{destination.details}</p>
+        <div className="grid lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
+            <div className="mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Explore <span className="text-[#0066a1]">{destination.name}</span></h2>
+              <p className="text-slate-600 leading-relaxed text-lg mb-8">{destination.details}</p>
+            </div>
             
-            <h3 className="text-xl font-bold mb-4">Highlights</h3>
-            <ul className="space-y-3 mb-8">
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                <span className="w-8 h-8 rounded-lg bg-[#0066a1]/10 flex items-center justify-center mr-3">
+                  <CheckCircle2 className="h-5 w-5 text-[#0066a1]" />
+                </span>
+                Experience Highlights
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-4">
               {(destination.highlights || [
-                "Experience the local culture and traditions",
-                "Visit popular attractions and landmarks",
-                "Enjoy authentic local cuisine",
-                "Explore natural beauty and landscapes",
-                "Engage with friendly locals"
-              ]).map((highlight, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="bg-primary/10 text-primary p-1 rounded-full mr-3 mt-0.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
+                  "Experience the local culture and traditions",
+                  "Visit popular attractions and landmarks",
+                  "Enjoy authentic local cuisine",
+                  "Explore natural beauty and landscapes",
+                ]).map((highlight: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <div className="w-2 h-2 rounded-full bg-[#0066a1]"></div>
+                    <span className="text-slate-700 font-medium">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Inclusions & Exclusions */}
+            {(destination.inclusions || destination.exclusions) && (
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                {destination.inclusions && (
+                  <div className="bg-green-50/50 rounded-2xl p-6 border border-green-100">
+                    <h3 className="text-xl font-bold mb-4 flex items-center text-green-800">
+                      <CheckCircle2 className="mr-2 h-5 w-5 text-green-600" /> Inclusions
+                    </h3>
+                    <ul className="space-y-3">
+                      {destination.inclusions.map((item: string, index: number) => (
+                        <li key={index} className="flex items-start text-sm text-green-800/80">
+                          <CheckCircle2 className="mr-2 h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {destination.exclusions && (
+                  <div className="bg-red-50/50 rounded-2xl p-6 border border-red-100">
+                    <h3 className="text-xl font-bold mb-4 flex items-center text-red-800">
+                      <XCircle className="mr-2 h-5 w-5 text-red-600" /> Exclusions
+                    </h3>
+                    <ul className="space-y-3">
+                      {destination.exclusions.map((item: string, index: number) => (
+                        <li key={index} className="flex items-start text-sm text-red-800/80">
+                          <XCircle className="mr-2 h-4 w-4 text-red-400 mt-0.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Itinerary Section */}
+            {destination.itinerary && (
+              <div className="mb-12">
+                <h3 className="text-2xl font-bold mb-8 flex items-center">
+                  <Clock className="mr-3 h-6 w-6 text-[#0066a1]" /> Tour Itinerary
+                </h3>
+                <div className="space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                  {destination.itinerary.map((item: any, index: number) => (
+                    <div key={index} className="relative pl-12">
+                      <div className="absolute left-0 top-0 w-9 h-9 rounded-full bg-white border-4 border-[#0066a1] flex items-center justify-center z-10">
+                        <span className="text-xs font-bold text-[#0066a1]">{item.day}</span>
+                      </div>
+                      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <h4 className="text-lg font-bold text-slate-900 mb-2">Day {item.day}: {item.title}</h4>
+                        <p className="text-slate-600 leading-relaxed text-sm">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="mt-8">
               <Link href="/destinations" className="inline-flex items-center text-primary hover:underline mb-8">

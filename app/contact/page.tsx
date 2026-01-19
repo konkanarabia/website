@@ -21,13 +21,12 @@ export default function ContactPage() {
     const { name, value } = e.target
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     
     try {
-      console.log('Submitting form data:', formData);
-      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -39,25 +38,20 @@ export default function ContactPage() {
       const data = await response.json()
       
       if (!response.ok) {
-        console.error('Server error:', data);
         throw new Error(data.error || 'Failed to submit the form')
       }
       
-      console.log('Form submission successful:', data);
-      
       toast({
-        title: "Message Sent",
-        description: "We've received your message and will get back to you soon!",
+        title: "Message Sent Successfully!",
+        description: "One of our travel experts will contact you shortly.",
         variant: "default",
       })
       
       setFormData({ name: '', email: '', phone: '', message: '' })
     } catch (error) {
-      console.error('Error submitting form:', error)
-      
       toast({
-        title: "Something went wrong",
-        description: error instanceof Error ? error.message : "Unable to send your message. Please try again later.",
+        title: "Error Sending Message",
+        description: error instanceof Error ? error.message : "Please try again later or call us directly.",
         variant: "destructive",
       })
     } finally {
@@ -66,150 +60,155 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-20">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Contact Us</h1>
-          <div className="w-20 h-1.5 bg-primary mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Have questions or ready to plan your next adventure? Our team is here to help you every step of the way.
-          </p>
-        </div>
+    <div className="bg-slate-50 min-h-screen">
+       {/* Small Hero Header */}
+       <section className="bg-slate-900 text-white py-20 px-4 text-center">
+          <div className="container mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Contact Us</h1>
+            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Have questions or ready to plan your next adventure? Our global team is here to help you every step of the way.
+            </p>
+          </div>
+       </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Contact Info Column */}
-          <div className="space-y-8 order-2 lg:order-1">
-            <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-              <h2 className="text-2xl font-bold mb-6 text-primary flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">🇮🇳</span>
+      <div className="container mx-auto px-4 lg:px-20 -mt-10 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Contact Info Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-[#0066a1] text-white p-8 rounded-3xl shadow-xl">
+              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                <span className="p-2 bg-white/10 rounded-lg">🇮🇳</span>
                 India Office
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center flex-shrink-0 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white">Location</h3>
-                    <p className="text-slate-600 dark:text-slate-400">Mumbai, Maharashtra, India</p>
+                    <h3 className="font-bold mb-1">Location</h3>
+                    <p className="text-white/80">Mumbai, Maharashtra, India</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center flex-shrink-0 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white">Phone</h3>
-                    <p className="text-slate-600 dark:text-slate-400">+91-9370528517</p>
-                    <p className="text-slate-600 dark:text-slate-400">+91-8625807465</p>
+                    <h3 className="font-bold mb-1">Phone</h3>
+                    <p className="text-white/80">+91-9370528517</p>
+                    <p className="text-white/80">+91-8625807465</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-              <h2 className="text-2xl font-bold mb-6 text-primary flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">🇦🇪</span>
+            <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900">
+                <span className="p-2 bg-slate-100 rounded-lg">🇦🇪</span>
                 Dubai UAE Office
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center flex-shrink-0 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 text-[#0066a1]">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white">Phone</h3>
-                    <p className="text-slate-600 dark:text-slate-400">+971-555995260</p>
-                    <p className="text-slate-600 dark:text-slate-400">+971-0557337618</p>
+                    <h3 className="font-bold mb-1 text-slate-900">Phone</h3>
+                    <p className="text-slate-600">+971-555995260</p>
+                    <p className="text-slate-600">+971-0557337618</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center flex-shrink-0 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 text-[#0066a1]">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white">Email Address</h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base break-all">bookings@konkanarabiahospitalitygroup.com</p>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base break-all">konkanarabiatourism@gmail.com</p>
+                    <h3 className="font-bold mb-1 text-slate-900">Email</h3>
+                    <p className="text-slate-600 text-sm break-all">bookings@konkanarabiahospitalitygroup.com</p>
+                    <p className="text-slate-600 text-sm break-all pt-1 font-medium">konkanarabiatourism@gmail.com</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Form Column */}
-          <div className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 order-1 lg:order-2">
-            <h2 className="text-2xl font-bold mb-8">Send us a Message</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-slate-100">
+              <h2 className="text-3xl font-bold mb-8 text-slate-900">Send us a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                    <Input
+                      name="name"
+                      placeholder="Enter your name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="name@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
+                    />
+                  </div>
+                </div>
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
+                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Phone Number</label>
                   <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter your name"
-                    value={formData.name}
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
                     onChange={handleChange}
-                    required
+                    placeholder="+91 / +971 phone number"
                     disabled={isSubmitting}
-                    className="py-6 rounded-xl"
+                    className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="name@example.com"
-                    value={formData.email}
+                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Message</label>
+                  <Textarea
+                    name="message"
+                    rows={6}
+                    value={formData.message}
                     onChange={handleChange}
                     required
+                    placeholder="Tell us about your travel plans..."
                     disabled={isSubmitting}
-                    className="py-6 rounded-xl"
+                    className="rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium resize-none p-4"
                   />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
-                <Input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+91 / +971 phone number"
+                <Button 
+                  type="submit" 
+                  className="w-full py-8 text-lg font-bold rounded-xl shadow-lg shadow-[#0066a1]/20 bg-[#0066a1] hover:bg-[#00558a] transition-all hover:scale-[1.01] active:scale-[0.99]" 
                   disabled={isSubmitting}
-                  className="py-6 rounded-xl"
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-semibold text-slate-700 dark:text-slate-300">How can we help you?</label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  placeholder="Tell us about your travel plans..."
-                  disabled={isSubmitting}
-                  className="rounded-xl resize-none"
-                />
-              </div>
-              <Button type="submit" className="w-full py-7 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Sending Message...
-                  </>
-                ) : (
-                  'Send Message'
-                )}
-              </Button>
-            </form>
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Contact Our Travel Experts'
+                  )}
+                </Button>
+              </form>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
