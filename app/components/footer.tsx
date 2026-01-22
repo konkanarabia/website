@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <h3 className="text-xl md:text-2xl font-bold mb-4 text-white break-words">
-              KonkanArabia Hospitality & Holiday Group
+              KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.
             </h3>
             <p className="text-gray-300 text-base md:text-lg">Discover the world with us</p>
             <div className="flex mt-6 space-x-5">
@@ -86,15 +86,15 @@ export default function Footer() {
               </div>
               <div className="pt-3 border-t border-gray-800">
                 <p className="text-gray-300 font-semibold mb-1">
-                  India Office:
+                  India: KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.
                 </p>
-                <p className="text-gray-400 leading-relaxed break-words">
-                  Mumbai
+                <p className="text-gray-400 leading-relaxed break-words text-sm md:text-base">
+                  Mumbai, India
                 </p>
               </div>
               <div className="pt-3 border-t border-gray-800">
-                <p className="text-gray-300 font-semibold mb-1">UAE Office:</p>
-                <p className="text-gray-400 leading-relaxed break-words">
+                <p className="text-gray-300 font-semibold mb-1">Dubai: KonkanArabia Tourism LLC</p>
+                <p className="text-gray-400 leading-relaxed break-words text-sm md:text-base">
                   Binshama 2, Al Barsha 1, Opp. Armada Residence, Dubai, UAE.
                 </p>
               </div>

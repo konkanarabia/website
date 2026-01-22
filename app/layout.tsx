@@ -10,8 +10,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' })
 
 export const metadata = {
-  title: 'KonkanArabia Hospitality & Holiday Group',
-  description: 'KonkanArabia Hospitality & Holiday Group',
+  title: 'KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.',
+  description: 'KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.',
   keywords: 'KonkanArabia, Hospitality, Holiday, Group, Travel, Tourism',
   authors: [{ name: 'KonkanArabia' }],
   creator: 'KonkanArabia',

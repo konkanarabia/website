@@ -56,7 +56,7 @@ export default function AboutPage() {
             
             <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-light">
               <p className="text-slate-900 font-medium text-xl font-serif">
-                KonkanArabia Hospitality Group was born from a simple yet powerful idea: to bridge two unique worlds.
+                KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd. was born from a simple yet powerful idea: to bridge two unique worlds.
               </p>
               
               <div className="grid gap-8 pt-4">
