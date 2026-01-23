@@ -223,8 +223,8 @@ export default function ServicePage() {
 				</Badge>
 			</div>
 
-			<div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12">
-				<div className="space-y-4">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
+				<div className="space-y-4 min-w-0">
 					<div className="relative aspect-video lg:aspect-[4/3] overflow-hidden rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
 						<Image
 							src={imageError ? "/placeholder.svg" : activeImage}
@@ -238,7 +238,7 @@ export default function ServicePage() {
 					</div>
 					
 					{(service as any).images && (service as any).images.length > 1 && (
-						<div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+						<div className="flex gap-3 overflow-x-auto pb-4 pt-1 px-1 scrollbar-hide -mx-1">
 							{(service as any).images.map((img: string, idx: number) => (
 								<button
 									key={idx}
@@ -261,7 +261,7 @@ export default function ServicePage() {
 					)}
 				</div>
 
-				<div className="mt-4 md:mt-0">
+				<div className="mt-2 lg:mt-0 min-w-0">
 					<Tabs defaultValue="details" className="w-full">
 						<TabsList className="mb-4 md:mb-6 grid grid-cols-2">
 							<TabsTrigger value="details" className="text-sm md:text-base">
@@ -274,10 +274,10 @@ export default function ServicePage() {
 
 						<TabsContent
 							value="details"
-							className="text-base md:text-lg space-y-6 pt-2"
+							className="text-base md:text-lg space-y-6 pt-2 focus-visible:outline-none"
 						>
 							<div>
-								<p className="leading-relaxed">{service.details}</p>
+								<p className="leading-relaxed break-words">{service.details}</p>
 							</div>
 
 							{(service as any).features && (
@@ -345,8 +345,8 @@ export default function ServicePage() {
 					)}
 
 					<div className="mt-8">
-						<Link href={(service as any).enquiryLink || "/enquiry"} passHref>
-							<Button size="lg" className="w-full py-7 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all">
+						<Link href={(service as any).enquiryLink || "/enquiry"} className="block w-full">
+							<Button size="lg" className="w-full py-6 md:py-7 text-base md:text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all whitespace-normal h-auto">
 								Enquire About This Service
 							</Button>
 						</Link>
@@ -377,24 +377,24 @@ export default function ServicePage() {
 				</div>
 			</div>
 
-			<div className="flex justify-between items-center mt-8 md:mt-16 gap-1 sm:gap-2">
+			<div className="flex justify-between items-center mt-8 md:mt-16 gap-3 sm:gap-4">
 				<Button
 					variant="outline"
 					onClick={handlePrevService}
 					size="sm"
-					className="text-xs md:text-sm px-1 sm:px-2"
+					className="text-xs md:text-sm px-3 sm:px-4 h-9 md:h-10 flex-1 sm:flex-none"
 				>
-					<span className="hidden md:inline">Previous Service</span>
-					<span className="md:hidden">Previous</span>
+					<span className="hidden xs:inline">Previous Service</span>
+					<span className="xs:hidden">Previous</span>
 				</Button>
 				<Button
 					variant="outline"
 					onClick={handleNextService}
 					size="sm"
-					className="text-xs md:text-sm px-1 sm:px-2"
+					className="text-xs md:text-sm px-3 sm:px-4 h-9 md:h-10 flex-1 sm:flex-none"
 				>
-					<span className="hidden md:inline">Next Service</span>
-					<span className="md:hidden">Next</span>
+					<span className="hidden xs:inline">Next Service</span>
+					<span className="xs:hidden">Next</span>
 				</Button>
 			</div>
 		</div>

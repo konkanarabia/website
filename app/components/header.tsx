@@ -148,25 +148,25 @@ export default function Header() {
                 className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-16 h-16 sm:w-20 sm:h-20 md:w-[88px] md:h-[88px] object-contain px-1"
               />
             </div>
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center min-w-0">
               <div className="flex flex-col items-center sm:items-start">
-                <div className="flex items-center w-full">
-                  <div className="h-[1px] flex-grow sm:flex-none sm:w-8 bg-[#0066a1]/30"></div>
-                  <span className="px-2 text-[9px] sm:text-[10px] md:text-[11px] text-[#0066a1] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
+                <div className="flex items-center w-full min-w-0">
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#0066a1]/30"></div>
+                  <span className="px-1 xs:px-2 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] text-[#0066a1] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
                     Hospitality is our passion & culture
                   </span>
-                  <div className="h-[1px] flex-grow sm:flex-none sm:w-8 bg-[#0066a1]/30"></div>
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#0066a1]/30"></div>
                 </div>
                 <div className="flex items-center gap-0.5 leading-none mt-1 sm:mt-0.5">
-                  <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-slate-900 tracking-tight">KonkanArabia</span>
-                  <span className="text-[9px] sm:text-[10px] font-sans font-medium text-slate-400 self-start mt-1">®</span>
+                  <span className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-serif font-black text-slate-900 tracking-tight">KonkanArabia</span>
+                  <span className="text-[8px] sm:text-[10px] font-sans font-medium text-slate-400 self-start mt-1">®</span>
                 </div>
               </div>
-              <div className="flex flex-col mt-0.5">
+              <div className="flex flex-col mt-0.5 min-w-0">
                 <div className="h-[1px] w-full bg-[#0066a1]/10 rounded-full overflow-hidden">
                     <div className="h-full w-1/3 bg-[#0066a1]"></div>
                 </div>
-                <span className="text-[7.5px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.05em] sm:tracking-[0.1em] uppercase mt-1 leading-none whitespace-nowrap">
+                <span className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.1em] uppercase mt-1 leading-tight sm:leading-none truncate sm:whitespace-nowrap">
                   &#123; Hospitality & Holiday Management Group &#125;
                 </span>
               </div>
