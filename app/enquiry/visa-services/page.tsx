@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import VisaEnquiryForm from '@/app/components/visa-enquiry-form';
 import { FileText } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Visa Assistance Enquiry | Travel Documentation | KonkanArabia',
+  description: 'Hassle-free visa assistance and documentation for international travel. Expert guidance for tourist and business visas.',
+};
 
 export default function VisaServicesEnquiryPage() {
   return (

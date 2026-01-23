@@ -10,13 +10,32 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' })
 
 export const metadata = {
-  title: 'KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.',
-  description: 'KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.',
-  keywords: 'KonkanArabia, Hospitality, Holiday, Group, Travel, Tourism',
+  title: {
+    default: 'KonkanArabia Hospitality & Holiday Group | Luxury Tours & Travel',
+    template: '%s | KonkanArabia'
+  },
+  description: 'KonkanArabia Hospitality & Holiday Group offers premium holiday packages, vehicle rentals, visa services, and event management across India and the UAE. Discover the best of Konkan and beyond.',
+  keywords: ['KonkanArabia', 'Konkan Tourism', 'Holiday Packages India', 'Dubai Tourism', 'Vehicle Rental Mumbai', 'Visa Services UAE', 'Event Management Dubai', 'Luxury Travel India', 'Hospitality Group'],
   authors: [{ name: 'KonkanArabia' }],
   creator: 'KonkanArabia',
   publisher: 'KonkanArabia',
-  generator: 'v0.dev'
+  metadataBase: new URL('https://konkanarabiahospitalitygroup.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://konkanarabiahospitalitygroup.com',
+    title: 'KonkanArabia Hospitality & Holiday Group',
+    description: 'Premier hospitality and travel management group in India and Dubai.',
+    siteName: 'KonkanArabia',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'KonkanArabia Hospitality & Holiday Group',
+    description: 'Premier hospitality and travel management group in India and Dubai.',
+  }
 }
 
 export default function RootLayout({

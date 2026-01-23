@@ -1,7 +1,14 @@
+import type { Metadata } from 'next';
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import CertificateShowcase from "../components/certificate-showcase";
 import { Globe, Heart, Anchor, Utensils, Hotel, Compass, Quote, Award } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: 'About Us | Connecting Konkan with Arabian Hospitality',
+  description: 'Learn about the story of KonkanArabia. We bridge the unique cultures of Indias Konkan coast and the visionary hospitality of Dubai to create exceptional travel experiences.',
+  keywords: 'KonkanArabia story, about us, Konkan hospitality, Dubai travel management, cultural bridge',
+};
 
 export default function AboutPage() {
   return (

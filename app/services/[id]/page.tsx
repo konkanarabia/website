@@ -189,19 +189,25 @@ export default function ServicePage() {
 
 	return (
 		<div className="container mx-auto px-4 py-6 md:py-12">
-			<div className="text-sm breadcrumbs mb-4 hidden md:block">
-				<ul className="flex flex-wrap space-x-2">
+			<div className="text-xs md:text-sm breadcrumbs mb-6">
+				<ul className="flex flex-wrap items-center gap-2 text-slate-500">
 					<li>
-						<Link href="/" className="hover:underline">
+						<Link href="/" className="hover:text-primary transition-colors">
 							Home
-						</Link>{" "}
-						/
+						</Link>
 					</li>
-					<li>
-						<span className="font-medium">Our Services</span>{" "}
-						/
+					<li className="flex items-center gap-2">
+						<span className="text-slate-300">/</span>
+						<Link href="/services" className="hover:text-primary transition-colors">
+							Services
+						</Link>
 					</li>
-					<li className="font-medium">{service.name}</li>
+					<li className="flex items-center gap-2">
+						<span className="text-slate-300">/</span>
+						<span className="font-medium text-slate-900 truncate max-w-[150px] sm:max-w-none">
+							{service.name}
+						</span>
+					</li>
 				</ul>
 			</div>
 
@@ -322,7 +328,7 @@ export default function ServicePage() {
 					{(service as any).whyChooseUs && (
 						<div className="mt-8 space-y-4">
 							<h3 className="text-lg font-bold px-1">Why Choose Us?</h3>
-							<div className="grid grid-cols-1 gap-3">
+							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
 								{(service as any).whyChooseUs.map((item: any, i: number) => (
 									<div key={i} className="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
 										<div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -348,21 +354,21 @@ export default function ServicePage() {
 				</div>
 			</div>
 
-			<div className="border-t mt-8 pt-6 mb-8 hidden md:block">
-				<h3 className="text-xl font-semibold mb-4">
+			<div className="border-t mt-12 pt-8 mb-8">
+				<h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
 					You might also be interested in
 				</h3>
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 					{services
 						.filter((s) => s.id !== id)
 						.slice(0, 3)
 						.map((s) => (
 							<Link href={`/services/${s.id}`} key={s.id} className="group">
-								<div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 transition-all border border-slate-200 dark:border-slate-800 hover:border-transparent hover:shadow-md">
-									<h4 className="font-medium group-hover:text-primary break-words">
+								<div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-5 transition-all border border-slate-100 dark:border-slate-800 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 h-full">
+									<h4 className="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors break-words mb-1">
 										{s.name}
 									</h4>
-									<p className="text-sm text-muted-foreground truncate">
+									<p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
 										{s.description}
 									</p>
 								</div>

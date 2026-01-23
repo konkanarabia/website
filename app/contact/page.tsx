@@ -88,8 +88,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-1 text-white">KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.</h3>
-                    <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">Address:</p>
-                    <p className="text-white/80">Mumbai, Maharashtra, India</p>
+                    <p className="text-white/80">Mumbai, India</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -128,7 +127,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-bold mb-1 text-slate-900">Phone</h3>
                     <p className="text-slate-600">+971-555995260</p>
-                    <p className="text-slate-600">+971-0557337618</p>
+                    <p className="text-slate-600">0557337618</p>
                   </div>
                 </div>
                 <div className="flex gap-4">

@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import EventEnquiryForm from '@/app/components/event-enquiry-form';
 import { PartyPopper } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Event Management Enquiry | Destination Events | KonkanArabia',
+  description: 'Plan your dream destination wedding, corporate retreat, or private party with our expert event management team.',
+};
 
 export default function EventManagementEnquiryPage() {
   return (

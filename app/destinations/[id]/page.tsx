@@ -4,8 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar, Users, PhoneCall, ArrowLeft, CheckCircle2, XCircle, Clock } from "lucide-react";
-
+import { MapPin, Calendar, PhoneCall, ArrowLeft, CheckCircle2, XCircle, Clock } from "lucide-react";
 import { destinations } from "@/lib/destinations-data";
 
 
@@ -43,10 +42,10 @@ export default function DestinationPage() {
                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-bold uppercase tracking-widest mb-6 border border-white/20">
                   <MapPin className="h-3 w-3" /> {destination.name}
                </div>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
                 {destination.name}
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 font-medium drop-shadow-lg max-w-2xl leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-medium drop-shadow-lg max-w-2xl leading-relaxed">
                 {destination.description}
               </p>
             </div>
@@ -54,31 +53,31 @@ export default function DestinationPage() {
         </div>
 
         {/* Floating Info Bar */}
-        <div className="absolute left-1/2 -bottom-12 -translate-x-1/2 w-full max-w-4xl px-4 z-20">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex divide-x divide-slate-100 py-6 px-4 md:px-10">
-            <div className="flex-1 px-4 md:px-8 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
-                <Calendar className="h-6 w-6" />
+        <div className="absolute left-1/2 -bottom-16 sm:-bottom-12 -translate-x-1/2 w-full max-w-4xl px-4 z-20">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-slate-100 py-4 sm:py-6 px-4 md:px-10">
+            <div className="flex-1 p-4 sm:px-8 flex items-center gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
+                <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Duration</p>
                 <p className="text-sm md:text-base font-bold text-slate-900 leading-tight">{destination.duration || "5-7 days"}</p>
               </div>
             </div>
-            <div className="flex-1 px-4 md:px-8 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
-                <MapPin className="h-6 w-6" />
+            <div className="flex-1 p-4 sm:px-8 flex items-center gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
+                <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Location</p>
-                <p className="text-sm md:text-base font-bold text-slate-900 leading-tight truncate max-w-[200px]">{destination.name}</p>
+                <p className="text-sm md:text-base font-bold text-slate-900 leading-tight truncate max-w-[150px] sm:max-w-[200px]">{destination.name}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-20 pt-32 pb-20">
+      <div className="container mx-auto px-4 md:px-20 pt-24 sm:pt-32 pb-20">
         {/* Main Content */}
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
@@ -151,15 +150,15 @@ export default function DestinationPage() {
                 <h3 className="text-2xl font-bold mb-8 flex items-center">
                   <Clock className="mr-3 h-6 w-6 text-[#0066a1]" /> Tour Itinerary
                 </h3>
-                <div className="space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                <div className="space-y-6 sm:space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
                   {destination.itinerary.map((item: any, index: number) => (
-                    <div key={index} className="relative pl-12">
-                      <div className="absolute left-0 top-0 w-9 h-9 rounded-full bg-white border-4 border-[#0066a1] flex items-center justify-center z-10">
-                        <span className="text-xs font-bold text-[#0066a1]">{item.day}</span>
+                    <div key={index} className="relative pl-10 sm:pl-12">
+                      <div className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border-4 border-[#0066a1] flex items-center justify-center z-10">
+                        <span className="text-[10px] sm:text-xs font-bold text-[#0066a1]">{item.day}</span>
                       </div>
-                      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <h4 className="text-lg font-bold text-slate-900 mb-2">Day {item.day}: {item.title}</h4>
-                        <p className="text-slate-600 leading-relaxed text-sm">{item.description}</p>
+                      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">Day {item.day}: {item.title}</h4>
+                        <p className="text-slate-600 leading-relaxed text-xs sm:text-sm">{item.description}</p>
                       </div>
                     </div>
                   ))}

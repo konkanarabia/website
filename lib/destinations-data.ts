@@ -418,7 +418,7 @@ export const destinations: Destination[] = [
     id: 5,
     name: "Konkan – Coastal Heaven",
     description: "Pristine Beaches & History",
-    image: "/destinations/domestic/Konkan.png",
+    image: "/destinations/domestic/Konkan.jpg",
     details: "Discover the hidden gems of the western coast with emerald backwaters, ancient sea forts and white sand beaches.",
     duration: "4 Nights / 5 Days",
     bestTime: "October to March",
