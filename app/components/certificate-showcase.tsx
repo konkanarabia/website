@@ -116,6 +116,7 @@ export default function CertificateShowcase() {
                                   width={1000}
                                   height={1400}
                                   className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                  style={{ height: "auto" }}
                                   priority
                                 />
                               </div>
@@ -133,6 +134,7 @@ export default function CertificateShowcase() {
                           width={1000}
                           height={1400}
                           className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                          style={{ height: "auto" }}
                           priority
                         />
                       </div>

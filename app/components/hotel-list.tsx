@@ -88,6 +88,7 @@ export default function HotelList() {
               width={400}
               height={300}
               className="w-full h-48 object-cover"
+              style={{ height: "auto" }}
             />
           </CardHeader>
           <CardContent className="p-6">
@@ -133,6 +134,7 @@ export default function HotelList() {
                           width={400}
                           height={300}
                           className="w-full h-48 object-cover rounded-md mb-4"
+                          style={{ height: "auto" }}
                         />
                         <p className="mb-4">{selectedHotel.details}</p>
                         <div className="flex items-center mb-2">

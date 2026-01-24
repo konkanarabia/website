@@ -141,13 +141,14 @@ export default function Header() {
         <div className="container mx-auto px-4 flex justify-between items-center relative">
           <Link href="/" className="flex items-center gap-1 sm:gap-2 group transition-all duration-300">
             <div className="relative flex-shrink-0">
-              <Image
-                src="/logo/KonkanArabia-logo.png"
-                alt="KonkanArabia Logo"
-                width={88}
-                height={88}
-                className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-16 h-16 sm:w-20 sm:h-20 md:w-[88px] md:h-[88px] object-contain px-1"
-              />
+                <Image
+                  src="/logo/KonkanArabia-logo.png"
+                  alt="KonkanArabia Logo"
+                  width={88}
+                  height={88}
+                  className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-16 h-16 sm:w-20 sm:h-20 md:w-[88px] md:h-[88px] object-contain px-1"
+                  style={{ height: "auto" }}
+                />
             </div>
             <div className="flex flex-col justify-center min-w-0">
               <div className="flex flex-col items-center sm:items-start">
