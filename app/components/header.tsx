@@ -77,6 +77,7 @@ export default function Header() {
       ],
     },
     { name: "About", href: "/about" },
+    { name: "Partners", href: "/partners" },
     { name: "Contact", href: "/contact" },
   ];
 

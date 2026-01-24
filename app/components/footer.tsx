@@ -57,6 +57,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/partners"
+                  className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
+                >
+                  <span className="mr-2">→</span> Our Partners
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact"
                   className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
                 >
