@@ -1,46 +1,47 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+
+const LOGO_DEV_TOKEN = process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN;
 
 const partners = {
   hotels: [
-    { name: "Hyatt Group", logo: "https://img.logo.dev/hyatt.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Park Regis", logo: "https://img.logo.dev/parkregis.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Hilton", logo: "https://img.logo.dev/hilton.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Radisson", logo: "https://img.logo.dev/radissonhotels.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Crowne Plaza", logo: "https://img.logo.dev/ihg.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Grand Excelsior", logo: "https://img.logo.dev/grandexcelsior.ae?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Arabian Courtyard", logo: "https://img.logo.dev/arabiancourtyard.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Knight Castle Hotel", logo: "https://img.logo.dev/knightcastlehotel.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "City Max", logo: "https://img.logo.dev/citymaxhotels.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
+    { name: "Hyatt Group", logo: `https://img.logo.dev/hyatt.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Park Regis", logo: `https://img.logo.dev/parkregis.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Hilton", logo: `https://img.logo.dev/hilton.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Radisson", logo: `https://img.logo.dev/radissonhotels.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Crowne Plaza", logo: `https://img.logo.dev/ihg.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Grand Excelsior", logo: `https://img.logo.dev/grandexcelsior.ae?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Arabian Courtyard", logo: `https://img.logo.dev/arabiancourtyard.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Knight Castle Hotel", logo: `https://img.logo.dev/knightcastlehotel.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "City Max", logo: `https://img.logo.dev/citymaxhotels.com?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
   airlines: [
-    { name: "IndiGo", logo: "https://img.logo.dev/goindigo.in?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "SpiceJet", logo: "https://img.logo.dev/spicejet.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Air India", logo: "https://img.logo.dev/airindia.in?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Fly91", logo: "https://img.logo.dev/fly91.in?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
+    { name: "IndiGo", logo: `https://img.logo.dev/goindigo.in?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "SpiceJet", logo: `https://img.logo.dev/spicejet.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Air India", logo: `https://img.logo.dev/airindia.in?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Fly91", logo: `https://img.logo.dev/fly91.in?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
   tour: [
-    { name: "Akbar Travels", logo: "https://img.logo.dev/akbartravels.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Rayna Tours", logo: "https://img.logo.dev/raynatours.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "IRCTC", logo: "https://img.logo.dev/irctc.co.in?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
+    { name: "Akbar Travels", logo: `https://img.logo.dev/akbartravels.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Rayna Tours", logo: `https://img.logo.dev/raynatours.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "IRCTC", logo: `https://img.logo.dev/irctc.co.in?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
   booking: [
-    { name: "Booking.com", logo: "https://img.logo.dev/booking.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Agoda", logo: "https://img.logo.dev/agoda.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "MakeMyTrip", logo: "https://img.logo.dev/makemytrip.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Goibibo", logo: "https://img.logo.dev/goibibo.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Expedia", logo: "https://img.logo.dev/expedia.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Trip.com", logo: "https://img.logo.dev/trip.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Airbnb", logo: "https://img.logo.dev/airbnb.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
+    { name: "Booking.com", logo: `https://img.logo.dev/booking.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Agoda", logo: `https://img.logo.dev/agoda.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "MakeMyTrip", logo: `https://img.logo.dev/makemytrip.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Goibibo", logo: `https://img.logo.dev/goibibo.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Expedia", logo: `https://img.logo.dev/expedia.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Trip.com", logo: `https://img.logo.dev/trip.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Airbnb", logo: `https://img.logo.dev/airbnb.com?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
   payment: [
-    { name: "MasterCard", logo: "https://img.logo.dev/mastercard.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Visa", logo: "https://img.logo.dev/visa.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Diners Club", logo: "https://img.logo.dev/dinersclub.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Amex", logo: "https://img.logo.dev/americanexpress.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
-    { name: "Razorpay", logo: "https://img.logo.dev/razorpay.com?token=pk_STV8L7vRSe-0b6Y9Z9Z9ZQ" },
+    { name: "MasterCard", logo: `https://img.logo.dev/mastercard.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Visa", logo: `https://img.logo.dev/visa.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Diners Club", logo: `https://img.logo.dev/dinersclub.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Amex", logo: `https://img.logo.dev/americanexpress.com?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Razorpay", logo: `https://img.logo.dev/razorpay.com?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
 };
 
@@ -53,7 +54,7 @@ const PartnerSection = ({ title, items }: { title: string; items: { name: string
           key={partner.name}
           className="group relative flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 w-32 h-32 border border-gray-100"
         >
-          <div className="relative w-20 h-20 mb-2 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+          <div className="relative w-24 h-16 mb-2 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
             <img
               src={partner.logo}
               alt={partner.name}
