@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -23,6 +23,12 @@ export default function Footer() {
                 className="text-gray-400 hover:text-white transition-colors duration-300"
               >
                 <Instagram size={24} />
+              </Link>
+              <Link
+                href="https://www.youtube.com/@KonkanArabiaholiday"
+                className="text-gray-400 hover:text-white transition-colors duration-300"
+              >
+                <Youtube size={24} />
               </Link>
             </div>
           </div>

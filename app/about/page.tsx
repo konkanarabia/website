@@ -110,8 +110,18 @@ export default function AboutPage() {
           <div className="relative z-10">
             <div className="flex flex-col items-center text-center mb-20">
               <Quote className="w-12 h-12 text-[#0066a1] mb-6 opacity-50" />
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">Our Core Belief</h2>
-              <p className="text-slate-400 text-2xl md:text-3xl font-serif italic max-w-3xl border-y border-white/10 py-8">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 uppercase tracking-wider">Our Values</h2>
+              <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-10 px-6">
+                <p className="text-slate-200 text-lg md:text-2xl font-serif italic leading-relaxed mb-6">
+                  "A Guest is the most important visitor on our premises. He is not dependent on us. We are dependent on him. 
+                  He is not an interruption in our work. He is the purpose of it. He is not an outsider in our business. 
+                  He is part of it. We are not doing him a favor by serving him. He is doing us a favor by giving us an opportunity to do so."
+                </p>
+                <p className="text-[#0066a1] font-bold text-xl uppercase tracking-widest font-serif">
+                  — Thoughts of Mahatma Gandhi
+                </p>
+              </div>
+              <p className="text-slate-400 text-xl md:text-2xl font-serif italic max-w-3xl">
                 "Hospitality is not a service—it is a responsibility."
               </p>
             </div>
