@@ -42,7 +42,7 @@ export default function AboutPage() {
             <div className="absolute -inset-4 bg-[#0066a1]/5 rounded-[3rem] -z-10 transition-transform group-hover:scale-105 duration-700"></div>
             <div className="relative h-[400px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl">
               <Image 
-                src="/logo/KonkanArabia-logo.png" 
+                src="/logo/KonkanArabia-New-Logo.png" 
                 alt="KonkanArabia Logo" 
                 fill
                 className="object-contain bg-white p-12 transition-transform duration-700 group-hover:scale-110"

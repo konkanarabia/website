@@ -143,7 +143,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-1 sm:gap-2 group transition-all duration-300">
             <div className="relative flex-shrink-0">
                 <Image
-                  src="/logo/KonkanArabia-logo.png"
+                  src="/logo/KonkanArabia-New-Logo.png"
                   alt="KonkanArabia Logo"
                   width={88}
                   height={88}
