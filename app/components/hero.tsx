@@ -63,6 +63,14 @@ const heroSlides = [
     image: "/hero/hero-6.jpg",
     cta: "Seek Your Adventure",
     link: "/destinations"
+  },
+  {
+    id: 7,
+    title: "Experience the Peak of Luxury",
+    subtitle: "Indulge in the vibrant culture and opulence of Dubai",
+    image: "/hero/hero-7.png",
+    cta: "Explore Dubai Tours",
+    link: "/destinations"
   }
 ]
 

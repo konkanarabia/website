@@ -32,6 +32,18 @@ export default function EnquiryForm() {
 
   useEffect(() => {
     setToday(format(new Date(), "yyyy-MM-dd"));
+    
+    // Handle query parameters
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service");
+    if (service) {
+      setFormData(prev => ({ ...prev, travelType: service }));
+      if (service === "hospitality") {
+        setFormData(prev => ({ ...prev, destination: "Siddhivinayak Devbag Beach Resort" }));
+      } else if (service === "food-beverages") {
+        setFormData(prev => ({ ...prev, destination: "Konkan Swad Restaurant" }));
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -348,6 +360,8 @@ export default function EnquiryForm() {
                 <SelectContent>
                   <SelectItem value="leisure">Leisure / Holiday</SelectItem>
                   <SelectItem value="family">Family Vacation</SelectItem>
+                  <SelectItem value="hospitality">Hospitality / Hotel Stay</SelectItem>
+                  <SelectItem value="food-beverages">Food & Beverages</SelectItem>
                   <SelectItem value="honeymoon">Honeymoon</SelectItem>
                   <SelectItem value="religious">Religious Tour</SelectItem>
                   <SelectItem value="adventure">Adventure</SelectItem>

@@ -74,6 +74,7 @@ export default function Header() {
         { name: "Vehicle Rental", href: "/services/1" },
         { name: "Visa Services", href: "/services/3" },
         { name: "Event Management", href: "/services/2" },
+        { name: "Hospitality, Food & Beverages", href: "/#hospitality-dining" },
       ],
     },
     { name: "About", href: "/about" },
