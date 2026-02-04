@@ -9,7 +9,7 @@ import Link from "next/link";
 const services = [
   {
     id: "hospitality",
-    title: "Hospitality",
+    title: "Hospitality / Hotels",
     name: "01) Siddhivinayak Devbag Beach Resort",
     description: "Beach Side Family Holiday Stay, AC & Non Ac Rooms, Water Sports, Scuba, & Event place",
     image: "/services/siddhivinayak-resort.png",
@@ -19,7 +19,7 @@ const services = [
   },
   {
     id: "food-beverages",
-    title: "Food & Beverages",
+    title: "Food & Beverages / Restaurants",
     name: "02) Konkan Swad - The Test Of Konkan",
     description: "Authentic Malvani & Goan Sea Food Restaurant",
     image: "/services/konkan-swad.png",
@@ -33,14 +33,36 @@ export default function SpecializedServices() {
   return (
     <section id="hospitality-dining" className="py-24 bg-slate-50 overflow-hidden scroll-mt-20">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center mb-16">
-          <span className="text-[#0066a1] font-bold tracking-widest uppercase text-sm mb-4 animate-fade-in">
-            Our Extensions
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 text-center tracking-tight">
+        <div className="flex flex-col items-center mb-16 text-center">
+          <div className="inline-flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
+            <span className="text-[#0066a1] font-bold tracking-[0.3em] uppercase text-xs sm:text-sm animate-fade-in font-sans">
+              Our Extensions
+            </span>
+            <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl font-serif font-black text-slate-900 mb-8 tracking-tight leading-tight">
             Hospitality, <span className="text-[#0066a1]">Food & Beverages</span>
           </h2>
-          <div className="h-1.5 bg-[#0066a1] rounded-full w-24"></div>
+
+          <div className="w-full max-w-lg relative group">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-[#0066a1]/20 to-transparent"></div>
+            <div className="relative inline-block px-12 py-6 bg-white shadow-xl shadow-blue-900/5 rounded-3xl border border-slate-100">
+               <div className="text-[10px] sm:text-xs font-bold text-[#0066a1] uppercase tracking-[0.2em] mb-3 opacity-80 font-sans">
+                Our Managed Units
+              </div>
+              <div className="text-xl sm:text-2xl font-serif font-bold text-slate-800 tracking-tight leading-relaxed">
+                Hospitality/Hotels, <br className="sm:hidden" /> Food & Beverages / Restaurants
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 flex gap-1.5 justify-center">
+            <div className="h-1.5 w-16 bg-[#0066a1] rounded-full"></div>
+            <div className="h-1.5 w-4 bg-[#0066a1]/20 rounded-full"></div>
+            <div className="h-1.5 w-4 bg-[#0066a1]/20 rounded-full"></div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -50,25 +72,25 @@ export default function SpecializedServices() {
               id={service.id}
               className={`transition-all duration-700 delay-${index * 200} scroll-mt-24`}
             >
-              <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 bg-white rounded-3xl">
+              <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-blue-900/15 transition-all duration-500 bg-white rounded-3xl">
                 <div className="relative h-80 overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.name}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                  <div className="absolute top-6 left-6 p-3 bg-white/90 backdrop-blur-sm rounded-2xl text-[#0066a1] shadow-lg transform transition-transform duration-500 group-hover:rotate-12">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
+                  <div className="absolute top-6 left-6 p-3 bg-white/95 backdrop-blur-sm rounded-2xl text-[#0066a1] shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
                     {service.icon}
                   </div>
                   <div className="absolute bottom-6 left-8 right-8">
-                    <h4 className="text-white/80 font-medium text-sm mb-1 uppercase tracking-wider">{service.title}</h4>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{service.name}</h3>
+                    <h4 className="text-white/90 font-bold text-xs mb-2 uppercase tracking-[0.15em]">{service.title}</h4>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">{service.name}</h3>
                   </div>
                 </div>
                 <CardContent className="p-8">
-                  <p className="text-slate-600 mb-8 leading-relaxed text-lg">
+                  <p className="text-slate-600 mb-8 leading-relaxed text-lg font-medium">
                     {service.description}
                   </p>
                   
@@ -76,7 +98,7 @@ export default function SpecializedServices() {
                     {service.features.map((feature, i) => (
                       <span 
                         key={i} 
-                        className="text-xs font-semibold px-4 py-2 bg-slate-100 text-slate-600 rounded-full group-hover:bg-[#0066a1]/10 group-hover:text-[#0066a1] transition-colors duration-300"
+                        className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-500 rounded-xl group-hover:bg-[#0066a1] group-hover:text-white transition-all duration-300 border border-slate-100 uppercase tracking-wider"
                       >
                         {feature}
                       </span>
@@ -84,7 +106,7 @@ export default function SpecializedServices() {
                   </div>
 
                   <Link href={service.link} className="inline-block w-full">
-                    <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-blue-900/20">
+                    <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-900/20 active:scale-[0.98]">
                       Enquire Now
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Button>
