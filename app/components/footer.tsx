@@ -102,8 +102,11 @@ export default function Footer() {
                 <p className="text-gray-300 font-semibold mb-1">
                   India: KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.
                 </p>
+                <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">
+                  Company Registered & Corporate office:
+                </p>
                 <p className="text-gray-400 leading-relaxed break-words text-sm md:text-base">
-                  Mumbai, India
+                  Office No:S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai 400703
                 </p>
               </div>
               <div className="pt-3 border-t border-gray-800">

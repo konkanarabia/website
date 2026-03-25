@@ -88,7 +88,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-1 text-white">KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.</h3>
-                    <p className="text-white/80">Mumbai, India</p>
+                    <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">Company Registered & Corporate office:</p>
+                    <p className="text-white/80 leading-relaxed text-sm">Office No:S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai 400703</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
