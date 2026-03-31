@@ -22,7 +22,7 @@ const services = [
     title: "Food & Beverages / Restaurants",
     name: "02) Konkan Swad - The Test Of Konkan",
     description: "Authentic Malvani & Goan Sea Food Restaurant",
-    image: "/services/konkan-swad.png",
+    image: "/services/siddhivinayak-resort.jpg",
     icon: <Utensils className="w-6 h-6" />,
     features: ["Authentic Malvani", "Goan Sea Food", "Fresh Catch", "Traditional Recipes", "Premium Dining"],
     link: "/enquiry/hospitality?service=food-beverages"
