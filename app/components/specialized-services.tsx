@@ -12,7 +12,7 @@ const services = [
     title: "Hospitality / Hotels",
     name: "01) Siddhivinayak Devbag Beach Resort",
     description: "Beach Side Family Holiday Stay, AC & Non Ac Rooms, Water Sports, Scuba, & Event place",
-    image: "/services/siddhivinayak-resort.png",
+    image: "/services/siddhivinayak-resort.jpg",
     icon: <Hotel className="w-6 h-6" />,
     features: ["Beach Side Stay", "AC & Non-Ac Rooms", "Water Sports", "Scuba Diving", "Event Space"],
     link: "/enquiry/hospitality?service=hospitality"
