@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/email';
+import {
+  contactFormAdminEmail,
+  contactFormUserConfirmation,
+} from '@/lib/email-templates';
 
 export async function POST(request: Request) {
   try {
@@ -18,53 +22,26 @@ export async function POST(request: Request) {
     console.log('Processing contact form submission:', { name, email, phone: phone || 'Not provided' });
 
     try {
-      // Send email to admin
+      const adminMail = contactFormAdminEmail({
+        name,
+        email,
+        phone: phone || '',
+        message,
+      });
       await sendEmail({
         to: process.env.EMAIL_TO as string,
-        subject: `New contact form submission from ${name}`,
-        text: `
-          Name: ${name}
-          Email: ${email}
-          Phone: ${phone || 'Not provided'}
-          
-          Message:
-          ${message}
-        `,
-        html: `
-          <h3>New Contact Form Submission</h3>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, '<br>')}</p>
-        `,
+        ...adminMail,
       });
     } catch (emailError) {
       console.error('Email sending failed, but continuing with response:', emailError);
-      // We'll continue processing and return success to the user
-      // In a production app, you might want to log this to a monitoring service
     }
 
-    // Send confirmation email to the user (optional)
-    // Uncomment to send confirmation email
-    // await sendEmail({
-    //   to: email,
-    //   subject: 'Thank you for contacting us',
-    //   text: `
-    //     Dear ${name},
-    //     
-    //     Thank you for your message. We have received your inquiry and will get back to you shortly.
-    //     
-    //     Best regards,
-    //     Your Company Name
-    //   `,
-    //   html: `
-    //     <h3>Thank you for contacting us</h3>
-    //     <p>Dear ${name},</p>
-    //     <p>Thank you for your message. We have received your inquiry and will get back to you shortly.</p>
-    //     <p>Best regards,<br>Your Company Name</p>
-    //   `,
-    // });
+    try {
+      const confirmation = contactFormUserConfirmation({ name });
+      await sendEmail({ to: email, ...confirmation });
+    } catch (confirmationError) {
+      console.error('Contact confirmation email failed:', confirmationError);
+    }
 
     return NextResponse.json(
       { 
@@ -87,9 +64,7 @@ export async function POST(request: Request) {
     
     // Log environment variables for debugging (excluding sensitive info)
     console.log('Environment check:', {
-      EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
-      EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
-      EMAIL_SERVER_SECURE: process.env.EMAIL_SERVER_SECURE,
+      RESEND_API_KEY: process.env.RESEND_API_KEY ? '✓ Set' : '✗ Not set',
       EMAIL_TO: process.env.EMAIL_TO,
       EMAIL_FROM: process.env.EMAIL_FROM
     });

@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/email';
-import { formatServerCurrency, formatServerPriceRange } from '@/lib/server-currency';
+import {
+  travelEnquiryAdminEmail,
+  travelEnquiryCustomerEmail,
+} from '@/lib/email-templates';
+import { formatServerPriceRange } from '@/lib/server-currency';
 import { formatServerDate, formatServerDateRange, formatServerDuration } from '@/lib/server-date';
 
 export async function POST(request: Request) {
@@ -54,62 +58,26 @@ export async function POST(request: Request) {
     let customerEmailSent = false;
     
     try {
-      // Send email to admin
+      const adminMail = travelEnquiryAdminEmail({
+        name,
+        email,
+        phone: phone || '',
+        preferredContact: preferredContact || 'Email',
+        travelType,
+        destination,
+        formattedDepartureDate,
+        formattedReturnDate,
+        tripDuration,
+        travelers: travelers ?? '',
+        budgetRange: formatServerPriceRange(budgetMin, budgetMax),
+        message: message || '',
+        subscribe: Boolean(subscribe),
+      });
       await sendEmail({
         to: process.env.EMAIL_TO as string,
-        subject: `New Travel Enquiry: ${destination} (${travelType})`,
-        text: `
-          NEW TRAVEL ENQUIRY
-          
-          Customer Details:
-          -----------------
-          Name: ${name}
-          Email: ${email}
-          Phone: ${phone || 'Not provided'}
-          Preferred Contact Method: ${preferredContact || 'Email'}
-            Trip Details:
-          ------------
-          Travel Type: ${travelType}
-          Destination: ${destination}
-          Departure Date: ${formattedDepartureDate}
-          Return Date: ${formattedReturnDate}
-          ${tripDuration ? `Duration: ${tripDuration}` : ''}
-          Number of Travelers: ${travelers}
-          Budget Range: ${formatServerPriceRange(budgetMin, budgetMax)}
-          
-          Additional Information:
-          ---------------------
-          ${message || 'No additional information provided'}
-          
-          Newsletter Subscription: ${subscribe ? 'Yes' : 'No'}
-        `,
-        html: `
-          <h2>NEW TRAVEL ENQUIRY</h2>
-          
-          <h3>Customer Details:</h3>
-          <ul>
-            <li><strong>Name:</strong> ${name}</li>
-            <li><strong>Email:</strong> ${email}</li>
-            <li><strong>Phone:</strong> ${phone || 'Not provided'}</li>
-            <li><strong>Preferred Contact Method:</strong> ${preferredContact || 'Email'}</li>
-          </ul>
-            <h3>Trip Details:</h3>
-          <ul>
-            <li><strong>Travel Type:</strong> ${travelType}</li>
-            <li><strong>Destination:</strong> ${destination}</li>
-            <li><strong>Departure Date:</strong> ${formattedDepartureDate}</li>
-            <li><strong>Return Date:</strong> ${formattedReturnDate}</li>
-            ${tripDuration ? `<li><strong>Duration:</strong> ${tripDuration}</li>` : ''}
-            <li><strong>Number of Travelers:</strong> ${travelers}</li>
-            <li><strong>Budget Range:</strong> ${formatServerPriceRange(budgetMin, budgetMax)}</li>
-          </ul>
-          
-          <h3>Additional Information:</h3>
-          <p>${message || 'No additional information provided'}</p>
-          
-          <p><strong>Newsletter Subscription:</strong> ${subscribe ? 'Yes' : 'No'}</p>
-        `,      });
-      
+        ...adminMail,
+      });
+
       adminEmailSent = true;
       console.log('Admin email sent successfully');
     } catch (emailError) {
@@ -118,58 +86,23 @@ export async function POST(request: Request) {
     }
 
     try {
-      // Send confirmation email to the customer
-      await sendEmail({
-        to: email,
-        subject: `Thank you for your travel enquiry to ${destination}`,
-        text: `
-          Dear ${name},
-          
-          Thank you for your travel enquiry to ${destination}. We have received your request and our travel specialists will review it shortly.
-          
-          We aim to respond to all enquiries within 24 hours during business days.
-            Trip Details:
-          - Travel Type: ${travelType}
-          - Destination: ${destination}
-          - Departure Date: ${formattedDepartureDate}
-          - Return Date: ${formattedReturnDate}
-          ${tripDuration ? `- Duration: ${tripDuration}` : ''}
-          - Number of Travelers: ${travelers}
-          - Budget Range: ${formatServerPriceRange(budgetMin, budgetMax)}
-          
-          ${message ? `Your message: ${message}` : ''}
-          
-          If you have any questions, please feel free to contact us.
-          
-          Best regards,
-          The Travel Team
-        `,
-        html: `
-          <h2>Thank you for your travel enquiry</h2>
-          
-          <p>Dear ${name},</p>
-          
-          <p>Thank you for your travel enquiry to <strong>${destination}</strong>. We have received your request and our travel specialists will review it shortly.</p>
-          
-          <p>We aim to respond to all enquiries within 24 hours during business days.</p>
-            <h3>Your Trip Details:</h3>
-          <ul>
-            <li><strong>Travel Type:</strong> ${travelType}</li>
-            <li><strong>Destination:</strong> ${destination}</li>
-            <li><strong>Departure Date:</strong> ${formattedDepartureDate}</li>
-            <li><strong>Return Date:</strong> ${formattedReturnDate}</li>
-            ${tripDuration ? `<li><strong>Duration:</strong> ${tripDuration}</li>` : ''}
-            <li><strong>Number of Travelers:</strong> ${travelers}</li>
-            <li><strong>Budget Range:</strong> ${formatServerPriceRange(budgetMin, budgetMax)}</li>
-          </ul>
-          
-          ${message ? `<p><strong>Your message:</strong> ${message}</p>` : ''}
-          
-          <p>If you have any questions, please feel free to contact us.</p>
-          
-          <p>Best regards,<br>The Travel Team</p>
-        `,      });
-      
+      const customerMail = travelEnquiryCustomerEmail({
+        name,
+        email,
+        phone: phone || '',
+        preferredContact: preferredContact || 'Email',
+        travelType,
+        destination,
+        formattedDepartureDate,
+        formattedReturnDate,
+        tripDuration,
+        travelers: travelers ?? '',
+        budgetRange: formatServerPriceRange(budgetMin, budgetMax),
+        message: message || '',
+        subscribe: Boolean(subscribe),
+      });
+      await sendEmail({ to: email, ...customerMail });
+
       customerEmailSent = true;
       console.log('Customer confirmation email sent successfully');
     } catch (confirmationError) {
@@ -200,9 +133,7 @@ export async function POST(request: Request) {
     
     // Log environment variables for debugging (excluding sensitive info)
     console.log('Environment check:', {
-      EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
-      EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
-      EMAIL_SERVER_SECURE: process.env.EMAIL_SERVER_SECURE,
+      RESEND_API_KEY: process.env.RESEND_API_KEY ? '✓ Set' : '✗ Not set',
       EMAIL_TO: process.env.EMAIL_TO,
       EMAIL_FROM: process.env.EMAIL_FROM
     });

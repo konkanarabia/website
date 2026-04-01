@@ -28,12 +28,22 @@ export function formatServerCurrency(
  * Used in email templates
  */
 export function formatServerPriceRange(
-  min: number,
-  max: number,
+  min: number | undefined,
+  max: number | undefined,
   options: {
     currency?: string;
     locale?: string;
   } = {}
 ) {
+  if (
+    min == null ||
+    max == null ||
+    typeof min !== 'number' ||
+    typeof max !== 'number' ||
+    Number.isNaN(min) ||
+    Number.isNaN(max)
+  ) {
+    return 'Not specified';
+  }
   return `${formatServerCurrency(min, options)} - ${formatServerCurrency(max, options)}`;
 }
