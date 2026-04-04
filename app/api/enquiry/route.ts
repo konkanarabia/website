@@ -5,7 +5,7 @@ import {
   travelEnquiryCustomerEmail,
 } from '@/lib/email-templates';
 import { formatServerPriceRange } from '@/lib/server-currency';
-import { formatServerDate, formatServerDateRange, formatServerDuration } from '@/lib/server-date';
+import { formatServerDate, formatServerDuration } from '@/lib/server-date';
 
 export async function POST(request: Request) {
   try {
@@ -52,7 +52,9 @@ export async function POST(request: Request) {
       }
     }
     
-    console.log('Processing travel enquiry:', { name, email, destination });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Processing travel enquiry');
+    }
     
     let adminEmailSent = false;
     let customerEmailSent = false;
@@ -79,7 +81,9 @@ export async function POST(request: Request) {
       });
 
       adminEmailSent = true;
-      console.log('Admin email sent successfully');
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Admin email sent');
+      }
     } catch (emailError) {
       console.error('Admin email sending failed:', emailError);
       // We'll continue processing and try to send the confirmation email
@@ -133,9 +137,9 @@ export async function POST(request: Request) {
     
     // Log environment variables for debugging (excluding sensitive info)
     console.log('Environment check:', {
-      RESEND_API_KEY: process.env.RESEND_API_KEY ? '✓ Set' : '✗ Not set',
-      EMAIL_TO: process.env.EMAIL_TO,
-      EMAIL_FROM: process.env.EMAIL_FROM
+      RESEND_API_KEY: process.env.RESEND_API_KEY ? 'set' : 'missing',
+      EMAIL_TO: process.env.EMAIL_TO ? 'set' : 'missing',
+      EMAIL_FROM: process.env.EMAIL_FROM ? 'set' : 'missing',
     });
     
     return NextResponse.json(

@@ -269,7 +269,6 @@ export async function prefetchExchangeRates(): Promise<void> {
   try {
     // Prefetch USD rates as they're most commonly used
     await fetchExchangeRates('USD');
-    console.log('Exchange rates prefetched successfully');
   } catch (error) {
     console.error('Failed to prefetch exchange rates:', error);
   }

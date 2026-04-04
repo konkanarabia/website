@@ -6,11 +6,29 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Price } from "@/components/ui/price";
-import { CheckCircle2, Car, ShieldCheck, Clock, Shield, MapPin, Sparkles } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Clock, Shield, Sparkles } from "lucide-react";
 
-const services = [
+type Service = {
+	id: number;
+	name: string;
+	description: string;
+	image: string;
+	images?: string[];
+	details: string;
+	features?: string[];
+	whyChooseUs?: Array<{
+		icon: ReactNode;
+		title: string;
+		description: string;
+	}>;
+	pricing: Array<{ type: string; price: string }>;
+	availabilityNotes: string;
+	enquiryLink?: string;
+};
+
+const services: Service[] = [
 	{
 		id: 1,
 		name: "Vehicle Rental",
@@ -144,21 +162,27 @@ export default function ServicePage() {
 	const router = useRouter();
 	const id = parseInt(params.id as string);
 	const service = services.find((s) => s.id === id);
-	const [activeImage, setActiveImage] = useState(service?.image || "");
+	const [thumbPick, setThumbPick] = useState<{
+		sid: number;
+		url: string;
+	} | null>(null);
 	const [imageError, setImageError] = useState(false);
 
 	const handleImageError = () => {
 		setImageError(true);
 	};
 
-	useEffect(() => {
-		if (service) {
-			setActiveImage(service.image);
-		}
-	}, [service]);
+	const activeImage =
+		service &&
+		thumbPick &&
+		thumbPick.sid === service.id &&
+		thumbPick.url
+			? thumbPick.url
+			: service?.image || "";
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		setImageError(false);
 	}, [id]);
 
 	if (!service) {
@@ -237,12 +261,15 @@ export default function ServicePage() {
 						<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
 					</div>
 					
-					{(service as any).images && (service as any).images.length > 1 && (
+					{service.images && service.images.length > 1 && (
 						<div className="flex gap-3 overflow-x-auto pb-4 pt-1 px-1 scrollbar-hide -mx-1">
-							{(service as any).images.map((img: string, idx: number) => (
+							{service.images.map((img: string, idx: number) => (
 								<button
 									key={idx}
-									onClick={() => setActiveImage(img)}
+									onClick={() =>
+										service &&
+										setThumbPick({ sid: service.id, url: img })
+									}
 									className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
 										activeImage === img 
 											? "border-primary shadow-md scale-95" 
@@ -280,14 +307,14 @@ export default function ServicePage() {
 								<p className="leading-relaxed break-words">{service.details}</p>
 							</div>
 
-							{(service as any).features && (
+							{service.features && (
 								<div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
 									<h3 className="text-lg font-bold mb-4 flex items-center">
 										<Sparkles className="w-5 h-5 mr-2 text-primary" />
 										Key Features
 									</h3>
 									<ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-										{(service as any).features.map((feature: string, i: number) => (
+										{service.features.map((feature: string, i: number) => (
 											<li key={i} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
 												<CheckCircle2 className="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
 												<span>{feature}</span>
@@ -325,11 +352,11 @@ export default function ServicePage() {
 						</TabsContent>
 					</Tabs>
 
-					{(service as any).whyChooseUs && (
+					{service.whyChooseUs && (
 						<div className="mt-8 space-y-4">
 							<h3 className="text-lg font-bold px-1">Why Choose Us?</h3>
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-								{(service as any).whyChooseUs.map((item: any, i: number) => (
+								{service.whyChooseUs.map((item, i: number) => (
 									<div key={i} className="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
 										<div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
 											{item.icon}
@@ -345,7 +372,7 @@ export default function ServicePage() {
 					)}
 
 					<div className="mt-8">
-						<Link href={(service as any).enquiryLink || "/enquiry"} className="block w-full">
+						<Link href={service.enquiryLink ?? "/enquiry"} className="block w-full">
 							<Button size="lg" className="w-full py-6 md:py-7 text-base md:text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all whitespace-normal h-auto">
 								Enquire About This Service
 							</Button>

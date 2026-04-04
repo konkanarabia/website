@@ -11,7 +11,6 @@ export default function ExchangeRatesInitializer() {
     // Prefetch exchange rates
     const initExchangeRates = async () => {
       try {
-        console.log("Initializing exchange rates...");
         await prefetchExchangeRates();
       } catch (error) {
         console.error("Failed to prefetch exchange rates:", error);

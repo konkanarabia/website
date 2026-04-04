@@ -1,7 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
+import type { Swiper as SwiperType } from 'swiper'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
@@ -22,13 +23,13 @@ const destinations = [
 ]
 
 export default function DestinationSlider() {
-  const swiperRef = useRef(null)
+  const [swiper, setSwiper] = useState<SwiperType | null>(null)
 
   return (
     <div className="relative">
       <Swiper
-        ref={swiperRef}
         modules={[Navigation, Pagination, Autoplay]}
+        onSwiper={setSwiper}
         spaceBetween={30}
         slidesPerView={1}
         navigation={false}
@@ -74,7 +75,7 @@ export default function DestinationSlider() {
         variant="outline"
         size="icon"
         className="absolute top-1/2 left-4 z-10 -translate-y-1/2 bg-white/80 hover:bg-white"
-        onClick={() => swiperRef.current.swiper.slidePrev()}
+        onClick={() => swiper?.slidePrev()}
       >
         <ChevronLeft className="h-6 w-6" />
       </Button>
@@ -82,7 +83,7 @@ export default function DestinationSlider() {
         variant="outline"
         size="icon"
         className="absolute top-1/2 right-4 z-10 -translate-y-1/2 bg-white/80 hover:bg-white"
-        onClick={() => swiperRef.current.swiper.slideNext()}
+        onClick={() => swiper?.slideNext()}
       >
         <ChevronRight className="h-6 w-6" />
       </Button>

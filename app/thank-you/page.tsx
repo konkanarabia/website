@@ -24,32 +24,30 @@ export default function ThankYouPage() {
           </svg>
           
           <p className="text-lg mb-6">
-            We've received your travel enquiry and our team of experts will review it shortly.
+            We&apos;ve received your travel enquiry and our team of experts will review it shortly.
           </p>
           
           <div className="text-left bg-gray-50 p-4 rounded-md mb-6">
             <h3 className="font-medium text-gray-700 mb-2">What happens next?</h3>
             <ul className="list-disc pl-5 space-y-2 text-gray-600">
-              <li>You'll receive a confirmation email shortly</li>
+              <li>You&apos;ll receive a confirmation email shortly</li>
               <li>A travel specialist will review your requirements</li>
-              <li>We'll contact you within 24 hours (during business days)</li>
-              <li>We'll work together to create your perfect trip</li>
+              <li>We&apos;ll contact you within 24 hours (during business days)</li>
+              <li>We&apos;ll work together to create your perfect trip</li>
             </ul>
           </div>
           
           <div className="flex justify-center space-x-4">
-            <a 
-              href="/" 
-              className="px-5 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-            >
-              Return Home
-            </a>
-            <a 
-              href="/destinations" 
-              className="px-5 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              Explore Destinations
-            </a>
+            <Button asChild>
+              <Link href="/" className="px-5 py-2">
+                Return Home
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/destinations" className="px-5 py-2">
+                Explore Destinations
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

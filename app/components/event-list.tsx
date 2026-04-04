@@ -11,7 +11,7 @@ const events = [
     id: 1,
     title: "European Capitals Tour",
     description: "Explore the historic capitals of Europe",
-    date: "2023-08-15",
+    date: "2026-08-15",
     time: "09:00 AM",
     location: "Paris, France",
     details: "Join us on an unforgettable journey through the heart of Europe. Visit iconic landmarks, taste local cuisines, and immerse yourself in rich cultures. This 14-day tour covers Paris, Berlin, Prague, and Rome."
@@ -29,15 +29,17 @@ const events = [
     id: 3,
     title: "African Safari Adventure",
     description: "Wildlife expedition in the Serengeti",
-    date: "2023-10-10",
+    date: "2026-10-10",
     time: "06:00 AM",
     location: "Serengeti National Park, Tanzania",
     details: "Experience the thrill of an African safari in the world-famous Serengeti. Witness the great migration, spot the Big Five, and enjoy luxury camping under the stars. Expert guides and photographers included."
   }
 ]
 
+type EventItem = (typeof events)[number]
+
 export default function EventList() {
-  const [selectedEvent, setSelectedEvent] = useState(null)
+  const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null)
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

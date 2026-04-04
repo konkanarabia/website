@@ -46,9 +46,6 @@ export default function EnquiryForm() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("isSubmitting status:", isSubmitting);
-  }, [isSubmitting]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -86,7 +83,7 @@ export default function EnquiryForm() {
         }));
       }
     }
-  }, [formData.departureDate]);
+  }, [formData.departureDate, formData.returnDate]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, PhoneCall, ArrowLeft, CheckCircle2, XCircle, Clock } from "lucide-react";
-import { destinations } from "@/lib/destinations-data";
+import { destinations, type ItineraryItem } from "@/lib/destinations-data";
 
 
 export default function DestinationPage() {
@@ -151,7 +151,7 @@ export default function DestinationPage() {
                   <Clock className="mr-3 h-6 w-6 text-[#0066a1]" /> Tour Itinerary
                 </h3>
                 <div className="space-y-6 sm:space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
-                  {destination.itinerary.map((item: any, index: number) => (
+                  {destination.itinerary.map((item: ItineraryItem, index: number) => (
                     <div key={index} className="relative pl-10 sm:pl-12">
                       <div className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border-4 border-[#0066a1] flex items-center justify-center z-10">
                         <span className="text-[10px] sm:text-xs font-bold text-[#0066a1]">{item.day}</span>

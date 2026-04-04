@@ -49,6 +49,8 @@ export const sendEmail = async ({
     throw new Error(error.message || 'Failed to send email');
   }
 
-  console.log('Email sent successfully:', data?.id);
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Email sent:', data?.id);
+  }
   return { success: true, messageId: data?.id };
 };

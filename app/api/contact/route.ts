@@ -19,7 +19,9 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log('Processing contact form submission:', { name, email, phone: phone || 'Not provided' });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Processing contact form submission');
+    }
 
     try {
       const adminMail = contactFormAdminEmail({
@@ -64,9 +66,9 @@ export async function POST(request: Request) {
     
     // Log environment variables for debugging (excluding sensitive info)
     console.log('Environment check:', {
-      RESEND_API_KEY: process.env.RESEND_API_KEY ? '✓ Set' : '✗ Not set',
-      EMAIL_TO: process.env.EMAIL_TO,
-      EMAIL_FROM: process.env.EMAIL_FROM
+      RESEND_API_KEY: process.env.RESEND_API_KEY ? 'set' : 'missing',
+      EMAIL_TO: process.env.EMAIL_TO ? 'set' : 'missing',
+      EMAIL_FROM: process.env.EMAIL_FROM ? 'set' : 'missing',
     });
     
     return NextResponse.json(
