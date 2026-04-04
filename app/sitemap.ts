@@ -1,39 +1,40 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { destinations } from '@/lib/destinations-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://konkanarabiahospitalitygroup.com'
+  const baseUrl = 'https://konkanarabiahospitalitygroup.com';
 
-  // List of all static routes in the application
-  const staticRoutes = [
+  // Base static routes
+  const routes = [
     '',
     '/about',
     '/contact',
-    '/destinations',
     '/enquiry',
-    '/events',
-    '/hotels',
+    '/destinations',
+    '/services',
     '/partners',
-    '/services'
-  ]
-
-  const routes: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === '' ? 'weekly' : 'monthly',
+    changeFrequency: 'weekly' as const,
     priority: route === '' ? 1 : 0.8,
-  }))
+  }));
 
-  // NOTE: If you fetch dynamic destinations or hotels from a CMS or Database in the future,
-  // you can fetch those here and push them into the sitemap array.
-  // Example for dynamic routes:
-  // const dynamicDestinations = await getDestinations();
-  // const destRoutes = dynamicDestinations.map((dest) => ({
-  //   url: `${baseUrl}/destinations/${dest.slug}`,
-  //   lastModified: new Date(dest.updatedAt),
-  //   changeFrequency: 'weekly',
-  //   priority: 0.9,
-  // }));
-  // return [...routes, ...destRoutes];
+  // Dynamic destination routes from data
+  const destinationRoutes = destinations.map((destination) => ({
+    url: `${baseUrl}/destinations/${destination.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
 
-  return routes
+  // Dynamic service routes (hardcoded IDs based on services page)
+  const serviceRoutes = [1, 2, 3, 4, 5].map((id) => ({
+    url: `${baseUrl}/services/${id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...routes, ...destinationRoutes, ...serviceRoutes];
 }

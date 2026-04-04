@@ -1,16 +1,14 @@
-import type { Metadata, ResolvingMetadata } from 'next';
-import { destinations } from "@/lib/destinations-data";
+import { Metadata } from 'next';
+import { destinations } from '@/lib/destinations-data';
+import { ReactNode } from 'react';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
+  children: ReactNode;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { id: idStr } = await params;
-  const id = parseInt(idStr);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = parseInt(params.id);
   const destination = destinations.find((d) => d.id === id);
 
   if (!destination) {
@@ -20,21 +18,22 @@ export async function generateMetadata(
   }
 
   return {
-    title: `${destination.name} | Tours & Travel`,
-    description: destination.description || `Explore ${destination.name} with KonkanArabia. Handcrafted holiday packages featuring ${destination.highlights?.join(', ') || 'top attractions'}.`,
+    title: `${destination.name} Tour Package`,
+    description: destination.description,
     openGraph: {
-      title: destination.name,
+      title: `${destination.name} Tour Package | KonkanArabia`,
       description: destination.description,
       images: [destination.image],
     },
-    keywords: [destination.name, 'tour package', 'holiday', 'travel itinerary', 'KonkanArabia'],
+    twitter: {
+      card: 'summary_large_image',
+      title: `${destination.name} Tour Package`,
+      description: destination.description,
+      images: [destination.image],
+    },
   };
 }
 
-export default function DestinationDetailLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DestinationLayout({ children }: Props) {
   return <>{children}</>;
 }
