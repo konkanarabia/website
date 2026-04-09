@@ -15,11 +15,14 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
 import { destinations } from "@/lib/destinations-data";
 
-const international_ids = [11, 22, 23, 12, 32, 33, 13, 34, 15, 31];
+// International: Dubai (3), Vietnam (2), Thailand (3), Sri Lanka (2), Bali (2), Cambodia, Japan, Maldives, Mauritius, Kazakhstan, Georgia, Budapest
+const international_ids = [11, 22, 23, 15, 31, 12, 32, 33, 13, 34, 40, 41, 42, 43, 44, 45, 46, 47, 48];
 const international_destinations = destinations.filter(d => international_ids.includes(d.id));
 
-const domestic_ids = [1, 35, 2, 3, 9, 6, 36, 10, 5, 4, 37, 21];
+// Domestic: Kashmir (2), Himachal, Golden Triangle, Rajasthan, Kerala (2), Konkan, Goa, Mysore+Bengaluru, Ooty, Kanyakumari, Mysore, Bangalore, Lakshadweep, NorthEast, Dehradun-Mussoorie-Nainital, Kulu-Leh (2), MP
+const domestic_ids = [1, 35, 2, 3, 9, 6, 36, 5, 4, 37, 21, 10, 7, 8, 50, 51, 52, 53, 54, 55];
 const domestic_destinations = destinations.filter(d => domestic_ids.includes(d.id));
+
 
 export default function OurServices() {
   return (

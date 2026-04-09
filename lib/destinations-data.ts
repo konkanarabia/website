@@ -255,6 +255,249 @@ export const destinations: Destination[] = [
     ]
   },
 
+  // --- NEW INTERNATIONAL DESTINATIONS ---
+  {
+    id: 40,
+    name: "Bali – 5 Nights / 6 Days",
+    description: "The Island of Gods",
+    image: "/destinations/international/Bali.jpg",
+    details: "Discover the magic of Bali with its ancient temples, terraced rice paddies, world-class surf beaches, and vibrant arts scene. This package covers the best of Ubud's culture and Seminyak's beaches.",
+    duration: "5 Nights / 6 Days",
+    bestTime: "April to October",
+    highlights: ["Tanah Lot Temple", "Ubud Monkey Forest", "Tegallalang Rice Terraces", "Kuta Beach Sunset", "Traditional Kecak Dance"],
+    inclusions: [
+      "Bali Visa on Arrival assistance",
+      "Two-way Airport Transfers",
+      "Hotel: 3N Ubud + 2N Seminyak (Breakfast included)",
+      "Tanah Lot Temple sunset tour",
+      "Ubud full-day tour (Monkey Forest, Rice Terraces, Batik workshop)",
+      "Kecak Fire Dance at Uluwatu"
+    ],
+    exclusions: [
+      "International Flights",
+      "Lunch & Dinner",
+      "Personal expenses & tips"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival & Seminyak Welcome", description: "Land at Ngurah Rai International Airport and transfer to your beachfront Seminyak resort. Spend the afternoon unwinding at the famous Seminyak Beach. In the evening, stroll through the trendy Eat Street (Jalan Kayu Aya) lined with world-class restaurants and quirky boutiques." },
+      { day: 2, title: "Tanah Lot & Pura Uluwatu", description: "Morning visit to the iconic sea temple of Tanah Lot, perched dramatically on a coastal rock. Continue to the clifftop Uluwatu Temple for breathtaking Indian Ocean views. As the sun dips, witness the mesmerizing Kecak Fire Dance – a dramatic Balinese Hindu ritual performed against a backdrop of the sunset." },
+      { day: 3, title: "Transfer to Ubud & Cultural Immersion", description: "Drive to Ubud, Bali's artistic heartland. Stop at a traditional silver-smithing workshop in Celuk and a wood-carving village in Mas. Arrive in Ubud and visit the sacred Monkey Forest Sanctuary. Explore the vibrant Ubud Art Market and the grand Ubud Royal Palace in the evening." },
+      { day: 4, title: "Tegallalang Rice Terraces & Mount Batur", description: "Early morning drive to the Tegallalang Rice Terraces for a scenic sunrise walk through the UNESCO-listed 'subak' irrigation system. Later, visit the Batur Geopark Museum and see the active volcano from a viewpoint. Afternoon visit to Tirta Empul, a sacred holy spring temple where locals perform purification rituals." },
+      { day: 5, title: "Cooking Class & Spa Day", description: "Start your morning with a hands-on Balinese cooking class at a local farm. Learn to cook Nasi Goreng, Satay, and black rice pudding using freshly harvested ingredients. Return to the hotel for a well-deserved traditional Balinese massage. Evening at leisure for last-minute shopping at Ubud Market." },
+      { day: 6, title: "Departure", description: "After a final Balinese breakfast of Jamu (herbal tonic) and tropical fruits, check out and transfer to the airport. Carry home the memory of the Island of Gods – its incense, its smiling people, and its endless beauty." }
+    ]
+  },
+  {
+    id: 41,
+    name: "Bali – 7 Nights / 8 Days",
+    description: "Complete Bali & Nusa Penida",
+    image: "/destinations/international/Bali-1.jpg",
+    details: "The ultimate Bali experience adding the stunning Nusa Penida island to the classic Bali highlights. Perfect for travelers who want island-hopping, cliff-top viewpoints, and the iconic Kelingking Beach.",
+    duration: "7 Nights / 8 Days",
+    bestTime: "April to October",
+    highlights: ["Nusa Penida Island", "Kelingking Beach (T-Rex Head)", "Angel's Billabong", "Ubud Cultural Tour", "Uluwatu Sunset"],
+    itinerary: [
+      { day: "1-2", title: "Seminyak Arrival & South Bali", description: "Arrive and settle into your Seminyak resort. Day 2 explore Tanah Lot at sunset and the Uluwatu cliff temple with Kecak dance performance. Enjoy dinner at a floating beach club overlooking the Indian Ocean." },
+      { day: "3-4", title: "Nusa Penida Island", description: "Take a fast boat to Nusa Penida island. Day 3: West coast tour – Kelingking Beach (the iconic T-Rex shaped cliff), Angel's Billabong natural infinity pool, and Broken Beach. Day 4: East coast – Atuh Beach, Diamond Beach with natural arch, and Crystal Bay for snorkeling with Mola Mola fish." },
+      { day: "5-6", title: "Ubud Arts & Rice Terraces", description: "Transfer to Ubud. Day 5: Sacred Monkey Forest, Royal Palace, and Ubud Art Market. Witness a traditional Legong dance show. Day 6: Tegallalang rice terraces at sunrise, Tirta Empul holy water temple, and a visit to coffee plantation for a Luwak coffee tasting session." },
+      { day: 7, title: "Adventure Day – Rafting or Cycling", description: "Choose your adventure: white-water rafting on the Ayung River through the jungle gorge, or a sunrise cycling tour down the slopes of Mount Batur. Afternoon: traditional Balinese spa and wellness treatment." },
+      { day: 8, title: "Departure", description: "Final Balinese breakfast. Transfer to Ngurah Rai Airport for your onward journey, carrying memories of cliff-top sunsets, emerald rice paddies, and magical island life." }
+    ]
+  },
+  {
+    id: 42,
+    name: "Cambodia – 5 Nights / 6 Days",
+    description: "Temples of the Gods",
+    image: "/destinations/international/Cambodia.jpg",
+    details: "Journey to the heart of the Khmer Empire. Explore the world's largest religious monument – Angkor Wat – and witness the resilience of the Cambodian people in Phnom Penh.",
+    duration: "5 Nights / 6 Days",
+    bestTime: "November to March",
+    highlights: ["Angkor Wat Sunrise", "Bayon Temple Faces", "Ta Prohm (Tomb Raider)", "Tonle Sap Lake", "Phnom Penh Heritage"],
+    inclusions: [
+      "Cambodia e-Visa assistance",
+      "Arrival and departure airport transfers",
+      "Hotel: 2N Phnom Penh + 3N Siem Reap (Breakfast)",
+      "Angkor Wat 2-day temple pass",
+      "Tonle Sap floating village boat ride",
+      "Tuk-tuk sightseeing in Siem Reap"
+    ],
+    exclusions: [
+      "International Flights",
+      "Lunch & Dinner",
+      "Tips and personal expenses"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Phnom Penh", description: "Welcome to the Kingdom of Wonder! Transfer to your hotel. Spend the afternoon at the stunning Royal Palace and the Silver Pagoda, housing the legendary Emerald Buddha. Evening walk along the Sisowath Quay riverside promenade for local street food and sunset views over the Tonle Sap and Mekong confluence." },
+      { day: 2, title: "Phnom Penh – History & Heritage", description: "Visit the Tuol Sleng Genocide Museum (S-21 prison), a sobering reminder of the Khmer Rouge era. Continue to the Choeung Ek Memorial (Killing Fields). In the afternoon visit the National Museum, housing the world's largest collection of Khmer art. Evening flight to Siem Reap." },
+      { day: 3, title: "Angkor Wat Sunrise & Bayon Temple", description: "Rise before dawn for the unmissable sunrise over the five towers of Angkor Wat reflected in the moat. Spend the morning exploring the main temple. After breakfast, visit the Bayon Temple with its 54 towers bearing 216 serene stone faces. Continue to Baphuon and the Terrace of Elephants." },
+      { day: 4, title: "Ta Prohm & Outer Temples", description: "Visit the jungle-clad Ta Prohm temple (made famous by Tomb Raider), where giant tree roots engulf ancient stone walls. Continue to Banteay Srei, the 'Citadel of Women', renowned for its intricate pink sandstone carvings. Evening: Apsara traditional dance dinner show." },
+      { day: 5, title: "Tonle Sap Floating Village", description: "Morning at leisure. Afternoon boat trip to the Kompong Khleang floating village on the vast Tonle Sap Lake, where entire communities live on the water in stilted houses. Watch the sunset over the lake and return for a final Cambodian dinner of Fish Amok and Khmer curry." },
+      { day: 6, title: "Departure from Siem Reap", description: "Final morning for souvenir shopping at the Old Market (Psar Chas). Pick up some silk scarves, Angkor replica carvings, and local Kampot pepper. Transfer to Siem Reap International Airport for your departure flight." }
+    ]
+  },
+  {
+    id: 43,
+    name: "Japan – 7 Nights / 8 Days",
+    description: "Land of the Rising Sun",
+    image: "/destinations/international/Japan.jpg",
+    details: "Experience the perfect harmony of ancient tradition and ultra-modern innovation. From the neon-drenched streets of Tokyo to the spiritual temples of Kyoto and the deer park of Nara.",
+    duration: "7 Nights / 8 Days",
+    bestTime: "March to May (Cherry Blossom) & October to November",
+    highlights: ["Mount Fuji View", "Fushimi Inari Shrine", "Tokyo Shibuya Crossing", "Nara Deer Park", "Hiroshima Peace Memorial"],
+    inclusions: [
+      "Japan Tourist Visa assistance",
+      "7-day JR Pass (Bullet Train)",
+      "Hotel: 3N Tokyo + 1N Hakone + 3N Kyoto (Breakfast)",
+      "Hakone Ropeway & Lake Ashi cruise",
+      "Nara Day Trip from Kyoto",
+      "Hiroshima & Miyajima Day Trip"
+    ],
+    exclusions: [
+      "International Flights",
+      "Lunch & Dinner",
+      "Personal expenses & pocket wifi"
+    ],
+    itinerary: [
+      { day: "1-2", title: "Tokyo – The Neon Metropolis", description: "Land at Narita or Haneda and transfer to your Tokyo hotel. Day 1: Explore Shinjuku's dazzling neon-lit streets and the peaceful Shinjuku Gyoen Garden. Day 2: Visit the Tsukiji Outer Market for fresh sushi breakfast, cross the iconic Shibuya Scramble, shop in Harajuku's quirky Takeshita Street, and see the Senso-ji temple in Asakusa at sunset." },
+      { day: 3, title: "Hakone – Fuji Views & Onsens", description: "Take the Shinkansen to Hakone. Ascend on the Hakone Ropeway over volcanic Owakudani Valley for views of Mount Fuji on clear days. Cruise on the pirate ship across Lake Ashi framed by the iconic floating Torii gate. Check in to a traditional Ryokan (inn) and enjoy a restorative onsen (hot spring) bath and a multi-course Kaiseki dinner." },
+      { day: "4-5", title: "Kyoto – The Soul of Japan", description: "Bullet train to Kyoto. Day 4: Walk under thousands of vermillion torii gates at the Fushimi Inari Shrine at dawn. Visit Kinkaku-ji (the Golden Pavilion), the Ryoan-ji Zen rock garden, and the Arashiyama Bamboo Grove. Day 5: Explore Nijo Castle, the Philosopher's Path (lined with cherry trees), and the ancient Gion district – watch for Maiko (apprentice Geisha) in the early evening." },
+      { day: 6, title: "Nara – Sacred Deer & Giant Buddha", description: "Day trip to Nara, Japan's first permanent capital. Wander through Nara Park where over 1,000 sacred sika deer roam freely and bow (literally!) to visitors. Visit Todai-ji Temple housing the world's largest bronze Buddha statue. Explore the Kasuga Taisha Grand Shrine lit by thousands of lanterns." },
+      { day: 7, title: "Hiroshima & Miyajima Island", description: "Travel to Hiroshima to visit the Peace Memorial Park and Museum – a profoundly moving experience. Take the ferry to the sacred island of Miyajima to see the 'floating' vermillion Torii gate of Itsukushima Shrine, one of Japan's three most scenic views. Return to Kyoto for a farewell Japanese dinner." },
+      { day: 8, title: "Departure", description: "Transfer to Osaka's Kansai Airport or Kyoto Station. Last chance to buy some Matcha KitKats, sake, and Japanese ceramics at the station shops. Board your flight home with memories of cherry blossoms, ramen, and robot cafes." }
+    ]
+  },
+  {
+    id: 44,
+    name: "Maldives – 4 Nights / 5 Days",
+    description: "Heaven on Earth",
+    image: "/destinations/international/Maldives.jpg",
+    details: "Escape to paradise with this luxurious Maldives escape. Stay in stunning overwater bungalows, snorkel in crystal-clear lagoons, and watch the sun melt into the Indian Ocean horizon.",
+    duration: "4 Nights / 5 Days",
+    bestTime: "November to April",
+    highlights: ["Overwater Bungalow Stay", "Snorkeling with Manta Rays", "Sunset Dolphin Cruise", "Underwater Dining", "Private Beach Dinner"],
+    inclusions: [
+      "Maldives on-arrival Visa (Free for Indians)",
+      "Speedboat or Seaplane Transfer to Resort",
+      "4 Nights Overwater / Beach Villa (All-Inclusive)",
+      "Snorkeling trip & Dolphin watching cruise",
+      "Sunset fishing trip",
+      "Couple's spa (60 min) for honeymoon packages"
+    ],
+    exclusions: [
+      "International Flights",
+      "Alcoholic beverages",
+      "Deep sea diving (extra cost)"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival at 'The Last Paradise'", description: "Land at Velana International Airport in Malé. Freshen up at a transit lounge and transfer via speedboat or seaplane to your private island resort. As the turquoise water rushes beneath you, the stress of city life simply dissolves. Check in and indulge in your first sunset cocktail over the infinite Indian Ocean." },
+      { day: 2, title: "Snorkeling Safari & Marine Life", description: "After a lavish breakfast, embark on a guided snorkeling excursion over the house reef. Swim alongside colorful parrotfish, sea turtles, and gentle nurse sharks in crystal-clear water. Visit the Coral Nursery to understand marine conservation. Afternoon: paddle boarding and kayaking in the calm lagoon." },
+      { day: 3, title: "Island Hopping & Local Culture", description: "Explore a local Maldivian island to see how the islanders live, shop at a local fish market, and visit a traditional Maldivian house. Later, visit the sandbank – a tiny strip of white sand surrounded by ocean on all sides. Enjoy a private picnic with freshly caught grilled fish and tropical fruits." },
+      { day: 4, title: "Dolphin Cruise & Spa Day", description: "Join an evening dolphin cruise as spinner dolphins race and leap alongside your boat in the golden light. Return for a sunset spa treatment at the overwater spa – try the traditional Maldivian coconut oil massage. Cap your penultimate night with a candlelit private beach dinner under a million stars." },
+      { day: 5, title: "Departure", description: "Final sunrise over the lagoon – slip off the deck into the warm water for a solo swim. Enjoy a final lavish breakfast. Transfer back to Malé Airport for your international flight, carrying with you the memory of the most serene place on earth." }
+    ]
+  },
+  {
+    id: 45,
+    name: "Mauritius – 6 Nights / 7 Days",
+    description: "The Pearl of the Indian Ocean",
+    image: "/destinations/international/Mauritius.jpg",
+    details: "A jewel of the Indian Ocean with volcanic mountains, turquoise lagoons, sugar cane fields, and pristine beaches. Mauritius is the ultimate tropical luxury destination.",
+    duration: "6 Nights / 7 Days",
+    bestTime: "May to December",
+    highlights: ["Le Morne Brabant", "Underwater Waterfall Illusion", "Chamarel Coloured Earth", "Blue Bay Marine Park Snorkeling", "Grand Baie Shopping"],
+    inclusions: [
+      "Mauritius Visa (Free for Indian passport holders)",
+      "Return Airport Transfers",
+      "6 Nights hotel (Breakfast & Dinner – MAP Plan)",
+      "North Island Tour (Grand Baie, Pamplemousses)",
+      "South Island Tour (Chamarel, Le Morne)",
+      "Blue Bay Glass-bottom boat ride"
+    ],
+    exclusions: [
+      "International Flights",
+      "Lunch",
+      "Water sports (extra cost)"
+    ],
+    itinerary: [
+      { day: 1, title: "Bienvenue à l'Île Maurice", description: "Arrive at Sir Seewoosagur Ramgoolam International Airport and transfer to your resort. Mauritius is an explosion of tropical color – red flamboyant trees, turquoise lagoon, and emerald mountains. Relax at the beach and enjoy a welcome dinner of traditional Creole cuisine." },
+      { day: 2, title: "Northern Mauritius Explore", description: "Tour the North Island: Visit the Pamplemousses Botanical Garden, one of the oldest in the southern hemisphere. Drive past the colonial-era Château Labourdonnais. Explore the vibrant town of Grand Baie, known for its duty-free shopping and buzzing nightlife along the beachfront." },
+      { day: 3, title: "Catamaran & Snorkeling Adventure", description: "Full day catamaran cruise to the Northern Islands – Île Gabriel and Flat Island. Snorkel in the turquoise bays, see dolphins, and enjoy a BBQ lunch on the boat. Optional: parasailing over the lagoon for a bird's-eye view of the island." },
+      { day: 4, title: "South Mauritius – Chamarel & Le Morne", description: "Explore Southern Mauritius. Visit the surreal 'Chamarel Coloured Earth', an undulating landscape of seven volcanic dunes in different colors. See the Chamarel Waterfall. Drive to Le Morne Brabant, a UNESCO World Heritage peninsula, for the famous 'Underwater Waterfall' illusion viewpoint." },
+      { day: 5, title: "Blue Bay Marine Park & Mahébourg", description: "Head to the Blue Bay Marine Park for snorkeling in the most pristine coral reef lagoon in Mauritius. Take a glass-bottom boat ride to see the colourful coral gardens without getting wet. Visit the Mahébourg Waterfront Market and the National History Museum for stories of colonial-era battles." },
+      { day: 6, title: "Leisure & Sugar Cane Country", description: "Morning at leisure at your resort. Optional: Quad biking through the sugar cane fields and volcanic landscape in the south. Afternoon: Rum distillery tour and tasting at St. Aubin. Evening farewell dinner with a live Sega dance show – the joyful national dance of Mauritius." },
+      { day: 7, title: "Au Revoir Mauritius", description: "Final tropical breakfast. Pack your bottles of rhum arrangé and vanilla pods. Transfer to the airport for your flight home, dreaming of the day you'll return to this slice of heaven." }
+    ]
+  },
+  {
+    id: 46,
+    name: "Kazakhstan – 6 Nights / 7 Days",
+    description: "The Land of the Great Steppe",
+    image: "/destinations/international/Kazakhstan.jpg",
+    details: "Discover Central Asia's most modern and breathtaking destination. From the futuristic skyline of Astana to the canyon landscapes of Charyn and the ski resort city of Almaty.",
+    duration: "6 Nights / 7 Days",
+    bestTime: "May to September & December to February (skiing)",
+    highlights: ["Baiterek Tower Astana", "Charyn Canyon", "Big Almaty Lake", "Medeu Skating Rink", "Shymbulak Ski Resort"],
+    itinerary: [
+      { day: "1-2", title: "Astana – The City of the Future", description: "Arrive in Nur-Sultan (Astana), Kazakhstan's stunning futuristic capital. Day 1: Settle in and explore the iconic Baiterek Tower (the 'golden egg on a tree' monument). Day 2: Visit the Khan Shatyr Entertainment Center (the world's largest tent structure), Hazrat Sultan Mosque, the Palace of Peace and Reconciliation pyramid, and the unique 'EXPO 2017' energy complex." },
+      { day: 3, title: "Flight to Almaty – City of Apples", description: "Fly to Almaty, the country's cultural capital. Explore the ornate Zenkov Cathedral built entirely without nails. Visit Panfilov Park and the Central State Museum. In the evening, stroll through the Green Bazaar bursting with dried fruits, nuts, and Kazakh handicrafts – the perfect place to pick up souvenirs." },
+      { day: 4, title: "Charyn Canyon – The Grand Canyon of Central Asia", description: "Full-day excursion to Charyn Canyon National Park (200km from Almaty). Walk through the dramatic 'Valley of Castles', where 150-million-year-old red rock formations rise like ancient ruins from the earth. Picnic lunch by the Charyn River. Return via the Ash Tree Grove." },
+      { day: 5, title: "Big Almaty Lake & Medeu", description: "Morning drive up to Big Almaty Lake – a stunning glacial lake of shimmering turquoise waters set against a backdrop of snow-capped peaks. Return via the world's highest-altitude skating rink at Medeu. Afternoon: hike or cable car to Shymbulak Ski Resort for panoramic mountain views." },
+      { day: 6, title: "Kolsai Lakes Excursion (Optional Day Trip)", description: "Optional full-day trip to the Kolsai Lakes – Kazakhstan's 'Pearls of the Tian Shan'. Three turquoise lakes nestled in the spruce forests offer surreal beauty. Alternatively, enjoy a leisurely day in Almaty, visiting the State Museum of Musical Instruments, the art gallery, and local restaurants for traditional Beshbarmak (mutton and noodles)." },
+      { day: 7, title: "Departure", description: "Last morning in Central Asia. Shop for Kazakh feltwear, wolf-head ornaments, and eagle hunting artwork at the Aport Bazaar. Transfer to Almaty International Airport for your flight back home, carrying the memory of endless golden steppes and modern marvels." }
+    ]
+  },
+  {
+    id: 47,
+    name: "Georgia – 6 Nights / 7 Days",
+    description: "The Caucasus Gem",
+    image: "/destinations/international/Georgia.jpg",
+    details: "Nestled between Europe and Asia, Georgia is a land of dramatic mountains, ancient cave cities, medieval churches, and some of the world's oldest wine. An undiscovered gem for the Indian traveler.",
+    duration: "6 Nights / 7 Days",
+    bestTime: "April to June & September to November",
+    highlights: ["Kazbegi & Mount Kazbek", "Gergeti Trinity Church", "Vardzia Cave Monastery", "Old Tbilisi & Narikala Fort", "Wine Tasting in Kakheti"],
+    itinerary: [
+      { day: 1, title: "Arrival in Tbilisi – The Crossroads City", description: "Arrive at Tbilisi International Airport. Transfer to your hotel in the heart of Old Tbilisi. Explore the cobblestone streets of the Old Town on foot – see the iconic sulfuric bathhouses of Abanotubani and the flowing white 'Bride of Georgia' statue. Enjoy traditional Georgian dinner of Khinkali (dumplings) and Khachapuri (cheese bread) at a local tavern." },
+      { day: 2, title: "Tbilisi City Highlights", description: "Visit the ancient Narikala Fortress by cable car for panoramic views of the city. Explore the Anchiskhati Basilica, the oldest church in Tbilisi. Walk through the colorful Dry Bridge Flea Market for Soviet-era antiques. Afternoon, visit the Georgian National Museum and the iconic Bridge of Peace." },
+      { day: 3, title: "Kazbegi – The Mighty Caucasus", description: "Full-day excursion to Kazbegi National Park (2.5 hrs from Tbilisi). Stop at the Ananuri Fortress overlooking the Jinvali Reservoir. Arrive at Stepantsminda village and take a 4x4 jeep ride up to the medieval Gergeti Trinity Church perched at 2,170m, with the snow-capped Mount Kazbek (5,047m) as its backdrop – one of the most dramatic views in the world." },
+      { day: 4, title: "Mtskheta & Gori", description: "Visit UNESCO-listed Mtskheta, the religious capital of Georgia. See the Svetitskhoveli Cathedral and Jvari Monastery. Continue to Gori, birthplace of Stalin. Explore the Stalin Museum. On the way back, stop at Uplistsikhe – an ancient rock-hewn city dating back to the Iron Age." },
+      { day: 5, title: "Kakheti Wine Region", description: "Full-day tour to the Kakheti wine region – the oldest wine-growing region in the world (8,000 years old!). Visit the Alaverdi Monastery winery. Tour local family 'marani' (wine cellars) and taste wine aged in traditional clay amphoras called 'Qvevri'. Return via the historic Sighnaghi 'City of Love'." },
+      { day: 6, title: "Vardzia Cave Monastery (Optional) or City Leisure", description: "Optional: long day trip south to Vardzia, a spectacular cave city carved into the Erusheti Mountain in the 12th century, featuring 3,000 apartments, churches, and a throne room. Or relax in Tbilisi, explore the Vake Park, enjoy a final Georgian spa hammam at the Abanotubani thermal baths." },
+      { day: 7, title: "Departure", description: "Final Georgian breakfast of Churchkhela (walnut-stuffed grape candy), fresh cheese, and honey. Shop for local wine, pomegranate products, and hand-painted pottery at the Dry Bridge market. Transfer to Tbilisi Airport for departure." }
+    ]
+  },
+  {
+    id: 48,
+    name: "Budapest – Hungary – 5 Nights / 6 Days",
+    description: "The Pearl of the Danube",
+    image: "/destinations/international/Budapest.jpg",
+    details: "Budapest, the magnificent capital of Hungary, straddles the Danube with its Gothic Parliament, thermal baths, and vibrant ruin bar culture. One of Europe's most stunning and affordable capitals.",
+    duration: "5 Nights / 6 Days",
+    bestTime: "April to June & September to November",
+    highlights: ["Hungarian Parliament Building", "Buda Castle & Fisherman's Bastion", "Széchenyi Thermal Bath", "Danube River Cruise", "Ruin Bar Nightlife"],
+    inclusions: [
+      "Schengen Visa guidance",
+      "Return Airport Transfers",
+      "5 Nights hotel in central Budapest (Breakfast)",
+      "Danube Evening River Cruise",
+      "Széchenyi Thermal Bath entry",
+      "Buda Castle & Fisherman's Bastion tour"
+    ],
+    exclusions: [
+      "International Flights",
+      "Schengen Visa fees",
+      "Lunch & Dinner",
+      "Personal expenses"
+    ],
+    itinerary: [
+      { day: 1, title: "Arrival in Budapest", description: "Transfer to your hotel in the heart of Pest. In the evening, take a walk along the illuminated Danube promenade and marvel at the lit-up Parliament reflected in the river. Discover a 'Ruin Bar' – Budapest's unique bars built inside crumbling Jewish Quarter buildings filled with eclectic décor." },
+      { day: 2, title: "Buda Castle Hill & Fisherman's Bastion", description: "Take the funicular up to Buda Castle Hill. Explore the Hungarian National Gallery inside the Royal Palace. Walk to the neo-Gothic Fisherman's Bastion for the city's most iconic panoramic view of the Parliament and Danube bridges. Visit the Matthias Church with its stunning Moorish-influenced interior. Evening Danube river cruise with dinner." },
+      { day: 3, title: "Pest City Tour & Parliament", description: "Full-day Pest exploration: Visit the magnificent Hungarian Parliament Building (book guided tour in advance), the stunning St. Stephen's Basilica (climb the dome for views), and Andrássy Avenue – Budapest's Champs-Élysées lined with Neo-Renaissance mansions. Explore the Hungarian State Opera House." },
+      { day: 4, title: "Thermal Bath Day", description: "Budapest has the most thermal bath capacity of any city in the world! Spend a morning soaking in the Széchenyi Thermal Bath (inside a grand Neo-Baroque palace in City Park). Alternatively, the art nouveau Gellért Baths for couples. Afternoon: stroll through Heroes' Square and the Museum of Fine Arts." },
+      { day: 5, title: "Day Trip – Danube Bend", description: "Scenic day trip along the Danube Bend to Visegrád Citadel, Esztergom Basilica (Hungary's largest church), and the charming arts town of Szentendre with its Serbian Orthodox churches and artist workshops. Return to Budapest for a farewell dinner at a traditional Hungarian restaurant featuring Goulash and Langos." },
+      { day: 6, title: "Departure", description: "Final Kürtőskalács (chimney cake) and Langos for breakfast. Pick up some Pálinka (Hungarian fruit brandy), paprika, and Tokaj wine from the Central Market Hall. Transfer to Budapest Ferenc Liszt International Airport for your flight home." }
+    ]
+  },
+
   // DOMESTIC DESTINATIONS
   {
     id: 1,
@@ -521,4 +764,123 @@ export const destinations: Destination[] = [
     duration: "2-4 days",
     bestTime: "All Year Round"
   },
+
+  // --- NEW DOMESTIC DESTINATIONS ---
+  {
+    id: 50,
+    name: "Lakshadweep – 4 Nights / 5 Days",
+    description: "India's Hidden Coral Paradise",
+    image: "/destinations/domestic/Lakshadweep.jpg",
+    details: "Discover India's best-kept secret – a pristine archipelago of 36 coral islands in the Arabian Sea. With crystal-clear lagoons, vibrant coral reefs, and zero crowds, Lakshadweep is paradise untouched.",
+    duration: "4 Nights / 5 Days",
+    bestTime: "October to May",
+    highlights: ["Bangaram Island Stay", "Snorkeling & Scuba Diving", "Glass-bottom Boat Ride", "Lagoon Kayaking", "Pristine White Sand Beaches"],
+    inclusions: [
+      "Ship / Flight transfer from Kochi to Lakshadweep",
+      "Accommodation on Bangaram / Agatti Island (All meals)",
+      "Snorkeling equipment and guided sessions",
+      "Glass-bottom boat ride",
+      "Lagoon island visit"
+    ],
+    exclusions: [
+      "Flights to/from Kochi",
+      "Scuba diving (extra cost)",
+      "Personal expenses"
+    ],
+    itinerary: [
+      { day: 1, title: "Kochi to Agatti Island – Arrival", description: "Fly from Kochi to Agatti Island (1.5 hrs). As the tiny aircraft descends, you'll see the emerald-green lagoon and white sandbars from above – truly breathtaking. Transfer by boat to your island resort. Spend the evening on the beach watching the sunset over the Arabian Sea with a fresh coconut in hand." },
+      { day: 2, title: "Snorkeling & Coral Reefs", description: "After a fresh island breakfast, embark on a guided snorkeling tour over the Agatti House Reef. The lagoon teems with colorful tropical fish, sea turtles, and vibrant hard coral formations. Afternoon: Explore the island on foot or by bicycle – it takes just 30 minutes to walk end to end. Evening: bioluminescent plankton watching from the beach (seasonal)." },
+      { day: 3, title: "Bangaram Atoll Day Trip", description: "Boat transfer to the uninhabited Bangaram Island – a teardrop-shaped atoll ringed with white sand. Spend the day at this completely pristine beach. Snorkel the outer reef wall, spot blacktip reef sharks in the shallows, and enjoy a packed lunch on the beach under the shade of coconut palms." },
+      { day: 4, title: "Glass-bottom Boat & Lagoon Kayaking", description: "Morning glass-bottom boat tour to see the coral garden and marine life without getting wet. Afternoon kayaking across the calm shallow lagoon – the water is so clear you can see the seabed from your kayak. Visit the island fish market in the evening and watch fishermen bring in their catch of tuna." },
+      { day: 5, title: "Departure – Agatti to Kochi", description: "Last sunrise on the beach. Dip your toes in the warm Arabian Sea one final time. Transfer to the airport for your flight back to Kochi. You'll leave with a transformed sense of peace and wonder at the earth's most pristine ecosystem." }
+    ]
+  },
+  {
+    id: 51,
+    name: "North East India – 8 Nights / 9 Days",
+    description: "The Seven Sisters & Beyond",
+    image: "/destinations/domestic/NorthEast.jpg",
+    details: "Explore the enchanting North East – a land of misty mountains, living root bridges, tea estates, one-horned rhinos, and vibrant tribal cultures across Assam, Meghalaya, and Sikkim.",
+    duration: "8 Nights / 9 Days",
+    bestTime: "October to April",
+    highlights: ["Kaziranga Rhino Safari", "Living Root Bridges Meghalaya", "Dawki Crystal Water River", "Nathula Pass Sikkim", "Majuli River Island"],
+    itinerary: [
+      { day: "1-2", title: "Guwahati & Kaziranga – Rhino Country", description: "Arrive in Guwahati and visit the Kamakhya Temple atop Nilachal Hill. Drive to Kaziranga National Park. Day 2: UNESCO-listed Kaziranga – home to the world's largest population of one-horned rhinoceroses. Take an elephant back safari at dawn through the tall elephant grass, spotting rhinos, elephants, and wild buffalo." },
+      { day: "3-4", title: "Majuli River Island & Jorhat", description: "Ferry across the Brahmaputra to Majuli, the world's largest river island and a center of Assamese Vaishnavite culture. Visit the Satra monasteries, watch mask-makers and potters at work. Day 4: Explore local tribal villages and participate in a community meal. Return to Jorhat and overnight." },
+      { day: "5-6", title: "Cherrapunji & Meghalaya's Wonders", description: "Drive to Shillong, Meghalaya's capital. Day 5: Visit the iconic Double Decker Living Root Bridge at Nongriat – a 45-minute trek through dense forest. Swim in the crystal-clear natural pools. Day 6: Explore Mawsmai Caves and Nohkalikai Falls (India's tallest plunge waterfall) near Cherrapunji, the wettest place on earth." },
+      { day: 7, title: "Dawki – The Clear River Border", description: "Drive to Dawki on the Bangladesh border. Boat ride on the Umngot River – the water is so transparent that boats appear to float on glass. Visit the Mawlynnong village (Asia's cleanest village) with its hanging root bridges and sky walk. Return to Shillong for overnight." },
+      { day: "8-9", title: "Sikkim – Gangtok & Nathula Pass", description: "Fly or drive to Gangtok, Sikkim's capital. Day 8: Visit Rumtek Monastery, Tashi Viewpoint, and the Institute of Tibetology. Day 9: Permit-required trip to Nathula Pass (14,140 ft) on the historic Silk Road, standing at the India-China border. Views of snow-capped Himalayan peaks. Return to Gangtok and evening departure." }
+    ]
+  },
+  {
+    id: 52,
+    name: "Dehradun – Mussoorie – Nainital – 6 Nights / 7 Days",
+    description: "Queen of the Hills & Lake City",
+    image: "/destinations/domestic/Uttarakhand.jpg",
+    details: "A beautiful circuit of three iconic Uttarakhand hill stations – the intellectual Dehradun, the romantic Mussoorie 'Queen of Hills', and the charming Nainital with its pear-shaped lake.",
+    duration: "6 Nights / 7 Days",
+    bestTime: "March to June & September to November",
+    highlights: ["Gun Hill Mussoorie", "Naini Lake Boating", "Kempty Falls", "Robber's Cave Dehradun", "Snow View Point"],
+    itinerary: [
+      { day: 1, title: "Arrival in Dehradun", description: "Arrive in Dehradun, the gateway to the Garhwal Himalayas. Visit Robber's Cave (Guchhu Pani), a natural river cave you can walk through. See Tapkeshwar Temple and the Sahastradhara sulphur springs. Enjoy a walk along Rajpur Road for local food." },
+      { day: "2-3", title: "Mussoorie – The Queen of Hills", description: "Drive up to Mussoorie (35 km). Day 2: Walk the famous Mall Road, visit Kempty Falls (a tiered waterfall 1,364m above sea level). Ride the ropeway to Gun Hill for panoramic Himalayan views including Bandarpunch. Day 3: Visit Lal Tibba (the highest point in Mussoorie) for views of Kedarnath and Badrinath peaks. Camelback Road stroll at sunset." },
+      { day: 4, title: "Mussoorie to Nainital", description: "Scenic drive through the oak and rhododendron forests to Nainital (5-6 hours). Check in. Evening walk along the Mall Road beside the pear-shaped Naini Lake. Visit the Naina Devi Temple. Watch the sun set behind the surrounding seven mountains (Sapt Shring)." },
+      { day: "5-6", title: "Nainital Sightseeing", description: "Day 5: Boating on Naini Lake. Cable car to Snow View Point (7,513 ft) for Himalayan panoramas. Visit the Nainital Zoo, home to snow leopards and Himalayan bears. Day 6: Day trip to Mukteshwar (51 km) – a quiet hill station with the ancient Mukteshwar Dham temple and spectacular views of the Kumaon Himalayas." },
+      { day: 7, title: "Departure", description: "Final morning in the hills. Visit the Bhim Tal and Sat Tal (lakes near Nainital) on your way to the Kathgodam railway station or Pantnagar Airport for your journey home." }
+    ]
+  },
+  {
+    id: 53,
+    name: "Kulu Manali – Leh Ladakh – 8 Nights / 9 Days",
+    description: "Himalayan Highway Adventure",
+    image: "/destinations/domestic/LehLadakh.jpg",
+    details: "One of India's most iconic road trips – from the apple orchards of Kullu-Manali through the world's highest motorable passes to the lunar landscapes and monasteries of Leh Ladakh.",
+    duration: "8 Nights / 9 Days",
+    bestTime: "June to September",
+    highlights: ["Rohtang Pass", "Pangong Tso Lake", "Khardung La Pass", "Spiti Valley", "Thiksey Monastery"],
+    itinerary: [
+      { day: "1-2", title: "Manali – Arrival & Acclimatization", description: "Arrive in Manali by air (Delhi-Kullu) or overnight Volvo bus. Day 1: Rest and acclimatize (important at 6,700 ft). Evening: Explore Old Manali village cafes and the Hadimba Devi Temple. Day 2: Visit Solang Valley, Vashisht Hot Springs, and Naggar Castle. Prepare gear for the high-altitude journey ahead." },
+      { day: 3, title: "Manali to Sarchu via Rohtang Pass", description: "Early morning departure. Navigate the iconic Rohtang Pass (13,050 ft) with its snow fields and panoramic views. Drive through the Lahaul Valley – a dramatic shift from pine forests to high-altitude desert. Cross the Baralacha La pass (16,040 ft) and descend to Sarchu plains for overnight camping under a canopy of a billion stars." },
+      { day: "4-5", title: "Leh City & Monasteries", description: "Day 4: Arrive in Leh via Lachulung La and Tanglang La (world's second highest motorable pass at 17,480 ft). Rest and acclimatize. Day 5: Explore Leh Palace (9-storey medieval palace), Shanti Stupa, and the Leh Market. Visit Spituk Monastery and Sankar Gompa. Traditional Ladakhi Thukpa (noodle soup) dinner." },
+      { day: 6, title: "Khardung La & Nubra Valley", description: "Drive over Khardung La Pass (17,582 ft) – one of the world's highest motorable roads. Descend into the scenic Nubra Valley. Visit the sand dunes of Hunder and take a double-humped Bactrian camel ride across the desert landscape with the Himalayas as backdrop. Overnight at Nubra valley camp." },
+      { day: 7, title: "Pangong Tso – The Blue Jewel", description: "Early drive to the iconic Pangong Tso Lake (14,270 ft) – immortalized in Bollywood's '3 Idiots'. The 134 km long salt water lake straddles India and China. Watch the lake change color from blue to green to purple. Overnight camp at the lake shore for a surreal starlit experience." },
+      { day: 8, title: "Return to Leh & Local Explore", description: "Drive back to Leh via the Chang La Pass. En route, visit the stunning Hemis Monastery (largest in Ladakh) and Thiksey Monastery (resembling a mini Potala Palace). Evening: stroll through Leh market for Buddhist artifacts, pashmina, and local apricot jam." },
+      { day: 9, title: "Departure from Leh", description: "Early morning flight from Kushok Bakula Rimpochee Airport back to Delhi. As the plane climbs over the Himalayas, get one last aerial view of the lunar landscape that will stay with you forever." }
+    ]
+  },
+  {
+    id: 54,
+    name: "Dharamsala – Spiti – Manali – 7 Nights / 8 Days",
+    description: "Mountains of the Buddha",
+    image: "/destinations/domestic/Dharamsala.jpg",
+    details: "A spiritual and adventure circuit from the Dalai Lama's home at Dharamsala through the ancient Spiti Valley monasteries to the adventure hub of Manali.",
+    duration: "7 Nights / 8 Days",
+    bestTime: "May to October",
+    highlights: ["Dalai Lama Temple Dharamsala", "Key Monastery Spiti", "Chandratal Lake", "Triund Trek", "Dhankar Monastery"],
+    itinerary: [
+      { day: "1-2", title: "Dharamsala & McLeod Ganj", description: "Arrive in Dharamsala / McLeod Ganj (Little Lhasa). Day 1: Visit the Tsuglagkhang Complex – the residence of the Dalai Lama and the Namgyal Monastery. Walk through the Tibetan colony market for momos and thukpa. Day 2: Trek to Triund (9,350 ft) – a 6 km hike rewarded with breathtaking views of the Dhauladhar range and the Kashmir valley below." },
+      { day: "3-4", title: "Manali & Rohtang", description: "Drive to Manali (7 hrs). Day 3: Explore Old Manali street food and Hadimba Devi Temple in the cedar forest. Day 4: Day trip to Rohtang Pass (weather/season permitting) or Solang Valley for paragliding, zorbing, and snowfields." },
+      { day: "5-6", title: "Spiti Valley – Kaza & Key Monastery", description: "Drive from Manali into the Spiti Valley (Kunzum Pass route). Day 5: Arrive in Kaza, the headquarters of Spiti district at 11,980 ft. Visit the ancient Key Monastery perched on a hilltop. Day 6: Explore Kibber village (one of the world's highest inhabited villages) and the Dhankar Monastery – a mud fortress perched on a cliff 1,000m above the valley." },
+      { day: 7, title: "Chandratal Lake – The Moon Lake", description: "Full-day excursion to the stunning Chandratal Lake (14,100 ft) – a crescent-shaped glacial lake of mesmerizing turquoise waters. Trek for 2 km from the campsite to the lake shore. Return to Kaza or campsite for overnight stay under an extraordinary cover of stars at altitude." },
+      { day: 8, title: "Return & Departure", description: "Drive back to Manali via Kunzum Pass. Transfer to the Bhuntar Airport (Kullu) for your flight to Delhi, or catch the overnight bus. You return changed – calmer, more grateful, and secretly planning your return to the mountains." }
+    ]
+  },
+  {
+    id: 55,
+    name: "MP – Khajuraho – Gwalior – Jhansi – 5 Nights / 6 Days",
+    description: "The Heart of Incredible India",
+    image: "/destinations/domestic/MadhyaPradesh.jpg",
+    details: "Explore Madhya Pradesh's UNESCO temples of Khajuraho, the mighty Gwalior Fort, and the legendary city of Jhansi – home of Rani Lakshmi Bai. This is a journey through the very soul of Indian history.",
+    duration: "5 Nights / 6 Days",
+    bestTime: "October to March",
+    highlights: ["Khajuraho UNESCO Temples", "Gwalior Fort Light & Sound Show", "Jhansi Fort", "Chandela Temple Architecture", "Orchha Heritage Town"],
+    itinerary: [
+      { day: 1, title: "Arrival in Khajuraho", description: "Fly or take the train to Khajuraho. Transfer to hotel. In the evening, attend the spectacular Sound & Light Show at the Western Group of Temples – where the story of the Chandela Dynasty is narrated against the illuminated sandstone temples. A perfect first introduction to one of India's most unique UNESCO sites." },
+      { day: "2-3", title: "Khajuraho Temple Circuit", description: "Day 2: Explore the Western Group of Temples (the most celebrated) – Kandariya Mahadev, Lakshmana, and Vishvanatha temples. Their intricate carvings represent the universe in stone, depicting celestial beings, warriors, and scenes from daily Chandela life. Day 3: Visit the Eastern and Southern groups; the Javari and Chaturbhuja temples. Also visit the Adivart Tribal and Folk Art Museum." },
+      { day: 4, title: "Orchha – The Forgotten Kingdom", description: "Drive to Orchha (2.5 hrs from Khajuraho). This abandoned capital of the Bundela Rajas is a dramatic riverside ghost city of cenotaphs, palaces, and temples that rise from the Betwa River. Visit the Jahangir Mahal, the Ram Raja Temple (the only temple where Lord Ram is worshipped as a King), and explore the riverside Chaturbhuj Temple." },
+      { day: 5, title: "Jhansi – City of the Warrior Queen", description: "Drive to Jhansi. Visit the iconic Jhansi Fort (18th century) – where the legendary Rani Lakshmi Bai mounted her revolt against the British in 1857. The fort houses a museum with the Rani's belongings and Bundela-era artifacts. Also visit the Rani Lakshmi Bai Memorial and St. Jude's Shrine." },
+      { day: 6, title: "Gwalior Fort & Departure", description: "Drive to Gwalior (1.5 hrs from Jhansi). Spend the morning at the magnificent Gwalior Fort ('The Gibraltar of India') – a sandstone fortress that has been besieged by every major dynasty. See the giant Jain Tirthankar statues carved into the cliff face, the Man Mandir Palace, and the Sas Bahu temples inside. Transfer to Gwalior Railway Station or Airport for departure." }
+    ]
+  },
 ];
+
