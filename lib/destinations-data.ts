@@ -56,79 +56,6 @@ export const destinations: Destination[] = [
     ]
   },
   {
-    id: 22,
-    name: "Dubai Tour – 5 Nights / 6 Days",
-    description: "Luxurious Dubai and Abu Dhabi",
-    image: "/destinations/international/Dubai-3.jpg",
-    details: "Experience the best of Dubai along with a full-day tour of Abu Dhabi. This 5 Nights / 6 Days package offers a perfect blend of modern luxury and cultural exploration.",
-    duration: "5 Nights / 6 Days",
-    bestTime: "November to March",
-    highlights: ["Abu Dhabi City Tour", "Sheikh Zayed Grand Mosque", "Burj Khalifa", "Desert Safari", "Global Village"],
-    inclusions: [
-      "UAE Tourist Visa",
-      "Two-way Airport Transfer",
-      "Hotel Options – 3*, 4* & 5* with Daily Breakfast",
-      "Marina / Creek Dhow Cruise with Buffet Dinner",
-      "Half Day Dubai City Tour",
-      "Burj Khalifa 124th Floor Entry",
-      "Miracle Garden",
-      "Global Village",
-      "Abu Dhabi City Tour",
-      "Desert Safari with BBQ Dinner"
-    ],
-    exclusions: [
-      "International Flights",
-      "Lunch & Dinner",
-      "Any personal Expenses"
-    ],
-    itinerary: [
-      { day: 1, title: "Arrival and Dhow Cruise", description: "Arrival at DXB and transfer to hotel. Evening enjoy a traditional wooden Dhow Cruise at Dubai Creek or Marina with buffet dinner." },
-      { day: 2, title: "Dubai City Tour, Burj Khalifa, and Dubai Mall", description: "Comprehensive city tour including Jumeirah Mosque, Palm Jumeirah, and Gold Souk. Afternoon visit Burj Khalifa 124th floor and Dubai Mall." },
-      { day: 3, title: "Miracle Garden & Global Village", description: "Visit the world's largest natural flower garden. Afternoon enjoy the cultural extravaganza at Global Village." },
-      { day: 4, title: "Abu Dhabi City Tour (Full Day)", description: "Full day tour of Abu Dhabi including Sheikh Zayed Grand Mosque, BAPS Hindu Temple, Qasr Al Watan, and the Corniche." },
-      { day: 5, title: "Leisure and Desert Safari", description: "Morning at leisure. Afternoon enjoy Desert Safari with dune bashing, belly dancing, and BBQ dinner." },
-      { day: 6, title: "Departure", description: "Check out and transfer to airport for your flight back home." }
-    ]
-  },
-  {
-    id: 23,
-    name: "Dubai Tour – 6 Nights / 7 Days",
-    description: "The Complete Dubai Experience",
-    image: "/destinations/international/Dubai.png",
-    details: "The most comprehensive Dubai package including unique attractions like Dubai Frame and Aya Universe. 7 days of pure bliss in the land of skyscrapers.",
-    duration: "6 Nights / 7 Days",
-    bestTime: "November to March",
-    highlights: ["Dubai Frame", "Aya Universe", "Abu Dhabi City Tour", "Burj Khalifa", "Miracle Garden"],
-    inclusions: [
-      "UAE Tourist Visa",
-      "Two-way Airport Transfer",
-      "Hotel Options – 3*, 4* & 5* with Daily Breakfast",
-      "Marina / Creek Dhow Cruise with Buffet Dinner",
-      "Half Day Dubai City Tour",
-      "Burj Khalifa 124th Floor Entry",
-      "Miracle Garden",
-      "Global Village",
-      "Abu Dhabi City Tour",
-      "Desert Safari with BBQ Dinner",
-      "Dubai Frame",
-      "Aya Universe"
-    ],
-    exclusions: [
-      "International Flights",
-      "Lunch & Dinner",
-      "Any personal Expenses"
-    ],
-    itinerary: [
-      { day: 1, title: "Arrival and Dhow Cruise", description: "Arrival and transfer to hotel. Relax and in the evening embark on a delightful Dhow Cruise with dinner." },
-      { day: 2, title: "Dubai City Tour, Burj Khalifa, and Dubai Mall", description: "Explore old and new Dubai. Visit Burj Khalifa and watch the fountain show at Dubai Mall." },
-      { day: 3, title: "Miracle Garden & Global Village", description: "Floral wonders at Miracle Garden and global shopping/entertainment at Global Village." },
-      { day: 4, title: "Abu Dhabi City Tour (Full Day)", description: "Visit the stunning Sheikh Zayed Grand Mosque, BAPS Temple, and more in the capital." },
-      { day: 5, title: "Morning Leisure & Desert Safari", description: "Spend your morning shopping or at the beach. Afternoon thrilling Desert Safari." },
-      { day: 6, title: "Dubai Frame & Aya Universe", description: "Visit the iconic Dubai Frame for panoramic views. Afternoon immerse yourself in the virtual wonders of Aya Universe." },
-      { day: 7, title: "Departure", description: "Final shopping and transfer to airport for departure." }
-    ]
-  },
-  {
     id: 15,
     name: "Vietnam – 6 Nights / 7 Days",
     description: "The Classic Highlights",
@@ -145,23 +72,6 @@ export const destinations: Destination[] = [
       { day: 5, title: "Hoi An Ancient Town", description: "A UNESCO site. Visit the Japanese Covered Bridge, get a custom suit/dress made at a tailor, and release lanterns on the river at night." },
       { day: 6, title: "Ba Na Hills & Golden Bridge", description: "Take the world’s longest cable car to see the 'Giant Hands' bridge. Return to Hoi An for a final seafood dinner by the beach." },
       { day: 7, title: "Departure", description: "Grab a Banh Mi for breakfast, visit the Hoi An Central Market for souvenirs, and fly out of Da Nang." }
-    ]
-  },
-  {
-    id: 31,
-    name: "Vietnam – 8 Nights / 9 Days",
-    description: "The Grand Vietnam",
-    image: "/destinations/international/Vietnam-1.jpg",
-    details: "A comprehensive journey from North to South, exploring the soul of Hanoi, the beauty of Halong Bay, the charm of Hoi An, and the energy of Ho Chi Minh City.",
-    duration: "8 Nights / 9 Days",
-    bestTime: "February to April & August to October",
-    highlights: ["Hanoi Explore", "Halong Bay Overnight", "Hoi An Ancient Town", "Cu Chi Tunnels", "Mekong Delta Boat Trip"],
-    itinerary: [
-      { day: "1-2", title: "Hanoi - The Soul of the North", description: "Arrive in Hanoi and immerse yourself in the Old Quarter's 36 ancient streets. Visit the Ho Chi Minh Mausoleum and the peaceful Temple of Literature. Spend your second evening enjoying a traditional Water Puppet Show and tasting the legendary 'Egg Coffee' or a bowl of steaming Bun Cha at a local hidden gem." },
-      { day: "3-4", title: "Halong Bay & Flight to Central Vietnam", description: "Journey to Halong Bay or the quieter Lan Ha Bay. Board a luxury overnight cruise and sail past thousands of limestone islets. Try kayaking through Luon Cave and visit the 'Surprise Cave' (Sung Sot). After a sunrise Tai Chi session on deck, fly to Da Nang and transfer to the lantern-lit town of Hoi An." },
-      { day: "5-6", title: "Hoi An Ancient Town & Ba Na Hills", description: "Discover the UNESCO heritage of Hoi An; walk across the Japanese Covered Bridge and take a basket boat ride through the Coconut Forest. The next day, ascend the Ba Na Hills by cable car to walk among the clouds on the spectacular Golden Bridge (Giant Hands) and explore the French Village." },
-      { day: "7-8", title: "The Pulse of Saigon & Mekong Delta", description: "Fly to Ho Chi Minh City (Saigon). Explore the historic Reunification Palace and the War Remnants Museum. Take a day trip to the Mekong Delta; cruise through the narrow canals on a rowboat, visit local coconut candy workshops, and enjoy a traditional 'Elephant Ear Fish' lunch at an island farm." },
-      { day: 9, title: "Ben Thanh Market & Departure", description: "Spend your final morning shopping for lacquerware, silk, and Vietnamese coffee at Ben Thanh Market. Enjoy a final Banh Mi on the street before your transfer to Tan Son Nhat International Airport for your flight back home." }
     ]
   },
   {
@@ -183,42 +93,6 @@ export const destinations: Destination[] = [
     ]
   },
   {
-    id: 32,
-    name: "Thailand – The Island Hopper",
-    description: "Phuket & Phi Phi",
-    image: "/destinations/international/Thailand-2.jpg",
-    details: "Ideal for couples and beach lovers looking for stunning island scenery and vibrant nightlife.",
-    duration: "5 Nights / 6 Days",
-    bestTime: "November to March",
-    highlights: ["Patong Beach", "Phi Phi Islands", "James Bond Island", "Phuket Old Town", "Elephant Sanctuary"],
-    itinerary: [
-      { day: 1, title: "Arrival in Phuket & Bangla Road", description: "Warm welcome at Phuket Airport and transfer to your beachfront resort. Spend the afternoon soaking up the sun at Patong Beach. As the sun sets, head to Bangla Road to experience the neon-lit nightlife, vibrant street food, and energetic atmosphere that Phuket is famous for." },
-      { day: 2, title: "Phuket Sightseeing & Sunset Views", description: "Discover the island's landmarks. Visit the 45-meter-tall Big Buddha for panoramic views of the island. Explore the historic Wat Chalong temple and the charming colorful streets of Phuket Old Town. End your day at Promthep Cape, the island's most famous sunset viewpoint." },
-      { day: 3, title: "The Phi Phi Islands Speedboat Tour", description: "A must-do journey! Speedboat to the Phi Phi Islands. Swim in the emerald waters of Pileh Lagoon, see the famous Maya Bay (from the film 'The Beach'), and visit Monkey Beach. Enjoy snorkeling among vibrant coral reefs and a buffet lunch on Phi Phi Don island." },
-      { day: 4, title: "James Bond Island & Phang Nga Bay", description: "Cruise through the stunning limestone karsts of Phang Nga Bay. Hop into a sea canoe to explore hidden sea caves and mangrove forests. Visit Khao Phing Kan, famously known as James Bond Island, and the unique floating fishing village of Koh Panyee for lunch." },
-      { day: 5, title: "Ethical Elephant Sanctuary & Spa", description: "Spend a meaningful morning at an ethical Elephant Sanctuary, learning about their rescue stories and feeding them in their natural habitat. In the afternoon, indulge in a restorative 2-hour Thai Spa or reflexology session to rejuvenate after your island adventures." },
-      { day: 6, title: "Departure from Phuket", description: "Slow morning for a final swim or picking up some local handicrafts and Thai silk. After a hearty breakfast, transfer to Phuket International Airport for your journey onward." }
-    ]
-  },
-  {
-    id: 33,
-    name: "Thailand – Cultural North",
-    description: "Chiang Mai & Chiang Rai",
-    image: "/destinations/international/Thailand.png",
-    details: "Perfect for foodies and nature lovers who prefer mountains and local culture over beaches.",
-    duration: "5 Nights / 6 Days",
-    bestTime: "November to February",
-    highlights: ["Doi Suthep", "White Temple", "Blue Temple", "Elephant Park", "Cooking Class"],
-    itinerary: [
-      { day: 1, title: "Arrival in the Rose of the North", description: "Upon arrival in Chiang Mai, transfer to your hotel. In the evening, explore the vibrant Night Bazaar, a treasure trove of local handicrafts and world-class street food. Taste the famous 'Khao Soi' (curry noodles), a signature dish of Northern Thailand." },
-      { day: 2, title: "Sacred Peaks & Sticky Waterfalls", description: "Climb the 306 steps (or take the tram) to Wat Phra That Doi Suthep, a golden temple perched on a mountain with panoramic views of the city. Later, cool off at the unique Bua Tong 'Sticky' Waterfalls, where the limestone allows you to climb directly up the cascading water." },
-      { day: 3, title: "Chiang Rai & The Golden Triangle", description: "A full-day excursion to Chiang Rai. Marvel at the surreal architecture of the 'White Temple' (Wat Rong Khun) and the deep blue hues of the 'Blue Temple'. Visit the Golden Triangle, the historic border where Thailand, Laos, and Myanmar meet at the confluence of the Mekong River." },
-      { day: 4, title: "Elephant Sanctuary & Northern Kitchen", description: "Spend an ethical morning at a local elephant rescue park, feeding and bathing these gentle giants in the river. In the afternoon, join a hands-on Thai cooking class at an organic farm, learning to balance the four flavors—sour, sweet, salty, and spicy—of Northern Thai cuisine." },
-      { day: 5, title: "Nimman Road & Art Villages", description: "Discover the modern side of Chiang Mai along Nimman Road, filled with chic coffee shops and art galleries. Later, visit Baan Kang Wat, a forest-themed craft village, to meet local artisans and try your hand at pottery or watercolor painting. Perfect for a relaxed final day." },
-      { day: 6, title: "Farewell to the Mountains", description: "Enjoy one last bowl of fresh tropical fruit. Take a final stroll through the Old City's moated walls and temples before your transfer to Chiang Mai International Airport for your journey back home." }
-    ]
-  },
-  {
     id: 13,
     name: "Sri Lanka – Emerald Island",
     description: "Cultural & Scenic Tour",
@@ -235,23 +109,6 @@ export const destinations: Destination[] = [
       { day: 5, title: "The Blue Train Odyssey & Ella", description: "Embark on one of the world's most beautiful train journeys from Nanu Oya to Ella. Witness sprawling tea estates and cascading waterfalls from your window. In Ella, walk across the iconic Nine Arches Bridge and hike up Little Adam's Peak for a breathtaking valley view." },
       { day: 6, title: "Galle Fort & The Golden Coast", description: "Head to the southern coast and explore the 17th-century Galle Fort (UNESCO), a mix of Dutch and Portuguese architecture. Visit the iconic lighthouse. Later, proceed to Bentota for a mangrove safari on the Madu River and visit a Turtle Hatchery to see baby sea turtles being rescued." },
       { day: 7, title: "The vibrant Colombo & Departure", description: "Finish your journey in the capital city, Colombo. Visit the Red Mosque, the Lotus Tower, and shop at the Dutch Hospital complex. After a day of exploration and souvenir hunting, transfer to Bandaranaike International Airport for your flight back home." }
-    ]
-  },
-  {
-    id: 34,
-    name: "Sri Lanka – Ramayana Trail",
-    description: "Ultimate Spiritual Journey",
-    image: "/destinations/international/Sri Lanka 1.jpg",
-    details: "Trace the path of Ramayana, visiting legendary sites from Munneswaram to the coronation of Vibhishana.",
-    duration: "8 Nights / 9 Days",
-    bestTime: "December to March",
-    highlights: ["Sita Amman Temple", "Hanuman Temple", "Ravana Falls & Caves", "Ashok Vatika", "Ramayana Sites"],
-    itinerary: [
-      { day: "1-2", title: "North Shore & Sins of War", description: "Visit Munneswaram and Manavari Temples. Thirukoneswaram Temple (Trincomalee) and Shankari Devi Shakti Peetha." },
-      { day: "3-4", title: "Central Fortress & The Search", description: "Explore Sigiriya and Cobra Hood Cave. Muthumariamman Temple and Kandy's Tooth Relic Temple." },
-      { day: "5-6", title: "Nuwara Eliya (Heart of Trail)", description: "Sri Bhakta Hanuman Temple (Ramboda). Sita Amman Temple at Ashok Vatika and Gayathri Peedam." },
-      { day: "7-8", title: "Fire Ordeal & The South", description: "Divurumpola (place of oath) and Ravana Falls/Caves in Ella. Kataragama Temple and Ussangoda." },
-      { day: 9, title: "Coronation & Departure", description: "Visit Kelaniya Raja Maha Vihara (Vibhishana Temple) in Colombo before departure flight." }
     ]
   },
 
@@ -285,23 +142,6 @@ export const destinations: Destination[] = [
       { day: 4, title: "Tegallalang Rice Terraces & Mount Batur", description: "Early morning drive to the Tegallalang Rice Terraces for a scenic sunrise walk through the UNESCO-listed 'subak' irrigation system. Later, visit the Batur Geopark Museum and see the active volcano from a viewpoint. Afternoon visit to Tirta Empul, a sacred holy spring temple where locals perform purification rituals." },
       { day: 5, title: "Cooking Class & Spa Day", description: "Start your morning with a hands-on Balinese cooking class at a local farm. Learn to cook Nasi Goreng, Satay, and black rice pudding using freshly harvested ingredients. Return to the hotel for a well-deserved traditional Balinese massage. Evening at leisure for last-minute shopping at Ubud Market." },
       { day: 6, title: "Departure", description: "After a final Balinese breakfast of Jamu (herbal tonic) and tropical fruits, check out and transfer to the airport. Carry home the memory of the Island of Gods – its incense, its smiling people, and its endless beauty." }
-    ]
-  },
-  {
-    id: 41,
-    name: "Bali – 7 Nights / 8 Days",
-    description: "Complete Bali & Nusa Penida",
-    image: "/destinations/international/Bali-1.jpg",
-    details: "The ultimate Bali experience adding the stunning Nusa Penida island to the classic Bali highlights. Perfect for travelers who want island-hopping, cliff-top viewpoints, and the iconic Kelingking Beach.",
-    duration: "7 Nights / 8 Days",
-    bestTime: "April to October",
-    highlights: ["Nusa Penida Island", "Kelingking Beach (T-Rex Head)", "Angel's Billabong", "Ubud Cultural Tour", "Uluwatu Sunset"],
-    itinerary: [
-      { day: "1-2", title: "Seminyak Arrival & South Bali", description: "Arrive and settle into your Seminyak resort. Day 2 explore Tanah Lot at sunset and the Uluwatu cliff temple with Kecak dance performance. Enjoy dinner at a floating beach club overlooking the Indian Ocean." },
-      { day: "3-4", title: "Nusa Penida Island", description: "Take a fast boat to Nusa Penida island. Day 3: West coast tour – Kelingking Beach (the iconic T-Rex shaped cliff), Angel's Billabong natural infinity pool, and Broken Beach. Day 4: East coast – Atuh Beach, Diamond Beach with natural arch, and Crystal Bay for snorkeling with Mola Mola fish." },
-      { day: "5-6", title: "Ubud Arts & Rice Terraces", description: "Transfer to Ubud. Day 5: Sacred Monkey Forest, Royal Palace, and Ubud Art Market. Witness a traditional Legong dance show. Day 6: Tegallalang rice terraces at sunrise, Tirta Empul holy water temple, and a visit to coffee plantation for a Luwak coffee tasting session." },
-      { day: 7, title: "Adventure Day – Rafting or Cycling", description: "Choose your adventure: white-water rafting on the Ayung River through the jungle gorge, or a sunrise cycling tour down the slopes of Mount Batur. Afternoon: traditional Balinese spa and wellness treatment." },
-      { day: 8, title: "Departure", description: "Final Balinese breakfast. Transfer to Ngurah Rai Airport for your onward journey, carrying memories of cliff-top sunsets, emerald rice paddies, and magical island life." }
     ]
   },
   {
