@@ -3,12 +3,13 @@ import { destinations } from '@/lib/destinations-data';
 import { ReactNode } from 'react';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   children: ReactNode;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const id = parseInt(params.id);
+  const { id: rawId } = await params;
+  const id = parseInt(rawId);
   const destination = destinations.find((d) => d.id === id);
 
   if (!destination) {
