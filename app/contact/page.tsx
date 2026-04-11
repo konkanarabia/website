@@ -237,7 +237,7 @@ export default function ContactPage() {
             <div className="w-full h-[420px]">
               <iframe
                 title="KonkanArabia Vashi Office Location"
-                src="https://www.google.com/maps?q=Haware+Fantasia+Business+Park,+Sector+30A,+Vashi,+Navi+Mumbai,+Maharashtra+400703&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d471.6!2d73.002371!3d19.065754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDAzJzU2LjciTiA3M8KwMDAnMDguNSJF!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
