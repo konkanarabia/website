@@ -496,16 +496,6 @@ export const destinations: Destination[] = [
       { day: 7, title: "Coonoor Toy Train & Departure", description: "Morning ride on the UNESCO Heritage Nilgiri Mountain Railway (Toy Train) from Ooty to Coonoor – a mesmerizing 1-hour journey through tea estates, tunnels, and misty mountains. Explore Sim's Park in Coonoor and the Dolphin's Nose viewpoint for spectacular valley vistas. Head back to Coimbatore (2.5 hours) or Bengaluru (approx. 5 hours) for your onward journey. Optional stop at Channapatna, famous for its traditional lacquer wooden toys." }
     ]
   },
-  {
-    id: 10,
-    name: "Kanyakumari",
-    description: "The Southernmost Tip",
-    image: "/destinations/domestic/Kanyakumari.jpg",
-    details: "Kanyakumari, at the southernmost tip of India, is where the Arabian Sea, Bay of Bengal, and Indian Ocean meet. Witness breathtaking sunrises and sunsets over the three oceans and visit the iconic Vivekananda Rock Memorial.",
-    highlights: ["Vivekananda Rock Memorial", "Thiruvalluvar Statue", "Meeting of three oceans", "Sunrise & Sunset view"],
-    duration: "2-3 days",
-    bestTime: "October to March"
-  },
 
   // --- NEW DOMESTIC DESTINATIONS ---
   {
