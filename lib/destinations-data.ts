@@ -364,48 +364,6 @@ export const destinations: Destination[] = [
     ]
   },
   {
-    id: 35,
-    name: "Kashmir – Summer Bloom",
-    description: "Tulip & Meadow Special",
-    image: "/destinations/domestic/Kashmir.png",
-    details: "Specially designed for the spring/summer bloom, featuring the iconic Tulip Garden and lush landscapes.",
-    duration: "5 Nights / 6 Days",
-    bestTime: "April to June",
-    highlights: ["Tulip Garden (April)", "Shikara Sunset Ride", "Gondola Experience", "Lidder River", "Aru Valley"],
-    itinerary: [
-      { day: 1, title: "Srinagar Arrival & Houseboat", description: "Relax with a sunset Shikara ride on Dal Lake. Stay in a carved cedar-wood Houseboat." },
-      { day: 2, title: "Tulip & Mughal Gardens", description: "Visit Indira Gandhi Memorial Tulip Garden (Peak April) and Mughal architectural wonders." },
-      { day: 3, title: "Sonamarg (Meadow of Gold)", description: "Day trip to Thajiwas Glacier. Hike or pony to the snow-line even in summer." },
-      { day: 4, title: "Gulmarg (Gondola)", description: "Head to Gulmarg for breathtaking Himalayan views via Gondola Phase 1 & 2." },
-      { day: 5, title: "Pahalgam & Saffron Fields", description: "Drive via Pampore Saffron fields. Visit Betaab and Aru Valleys by Lidder River." },
-      { day: 6, title: "Departure", description: "Final mountain air before returning to Srinagar for your flight." }
-    ]
-  },
-  {
-    id: 2,
-    name: "Himachal Heights",
-    description: "Shimla & Manali Package",
-    image: "/destinations/domestic/Himachal.png",
-    details: "A classic tour of Himachal covering India's most popular hill stations with scenic drives and adventure.",
-    duration: "5 Nights / 6 Days",
-    bestTime: "March to June, September to November",
-    highlights: ["Mall Road Shimla", "Kufri Snow Point", "Atal Tunnel", "Solang Valley", "Hadimba Temple"],
-    inclusions: [
-      "Stay: 2N Shimla, 3N Manali",
-      "Meals: MAP Plan (Breakfast and Dinner)",
-      "Transport: Dedicated private vehicle",
-      "Taxes: Tolls, parking, and driver allowances"
-    ],
-    itinerary: [
-      { day: 1, title: "Arrival & Gateway to the Hills", description: "Your journey Begins with a pickup from Delhi or Chandigarh. Wind your way through the Shivalik Hills to Shimla, once the summer capital of British India. Upon arrival, check into your hotel. In the evening, take a leisurely stroll on 'The Mall Road', browse the local markets, and visit the historic Scandal Point and Christ Church at The Ridge." },
-      { day: 2, title: "Shimla & Kufri Exploration", description: "After breakfast, head to Kufri, a small hill station known for its Himalayan National Park and poy rides. Enjoy the panoramic views of the perennial snow-clad mountains. On the way back, visit the Jakhoo Temple, dedicated to Lord Hanuman, situated on the highest peak of Shimla. Evening at leisure for shopping at Lakkar Bazaar." },
-      { day: 3, title: "Scenic Drive to Manali via Kullu", description: "Check out and drive to Manali (7-8 hours). This is one of the most scenic drives in India. Pass through the Aut Tunnel and stop at the Pandoh Dam. We will stop at a Kullu Shawl factory where you can see traditional weaving. Arrive in Manali and settle into your cozy mountain resort for the night." },
-      { day: 4, title: "Manali Local Heritage Tour", description: "After breakfast, visit the 16th-century Hadimba Devi Temple, uniquely constructed in a cedar forest. Explore the Vashisht Hot Springs and its ancient temples. Later, visit the Tibetan Monastery and Van Vihar park. Evening browse the Old Manali market, famous for its bohemian cafes and local handicrafts." },
-      { day: 5, title: "Solang Valley & The Atal Tunnel Experience", description: "A day of adventure! Travel to Solang Valley for activities like paragliding, zorbing, and skiing (seasonal). Later, drive through the record-breaking Atal Tunnel to reach the Lahaul Valley. Visit the quaint village of Sissu and witness the stunning Sissu Lake and waterfall before returning to Manali." },
-      { day: 6, title: "Farewell to the Mountains", description: "Enjoy your last mountain breakfast. Check out and drive back to Chandigarh or Delhi. We will drop you at the airport or railway station for your onward journey, leaving you with countless memories of the majestic Himachal Heights." }
-    ]
-  },
-  {
     id: 3,
     name: "Golden Triangle Tour",
     description: "Delhi, Agra & Jaipur",
@@ -452,30 +410,6 @@ export const destinations: Destination[] = [
       { day: 6, title: "Jaisalmer to the Blue City Jodhpur", description: "Proceed to Jodhpur. Visit the mighty Mehrangarh Fort, towering 400 feet above the city. Explore the Jaswant Thada, a royal white marble cenotaph. Spend the evening wandering through the blue lanes of the old city and tasting the famous Mirchi Bada at the Clock Market." },
       { day: 7, title: "Jodhpur to the City of Lakes Udaipur", description: "A scenic drive to Udaipur. En route, visit the Ranakpur Jain Temple, famous for its 1,444 uniquely carved marble pillars. Arrive in Udaipur and enjoy a relaxing evening walk by Lake Fatehsagar or a traditional puppet show at Bagore Ki Haveli." },
       { day: 8, title: "Udaipur & The Lake Palace", description: "Explore the grand City Palace complex, Saheliyon-ki-Bari (the Garden of Maidens), and the Jagdish Temple. In the afternoon, take a boat ride on Lake Pichola to see Jag Mandir and the Lake Palace from the water before your transfer to Udaipur airport for departure." }
-    ]
-  },
-  {
-    id: 6,
-    name: "Best of Kerala",
-    description: "God's Own Country",
-    image: "/destinations/domestic/Kerala.jpeg",
-    details: "A tranquil escape through the tea hills of Munnar, wildlife of Thekkady, and backwaters of Alleppey.",
-    duration: "7 Nights / 8 Days",
-    bestTime: "September to March",
-    highlights: ["Munnar Tea Estates", "Periyar Boat Safari", "Alleppey Houseboat", "Fort Kochi", "Kovalam Beach"],
-    inclusions: [
-      "Accommodation: 7 Nights (Kochi, Munnar, Thekkady, Houseboat, Kovalam)",
-      "Meals: Daily Breakfast; Full board on Houseboat",
-      "Transport: Private AC vehicle",
-      "Houseboat: Private 1-bedroom AC houseboat"
-    ],
-    itinerary: [
-      { day: 1, title: "The Heritage Gateway - Kochi", description: "Arrive at Kochi International Airport and transfer to your hotel. Kochi is a melting pot of cultures. In the afternoon, explore Fort Kochi on foot to see the iconic Chinese Fishing Nets, the 16th-century St. Francis Church, and the ornate Santa Cruz Basilica. Evening, witness a spellbinding Kathakali dance performance at a local theatre." },
-      { day: "2-3", title: "Munnar - The Sea of Tea", description: "Drive up to Munnar (4 hours), passing through endless rubber plantations and misty hills. Visit the Cheeyappara and Valara waterfalls on the way. Spend two days immersed in greenery; visit the Tata Tea Museum, explore the Eravikulam National Park (home to the rare Nilgiri Tahr), and enjoy the echo effect at Echo Point and Mattupetty Dam." },
-      { day: 4, title: "Thekkady - Wildlife & Spices", description: "Travel to Thekkady. Embark on a boat safari on Periyar Lake, where you might spot herds of elephants and wild boars by the water's edge. Later, take a guided tour of a spice plantation to see how cardamom, pepper, and cinnamon are grown. Conclude your day with a Kalaripayattu martial arts show." },
-      { day: 5, title: "The Houseboat Experience - Alleppey", description: "Drive to Alleppey and board your private, traditional Kerala Houseboat (Kettuvallam). Cruise through the serene, palm-fringed backwaters of Vembanad Lake. Observe the local village life along the banks. Enjoy traditional Keralite meals prepared on board as you anchor for a peaceful night on the water." },
-      { day: "6-7", title: "The Sun-Kissed Coast - Kovalam", description: "Disembark and head to Kovalam. Spend two days at the famous crescent-shaped beaches. Climb the Vizhinjam Lighthouse for a panoramic view of the Arabian Sea. Take an optional day trip to Kanyakumari to visit the Vivekananda Rock Memorial and watch the sun set over the meeting point of three oceans." },
-      { day: 8, title: "Trivandrum Heritage & Departure", description: "Visit the magnificent Padmanabhaswamy Temple (dress code applies), the richest temple in the world. Explore the Napier Museum and Zoo before our representative drops you at the Thiruvananthapuram International Airport for your flight back home." }
     ]
   },
   {
@@ -527,51 +461,39 @@ export const destinations: Destination[] = [
       { day: 1, title: "Susegad Goa Arrival & North Goa Shacks", description: "Welcome to India's pocket-sized paradise! Transfer to your resort in North Goa (Calangute/Baga). Spend your first afternoon feeling the sand between your toes at a local beach shack, sipping on a refreshing beverage and enjoying the high-energy vibe. Evening free to explore the local flea markets." },
       { day: 2, title: "Forts, Sunsets & Water Sports adventure", description: "Visit the 17th-century Fort Aguada and its lighthouse for a stunning view of the Arabian Sea. In the afternoon, head to Sinquerim or Candolim for a thrill with parasailing and windsurfing. Conclude your day by watching the sunset from the 'Dil Chahta Hai' famous Hilltop at Chapora Fort." },
       { day: 3, title: "Heritage Heartland & Panjim's Latin Quarter", description: "Step back in time at Old Goa (UNESCO site), visiting the Basilica of Bom Jesus and Se Cathedral. Later, drive to Panjim and wander through the colorful heritage streets of Fontainhas, the Latin Quarter. In the evening, embark on a scenic Mandovi River cruise with live Goan folk music and dance." },
-      { day: 4, title: "Cashews, Feni & Farewell", description: "Enjoy a final Goan breakfast of Pao Bhaji. Visit a local spice plantation (optional) or head to Mapusa Market for some authentic Goan cashews and handicrafts. We will سپس transfer you to the Dabolim or MOPA airport for your flight back home, with the Goan spirit in your soul." }
+      { day: 4, title: "Cashews, Feni & Farewell", description: "Enjoy a final Goan breakfast of Pao Bhaji. Visit a local spice plantation (optional) or head to Mapusa Market for some authentic Goan cashews and handicrafts. We will then transfer you to the Dabolim or MOPA airport for your flight back home, with the Goan spirit in your soul." }
     ]
   },
   {
     id: 37,
-    name: "Mysore & Bengaluru",
-    description: "Royal Heritage Tour",
+    name: "Mysore – Bangalore – Ooty Circuit",
+    description: "Royal Heritage, Garden City & Blue Mountains",
     image: "/destinations/domestic/Mysore.jpg",
-    details: "Explore the silicon valley and the city of palaces, showcasing the grand history of the Wodeyars.",
-    duration: "3 Nights / 4 Days",
-    bestTime: "October to February",
-    highlights: ["Mysore Palace Lighting", "Lalbagh Botanical Garden", "Chamundi Hills", "Srirangapatna", "Mysore Silk"],
+    details: "The ultimate Karnataka-Tamil Nadu triangle – from Bengaluru's vibrant tech cityscape and lush gardens, to the royal grandeur of Mysore's illuminated palace and Wodeyar heritage, and finally the misty Nilgiri hills of Ooty with its UNESCO toy train and sprawling botanical gardens. A perfect blend of culture, royalty, and nature.",
+    duration: "6 Nights / 7 Days",
+    bestTime: "October to February (Best Overall); April to June for Ooty",
+    highlights: ["Mysore Palace Illumination", "UNESCO Nilgiri Mountain Railway", "Lalbagh Botanical Garden", "Chamundi Hills", "Doddabetta Peak", "Brindavan Gardens", "Ooty Botanical Garden", "Channapatna Toy Town"],
     inclusions: [
-      "Stay: 1N Bengaluru, 2N Mysore",
+      "Stay: 2N Bengaluru, 2N Mysore, 2N Ooty",
       "Meals: Daily Breakfast (CP Plan)",
-      "Transport: Private AC Sedan",
-      "Taxes: GST, tolls, and driver allowances"
+      "Transport: Private AC Sedan throughout",
+      "Taxes: GST, tolls, and driver allowances",
+      "Sightseeing: All transfers as per itinerary"
+    ],
+    exclusions: [
+      "Lunches & Dinners",
+      "Entry fees to monuments & parks",
+      "Personal expenses & tips",
+      "Toy train tickets (bookable on-site)"
     ],
     itinerary: [
-      { day: 1, title: "Arrival in Bengaluru", description: "Visit ISKCON Temple, Lalbagh Gardens and drive past Vidhana Soudha." },
-      { day: 2, title: "Bengaluru to Mysore", description: "Via Srirangapatna. Evening lighting of Mysore Palace or Brindavan Gardens." },
-      { day: 3, title: "Mysore Local Exploration", description: "Chamundi Hills, Nandi Statue and Mysore Zoo. Shop for Silk and Sandalwood." },
-      { day: 4, title: "Mysore back to Bengaluru", description: "Visit Rail Museum. Optional stop at Channapatna Toy Town before flight." }
-    ]
-  },
-  {
-    id: 21,
-    name: "Ooty – Blue Mountains",
-    description: "The Queen of Hill Stations",
-    image: "/destinations/domestic/Ooty.jpg",
-    details: "Escape to the misty peaks of the Nilgiris with iconic toy train rides and sprawling botanical gardens.",
-    duration: "3 Nights / 4 Days",
-    bestTime: "April to June & September to November",
-    highlights: ["UNESCO Toy Train", "Botanical & Rose Gardens", "Doddabetta Peak", "Pykara Waterfalls", "Homemade Chocolates"],
-    inclusions: [
-      "Stay: 3 Nights in 3-star room",
-      "Meals: Daily Breakfast",
-      "Transport: Private AC Sedan",
-      "Taxes: All GST and driver allowances"
-    ],
-    itinerary: [
-      { day: 1, title: "Arrival & Ooty Lake", description: "Transfer from Coimbatore. Evening walk through market for chocolates/oils." },
-      { day: 2, title: "Botanical Splendor", description: "Rose Gardens, Botanical Garden and Doddabetta Peak panoramic views." },
-      { day: 3, title: "Coonoor & Toy Train", description: "UNESCO Heritage train ride. Visit Sim's Park and Dolphin’s Nose in Coonoor." },
-      { day: 4, title: "Pykara & Departure", description: "Visit Pykara Lake/Waterfalls and Pine Forests before Coimbatore transfer." }
+      { day: 1, title: "Arrival in Bengaluru – The Garden City", description: "Arrive at Kempegowda International Airport and transfer to your hotel. Explore Bengaluru's iconic Lalbagh Botanical Garden, home to a 200-year-old glasshouse modelled on London's Crystal Palace. Drive past the majestic Vidhana Soudha (State Legislature) and Cubbon Park. Evening stroll on MG Road or Commercial Street for shopping and street food." },
+      { day: 2, title: "Bengaluru Heritage & Culture", description: "Morning visit to ISKCON Temple – one of the largest ISKCON temples in the world. Explore Bangalore Palace, modelled on England's Windsor Castle, with its Tudor-style architecture and vintage interiors. Visit Tipu Sultan's Summer Palace and the Bull Temple. Afternoon at leisure to explore the vibrant café culture of Indiranagar or Koramangala." },
+      { day: 3, title: "Bengaluru to Mysore via Srirangapatna", description: "After breakfast, drive to Mysore (3 hours). En route, stop at Srirangapatna – the island fortress-capital of Tipu Sultan. Visit the Ranganathaswamy Temple, Tipu's Summer Palace (Dariya Daulat Bagh), and the site of the historic battle. Arrive in Mysore and check in. In the evening, witness the spectacular illumination of the Mysore Palace (Tuesdays & Sundays; all days during Dussehra) – a dazzling spectacle of 100,000 light bulbs." },
+      { day: 4, title: "Royal Mysore Exploration", description: "Full day exploring the cultural capital of Karnataka. Begin with Chamundi Hills and the giant Nandi statue. Visit the magnificent Mysore Palace (Amba Vilas) – one of India's most visited monuments. Explore Mysore Zoo, one of Asia's oldest. Browse the Devaraja Market for fragrant jasmine, sandalwood products, and the famous Mysore Pak sweet. Shop for iconic Mysore silk sarees." },
+      { day: 5, title: "Mysore to Ooty via Bandipur Forest", description: "Drive from Mysore to Ooty through the Bandipur Tiger Reserve (approx. 3.5 hours). Keep a lookout for wild elephants, deer, and peacocks at forest checkpoints. Ascend into the Nilgiri hills via 36 hairpin bends with dramatic valley views. Arrive in Ooty and check into your cozy hill resort. Evening walk through the Ooty market for homemade chocolates, eucalyptus oil, and Nilgiri tea." },
+      { day: 6, title: "Ooty – Blue Mountains Exploration", description: "Spend a full day discovering 'The Queen of Hill Stations'. Visit the magnificent Government Botanical Garden, established in 1848, spread over 55 acres with rare plants and a 20-million-year-old fossilized tree trunk. Explore the Rose Garden (May season is peak). Drive up to Doddabetta Peak (8,650 ft) – the highest point in the Nilgiris – for breathtaking panoramic views. Afternoon visit to the serene Pykara Lake and Pykara Waterfalls, and trek through the mystical Pine Forests." },
+      { day: 7, title: "Coonoor Toy Train & Departure", description: "Morning ride on the UNESCO Heritage Nilgiri Mountain Railway (Toy Train) from Ooty to Coonoor – a mesmerizing 1-hour journey through tea estates, tunnels, and misty mountains. Explore Sim's Park in Coonoor and the Dolphin's Nose viewpoint for spectacular valley vistas. Head back to Coimbatore (2.5 hours) or Bengaluru (approx. 5 hours) for your onward journey. Optional stop at Channapatna, famous for its traditional lacquer wooden toys." }
     ]
   },
   {
@@ -583,26 +505,6 @@ export const destinations: Destination[] = [
     highlights: ["Vivekananda Rock Memorial", "Thiruvalluvar Statue", "Meeting of three oceans", "Sunrise & Sunset view"],
     duration: "2-3 days",
     bestTime: "October to March"
-  },
-  {
-    id: 7,
-    name: "Mysore",
-    description: "The City of Palaces",
-    image: "/destinations/domestic/Mysore.jpg",
-    details: "Mysore is renowned for its heritage buildings and palaces, including the majestic Mysore Palace. Experience the rich culture, grand Dussehra celebrations, and famous Mysore silk sarees.",
-    highlights: ["Mysore Palace", "Chamundi Hills", "Brindavan Gardens", "St. Philomena's Church"],
-    duration: "2-3 days",
-    bestTime: "October to February"
-  },
-  {
-    id: 8,
-    name: "Bangalore",
-    description: "Silicon Valley of India",
-    image: "/destinations/domestic/Bangalore.png",
-    details: "Bangalore, the capital of Karnataka, offers a blend of modern IT parks and lush gardens. Explore its vibrant nightlife, pleasant climate, and historical sites like Bangalore Palace.",
-    highlights: ["Lalbagh Botanical Garden", "Cubbon Park", "Bangalore Palace", "Vidhana Soudha"],
-    duration: "2-4 days",
-    bestTime: "All Year Round"
   },
 
   // --- NEW DOMESTIC DESTINATIONS ---
