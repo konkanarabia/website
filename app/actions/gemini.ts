@@ -43,10 +43,11 @@ export async function enhanceText(text: string) {
       contents: fullPrompt
     });
     
-    return { success: true, text: response.text?.trim() || text };
-  } catch (error: any) {
+    return { success: true as const, text: response.text?.trim() || text };
+  } catch (error: unknown) {
     console.error("Gemini Error (enhanceText):", error);
-    return { success: true, text };
+    const message = error instanceof Error ? error.message : "Failed to enhance text";
+    return { success: false as const, error: message };
   }
 }
 
