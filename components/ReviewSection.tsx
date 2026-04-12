@@ -15,7 +15,7 @@ export default function ReviewSection({ destinationId, reviews: initialReviews }
     async function fetchSummary() {
       if (reviews.length > 0) {
         const res = await getReviewSummary(reviews);
-        if (res.success) setSummary(res.text);
+        if (res?.success && res.text) setSummary(res.text);
       }
       setLoadingSummary(false);
     }

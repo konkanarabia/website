@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import ServicesList from "../components/services-list";
 import { Sparkles } from 'lucide-react';
 
