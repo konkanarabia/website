@@ -72,6 +72,50 @@ export async function generateImageUrl(destinationName: string, description: str
   }
 }
 
+type EnquiryDraftInput = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  destination?: string;
+  travelType?: string;
+  message?: string;
+  departureDate?: Date | string;
+  returnDate?: Date | string;
+  travelers?: string;
+};
+
+export async function draftEnquiryReply(enq: EnquiryDraftInput) {
+  try {
+    const details = [
+      enq.name && `Guest name: ${enq.name}`,
+      enq.destination && `Destination interest: ${enq.destination}`,
+      enq.travelType && `Travel type: ${enq.travelType}`,
+      enq.travelers && `Travelers: ${enq.travelers}`,
+      enq.message && `Their message: ${enq.message}`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const fullPrompt = `You are a warm, professional travel consultant for KonkanArabia. Draft a short email reply (plain text, no subject line) to this enquiry. Thank them, acknowledge their interest, offer to help with next steps (dates, itinerary, quote), and invite them to reply with any questions. Keep it under 180 words. Do not invent specific prices or guarantees.
+
+${details}`;
+
+    const response = await getGenAI().models.generateContent({
+      model: GEMINI_FLASH_MODEL,
+      contents: fullPrompt,
+    });
+
+    const text = response.text?.trim() || '';
+    if (!text) {
+      return { success: false as const };
+    }
+    return { success: true as const, text };
+  } catch (error: unknown) {
+    console.error('Gemini Error (draftEnquiryReply):', error);
+    return { success: false as const };
+  }
+}
+
 export async function getTravelAdvice(userQuery: string, destinations: any[]) {
   try {
     const context = destinations.map(d => `- ${d.name}: ${d.description}`).join('\n');
