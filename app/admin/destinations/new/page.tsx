@@ -86,11 +86,12 @@ export default function NewDestinationAdmin() {
         details: result.data.details || '',
         type: result.data.type || 'International',
       });
-      setLists({
+      setLists((prev) => ({
+        ...prev,
         highlights: result.data.highlights || [''],
         inclusions: result.data.inclusions || [''],
         exclusions: result.data.exclusions || [''],
-      });
+      }));
       setItinerary(result.data.itinerary || [{ day: '1', title: '', description: '' }]);
       toast.success('Generated data with Gemini AI!');
     } else {
