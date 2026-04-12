@@ -169,7 +169,7 @@ export default function NewDestinationAdmin() {
       if (result.success) {
         toast.success('Destination saved successfully! ID: ' + result.id);
         
-        setFormData({ name: '', description: '', duration: '', bestTime: '', details: '' });
+        setFormData({ name: '', description: '', duration: '', bestTime: '', details: '', type: 'International' });
         setPrompt('');
         setImage(null);
         setAiImageUrl(null);
