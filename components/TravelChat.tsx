@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, Loader2, Plane, Sparkles } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
 import { getTravelAdvice } from '@/app/actions/gemini';
-import { getDestinations } from '@/app/actions/destinations';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message {
@@ -18,16 +17,7 @@ export default function TravelChat() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [destinations, setDestinations] = useState<any[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    async function fetchDest() {
-      const data = await getDestinations();
-      setDestinations(data);
-    }
-    fetchDest();
-  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -45,9 +35,10 @@ export default function TravelChat() {
     setIsLoading(true);
 
     try {
-      const response = await getTravelAdvice(userMessage, destinations);
-      if (response.success && response.text) {
-        setMessages(prev => [...prev, { role: 'assistant', content: response.text! }]);
+      const response = await getTravelAdvice(userMessage);
+      const reply = response.text?.trim();
+      if (reply) {
+        setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
       } else {
         setMessages(prev => [...prev, { role: 'assistant', content: "I'm sorry, I'm having a bit of trouble connecting. Could you try asking again?" }]);
       }

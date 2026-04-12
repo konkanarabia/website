@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
               KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.
             </h3>
             <p className="text-gray-300 text-base md:text-lg">Discover the world with us</p>
-            <div className="flex mt-6 space-x-5">
+            <div className="flex mt-6 space-x-5 items-center">
               <Link
                 href="https://www.facebook.com/konkanarabiahospitalitygroup"
                 className="text-gray-400 hover:text-white transition-colors duration-300"

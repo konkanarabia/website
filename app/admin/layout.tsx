@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { LayoutDashboard, ExternalLink, Plus, LogOut, Menu, X } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
 import { useState } from 'react';
+import { Toaster } from 'sonner';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -61,6 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-black/20 z-0 md:hidden" onClick={() => setMobileMenuOpen(false)} />
       )}
+      <Toaster richColors position="top-center" />
     </div>
   );
 }

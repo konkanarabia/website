@@ -18,7 +18,7 @@ export default async function AdminDashboard(props: { searchParams: Promise<{ pa
   const [{ data: destinations, totalPages, currentPage, totalCount }, analytics, enquiries, reviews] = await Promise.all([
     getPaginatedDestinations(page, 10),
     getAnalytics(),
-    getEnquiries(10),
+    getEnquiries(40),
     getAllReviews(10)
   ]);
 
@@ -95,25 +95,19 @@ export default async function AdminDashboard(props: { searchParams: Promise<{ pa
                 <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Customer</th>
-                    <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Date</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Trip</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                 </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                 {enquiries.length === 0 ? (
                     <tr>
-                    <td colSpan={2} className="px-6 py-12 text-center text-gray-500">No enquiries yet</td>
+                    <td colSpan={4} className="px-6 py-12 text-center text-gray-500">No enquiries yet</td>
                     </tr>
                 ) : null}
-                {enquiries.slice(0, 5).map((enq: any) => (
-                    <tr key={enq._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4">
-                            <div className="font-bold text-gray-800 text-sm">{enq.name}</div>
-                            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{enq.destination}</div>
-                        </td>
-                        <td className="px-6 py-4 text-right text-xs text-gray-500 font-medium whitespace-nowrap">
-                            {new Date(enq.createdAt).toLocaleDateString()}
-                        </td>
-                    </tr>
+                {enquiries.slice(0, 12).map((enq: any) => (
+                    <EnquiryRow key={enq._id} enq={enq} />
                 ))}
                 </tbody>
             </table>

@@ -2,8 +2,7 @@
 
 import dbConnect from '@/lib/mongodb';
 import Review from '@/lib/models/Review';
-import { GoogleGenAI } from "@google/genai";
-import { GEMINI_FLASH_MODEL } from '@/lib/constants';
+import { geminiGenerateText, getGeminiClient } from '@/lib/gemini-generate';
 import { revalidatePath } from 'next/cache';
 
 export async function submitReview(destinationId: number, formData: FormData) {
@@ -32,11 +31,10 @@ export async function getReviewSummary(reviews: any[]) {
   if (reviews.length === 0) return null;
 
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error("GEMINI_API_KEY environment variable is not set.");
+    if (!getGeminiClient()) {
+      return { success: false, error: 'GEMINI_API_KEY environment variable is not set.' };
+    }
 
-    const ai = new GoogleGenAI({ apiKey: apiKey });
-    
     const context = reviews.map(r => `Rating: ${r.rating}, Comment: ${r.comment}`).join('\n');
     
     const fullPrompt = `Analyze the following traveler reviews and provide a 2-sentence summary of the consensus. 
@@ -47,12 +45,11 @@ ${context}
 
 Return ONLY the summary text.`;
 
-    const response = await ai.models.generateContent({
-      model: GEMINI_FLASH_MODEL,
-      contents: fullPrompt
-    });
-
-    return { success: true, text: (response.text || "").trim() };
+    const result = await geminiGenerateText(fullPrompt);
+    if (!result.ok) {
+      return { success: false, error: result.error };
+    }
+    return { success: true, text: result.text };
   } catch (error: any) {
     return { success: false, error: error.message };
   }

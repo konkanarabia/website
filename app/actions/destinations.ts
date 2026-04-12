@@ -17,18 +17,19 @@ export async function deleteDestination(id: number) {
 }
 
 export async function getDestinations() {
-  await dbConnect();
   try {
+    await dbConnect();
     const destinations = await Destination.find().sort({ createdAt: -1 }).lean();
     return JSON.parse(JSON.stringify(destinations));
   } catch (error) {
+    console.error('getDestinations:', error);
     return [];
   }
 }
 
 export async function getPaginatedDestinations(page: number = 1, limit: number = 9) {
-  await dbConnect();
   try {
+    await dbConnect();
     const skip = (page - 1) * limit;
     const destinations = await Destination.find().sort({ createdAt: -1 }).skip(skip).limit(limit).lean();
     const total = await Destination.countDocuments();
@@ -39,6 +40,7 @@ export async function getPaginatedDestinations(page: number = 1, limit: number =
       totalCount: total
     };
   } catch (error) {
+    console.error('getPaginatedDestinations:', error);
     return { data: [], totalPages: 0, currentPage: 1, totalCount: 0 };
   }
 }
