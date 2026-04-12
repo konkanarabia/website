@@ -27,9 +27,10 @@ export async function generateDestinationData(prompt: string) {
     if (jsonMatch) text = jsonMatch[0].trim();
     
     return { success: true, data: JSON.parse(text) };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Gemini Error (generateDestinationData):", error);
-    return { success: false, data: {} };
+    const message = error instanceof Error ? error.message : "Failed to generate data";
+    return { success: false, data: {}, error: message };
   }
 }
 
