@@ -73,7 +73,8 @@ export default function EnquiryRow({ enq }: { enq: any }) {
           <button 
             onClick={handleAIDraft}
             disabled={drafting}
-            className="p-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-200 transition-colors title='AI Draft Reply'"
+            title="AI draft reply"
+            className="p-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-200 transition-colors"
           >
             {drafting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
           </button>
