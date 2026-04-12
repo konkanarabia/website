@@ -1,0 +1,17 @@
+# Netlify + Next.js (OpenNext adapter via @netlify/plugin-nextjs)
+# https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/
+
+[build]
+  command = "npm run build"
+  # Do not set `publish` — the Next plugin deploys the correct output.
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Required site env (set in Netlify UI → Site configuration → Environment variables):
+#   MONGO_URI          — MongoDB connection string (needed at build time for sitemap + runtime)
+#   GEMINI_API_KEY     — optional; AI features in admin / chat
+#   RESEND_* / email   — as used by your app

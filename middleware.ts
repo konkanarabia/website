@@ -24,6 +24,18 @@ function allow(ip: string): boolean {
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
+
+  if (path.startsWith('/admin')) {
+    if (path === '/admin/login') {
+      return NextResponse.next();
+    }
+    const token = request.cookies.get('admin_token')?.value;
+    if (!token || token !== process.env.ADMIN_TOKEN_SECRET) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+    return NextResponse.next();
+  }
+
   if (path !== '/api/contact' && path !== '/api/enquiry') {
     return NextResponse.next();
   }
@@ -36,5 +48,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/contact', '/api/enquiry'],
+  matcher: ['/api/contact', '/api/enquiry', '/admin/:path*'],
 };

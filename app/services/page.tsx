@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
-import OurServices from "../components/services";
+import ServicesList from "../components/services-list";
+import { Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Our Premium Services | KonkanArabia Hospitality & Holiday Group',
@@ -9,17 +9,27 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-          Explore Our <span className="text-[#0066a1]">Premium Services</span>
-        </h1>
-        <p className="text-lg text-slate-600 leading-relaxed">
-          Discover the best of Konkan and beyond with our handcrafted travel experiences. Whether you're looking for luxurious stays, thrilling adventures, or serene getaways, we provide end-to-end solutions tailored to your unique travel style.
-        </p>
+    <main className="bg-slate-50 min-h-screen pt-24 pb-20">
+      <div className="container mx-auto px-4 mb-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm font-bold tracking-wide uppercase mb-6">
+            <Sparkles className="w-4 h-4" />
+            Full Hospitality Suite
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter leading-tight">
+            Our Premium <span className="text-[#0066a1]">Services</span>
+          </h1>
+          <p className="text-lg text-slate-600 leading-relaxed font-medium">
+            Beyond just tours, we provide a complete ecosystem for the modern traveler. 
+            From luxury transport and visa processing to managing world-class beach resorts and authentic dining experiences.
+          </p>
+        </div>
       </div>
-      <OurServices />
-    </div>
-  )
+      
+      <div className="container mx-auto px-4">
+        <ServicesList />
+      </div>
+    </main>
+  );
 }
 

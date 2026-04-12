@@ -6,6 +6,8 @@ import {
 } from '@/lib/email-templates';
 import { formatServerPriceRange } from '@/lib/server-currency';
 import { formatServerDate, formatServerDuration } from '@/lib/server-date';
+import dbConnect from '@/lib/mongodb';
+import Enquiry from '@/lib/models/Enquiry';
 
 export async function POST(request: Request) {
   try {
@@ -55,6 +57,15 @@ export async function POST(request: Request) {
     if (process.env.NODE_ENV === 'development') {
       console.log('Processing travel enquiry');
     }
+
+    // Save to database
+    await dbConnect();
+    const newEnquiry = new Enquiry({
+        ...body,
+        departureDate: departureDate ? new Date(departureDate) : undefined,
+        returnDate: returnDate ? new Date(returnDate) : undefined,
+    });
+    await newEnquiry.save();
     
     let adminEmailSent = false;
     let customerEmailSent = false;

@@ -1,53 +1,59 @@
-'use client'
+import dbConnect from '@/lib/mongodb';
+import Review from '@/lib/models/Review';
+import Destination from '@/lib/models/Destination';
+import { Star, Quote, User } from 'lucide-react';
 
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+export default async function Testimonials() {
+    await dbConnect();
+    
+    // Get latest 6 reviews and populate destination name if possible
+    const reviews = await Review.find().sort({ createdAt: -1 }).limit(6).lean();
+    const destinations = await Destination.find({ id: { $in: reviews.map(r => r.destinationId) } }).lean();
+    const destMap = new Map(destinations.map(d => [d.id, d.name]));
 
-const testimonials = [
-  { name: 'John Doe', text: 'Amazing experience! Will definitely book again.', avatar: 'JD' },
-  { name: 'Jane Smith', text: 'The trip exceeded all my expectations!', avatar: 'JS' },
-  { name: 'Mike Johnson', text: 'Professional service and unforgettable memories.', avatar: 'MJ' },
-  { name: 'Emily Brown', text: 'TravelEase made planning my vacation so easy!', avatar: 'EB' },
-  { name: 'David Lee', text: 'Incredible destinations and top-notch customer service.', avatar: 'DL' },
-]
+    if (reviews.length === 0) return null;
 
-export default function Testimonials() {
-  const [visibleTestimonials, setVisibleTestimonials] = useState(3)
+    return (
+        <section className="py-24 bg-slate-900 overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                <Quote className="w-96 h-96 text-white absolute -top-20 -left-20 rotate-12" />
+                <Quote className="w-96 h-96 text-white absolute -bottom-20 -right-20 -rotate-12" />
+            </div>
 
-  const loadMore = () => {
-    setVisibleTestimonials(prevVisible => Math.min(prevVisible + 3, testimonials.length))
-  }
-
-  return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">What Our Travelers Say</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.slice(0, visibleTestimonials).map((testimonial) => (
-            <Card key={testimonial.name} className="bg-gray-50">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarFallback>{testimonial.avatar}</AvatarFallback>
-                  </Avatar>
-                  <CardTitle>{testimonial.name}</CardTitle>
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="text-center mb-16">
+                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em] mb-4 block">Traveler Voices</span>
+                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+                        What Our <span className="text-[#0066a1]">Travelers Say</span>
+                    </h2>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 italic">&ldquo;{testimonial.text}&rdquo;</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        {visibleTestimonials < testimonials.length && (
-          <div className="mt-12 text-center">
-            <Button onClick={loadMore} variant="outline">Load More</Button>
-          </div>
-        )}
-      </div>
-    </section>
-  )
-}
 
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {reviews.map((rev: any) => (
+                        <div key={rev._id} className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group">
+                            <div className="flex gap-1 mb-4 text-yellow-400">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className={`w-3 h-3 ${i < rev.rating ? 'fill-yellow-400' : 'text-white/20'}`} />
+                                ))}
+                            </div>
+                            <p className="text-white/80 leading-relaxed font-medium italic mb-6 line-clamp-4">
+                                "{rev.comment}"
+                            </p>
+                            <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black">
+                                    {rev.userName.charAt(0)}
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-bold text-sm">{rev.userName}</h4>
+                                    <p className="text-blue-400 text-[10px] font-bold uppercase tracking-widest">
+                                        Explored {destMap.get(rev.destinationId) || 'a hidden gem'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}

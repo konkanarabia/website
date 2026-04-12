@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, PartyPopper, Calendar, MapPin, Users, Sparkles } from "lucide-react";
+import { Loader2, PartyPopper, Calendar, Pin, Users, Sparkles } from "lucide-react";
 
 export default function EventEnquiryForm() {
   const router = useRouter();
@@ -119,7 +119,7 @@ export default function EventEnquiryForm() {
         <div className="space-y-2">
           <Label htmlFor="eventLocation">Preferred Location</Label>
           <div className="relative">
-            <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <Pin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <Input id="eventLocation" name="eventLocation" required value={formData.eventLocation} onChange={handleChange} className="pl-10" placeholder="e.g. Alibaug, Lonavala, Dubai" />
           </div>
         </div>

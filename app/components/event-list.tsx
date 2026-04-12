@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Calendar, Clock, MapPin } from 'lucide-react'
+import { Calendar, Clock, Pin } from 'lucide-react'
 
 const events = [
   {
@@ -59,7 +59,7 @@ export default function EventList() {
               <span>{event.time}</span>
             </div>
             <div className="flex items-center">
-              <MapPin className="mr-2 h-4 w-4" />
+              <Pin className="mr-2 h-4 w-4" />
               <span>{event.location}</span>
             </div>
           </CardContent>
@@ -83,7 +83,7 @@ export default function EventList() {
                     <span>{selectedEvent?.time}</span>
                   </div>
                   <div className="flex items-center mb-4">
-                    <MapPin className="mr-2 h-4 w-4" />
+                    <Pin className="mr-2 h-4 w-4" />
                     <span>{selectedEvent?.location}</span>
                   </div>
                 </div>

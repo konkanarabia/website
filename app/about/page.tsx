@@ -227,7 +227,7 @@ export default function AboutPage() {
               <div className="md:w-2/3 text-center md:text-left text-white">
                 <h3 className="text-sm font-bold tracking-[0.3em] uppercase mb-6 opacity-80">The Vision</h3>
                 <h4 className="text-3xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                  Positioning Konkan on the <span className="opacity-70 italic">Global Map</span>
+                  Positioning Konkan on the <span className="opacity-70 italic">world stage</span>
                 </h4>
                 <p className="text-xl md:text-2xl font-light leading-relaxed opacity-90">
                   Our goal is to transform the Konkan coast into a globally admired destination, 

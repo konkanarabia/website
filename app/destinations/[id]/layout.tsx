@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { destinations } from '@/lib/destinations-data';
+import dbConnect from '@/lib/mongodb';
+import Destination from '@/lib/models/Destination';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -10,7 +11,9 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id: rawId } = await params;
   const id = parseInt(rawId);
-  const destination = destinations.find((d) => d.id === id);
+  
+  await dbConnect();
+  const destination = await Destination.findOne({ id }).select('name description image').lean() as any;
 
   if (!destination) {
     return {

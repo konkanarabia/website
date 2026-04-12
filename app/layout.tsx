@@ -5,6 +5,9 @@ import Footer from './components/footer'
 import { Toaster } from "@/components/ui/toaster"
 import { I18nProvider } from '@/lib/i18n-provider'
 import ExchangeRatesInitializer from '@/components/exchange-rates-initializer'
+import AnalyticsTracker from '@/components/AnalyticsTracker'
+import TravelChat from '@/components/TravelChat'
+import ScrollToTop from '@/components/ScrollToTop'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' })
@@ -49,10 +52,13 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <I18nProvider>
+          <ScrollToTop />
           <ExchangeRatesInitializer />
+          <AnalyticsTracker />
           <Header />
           <main>{children}</main>
           <Footer />
+          <TravelChat />
           <Toaster />
         </I18nProvider>
       </body>

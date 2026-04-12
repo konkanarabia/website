@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import { Loader2, Hotel, Utensils, Calendar, MapPin, Users } from "lucide-react";
+import { Loader2, Hotel, Utensils, Calendar, Pin, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
@@ -175,7 +175,7 @@ export default function SpecializedEnquiryForm() {
           <div className="space-y-2">
             <Label htmlFor="destination" className="text-slate-700 font-semibold">Location / Venue</Label>
             <div className="relative">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Pin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 id="destination"
                 name="destination"

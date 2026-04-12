@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Car, Bike, Calendar, MapPin, Users } from "lucide-react";
+import { Loader2, Car, Bike, Calendar, Pin, Users } from "lucide-react";
 import { format } from "date-fns";
 
 export default function VehicleEnquiryForm() {
@@ -167,14 +167,14 @@ export default function VehicleEnquiryForm() {
         <div className="space-y-2">
           <Label htmlFor="pickupLocation">Pickup Location</Label>
           <div className="relative">
-            <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <Pin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <Input id="pickupLocation" name="pickupLocation" required value={formData.pickupLocation} onChange={handleChange} className="pl-10" placeholder="e.g. Airport, Hotel" />
           </div>
         </div>
         <div className="space-y-2">
           <Label htmlFor="dropoffLocation">Drop-off Location</Label>
           <div className="relative">
-            <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <Pin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <Input id="dropoffLocation" name="dropoffLocation" required value={formData.dropoffLocation} onChange={handleChange} className="pl-10" placeholder="e.g. Railway Station" />
           </div>
         </div>

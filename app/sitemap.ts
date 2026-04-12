@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
-import { destinations } from '@/lib/destinations-data';
+import dbConnect from '@/lib/mongodb';
+import Destination from '@/lib/models/Destination';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://konkanarabiahospitalitygroup.com';
 
   // Base static routes
@@ -20,8 +21,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1 : 0.8,
   }));
 
+  await dbConnect();
+  const destinations = await Destination.find().select('id').lean();
+
   // Dynamic destination routes from data
-  const destinationRoutes = destinations.map((destination) => ({
+  const destinationRoutes = destinations.map((destination: any) => ({
     url: `${baseUrl}/destinations/${destination.id}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,

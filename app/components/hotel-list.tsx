@@ -19,7 +19,7 @@ import {
   DialogTrigger,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Star, MapPin, Wifi, Coffee, Utensils } from "lucide-react";
+import { Star, Pin, Wifi, Coffee, Utensils } from "lucide-react";
 import { Price } from "@/components/ui/price";
 
 // Define hotel type for type safety
@@ -105,7 +105,7 @@ export default function HotelList() {
             </CardTitle>
             <CardDescription>{hotel.description}</CardDescription>
             <div className="mt-4 flex items-center text-sm text-gray-500">
-              <MapPin className="mr-2 h-4 w-4" />
+              <Pin className="mr-2 h-4 w-4" />
               <span>{hotel.location}</span>            </div>            <div className="mt-2 text-lg font-semibold">
               <Price amount={hotel.price} sourceCurrency="USD" showConversion={true} showOriginal={false} /> per night
             </div>
@@ -138,7 +138,7 @@ export default function HotelList() {
                         />
                         <p className="mb-4">{selectedHotel.details}</p>
                         <div className="flex items-center mb-2">
-                          <MapPin className="mr-2 h-4 w-4" />
+                          <Pin className="mr-2 h-4 w-4" />
                           <span>{selectedHotel.location}</span>
                         </div>                        <p className="mb-4 text-lg font-semibold">
                           <Price amount={selectedHotel.price} sourceCurrency="USD" showConversion={true} showOriginal={false} /> per night
