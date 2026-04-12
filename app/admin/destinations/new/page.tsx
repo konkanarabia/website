@@ -49,8 +49,10 @@ export default function NewDestinationAdmin() {
       const fileInput = document.getElementById('image-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       toast.success('Successfully generated majestic cover image!');
-    } else {
+    } else if (!result.success) {
       toast.error('Failed to generate image: ' + result.error);
+    } else {
+      toast.error('Failed to generate image.');
     }
   };
   

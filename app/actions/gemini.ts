@@ -64,9 +64,10 @@ export async function generateImageUrl(destinationName: string, description: str
     const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1200&height=800&nologo=true&seed=${randomSeed}`;
 
     return { success: true, url: imageUrl };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Gemini Error (generateImageUrl):", error);
-    return { success: false, url: "" };
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return { success: false, url: "", error: message };
   }
 }
 
