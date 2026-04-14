@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Map, Inbox, MessageSquare, Plus, ExternalLink, LogOut, Car, Plane, HeartHandshake, Hotel, Utensils } from 'lucide-react';
+import { Map, Inbox, MessageSquare, ExternalLink, LogOut, Car, Plane, HeartHandshake, Hotel, Utensils } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
 
 type AdminSidebarNavProps = {
@@ -66,78 +66,6 @@ export default function AdminSidebarNav({ setMobileMenuOpen }: AdminSidebarNavPr
         <Link href="/admin?tab=reviews" onClick={closeMobile} className={navClass(reviewsActive)}>
           <MessageSquare className="w-5 h-5 mr-3 shrink-0" />
           Reviews
-        </Link>
-        <Link
-          href="/admin/destinations/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/destinations/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add destination
-        </Link>
-        <Link
-          href="/admin/vehicles/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/vehicles/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add Vehicle
-        </Link>
-        <Link
-          href="/admin/visas/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/visas/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add Visa
-        </Link>
-        <Link
-          href="/admin/events/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/events/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add Event
-        </Link>
-        <Link
-          href="/admin/hospitality/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/hospitality/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add Stay
-        </Link>
-        <Link
-          href="/admin/restaurants/new"
-          onClick={closeMobile}
-          className={`flex items-center px-4 py-3 rounded-lg font-medium transition-colors ${
-            pathname === '/admin/restaurants/new'
-              ? 'bg-blue-50 text-blue-700 font-bold shadow-sm'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <Plus className="w-5 h-5 mr-3 shrink-0" />
-          Add Restaurant
         </Link>
         <div className="pt-4 mt-4 border-t border-gray-100">
           <Link
