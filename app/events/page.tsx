@@ -1,14 +1,27 @@
-import EventList from '../components/event-list'
+import type { Metadata } from 'next';
+import ItemList from "../components/item-list";
+import { getEvents } from "../actions/events";
+import dbConnect from "@/lib/mongodb";
 
-export default function EventsPage() {
+export const metadata: Metadata = {
+  title: 'Premium Event Management | Weddings, Corporate & Social Events',
+  description: 'Memorable events tailored to your vision. From luxury destination weddings to professional corporate retreats, KonkanArabia manages every detail with excellence.',
+};
+
+export default async function EventsPage() {
+  await dbConnect();
+  const events = await getEvents();
+  
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Upcoming Travel Events</h1>
-      <div className="mb-8 text-center">
-        <p className="text-lg mb-4">Join us for exciting travel events and workshops!</p>
-      </div>
-      <EventList />
-    </div>
-  )
+    <main className="bg-slate-50 min-h-screen pt-24 pb-20">
+      <ItemList 
+        items={JSON.parse(JSON.stringify(events))}
+        category="events"
+        title="Event Management"
+        description="Crafting moments that last a lifetime. Whether it's a grand destination wedding, a milestone celebration, or a high-impact corporate event, we bring unmatched precision and creativity to your special occasions."
+        icon="HeartHandshake"
+        accentColor="text-rose-600"
+      />
+    </main>
+  );
 }
-

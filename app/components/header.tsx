@@ -71,10 +71,11 @@ export default function Header() {
       dropdown: true,
       subItems: [
         { name: "Holiday Packages", href: "/destinations" },
-        { name: "Vehicle Rental", href: "/services/1" },
-        { name: "Visa Services", href: "/services/3" },
-        { name: "Event Management", href: "/services/2" },
-        { name: "Hospitality, Food & Beverages", href: "/#hospitality-dining" },
+        { name: "Vehicle Rental", href: "/vehicles" },
+        { name: "Visa Services", href: "/visas" },
+        { name: "Event Management", href: "/events" },
+        { name: "Hospitality & Stays", href: "/hospitality" },
+        { name: "Dining & Restaurants", href: "/restaurants" },
       ],
     },
     { name: "About", href: "/about" },
@@ -176,7 +177,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <div className="flex items-center justify-end flex-1">
+          <div className="flex items-center justify-end flex-1 gap-2 lg:gap-6">
             <nav className="hidden md:block">
               <ul className="flex items-center space-x-1 lg:space-x-4">
                 {navItems.map((item) => (

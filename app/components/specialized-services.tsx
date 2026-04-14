@@ -1,35 +1,39 @@
-"use client";
-
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Utensils, Hotel, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import dbConnect from "@/lib/mongodb";
+import Hospitality from "@/lib/models/Hospitality";
+import Restaurant from "@/lib/models/Restaurant";
 
-const services = [
-  {
-    id: "hospitality",
-    title: "Hospitality / Hotels",
-    name: "01) Siddhivinayak Devbag Beach Resort",
-    description: "Beach Side Family Holiday Stay, AC & Non Ac Rooms, Water Sports, Scuba, & Event place",
-    image: "/services/siddhivinayak-resort.jpg",
-    icon: <Hotel className="w-6 h-6" />,
-    features: ["Beach Side Stay", "AC & Non-Ac Rooms", "Water Sports", "Scuba Diving", "Event Space"],
-    link: "/enquiry/hospitality?service=hospitality"
-  },
-  {
-    id: "food-beverages",
-    title: "Food & Beverages / Restaurants",
-    name: "02) Konkan Swad - The Test Of Konkan",
-    description: "Authentic Malvani & Goan Sea Food Restaurant",
-    image: "/services/siddhivinayak-resort.jpg",
-    icon: <Utensils className="w-6 h-6" />,
-    features: ["Authentic Malvani", "Goan Sea Food", "Fresh Catch", "Traditional Recipes", "Premium Dining"],
-    link: "/enquiry/hospitality?service=food-beverages"
+export default async function SpecializedServices() {
+  await dbConnect();
+  
+  // Fetch up to 1 item from each category for the spotlight section
+  const [stay] = await Hospitality.find().limit(1).lean();
+  const [food] = await Restaurant.find().limit(1).lean();
+
+  const services = [];
+  if (stay) {
+    services.push({
+      ...stay,
+      type: 'hospitality',
+      title: 'Hospitality / Hotels',
+      icon: <Hotel className="w-6 h-6" />,
+      link: `/hospitality/${stay.id}`
+    });
   }
-];
+  if (food) {
+    services.push({
+      ...food,
+      type: 'restaurants',
+      title: 'Food & Beverages',
+      icon: <Utensils className="w-6 h-6" />,
+      link: `/restaurants/${food.id}`
+    });
+  }
 
-export default function SpecializedServices() {
   return (
     <section id="hospitality-dining" className="py-24 bg-slate-50 overflow-hidden scroll-mt-20">
       <div className="container mx-auto px-4">
@@ -57,25 +61,18 @@ export default function SpecializedServices() {
               </div>
             </div>
           </div>
-          
-          <div className="mt-12 flex gap-1.5 justify-center">
-            <div className="h-1.5 w-16 bg-[#0066a1] rounded-full"></div>
-            <div className="h-1.5 w-4 bg-[#0066a1]/20 rounded-full"></div>
-            <div className="h-1.5 w-4 bg-[#0066a1]/20 rounded-full"></div>
-          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {services.map((service, index) => (
+          {services.map((service: any, index) => (
             <div
-              key={service.id}
-              id={service.id}
-              className={`transition-all duration-700 delay-${index * 200} scroll-mt-24`}
+              key={`${service.type}-${service.id}`}
+              className={`transition-all duration-700 scroll-mt-24`}
             >
               <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-blue-900/15 transition-all duration-500 bg-white rounded-3xl">
                 <div className="relative h-80 overflow-hidden">
                   <Image
-                    src={service.image}
+                    src={service.image || '/placeholder.svg'}
                     alt={service.name}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -95,7 +92,7 @@ export default function SpecializedServices() {
                   </p>
                   
                   <div className="flex flex-wrap gap-2 mb-8">
-                    {service.features.map((feature, i) => (
+                    {service.features?.map((feature: string, i: number) => (
                       <span 
                         key={i} 
                         className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-500 rounded-xl group-hover:bg-[#0066a1] group-hover:text-white transition-all duration-300 border border-slate-100 uppercase tracking-wider"
@@ -107,7 +104,7 @@ export default function SpecializedServices() {
 
                   <Link href={service.link} className="inline-block w-full">
                     <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-900/20 active:scale-[0.98]">
-                      Enquire Now
+                      View Details
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Button>
                   </Link>
