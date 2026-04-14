@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
 import { getTravelAdvice } from '@/app/actions/gemini';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -99,9 +100,17 @@ export default function TravelChat() {
                         : 'bg-white text-gray-800 border border-gray-100 rounded-tl-none'
                     }`}
                   >
-                    {m.content.split('\n').map((line, idx) => (
-                      <p key={idx} className={idx > 0 ? 'mt-2' : ''}>{line}</p>
-                    ))}
+                    <ReactMarkdown
+                      components={{
+                        p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                        strong: ({ node, ...props }) => <strong className="font-semibold" {...props} />,
+                        ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-2" {...props} />,
+                        ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-2" {...props} />,
+                        li: ({ node, ...props }) => <li className="mb-1" {...props} />
+                      }}
+                    >
+                      {m.content}
+                    </ReactMarkdown>
                   </div>
                 </div>
               ))}
