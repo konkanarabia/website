@@ -24,7 +24,7 @@ const getIcon = (iconName: string, className: string) => {
 interface DetailClientProps {
   item: any;
   allItems: any[];
-  category: 'vehicles' | 'visas' | 'events';
+  category: 'vehicles' | 'visas' | 'events' | 'hospitality' | 'restaurants';
   categoryTitle: string;
 }
 
@@ -157,9 +157,23 @@ export default function DetailClient({ item, allItems, category, categoryTitle }
 					</Tabs>
 
 					<div className="mt-8">
-						<Link href={`/enquiry/${category === 'vehicles' ? 'vehicle' : category === 'visas' ? 'visa' : 'event'}`} className="block w-full">
+						<Link 
+							href={
+								category === 'vehicles' ? '/enquiry/vehicle-rental' : 
+								category === 'visas' ? '/enquiry/visa-services' : 
+								category === 'events' ? '/enquiry/event-management' :
+								'/enquiry/hospitality'
+							} 
+							className="block w-full"
+						>
 							<Button size="lg" className="w-full py-7 font-bold rounded-xl shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99]">
-								Enquire About This {categoryTitle.slice(0, -1)}
+								Enquire About This {
+									category === 'vehicles' ? 'Vehicle' : 
+									category === 'visas' ? 'Visa' : 
+									category === 'events' ? 'Event' : 
+									category === 'hospitality' ? 'Stay' : 
+									'Restaurant'
+								}
 							</Button>
 						</Link>
 					</div>
