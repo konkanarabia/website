@@ -16,6 +16,12 @@ import { ZoomIn, FileText, ChevronLeft, ChevronRight } from "lucide-react";
 
 const certificates = [
   {
+    title: "Certificate of Incorporation",
+    issuer: "Ministry of Corporate Affairs, Government of India",
+    pages: ["/certificates/certificate-of-incorporation.jpeg"],
+    description: "Official incorporation of KonkanArabia Hospitality and Holiday Management Private Limited under the Companies Act, 2013.",
+  },
+  {
     title: "NIDHI Pledge Certificate",
     issuer: "Ministry of Tourism, Government of India",
     pages: ["/certificates/nidhi-pledge.jpg"],
@@ -29,6 +35,19 @@ const certificates = [
       "/certificates/disclaimer.jpg",
     ],
     description: "Official registration as a tourism unit under the Maharashtra Tourism Policy for KonkanArabia Hospitality.",
+  },
+];
+
+const otherDocuments = [
+  {
+    title: "MTDC Registration Certificate",
+    file: "/certificates/mtdc-registration.pdf",
+    issuer: "Maharashtra Tourism Development Corporation",
+  },
+  {
+    title: "Udyam Registration Certificate",
+    file: "/certificates/udyam-registration.pdf",
+    issuer: "Ministry of MSME, Government of India",
   },
 ];
 
@@ -47,7 +66,7 @@ export default function CertificateShowcase() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto mb-20">
           {certificates.map((cert, index) => (
             <Dialog key={index}>
               <DialogTrigger asChild>
@@ -59,7 +78,7 @@ export default function CertificateShowcase() {
                         alt={cert.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
                       
@@ -153,6 +172,33 @@ export default function CertificateShowcase() {
               </DialogContent>
             </Dialog>
           ))}
+        </div>
+
+        {/* Additional Documents Section */}
+        <div className="max-w-4xl mx-auto pt-10 border-t border-gray-200">
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Additional Documentation</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {otherDocuments.map((doc, idx) => (
+              <a 
+                key={idx}
+                href={doc.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:border-primary hover:shadow-md transition-all group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center text-red-500 mr-4 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                  <FileText className="w-6 h-6" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-gray-900 group-hover:text-primary transition-colors">{doc.title}</h4>
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">{doc.issuer}</p>
+                </div>
+                <div className="text-gray-300 group-hover:text-primary transition-colors">
+                  <ChevronRight className="w-5 h-5" />
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
