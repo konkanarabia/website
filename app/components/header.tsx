@@ -90,7 +90,7 @@ export default function Header() {
           <div className="text-[11px] sm:text-[13px] flex items-center flex-wrap gap-y-2">
             <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap">
               <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" /> 
-              <span className="hidden xs:inline">+91-9370528517 | 8625807465 | +971-555995260 | 0557337618</span>
+              <span className="hidden xs:inline">+91-9370528517 | 9326380922 | +971-555995260 | 0557337618</span>
               <span className="xs:hidden">+91 9370528517</span>
             </span>
             <span className="flex items-center whitespace-nowrap">

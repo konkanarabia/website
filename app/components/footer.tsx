@@ -94,7 +94,7 @@ export default function Footer() {
               <div className="text-gray-300 flex flex-col sm:flex-row sm:items-start">
                 <span className="font-semibold mr-2 whitespace-nowrap">Phone:</span>
                 <div className="flex flex-col">
-                  <span>India: +91-9370528517 | 8625807465</span>
+                  <span>India: +91-9370528517 | 9326380922</span>
                   <span>UAE: +971-555995260 | 0557337618</span>
                 </div>
               </div>
