@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter, Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import Header from './components/header'
 import Footer from './components/footer'
 import { Toaster } from "@/components/ui/toaster"
@@ -47,6 +48,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {  return (
     <html lang="en" suppressHydrationWarning={true} data-scroll-behavior="smooth">
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-K09V6901MT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-K09V6901MT');
+          `}
+        </Script>
+      </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans`}
         suppressHydrationWarning={true}
