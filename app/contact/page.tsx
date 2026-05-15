@@ -237,7 +237,7 @@ export default function ContactPage() {
             <div className="w-full h-[420px]">
               <iframe
                 title="KonkanArabia Vashi Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d471.6!2d73.002371!3d19.065754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDAzJzU2LjciTiA3M8KwMDAnMDguNSJF!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1749.5!2d73.0028629!3d19.0660381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c1473a43e2dd%3A0xc79fbfcddecb1320!2sKonkanArabia+Hospitality+%26+Holidays+Management+Group%2CMumbai!5e0!3m2!1sen!2sin!4v1715800000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -249,7 +249,7 @@ export default function ContactPage() {
             <div className="p-4 bg-slate-50 flex flex-wrap gap-3 justify-between items-center">
               <p className="text-slate-500 text-sm">📍 Near Inorbit Mall, Behind Vashi Railway Station</p>
               <a
-                href="https://maps.google.com/?q=Haware+Fantasia+Business+Park+Sector+30A+Vashi+Navi+Mumbai+400703"
+                href="https://www.google.com/maps/place/KonkanArabia+Hospitality+%26+Holidays+Management+Group,Mumbai/@19.0660381,73.0028629,17z/data=!3m1!4b1!4m6!3m5!1s0x3be7c1473a43e2dd:0xc79fbfcddecb1320!8m2!3d19.0660381!4d73.0028629!16s%2Fg%2F11z65q1wt9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-[#0066a1] text-white text-sm font-semibold rounded-xl hover:bg-[#00558a] transition-colors"

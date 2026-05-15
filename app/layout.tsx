@@ -19,7 +19,7 @@ export const metadata = {
     template: '%s | KonkanArabia'
   },
   description: 'KonkanArabia Hospitality & Holiday Group offers premium holiday packages, vehicle rentals, visa services, and event management across India and the UAE. Discover the best of Konkan and beyond.',
-  keywords: ['KonkanArabia', 'Konkan Tourism', 'Holiday Packages India', 'Dubai Tourism', 'Vehicle Rental Mumbai', 'Visa Services UAE', 'Event Management Dubai', 'Luxury Travel India', 'Hospitality Group'],
+  keywords: ['KonkanArabia', 'Konkan Tourism', 'Holiday Packages India', 'Dubai Tourism', 'Vehicle Rental Mumbai', 'Visa Services UAE', 'Event Management Dubai', 'Luxury Travel India', 'Hospitality Group', 'Travel Agent Vashi', 'Tour Operator Navi Mumbai', 'Dubai Tours from Vashi', 'Holiday Packages Vashi', 'Travel Agency Navi Mumbai', 'Dubai Group Tours Navi Mumbai', 'Honeymoon Packages Navi Mumbai', 'Tour Packages Sector 30A Vashi'],
   authors: [{ name: 'KonkanArabia' }],
   creator: 'KonkanArabia',
   publisher: 'KonkanArabia',
