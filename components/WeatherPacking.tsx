@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { Sun, CheckCircle2, Lightbulb, ThermometerSun } from 'lucide-react';
 import { getTravelWeatherAndPacking } from '@/app/actions/gemini';
+import { useI18n } from '@/lib/i18n-provider';
 
 export default function WeatherPacking({ destination }: { destination: string }) {
+  const { t } = useI18n();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -45,22 +47,22 @@ export default function WeatherPacking({ destination }: { destination: string })
       </div>
 
       <div className="relative z-10 min-w-0">
-        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-          <div className="min-w-0 flex-1">
-            <span className="mb-2 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-600 sm:px-3">
-              {currentMonth} forecast
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8">
+          <div className="flex items-center justify-between">
+            <span className="inline-block rounded-full bg-orange-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-orange-600">
+              {currentMonth} {t('forecast')}
             </span>
-            <h3 className="text-balance text-xl font-black leading-tight text-slate-900 sm:text-2xl md:text-3xl">
-              Destination <span className="text-[#0066a1]">outlook</span>
-            </h3>
-          </div>
-          <div className="shrink-0 border-t border-slate-100 pt-4 sm:border-t-0 sm:border-l sm:pl-6 sm:pt-0 md:pl-8">
-            <div className="flex flex-wrap items-center gap-2 text-2xl font-black tabular-nums text-slate-900 sm:text-right sm:text-3xl">
-              <ThermometerSun className="h-6 w-6 shrink-0 text-orange-500 sm:h-7 sm:w-7" aria-hidden />
-              <span className="min-w-0 break-words">{data.temp}</span>
+            <div className="flex items-center gap-1.5 text-lg font-black tabular-nums text-slate-900">
+              <ThermometerSun className="h-5 w-5 text-orange-500" aria-hidden />
+              <span>{data.temp}</span>
             </div>
-            <p className="mt-1 max-w-full text-sm font-bold text-slate-400 sm:text-right sm:text-base">
-              <span className="break-words">{data.condition}</span>
+          </div>
+          <div className="border-b border-slate-100 pb-4">
+            <h3 className="text-2xl font-black leading-tight text-slate-900">
+              {t('destination_outlook')}
+            </h3>
+            <p className="mt-1 text-sm font-bold text-slate-400">
+              {data.condition}
             </p>
           </div>
         </div>
@@ -75,7 +77,7 @@ export default function WeatherPacking({ destination }: { destination: string })
           <div className="min-w-0">
             <h4 className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-              Essential packing
+              {t('essential_packing')}
             </h4>
             <ul className="space-y-3">
               {essentials.map((item: string, i: number) => (
@@ -92,7 +94,7 @@ export default function WeatherPacking({ destination }: { destination: string })
           <div className="min-w-0 rounded-2xl border border-blue-100/50 bg-blue-50/50 p-4 sm:p-6">
             <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-[#0066a1]">
               <Lightbulb className="h-4 w-4 shrink-0" aria-hidden />
-              Aura&apos;s pro tip
+              {t('auras_pro_tip')}
             </h4>
             <p className="text-pretty text-xs font-semibold italic leading-relaxed text-blue-800 sm:text-sm">
               {data.proTip}

@@ -1,39 +1,29 @@
 'use client'
 
-import React, { useState } from 'react';
-import { IndianRupee, DollarSign, Coins } from 'lucide-react';
+import React from 'react';
+import { useI18n } from '@/lib/i18n-provider';
+import { Price } from '@/components/ui/price';
 
 interface PriceDisplayProps {
   priceINR: number;
 }
 
-const RATES = {
-  INR: 1,
-  USD: 0.012,
-  AED: 0.044
-};
-
-const SYMBOLS: Record<string, string> = {
-  INR: '₹',
-  USD: '$',
-  AED: 'د.إ'
-};
-
 export default function PriceDisplay({ priceINR }: PriceDisplayProps) {
-  const [currency, setCurrency] = useState<'INR' | 'USD' | 'AED'>('INR');
+  const { currency, setCurrency } = useI18n();
 
-  const convertedPrice = Math.round(priceINR * RATES[currency]);
+  const SUPPORTED = ['GBP', 'EUR', 'AED', 'INR'];
+  const activeCurrency = SUPPORTED.includes(currency) ? currency : 'GBP';
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
         <div className="flex bg-slate-100 p-1.5 rounded-2xl w-fit">
-            {Object.keys(RATES).map((curr) => (
+            {SUPPORTED.map((curr) => (
                 <button
                     key={curr}
-                    onClick={() => setCurrency(curr as any)}
+                    onClick={() => setCurrency(curr)}
                     className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${
-                        currency === curr 
+                        activeCurrency === curr 
                         ? 'bg-white text-[#0066a1] shadow-md' 
                         : 'text-slate-400 hover:text-slate-600'
                     }`}
@@ -46,10 +36,12 @@ export default function PriceDisplay({ priceINR }: PriceDisplayProps) {
         <div className="flex flex-col">
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-1">Starting From</span>
             <div className="flex items-baseline gap-2">
-                <span className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">
-                    {SYMBOLS[currency]}{convertedPrice.toLocaleString()}
-                </span>
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{currency}</span>
+                <Price
+                  amount={priceINR}
+                  sourceCurrency="INR"
+                  showConversion={true}
+                  className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter"
+                />
             </div>
         </div>
       </div>

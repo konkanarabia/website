@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { MapPin, Phone, Star, Users, Plane, Building2 } from 'lucide-react'
+import TranslatedText from '@/components/TranslatedText'
+
 
 const services = [
   {
@@ -37,17 +39,14 @@ export default function LocalSeoSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#0066a1]/10 rounded-full mb-5">
             <MapPin className="w-4 h-4 text-[#0066a1]" />
             <span className="text-[#0066a1] font-semibold text-sm tracking-wide uppercase">
-              Your Local Travel Experts
+              <TranslatedText text="Your Local Travel Experts" />
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4 leading-tight">
-            Serving Travelers in{' '}
-            <span className="text-[#0066a1]">Vashi</span> and{' '}
-            <span className="text-[#0066a1]">Navi Mumbai</span>
+            <TranslatedText text='Serving Travelers in <span className="text-[#0066a1]">Vashi</span> and <span className="text-[#0066a1]">Navi Mumbai</span>' isHtml />
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
-            Based at Haware Fantasia Business Park, Sector 30A, Vashi — we are Navi Mumbai's most trusted 
-            holiday planning partner for Dubai tours, international packages, and corporate travel.
+            <TranslatedText text="Based at Haware Fantasia Business Park, Sector 30A, Vashi — we are Navi Mumbai's most trusted holiday planning partner for Dubai tours, international packages, and corporate travel." />
           </p>
         </div>
 
@@ -64,9 +63,11 @@ export default function LocalSeoSection() {
               </div>
               <div>
                 <h3 className="font-bold text-slate-900 text-lg mb-1 group-hover:text-[#0066a1] transition-colors">
-                  {service.title}
+                  <TranslatedText text={service.title} />
                 </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{service.desc}</p>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  <TranslatedText text={service.desc} />
+                </p>
               </div>
             </Link>
           ))}
@@ -75,11 +76,14 @@ export default function LocalSeoSection() {
         {/* Office Call-Out Banner */}
         <div className="bg-gradient-to-r from-[#0066a1] to-[#004e7c] rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="text-white text-center md:text-left">
-            <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-2">Walk In or Call Us</p>
-            <h3 className="text-2xl md:text-3xl font-bold mb-1">Our Office in Vashi, Navi Mumbai</h3>
+            <p className="text-sm font-bold uppercase tracking-widest text-white/70 mb-2">
+              <TranslatedText text="Walk In or Call Us" />
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold mb-1">
+              <TranslatedText text="Our Office in Vashi, Navi Mumbai" />
+            </h3>
             <p className="text-white/80 text-sm leading-relaxed max-w-md">
-              Office No. S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A,
-              Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai – 400703
+              <TranslatedText text="Office No. S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai – 400703" />
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -94,7 +98,7 @@ export default function LocalSeoSection() {
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/20 text-white font-bold rounded-xl hover:bg-white/20 transition-colors text-sm whitespace-nowrap"
             >
-              Get a Free Quote →
+              <TranslatedText text="Get a Free Quote →" />
             </Link>
           </div>
         </div>

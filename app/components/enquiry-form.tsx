@@ -23,7 +23,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Price } from "@/components/ui/price";
 
+import { useI18n } from "@/lib/i18n-provider";
+ 
 export default function EnquiryForm() {
+  const { t } = useI18n();
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,8 +59,8 @@ export default function EnquiryForm() {
     departureDate: "", // String format YYYY-MM-DD
     returnDate: "", // String format YYYY-MM-DD
     travelers: 2, // Default number of travelers
-    budgetMin: 10000, // Default minimum budget in INR
-    budgetMax: 200000, // Default maximum budget in INR
+    budgetMin: 10000, // Default minimum budget
+    budgetMax: 200000, // Default maximum budget
     budgetCurrency: "INR", // Default currency for budget
     message: "",
     subscribe: false, // Newsletter subscription
@@ -265,7 +268,7 @@ export default function EnquiryForm() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <Label htmlFor="name">Name *</Label>
+              <Label htmlFor="name">{t('full_name')} *</Label>
               <Input
                 id="name"
                 name="name"
@@ -281,7 +284,7 @@ export default function EnquiryForm() {
             </div>
 
             <div>
-              <Label htmlFor="email">Email *</Label>
+              <Label htmlFor="email">{t('email_address')} *</Label>
               <Input
                 id="email"
                 name="email"
@@ -299,7 +302,7 @@ export default function EnquiryForm() {
           </div>
 
           <div>
-            <Label htmlFor="phone">Phone Number</Label>
+            <Label htmlFor="phone">{t('phone_number')}</Label>
             <Input
               id="phone"
               name="phone"
@@ -315,7 +318,7 @@ export default function EnquiryForm() {
           </div>
 
           <div>
-            <Label className="mb-2 block">Preferred Contact Method</Label>
+            <Label className="mb-2 block">{t('preferred_contact')}</Label>
             <RadioGroup
               value={formData.preferredContact}
               onValueChange={handleSelectChange("preferredContact")}
@@ -343,7 +346,7 @@ export default function EnquiryForm() {
           <h3 className="text-lg font-semibold">Trip Details</h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <Label htmlFor="travelType">Type of Travel *</Label>
+              <Label htmlFor="travelType">{t('travel_type')} *</Label>
               <Select
                 value={formData.travelType}
                 onValueChange={handleSelectChange("travelType")}
@@ -376,7 +379,7 @@ export default function EnquiryForm() {
             </div>
 
             <div>
-              <Label htmlFor="destination">Destination *</Label>
+              <Label htmlFor="destination">{t('destination')} *</Label>
               <Input
                 id="destination"
                 name="destination"
@@ -395,7 +398,7 @@ export default function EnquiryForm() {
           </div>{" "}
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <Label htmlFor="departureDate">Departure Date</Label>
+              <Label htmlFor="departureDate">{t('departure_date')}</Label>
               <div className="relative">
                 <Input
                   id="departureDate"
@@ -423,7 +426,7 @@ export default function EnquiryForm() {
             </div>
 
             <div>
-              <Label htmlFor="returnDate">Return Date</Label>
+              <Label htmlFor="returnDate">{t('return_date')}</Label>
               <div className="relative">
                 <Input
                   id="returnDate"
@@ -467,7 +470,7 @@ export default function EnquiryForm() {
             </div>
           </div>
           <div>
-            <Label>Number of Travelers</Label>
+            <Label>{t('travelers')}</Label>
             <Select
               value={
                 formData.travelers === 11
@@ -496,7 +499,7 @@ export default function EnquiryForm() {
             </Select>
           </div>
           <div className="space-y-4">
-            <Label>Budget Range</Label>
+            <Label>{t('budget_range')}</Label>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <Label
@@ -559,11 +562,10 @@ export default function EnquiryForm() {
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="INR">Indian Rupee (₹)</SelectItem>
-                    <SelectItem value="USD">US Dollar ($)</SelectItem>
-                    <SelectItem value="EUR">Euro (€)</SelectItem>
                     <SelectItem value="GBP">British Pound (£)</SelectItem>
+                    <SelectItem value="EUR">Euro (€)</SelectItem>
                     <SelectItem value="AED">UAE Dirham (د.إ)</SelectItem>
+                    <SelectItem value="INR">Indian Rupee (₹)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -596,7 +598,7 @@ export default function EnquiryForm() {
           <h3 className="text-lg font-semibold">Additional Information</h3>
 
           <div>
-            <Label htmlFor="message">Message</Label>
+            <Label htmlFor="message">{t('message')}</Label>
             <Textarea
               id="message"
               name="message"
@@ -613,10 +615,10 @@ export default function EnquiryForm() {
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Submitting...
+              {t('submitting')}
             </>
           ) : (
-            "Submit Enquiry"
+            t('submit_enquiry')
           )}
         </Button>
       </div>

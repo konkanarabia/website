@@ -7,8 +7,10 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { useI18n } from "@/lib/i18n-provider";
 
 export default function Header() {
+  const { t } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isMobileServicesDropdownOpen, setIsMobileServicesDropdownOpen] =
@@ -64,23 +66,23 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/" },
+    { name: t('home'), href: "/" },
     {
-      name: "Our Services",
+      name: t('services'),
       href: "/services",
       dropdown: true,
       subItems: [
-        { name: "Holiday Packages", href: "/destinations" },
-        { name: "Vehicle Rental", href: "/vehicles" },
-        { name: "Visa Services", href: "/visas" },
-        { name: "Event Management", href: "/events" },
-        { name: "Hospitality & Stays", href: "/hospitality" },
-        { name: "Dining & Restaurants", href: "/restaurants" },
+        { name: t('holiday_packages'), href: "/destinations" },
+        { name: t('vehicle_rental'), href: "/vehicles" },
+        { name: t('visa_services'), href: "/visas" },
+        { name: t('event_management'), href: "/events" },
+        { name: t('hospitality_stays'), href: "/hospitality" },
+        { name: t('dining_restaurants'), href: "/restaurants" },
       ],
     },
-    { name: "About", href: "/about" },
-    { name: "Partners", href: "/partners" },
-    { name: "Contact", href: "/contact" },
+    { name: t('about'), href: "/about" },
+    { name: t('partners'), href: "/partners" },
+    { name: t('contact'), href: "/contact" },
   ];
 
   return (
@@ -157,7 +159,7 @@ export default function Header() {
                 <div className="flex items-center w-full min-w-0">
                   <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#0066a1]/30"></div>
                   <span className="px-1 xs:px-2 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] text-[#0066a1] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
-                    Hospitality is our passion & culture
+                    {t('slogan1')}
                   </span>
                   <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#0066a1]/30"></div>
                 </div>
@@ -171,7 +173,7 @@ export default function Header() {
                     <div className="h-full w-1/3 bg-[#0066a1]"></div>
                 </div>
                 <span className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.1em] uppercase mt-1 leading-tight sm:leading-none truncate sm:whitespace-nowrap">
-                  &#123; Hospitality & Holiday Management Group &#125;
+                  &#123; {t('slogan2')} &#125;
                 </span>
               </div>
             </div>
@@ -234,7 +236,7 @@ export default function Header() {
               <Button
                 className="bg-[#0066a1] hover:bg-[#00558a] text-white font-bold px-4 xl:px-6 py-4 xl:py-5 rounded-lg shadow-lg shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-sm xl:text-base"
               >
-                Enquire Now
+                {t('enquire_now')}
               </Button>
             </Link>
             <Button
@@ -311,7 +313,7 @@ export default function Header() {
                 ))}                <li className="pt-2">
                   <Link href="/enquiry">
                     <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                      Enquire Now
+                      {t('enquire_now')}
                     </Button>
                   </Link>
                 </li>

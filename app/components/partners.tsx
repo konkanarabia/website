@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import TranslatedText from "@/components/TranslatedText";
+
 
 const LOGO_DEV_TOKEN = process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN;
 
@@ -47,7 +49,9 @@ const partners = {
 
 const PartnerSection = ({ title, items }: { title: string; items: { name: string; logo: string }[] }) => (
   <div className="mb-12">
-    <h3 className="text-2xl font-bold mb-6 text-center text-gray-800">{title}</h3>
+    <h3 className="text-2xl font-bold mb-6 text-center text-gray-800">
+      <TranslatedText text={title} />
+    </h3>
     <div className="flex flex-wrap justify-center gap-6 items-center">
       {items.map((partner) => (
         <div
@@ -82,10 +86,12 @@ export default function Partners() {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Partners</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <TranslatedText text="Our Partners" />
+          </h2>
           <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            We collaborate with the world's leading brands to provide you with the best travel experiences.
+            <TranslatedText text="We collaborate with the world's leading brands to provide you with the best travel experiences." />
           </p>
         </div>
 
@@ -96,17 +102,23 @@ export default function Partners() {
 
         <div className="mt-20 pt-16 border-t border-gray-200">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How to Make Payment?</h2>
-            <p className="text-gray-600">Secure and flexible payment options for your convenience.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <TranslatedText text="How to Make Payment?" />
+            </h2>
+            <p className="text-gray-600">
+              <TranslatedText text="Secure and flexible payment options for your convenience." />
+            </p>
           </div>
           
           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div className="p-8 md:p-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h4 className="text-xl font-bold mb-4 text-gray-800">Accepted Methods</h4>
+                  <h4 className="text-xl font-bold mb-4 text-gray-800">
+                    <TranslatedText text="Accepted Methods" />
+                  </h4>
                   <p className="text-gray-600 mb-6 font-medium">
-                    We Accept Master, Visa, Diners, Amex, Debit & Credit Cards through Razorpay payment links.
+                    <TranslatedText text="We Accept Master, Visa, Diners, Amex, Debit & Credit Cards through Razorpay payment links." />
                   </p>
                   <div className="flex flex-wrap gap-4 items-center">
                     {partners.payment.map((p: { name: string; logo: string }) => (
@@ -127,13 +139,17 @@ export default function Partners() {
                   </div>
                 </div>
                 <div className="bg-blue-50 p-8 rounded-2xl border border-blue-100">
-                  <h4 className="text-xl font-bold mb-4 text-blue-900">Installment Options</h4>
+                  <h4 className="text-xl font-bold mb-4 text-blue-900">
+                    <TranslatedText text="Installment Options" />
+                  </h4>
                   <p className="text-blue-800 leading-relaxed font-medium">
-                    Flexible installment options are available based on your Credit Card approvals. Plan your trip now and pay later!
+                    <TranslatedText text="Flexible installment options are available based on your Credit Card approvals. Plan your trip now and pay later!" />
                   </p>
                   <div className="mt-6 flex items-center text-blue-600 font-bold">
                     <span className="text-2xl mr-2">✓</span>
-                    <span>Easy EMI Available</span>
+                    <span>
+                      <TranslatedText text="Easy EMI Available" />
+                    </span>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import CertificateShowcase from "../components/certificate-showcase";
 import { Globe, Heart, Anchor, Utensils, Hotel, Compass, Quote, Award } from "lucide-react";
+import TranslatedText from "@/components/TranslatedText";
 
 export const metadata: Metadata = {
   title: 'About Us | Connecting Konkan with Arabian Hospitality',
@@ -27,10 +28,10 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900"></div>
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 tracking-tight">
-            Our Story
+            <TranslatedText text="Our Story" />
           </h1>
           <p className="text-xl text-slate-200 font-serif italic max-w-2xl mx-auto drop-shadow-sm">
-            "A journey between two unique regions, connecting nations through hospitality."
+            <TranslatedText text='"A journey between two unique regions, connecting nations through hospitality."' />
           </p>
         </div>
       </section>
@@ -55,15 +56,14 @@ export default function AboutPage() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
-                Connecting Cultures <br/>
-                <span className="text-[#0066a1]">Through Hospitality</span>
+                <TranslatedText text='Connecting Cultures <br/> <span className="text-[#0066a1]">Through Hospitality</span>' isHtml />
               </h2>
               <div className="w-24 h-1 bg-[#0066a1] rounded-full"></div>
             </div>
             
             <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-light">
               <p className="text-slate-900 font-medium text-xl font-serif">
-                KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd. was born from a simple yet powerful idea: to bridge two unique worlds.
+                <TranslatedText text="KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd. was born from a simple yet powerful idea: to bridge two unique worlds." />
               </p>
               
               <div className="grid gap-8 pt-4">
@@ -72,10 +72,11 @@ export default function AboutPage() {
                         <Anchor className="w-6 h-6" />
                     </div>
                     <div>
-                        <h4 className="font-bold text-slate-900 text-xl mb-2 font-serif">The Konkan Essence</h4>
+                        <h4 className="font-bold text-slate-900 text-xl mb-2 font-serif">
+                          <TranslatedText text="The Konkan Essence" />
+                        </h4>
                         <p className="text-slate-600">
-                            India’s untouched coastline—rich with coconut groves, turquoise waters, Malvani spices, 
-                            and a tradition of heartfelt warmth.
+                          <TranslatedText text="India’s untouched coastline—rich with coconut groves, turquoise waters, Malvani spices, and a tradition of heartfelt warmth." />
                         </p>
                     </div>
                 </div>
@@ -85,18 +86,18 @@ export default function AboutPage() {
                         <Globe className="w-6 h-6" />
                     </div>
                     <div>
-                        <h4 className="font-bold text-slate-900 text-xl mb-2 font-serif">The Arabian Spirit</h4>
+                        <h4 className="font-bold text-slate-900 text-xl mb-2 font-serif">
+                          <TranslatedText text="The Arabian Spirit" />
+                        </h4>
                         <p className="text-slate-600">
-                            The visionary ambition of Dubai and the UAE—known for refined luxury, 
-                            world-class service, and the royal art of welcoming the world.
+                          <TranslatedText text="The visionary ambition of Dubai and the UAE—known for refined luxury, world-class service, and the royal art of welcoming the world." />
                         </p>
                     </div>
                 </div>
               </div>
 
               <p className="pt-6 border-t border-slate-100 italic">
-                Beyond service, we offer a responsibility. We bring the authenticity of Konkan together 
-                with the global mindset of Dubai to create something truly exceptional.
+                <TranslatedText text="Beyond service, we offer a responsibility. We bring the authenticity of Konkan together with the global mindset of Dubai to create something truly exceptional." />
               </p>
             </div>
           </div>
@@ -110,49 +111,50 @@ export default function AboutPage() {
           <div className="relative z-10">
             <div className="flex flex-col items-center text-center mb-20">
               <Quote className="w-12 h-12 text-[#0066a1] mb-6 opacity-50" />
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 uppercase tracking-wider">Our Values</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 uppercase tracking-wider">
+                <TranslatedText text="Our Values" />
+              </h2>
               <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-10 px-6">
                 <p className="text-slate-200 text-lg md:text-2xl font-serif italic leading-relaxed mb-6">
-                  "A Guest is the most important visitor on our premises. He is not dependent on us. We are dependent on him. 
-                  He is not an interruption in our work. He is the purpose of it. He is not an outsider in our business. 
-                  He is part of it. We are not doing him a favor by serving him. He is doing us a favor by giving us an opportunity to do so."
+                  <TranslatedText text='"A Guest is the most important visitor on our premises. He is not dependent on us. We are dependent on him. He is not an interruption in our work. He is the purpose of it. He is not an outsider in our business. He is part of it. We are not doing him a favor by serving him. He is doing us a favor by giving us an opportunity to do so."' />
                 </p>
                 <p className="text-[#0066a1] font-bold text-xl uppercase tracking-widest font-serif">
-                  — Thoughts of Mahatma Gandhi
+                  <TranslatedText text="— Thoughts of Mahatma Gandhi" />
                 </p>
               </div>
               <p className="text-slate-400 text-xl md:text-2xl font-serif italic max-w-3xl">
-                "Hospitality is not a service—it is a responsibility."
+                <TranslatedText text='"Hospitality is not a service—it is a responsibility."' />
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-16">
               <div className="group">
                 <div className="mb-6 inline-block px-4 py-1 rounded bg-[#0066a1]/20 text-[#0066a1] text-sm font-bold tracking-widest uppercase">
-                  Indian Heritage
+                  <TranslatedText text="Indian Heritage" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">Atithi Devo Bhava</h3>
+                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">
+                  <TranslatedText text="Atithi Devo Bhava" />
+                </h3>
                 <p className="text-slate-400 leading-relaxed text-xl font-light">
-                  The guest is God. We honor this ancient value through the authenticity and 
-                  unfiltered warmth of the Konkan coast.
+                  <TranslatedText text="The guest is God. We honor this ancient value through the authenticity and unfiltered warmth of the Konkan coast." />
                 </p>
               </div>
               <div className="group">
                 <div className="mb-6 inline-block px-4 py-1 rounded bg-[#0066a1]/20 text-[#0066a1] text-sm font-bold tracking-widest uppercase">
-                  Arabian Excellence
+                  <TranslatedText text="Arabian Excellence" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">Visionary Welcome</h3>
+                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">
+                  <TranslatedText text="Visionary Welcome" />
+                </h3>
                 <p className="text-slate-400 leading-relaxed text-xl font-light">
-                  Hospitality as honor and pride. We adopt the professionalism and scale 
-                  that has made Dubai a global benchmark.
+                  <TranslatedText text="Hospitality as honor and pride. We adopt the professionalism and scale that has made Dubai a global benchmark." />
                 </p>
               </div>
             </div>
             
             <div className="mt-24 text-center">
               <p className="text-slate-500 max-w-2xl mx-auto font-serif italic text-lg">
-                We move people with experiences, connect them with culture, and leave 
-                them with memories that last a lifetime.
+                <TranslatedText text="We move people with experiences, connect them with culture, and leave them with memories that last a lifetime." />
               </p>
             </div>
           </div>
@@ -162,8 +164,12 @@ export default function AboutPage() {
         <div className="mb-32">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">What We Create</h2>
-              <p className="text-slate-500 text-xl font-light">Designing experiences that tell the story of land, sea, and people.</p>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">
+                <TranslatedText text="What We Create" />
+              </h2>
+              <p className="text-slate-500 text-xl font-light">
+                <TranslatedText text="Designing experiences that tell the story of land, sea, and people." />
+              </p>
             </div>
             <div className="h-[2px] flex-grow bg-slate-100 mb-4 hidden md:block"></div>
           </div>
@@ -205,8 +211,12 @@ export default function AboutPage() {
                 <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[#0066a1] mb-8 group-hover:bg-[#0066a1] group-hover:text-white transition-all duration-500 shadow-inner">
                   <item.icon className="h-8 w-8" />
                 </div>
-                <h4 className="text-2xl font-serif font-bold text-slate-900 mb-4">{item.title}</h4>
-                <p className="text-slate-500 leading-relaxed font-light text-lg">{item.desc}</p>
+                <h4 className="text-2xl font-serif font-bold text-slate-900 mb-4">
+                  <TranslatedText text={item.title} />
+                </h4>
+                <p className="text-slate-500 leading-relaxed font-light text-lg">
+                  <TranslatedText text={item.desc} />
+                </p>
               </div>
             ))}
           </div>
@@ -225,13 +235,14 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="md:w-2/3 text-center md:text-left text-white">
-                <h3 className="text-sm font-bold tracking-[0.3em] uppercase mb-6 opacity-80">The Vision</h3>
+                <h3 className="text-sm font-bold tracking-[0.3em] uppercase mb-6 opacity-80">
+                  <TranslatedText text="The Vision" />
+                </h3>
                 <h4 className="text-3xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                  Positioning Konkan on the <span className="opacity-70 italic">world stage</span>
+                  <TranslatedText text='Positioning Konkan on the <span className="opacity-70 italic">world stage</span>' isHtml />
                 </h4>
                 <p className="text-xl md:text-2xl font-light leading-relaxed opacity-90">
-                  Our goal is to transform the Konkan coast into a globally admired destination, 
-                  powered by the operational excellence and international outlook of Dubai.
+                  <TranslatedText text="Our goal is to transform the Konkan coast into a globally admired destination, powered by the operational excellence and international outlook of Dubai." />
                 </p>
               </div>
             </div>

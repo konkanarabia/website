@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Utensils, Hotel, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import dbConnect from "@/lib/mongodb";
+import TranslatedText from "@/components/TranslatedText";
+
 import Hospitality from "@/lib/models/Hospitality";
 import Restaurant from "@/lib/models/Restaurant";
 
@@ -41,23 +43,23 @@ export default async function SpecializedServices() {
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
             <span className="text-[#0066a1] font-bold tracking-[0.3em] uppercase text-xs sm:text-sm animate-fade-in font-sans">
-              Our Extensions
+              <TranslatedText text="Our Extensions" />
             </span>
             <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
           </div>
           
           <h2 className="text-4xl md:text-6xl font-serif font-black text-slate-900 mb-8 tracking-tight leading-tight">
-            Hospitality, <span className="text-[#0066a1]">Food & Beverages</span>
+            <TranslatedText text='Hospitality, <span className="text-[#0066a1]">Food & Beverages</span>' isHtml />
           </h2>
 
           <div className="w-full max-w-lg relative group">
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-[#0066a1]/20 to-transparent"></div>
             <div className="relative inline-block px-12 py-6 bg-white shadow-xl shadow-blue-900/5 rounded-3xl border border-slate-100">
                <div className="text-[10px] sm:text-xs font-bold text-[#0066a1] uppercase tracking-[0.2em] mb-3 opacity-80 font-sans">
-                Our Managed Units
+                <TranslatedText text="Our Managed Units" />
               </div>
               <div className="text-xl sm:text-2xl font-serif font-bold text-slate-800 tracking-tight leading-relaxed">
-                Hospitality/Hotels, <br className="sm:hidden" /> Food & Beverages / Restaurants
+                <TranslatedText text='Hospitality/Hotels, <br className="sm:hidden" /> Food & Beverages / Restaurants' isHtml />
               </div>
             </div>
           </div>
@@ -82,13 +84,17 @@ export default async function SpecializedServices() {
                     {service.icon}
                   </div>
                   <div className="absolute bottom-6 left-8 right-8">
-                    <h4 className="text-white/90 font-bold text-xs mb-2 uppercase tracking-[0.15em]">{service.title}</h4>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">{service.name}</h3>
+                    <h4 className="text-white/90 font-bold text-xs mb-2 uppercase tracking-[0.15em]">
+                      <TranslatedText text={service.title} />
+                    </h4>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
+                      <TranslatedText text={service.name} />
+                    </h3>
                   </div>
                 </div>
                 <CardContent className="p-8">
                   <p className="text-slate-600 mb-8 leading-relaxed text-lg font-medium">
-                    {service.description}
+                    <TranslatedText text={service.description} />
                   </p>
                   
                   <div className="flex flex-wrap gap-2 mb-8">
@@ -97,14 +103,14 @@ export default async function SpecializedServices() {
                         key={i} 
                         className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-500 rounded-xl group-hover:bg-[#0066a1] group-hover:text-white transition-all duration-300 border border-slate-100 uppercase tracking-wider"
                       >
-                        {feature}
+                        <TranslatedText text={feature} />
                       </span>
                     ))}
                   </div>
-
+ 
                   <Link href={service.link} className="inline-block w-full">
                     <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-900/20 active:scale-[0.98]">
-                      View Details
+                      <TranslatedText text="View Details" />
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Button>
                   </Link>

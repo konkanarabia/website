@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Globe, Pin, Sparkles } from "lucide-react";
 import { getDestinations } from "@/app/actions/destinations";
+import { Price } from "@/components/ui/price";
+import TranslatedText from "@/components/TranslatedText";
 
 export default async function DestinationList() {
   const allDestinations = await getDestinations();
@@ -57,15 +59,24 @@ export default async function DestinationList() {
                      <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold uppercase tracking-widest mb-1">
                         <Calendar className="w-3 h-3" /> {dest.duration}
                      </div>
-                     <h3 className="text-xl font-bold text-white drop-shadow-md">{dest.name}</h3>
+                     <h3 className="text-xl font-bold text-white drop-shadow-md"><TranslatedText text={dest.name} /></h3>
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-2 font-medium">{dest.description}</p>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-2 font-medium"><TranslatedText text={dest.description} /></p>
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
                         <span className="text-[10px] text-slate-400 font-bold uppercase">Starting from</span>
-                        <span className="text-lg font-black text-slate-900">₹{dest.priceMin || 'Call for Price'}</span>
+                        {dest.priceMin ? (
+                          <Price
+                            amount={dest.priceMin}
+                            sourceCurrency="INR"
+                            showConversion={true}
+                            className="text-lg font-black text-slate-900"
+                          />
+                        ) : (
+                          <span className="text-lg font-black text-slate-900">Call for Price</span>
+                        )}
                     </div>
                     <Link href={`/destinations/${dest.id}`} passHref>
                       <Button className="bg-slate-900 hover:bg-blue-600 text-white px-6 py-6 rounded-2xl transition-all shadow-lg hover:shadow-blue-500/25 flex items-center gap-2 font-bold group/btn">

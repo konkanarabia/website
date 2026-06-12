@@ -2,6 +2,8 @@ import dbConnect from '@/lib/mongodb';
 import Review from '@/lib/models/Review';
 import Destination from '@/lib/models/Destination';
 import { Star, Quote, User } from 'lucide-react';
+import TranslatedText from '@/components/TranslatedText';
+
 
 export default async function Testimonials() {
     await dbConnect();
@@ -22,9 +24,11 @@ export default async function Testimonials() {
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em] mb-4 block">Traveler Voices</span>
+                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em] mb-4 block">
+                        <TranslatedText text="Traveler Voices" />
+                    </span>
                     <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
-                        What Our <span className="text-[#0066a1]">Travelers Say</span>
+                        <TranslatedText text='What Our <span className="text-[#0066a1]">Travelers Say</span>' isHtml />
                     </h2>
                 </div>
 
@@ -37,7 +41,7 @@ export default async function Testimonials() {
                                 ))}
                             </div>
                             <p className="text-white/80 leading-relaxed font-medium italic mb-6 line-clamp-4">
-                                "{rev.comment}"
+                                "<TranslatedText text={rev.comment} />"
                             </p>
                             <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                                 <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-black">
@@ -46,7 +50,7 @@ export default async function Testimonials() {
                                 <div>
                                     <h4 className="text-white font-bold text-sm">{rev.userName}</h4>
                                     <p className="text-blue-400 text-[10px] font-bold uppercase tracking-widest">
-                                        Explored {destMap.get(rev.destinationId) || 'a hidden gem'}
+                                        <TranslatedText text="Explored" /> <TranslatedText text={destMap.get(rev.destinationId) || 'a hidden gem'} />
                                     </p>
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ import WeatherPacking from "@/components/WeatherPacking";
 import PriceDisplay from "@/components/PriceDisplay";
 import ReviewSection from "@/components/ReviewSection";
 import { getReviews } from "@/app/actions/reviews";
+import TranslatedText from "@/components/TranslatedText";
 
 export default async function DestinationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -55,10 +56,10 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                   <Pin className="h-3 w-3" /> {destination.name}
                </div>
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tighter drop-shadow-2xl text-balance leading-[1.1]">
-                {destination.name}
+                <TranslatedText text={destination.name} />
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/90 font-medium drop-shadow-lg max-w-2xl leading-relaxed">
-                {destination.description}
+                <TranslatedText text={destination.description} />
               </p>
             </div>
           </div>
@@ -94,10 +95,11 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <div className="mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Explore <span className="text-[#0066a1]">{destination.name}</span></h2>
-              <div 
-                className="text-slate-600 leading-relaxed text-lg mb-8 prose max-w-none"
-                dangerouslySetInnerHTML={{ __html: destination.details }}
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Explore <span className="text-[#0066a1]"><TranslatedText text={destination.name} /></span></h2>
+              <TranslatedText
+                text={destination.details}
+                isHtml={true}
+                className="text-slate-600 leading-relaxed text-lg mb-8 prose max-w-none block"
               />
             </div>
             
@@ -114,7 +116,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                 ]).map((highlight: string, index: number) => (
                   <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm transition-all hover:border-[#0066a1]/20">
                     <div className="w-2 h-2 rounded-full bg-[#0066a1] shrink-0"></div>
-                    <span className="text-slate-700 font-medium">{highlight}</span>
+                    <span className="text-slate-700 font-medium"><TranslatedText text={highlight} /></span>
                   </div>
                 ))}
               </div>
@@ -132,7 +134,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                       {destination.inclusions.map((item: string, index: number) => (
                         <li key={index} className="flex items-start text-sm text-emerald-800/80 font-medium">
                           <CheckCircle2 className="mr-2 h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
-                          {item}
+                          <TranslatedText text={item} />
                         </li>
                       ))}
                     </ul>
@@ -147,7 +149,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                       {destination.exclusions.map((item: string, index: number) => (
                         <li key={index} className="flex items-start text-sm text-red-800/80 font-medium">
                           <XCircle className="mr-2 h-4 w-4 text-red-400 mt-0.5 shrink-0" />
-                          {item}
+                          <TranslatedText text={item} />
                         </li>
                       ))}
                     </ul>
@@ -169,8 +171,8 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                         <span className="text-[10px] sm:text-xs font-bold text-[#0066a1]">{item.day}</span>
                       </div>
                       <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                        <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">Day {item.day}: {item.title}</h4>
-                        <p className="text-slate-600 leading-relaxed text-xs sm:text-sm font-medium">{item.description}</p>
+                        <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">Day {item.day}: <TranslatedText text={item.title} /></h4>
+                        <p className="text-slate-600 leading-relaxed text-xs sm:text-sm font-medium"><TranslatedText text={item.description} /></p>
                       </div>
                     </div>
                   ))}

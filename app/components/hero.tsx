@@ -8,6 +8,8 @@ import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import type { SwiperRef } from 'swiper/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import TranslatedText from "@/components/TranslatedText"
+
 
 // Import Swiper styles
 import 'swiper/css'
@@ -122,11 +124,15 @@ export default function Hero() {
               />
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{slide.title}</h1>
-                <p className="text-xl md:text-2xl mb-8">{slide.subtitle}</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                  <TranslatedText text={slide.title} />
+                </h1>
+                <p className="text-xl md:text-2xl mb-8">
+                  <TranslatedText text={slide.subtitle} />
+                </p>
                 <Link href={slide.link}>
                   <Button size="lg" className="bg-primary hover:bg-primary/90">
-                    {slide.cta}
+                    <TranslatedText text={slide.cta} />
                   </Button>
                 </Link>
               </div>

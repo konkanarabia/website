@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
+import TranslatedText from "@/components/TranslatedText"
+import useTranslatedString from "@/hooks/use-translated-string"
+
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,6 +19,12 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+
+  const namePlaceholder = useTranslatedString("Enter your name")
+  const emailPlaceholder = useTranslatedString("name@example.com")
+  const phonePlaceholder = useTranslatedString("+44 / +971 phone number")
+  const messagePlaceholder = useTranslatedString("Tell us about your travel plans...")
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -64,9 +73,11 @@ export default function ContactPage() {
        {/* Small Hero Header */}
        <section className="bg-slate-900 text-white py-20 px-4 text-center">
           <div className="container mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Contact Us</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              <TranslatedText text="Contact Us" />
+            </h1>
             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Have questions or ready to plan your next adventure? Our global team is here to help you every step of the way.
+              <TranslatedText text="Have questions or ready to plan your next adventure? Our global team is here to help you every step of the way." />
             </p>
           </div>
        </section>
@@ -79,7 +90,7 @@ export default function ContactPage() {
             <div className="bg-[#0066a1] text-white p-8 rounded-3xl shadow-xl">
               <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
                 <span className="p-2 bg-white/10 rounded-lg">🇮🇳</span>
-                India Office
+                <TranslatedText text="India Office" />
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -88,8 +99,12 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-1 text-white">KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.</h3>
-                    <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">Company Registered & Corporate office:</p>
-                    <p className="text-white/80 leading-relaxed text-sm">Office No:S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai 400703</p>
+                    <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">
+                      <TranslatedText text="Company Registered & Corporate office:" />
+                    </p>
+                    <p className="text-white/80 leading-relaxed text-sm">
+                      <TranslatedText text="Office No:S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai 400703" />
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -97,7 +112,9 @@ export default function ContactPage() {
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold mb-1">Phone</h3>
+                    <h3 className="font-bold mb-1">
+                      <TranslatedText text="Phone" />
+                    </h3>
                     <p className="text-white/80">+91-9370528517</p>
                     <p className="text-white/80">+91-9326380922</p>
                   </div>
@@ -108,7 +125,7 @@ export default function ContactPage() {
             <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
               <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900">
                 <span className="p-2 bg-slate-100 rounded-lg">🇦🇪</span>
-                Dubai UAE Office
+                <TranslatedText text="Dubai UAE Office" />
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4 text-slate-900">
@@ -117,8 +134,12 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-1 text-slate-900">KonkanArabia Tourism LLC</h3>
-                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Address:</p>
-                    <p className="text-slate-600">Binshama 2, Al Barsha 1, Opp. Armada Residence, Dubai, UAE.</p>
+                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">
+                      <TranslatedText text="Address:" />
+                    </p>
+                    <p className="text-slate-600">
+                      <TranslatedText text="Binshama 2, Al Barsha 1, Opp. Armada Residence, Dubai, UAE." />
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -126,7 +147,9 @@ export default function ContactPage() {
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold mb-1 text-slate-900">Phone</h3>
+                    <h3 className="font-bold mb-1 text-slate-900">
+                      <TranslatedText text="Phone" />
+                    </h3>
                     <p className="text-slate-600">+971-555995260</p>
                     <p className="text-slate-600">0557337618</p>
                   </div>
@@ -136,7 +159,9 @@ export default function ContactPage() {
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                   </div>
                   <div>
-                    <h3 className="font-bold mb-1 text-slate-900">Email</h3>
+                    <h3 className="font-bold mb-1 text-slate-900">
+                      <TranslatedText text="Email" />
+                    </h3>
                     <p className="text-slate-600 text-sm break-all">bookings@konkanarabiahospitalitygroup.com</p>
                     <p className="text-slate-600 text-sm break-all pt-1 font-medium">konkanarabiatourism@gmail.com</p>
                   </div>
@@ -148,14 +173,18 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-slate-100">
-              <h2 className="text-3xl font-bold mb-8 text-slate-900">Send us a Message</h2>
+              <h2 className="text-3xl font-bold mb-8 text-slate-900">
+                <TranslatedText text="Send us a Message" />
+              </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                      <TranslatedText text="Full Name" />
+                    </label>
                     <Input
                       name="name"
-                      placeholder="Enter your name"
+                      placeholder={namePlaceholder}
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -164,11 +193,13 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                    <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                      <TranslatedText text="Email Address" />
+                    </label>
                     <Input
                       type="email"
                       name="email"
-                      placeholder="name@example.com"
+                      placeholder={emailPlaceholder}
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -178,26 +209,30 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Phone Number</label>
+                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                    <TranslatedText text="Phone Number" />
+                  </label>
                   <Input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 / +971 phone number"
+                    placeholder={phonePlaceholder}
                     disabled={isSubmitting}
                     className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">Message</label>
+                  <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+                    <TranslatedText text="Message" />
+                  </label>
                   <Textarea
                     name="message"
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Tell us about your travel plans..."
+                    placeholder={messagePlaceholder}
                     disabled={isSubmitting}
                     className="rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium resize-none p-4"
                   />
@@ -210,10 +245,10 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Sending...
+                      <TranslatedText text="Sending..." />
                     </>
                   ) : (
-                    'Contact Our Travel Experts'
+                    <TranslatedText text="Contact Our Travel Experts" />
                   )}
                 </Button>
               </form>
@@ -230,8 +265,12 @@ export default function ContactPage() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Find Our Vashi Office</h2>
-                <p className="text-slate-500 text-sm">Haware Fantasia Business Park, Sector 30A, Vashi, Navi Mumbai – 400703</p>
+                <h2 className="text-xl font-bold text-slate-900">
+                  <TranslatedText text="Find Our Vashi Office" />
+                </h2>
+                <p className="text-slate-500 text-sm">
+                  <TranslatedText text="Haware Fantasia Business Park, Sector 30A, Vashi, Navi Mumbai – 400703" />
+                </p>
               </div>
             </div>
             <div className="w-full h-[420px]">
@@ -247,7 +286,9 @@ export default function ContactPage() {
               />
             </div>
             <div className="p-4 bg-slate-50 flex flex-wrap gap-3 justify-between items-center">
-              <p className="text-slate-500 text-sm">📍 Near Inorbit Mall, Behind Vashi Railway Station</p>
+              <p className="text-slate-500 text-sm">
+                <TranslatedText text="📍 Near Inorbit Mall, Behind Vashi Railway Station" />
+              </p>
               <a
                 href="https://www.google.com/maps/place/KonkanArabia+Hospitality+%26+Holidays+Management+Group,Mumbai/@19.0660381,73.0028629,17z/data=!3m1!4b1!4m6!3m5!1s0x3be7c1473a43e2dd:0xc79fbfcddecb1320!8m2!3d19.0660381!4d73.0028629!16s%2Fg%2F11z65q1wt9"
                 target="_blank"
@@ -255,7 +296,7 @@ export default function ContactPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 bg-[#0066a1] text-white text-sm font-semibold rounded-xl hover:bg-[#00558a] transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Open in Google Maps
+                <TranslatedText text="Open in Google Maps" />
               </a>
             </div>
           </div>

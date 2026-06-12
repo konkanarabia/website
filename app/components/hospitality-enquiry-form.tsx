@@ -17,6 +17,9 @@ import { Loader2, Hotel, Utensils, Calendar, Pin, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
+import TranslatedText from "@/components/TranslatedText";
+import useTranslatedString from "@/hooks/use-translated-string";
+
 
 import { useSearchParams } from "next/navigation";
 
@@ -28,12 +31,16 @@ export default function SpecializedEnquiryForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [today, setToday] = useState<string>("");
 
+  const namePlaceholder = useTranslatedString("Enter your name");
+  const emailPlaceholder = useTranslatedString("example@gmail.com");
+  const detailsPlaceholder = useTranslatedString("Tell us more about your requirements (e.g., room preference, dietary needs, special events)...");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     serviceType: "hospitality", 
-    destination: "Siddhivinayak Devbag Beach Resort",
+    destination: "01) Siddhivinayak Devbag Beach Resort",
     checkInDate: "",
     checkOutDate: "",
     guests: "2",
@@ -50,7 +57,7 @@ export default function SpecializedEnquiryForm() {
       setFormData(prev => ({ 
         ...prev, 
         serviceType: "food-beverages",
-        destination: "02) Konkan Swad - The Test Of Konkan"
+        destination: "01) Konkan Swad - The Taste Of Konkan"
       }));
     } else if (service === "hospitality") {
       setFormData(prev => ({ 
@@ -85,7 +92,7 @@ export default function SpecializedEnquiryForm() {
       if (value === "hospitality") {
         setFormData(prev => ({ ...prev, destination: "01) Siddhivinayak Devbag Beach Resort" }));
       } else {
-        setFormData(prev => ({ ...prev, destination: "02) Konkan Swad - The Test Of Konkan" }));
+        setFormData(prev => ({ ...prev, destination: "01) Konkan Swad - The Taste Of Konkan" }));
       }
     }
 
@@ -152,7 +159,9 @@ export default function SpecializedEnquiryForm() {
       <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="space-y-2">
-            <Label htmlFor="serviceType" className="text-slate-700 font-semibold">I'm interested in</Label>
+            <Label htmlFor="serviceType" className="text-slate-700 font-semibold">
+              <TranslatedText text="I'm interested in" />
+            </Label>
             <Select value={formData.serviceType} onValueChange={handleSelectChange("serviceType")}>
               <SelectTrigger className="h-12 rounded-xl border-slate-200 focus:ring-[#0066a1]">
                 <SelectValue />
@@ -160,12 +169,12 @@ export default function SpecializedEnquiryForm() {
               <SelectContent>
                 <SelectItem value="hospitality">
                   <div className="flex items-center gap-2 text-slate-700">
-                    <Hotel className="w-4 h-4 text-[#0066a1]" /> Hospitality Stay
+                    <Hotel className="w-4 h-4 text-[#0066a1]" /> <TranslatedText text="Hospitality Stay" />
                   </div>
                 </SelectItem>
                 <SelectItem value="food-beverages">
                   <div className="flex items-center gap-2 text-slate-700">
-                    <Utensils className="w-4 h-4 text-[#0066a1]" /> Food & Beverages
+                    <Utensils className="w-4 h-4 text-[#0066a1]" /> <TranslatedText text="Food & Beverages" />
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -173,39 +182,67 @@ export default function SpecializedEnquiryForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="destination" className="text-slate-700 font-semibold">Location / Venue</Label>
+            <Label htmlFor="destination" className="text-slate-700 font-semibold">
+              <TranslatedText text="Select Resort / Restaurant" />
+            </Label>
             <div className="relative">
               <Pin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input
-                id="destination"
-                name="destination"
-                value={formData.destination}
-                readOnly
-                className="h-12 pl-12 rounded-xl border-slate-200 bg-slate-50 text-slate-600 font-medium"
-              />
+              <Select value={formData.destination} onValueChange={handleSelectChange("destination")}>
+                <SelectTrigger className="h-12 pl-12 rounded-xl border-slate-200">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {formData.serviceType === "hospitality" ? (
+                    <>
+                      <SelectItem value="01) Siddhivinayak Devbag Beach Resort">
+                        <TranslatedText text="Siddhivinayak Devbag Beach Resort" />
+                      </SelectItem>
+                      <SelectItem value="02) Siddhivinayak Beach Resort Karul">
+                        <TranslatedText text="Siddhivinayak Beach Resort Karul" />
+                      </SelectItem>
+                      <SelectItem value="03) Siddhivinayak Homestay Malvan">
+                        <TranslatedText text="Siddhivinayak Homestay Malvan" />
+                      </SelectItem>
+                    </>
+                  ) : (
+                    <>
+                      <SelectItem value="01) Konkan Swad - The Taste Of Konkan">
+                        <TranslatedText text="Konkan Swad - The Taste Of Konkan" />
+                      </SelectItem>
+                      <SelectItem value="02) Arabian Courtyard Dubai (Partner)">
+                        <TranslatedText text="Arabian Courtyard Dubai (Partner)" />
+                      </SelectItem>
+                    </>
+                  )}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-slate-700 font-semibold">Full Name</Label>
+            <Label htmlFor="name" className="text-slate-700 font-semibold">
+              <TranslatedText text="Full Name" />
+            </Label>
             <Input
               id="name"
               name="name"
-              placeholder="Enter your name"
+              placeholder={namePlaceholder}
               value={formData.name}
               onChange={handleChange}
               className={cn("h-12 rounded-xl border-slate-200", errors.name && "border-red-500")}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-slate-700 font-semibold">Email Address</Label>
+            <Label htmlFor="email" className="text-slate-700 font-semibold">
+              <TranslatedText text="Email Address" />
+            </Label>
             <Input
               id="email"
               name="email"
               type="email"
-              placeholder="example@gmail.com"
+              placeholder={emailPlaceholder}
               value={formData.email}
               onChange={handleChange}
               className={cn("h-12 rounded-xl border-slate-200", errors.email && "border-red-500")}
@@ -215,18 +252,22 @@ export default function SpecializedEnquiryForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="space-y-2">
-            <Label htmlFor="phone" className="text-slate-700 font-semibold">Phone Number</Label>
+            <Label htmlFor="phone" className="text-slate-700 font-semibold">
+              <TranslatedText text="Phone Number" />
+            </Label>
             <Input
               id="phone"
               name="phone"
-              placeholder="+91"
+              placeholder="+44"
               value={formData.phone}
               onChange={handleChange}
               className={cn("h-12 rounded-xl border-slate-200", errors.phone && "border-red-500")}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="guests" className="text-slate-700 font-semibold">No. of Guests</Label>
+            <Label htmlFor="guests" className="text-slate-700 font-semibold">
+              <TranslatedText text="No. of Guests" />
+            </Label>
             <div className="relative">
               <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Select value={formData.guests} onValueChange={handleSelectChange("guests")}>
@@ -235,7 +276,9 @@ export default function SpecializedEnquiryForm() {
                 </SelectTrigger>
                 <SelectContent>
                   {[1, 2, 3, 4, 5, 6, "7+"].map(n => (
-                    <SelectItem key={n} value={n.toString()}>{n} Guests</SelectItem>
+                    <SelectItem key={n} value={n.toString()}>
+                      {n} <TranslatedText text="Guests" />
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -246,7 +289,9 @@ export default function SpecializedEnquiryForm() {
         {formData.serviceType === "hospitality" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="space-y-2">
-              <Label htmlFor="checkInDate" className="text-slate-700 font-semibold">Check-in Date</Label>
+              <Label htmlFor="checkInDate" className="text-slate-700 font-semibold">
+                <TranslatedText text="Check-in Date" />
+              </Label>
               <div className="relative">
                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
@@ -261,7 +306,9 @@ export default function SpecializedEnquiryForm() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="checkOutDate" className="text-slate-700 font-semibold">Check-out Date</Label>
+              <Label htmlFor="checkOutDate" className="text-slate-700 font-semibold">
+                <TranslatedText text="Check-out Date" />
+              </Label>
               <div className="relative">
                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
@@ -279,11 +326,13 @@ export default function SpecializedEnquiryForm() {
         )}
 
         <div className="space-y-2 mb-8">
-          <Label htmlFor="message" className="text-slate-700 font-semibold">Additional Details</Label>
+          <Label htmlFor="message" className="text-slate-700 font-semibold">
+            <TranslatedText text="Additional Details" />
+          </Label>
           <Textarea
             id="message"
             name="message"
-            placeholder="Tell us more about your requirements (e.g., room preference, dietary needs, special events)..."
+            placeholder={detailsPlaceholder}
             value={formData.message}
             onChange={handleChange}
             className="min-h-[120px] rounded-xl border-slate-200"
@@ -297,10 +346,10 @@ export default function SpecializedEnquiryForm() {
         >
           {isSubmitting ? (
             <div className="flex items-center gap-2">
-              <Loader2 className="w-5 h-5 animate-spin" /> Submitting...
+              <Loader2 className="w-5 h-5 animate-spin" /> <TranslatedText text="Submitting..." />
             </div>
           ) : (
-            "Send Enquiry"
+            <TranslatedText text="Send Enquiry" />
           )}
         </Button>
       </div>

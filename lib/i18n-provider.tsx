@@ -1,7 +1,8 @@
 "use client";
-
+ 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { DEFAULT_LOCALE, DEFAULT_CURRENCY } from "@/lib/currency";
+import { TRANSLATIONS } from "@/lib/translations";
 
 // Define the local storage keys
 const LOCALE_STORAGE_KEY = 'user-locale';
@@ -13,6 +14,7 @@ interface I18nContextType {
   currency: string;
   setLocale: (locale: string) => void;
   setCurrency: (currency: string) => void;
+  t: (key: string) => string;
 }
 
 // Create the context with default values
@@ -21,6 +23,7 @@ const I18nContext = createContext<I18nContextType>({
   currency: DEFAULT_CURRENCY,
   setLocale: () => {},
   setCurrency: () => {},
+  t: (key: string) => key,
 });
 
 // Hook to use the i18n context
@@ -69,8 +72,15 @@ export function I18nProvider({
     }
   };
 
+  // Translation function
+  const t = (key: string): string => {
+    const lang = locale.split('-')[0];
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+    return dict[key] || TRANSLATIONS['en'][key] || key;
+  };
+
   return (
-    <I18nContext.Provider value={{ locale, currency, setLocale, setCurrency }}>
+    <I18nContext.Provider value={{ locale, currency, setLocale, setCurrency, t }}>
       {children}
     </I18nContext.Provider>
   );

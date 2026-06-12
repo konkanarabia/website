@@ -6,7 +6,7 @@
  * Default locale for currency formatting
  * This can be overridden by user preferences or browser settings
  */
-export const DEFAULT_LOCALE = 'en-IN';
+export const DEFAULT_LOCALE = 'en-GB';
 
 /**
  * Default currency code used throughout the application

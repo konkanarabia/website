@@ -20,20 +20,21 @@ interface LocaleSwitcherProps {
 
 // List of supported locales with their display names
 const SUPPORTED_LOCALES = [
-  { code: "en-IN", name: "English (India)" },
-  { code: "en-US", name: "English (US)" },
   { code: "en-GB", name: "English (UK)" },
+  { code: "es-ES", name: "Spanish (Español)" },
+  { code: "fr-FR", name: "French (Français)" },
+  { code: "de-DE", name: "German (Deutsch)" },
+  { code: "pt-PT", name: "Portuguese (Português)" },
   { code: "ar-AE", name: "Arabic (UAE)" },
-  { code: "hi-IN", name: "Hindi (India)" },
+  { code: "hi-IN", name: "Hindi (हिन्दी)" },
 ];
 
 // List of supported currencies
 const SUPPORTED_CURRENCIES = [
-  { code: "INR", name: "Indian Rupee (₹)" },
-  { code: "USD", name: "US Dollar ($)" },
-  { code: "EUR", name: "Euro (€)" },
   { code: "GBP", name: "British Pound (£)" },
+  { code: "EUR", name: "Euro (€)" },
   { code: "AED", name: "UAE Dirham (د.إ)" },
+  { code: "INR", name: "Indian Rupee (₹)" },
 ];
 
 export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
