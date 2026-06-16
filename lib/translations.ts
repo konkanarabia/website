@@ -341,5 +341,103 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     message: "الرسالة",
     submit_enquiry: "إرسال الاستفسار",
     submitting: "جاري الإرسال..."
+  },
+  ru: {
+    // Navigation
+    home: "Главная",
+    services: "Наши Услуги",
+    about: "О нас",
+    partners: "Партнёры",
+    contact: "Контакты",
+    enquire_now: "Оставить заявку",
+    holiday_packages: "Туристические пакеты",
+    vehicle_rental: "Аренда авто",
+    visa_services: "Визовые услуги",
+    event_management: "Организация мероприятий",
+    hospitality_stays: "Проживание и гостеприимство",
+    dining_restaurants: "Рестораны",
+
+    // Layout
+    slogan1: "Гостеприимство — наша страсть и культура",
+    slogan2: "Группа управления гостеприимством и отдыхом",
+    popular_destinations: "Популярные направления",
+    experience_highlights: "Ключевые впечатления",
+    book_your_journey: "Забронировать путешествие",
+    explore_more: "Узнать больше",
+    starting_from: "Цена от",
+    call_for_price: "Позвонить для уточнения цены",
+    details: "Подробнее",
+    explore: "Исследовать",
+
+    // Weather Component
+    forecast: "прогноз",
+    destination_outlook: "Прогноз для направления",
+    essential_packing: "Что взять с собой",
+    auras_pro_tip: "Совет от Ауры",
+
+    // Enquiry Form Labels
+    full_name: "Полное имя",
+    email_address: "Электронная почта",
+    phone_number: "Номер телефона",
+    preferred_contact: "Предпочтительный способ связи",
+    travel_type: "Тип путешествия",
+    destination: "Направление",
+    departure_date: "Дата отправления",
+    return_date: "Дата возвращения",
+    travelers: "Количество путешественников",
+    budget_range: "Бюджет",
+    budget_currency: "Валюта бюджета",
+    message: "Сообщение",
+    submit_enquiry: "Отправить заявку",
+    submitting: "Отправка..."
+  },
+  he: {
+    // Navigation
+    home: "דף הבית",
+    services: "השירותים שלנו",
+    about: "אודות",
+    partners: "שותפים",
+    contact: "צור קשר",
+    enquire_now: "שלח פנייה",
+    holiday_packages: "חבילות נופש",
+    vehicle_rental: "השכרת רכב",
+    visa_services: "שירותי ויזה",
+    event_management: "ניהול אירועים",
+    hospitality_stays: "אירוח ולינה",
+    dining_restaurants: "מסעדות",
+
+    // Layout
+    slogan1: "אירוח הוא התשוקה והתרבות שלנו",
+    slogan2: "קבוצת ניהול אירוח ונופש",
+    popular_destinations: "יעדים פופולריים",
+    experience_highlights: "נקודות השיא",
+    book_your_journey: "הזמן את הטיול שלך",
+    explore_more: "גלה עוד",
+    starting_from: "החל מ",
+    call_for_price: "התקשר לקבלת מחיר",
+    details: "פרטים",
+    explore: "חקור",
+
+    // Weather Component
+    forecast: "תחזית",
+    destination_outlook: "תחזית יעד",
+    essential_packing: "פריטים חיוניים לאריזה",
+    auras_pro_tip: "טיפ מקצועי של אורה",
+
+    // Enquiry Form Labels
+    full_name: "שם מלא",
+    email_address: "כתובת אימייל",
+    phone_number: "מספר טלפון",
+    preferred_contact: "דרך יצירת קשר מועדפת",
+    travel_type: "סוג נסיעה",
+    destination: "יעד",
+    departure_date: "תאריך יציאה",
+    return_date: "תאריך חזרה",
+    travelers: "מספר מטיילים",
+    budget_range: "טווח תקציב",
+    budget_currency: "מטבע תקציב",
+    message: "הודעה",
+    submit_enquiry: "שלח פנייה",
+    submitting: "שולח..."
   }
 };

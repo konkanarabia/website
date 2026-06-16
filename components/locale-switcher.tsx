@@ -27,6 +27,8 @@ const SUPPORTED_LOCALES = [
   { code: "pt-PT", name: "Portuguese (Português)" },
   { code: "ar-AE", name: "Arabic (UAE)" },
   { code: "hi-IN", name: "Hindi (हिन्दी)" },
+  { code: "ru-RU", name: "Russian (Русский)" },
+  { code: "he-IL", name: "Hebrew (עברית)" },
 ];
 
 // List of supported currencies
