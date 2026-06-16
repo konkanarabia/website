@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Map, Inbox, MessageSquare, ExternalLink, LogOut, Car, Plane, HeartHandshake, Hotel, Utensils } from 'lucide-react';
+import { Map, Inbox, MessageSquare, ExternalLink, LogOut, Car, Plane, HeartHandshake, Hotel, Utensils, Globe } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
 
 type AdminSidebarNavProps = {
@@ -66,6 +66,10 @@ export default function AdminSidebarNav({ setMobileMenuOpen }: AdminSidebarNavPr
         <Link href="/admin?tab=reviews" onClick={closeMobile} className={navClass(reviewsActive)}>
           <MessageSquare className="w-5 h-5 mr-3 shrink-0" />
           Reviews
+        </Link>
+        <Link href="/admin/translations" onClick={closeMobile} className={navClass(pathname === '/admin/translations')}>
+          <Globe className="w-5 h-5 mr-3 shrink-0" />
+          Translation Cache
         </Link>
         <div className="pt-4 mt-4 border-t border-gray-100">
           <Link

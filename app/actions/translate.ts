@@ -1,39 +1,69 @@
 'use server'
 
-import { geminiGenerateText } from '@/lib/gemini-generate';
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import { TRANSLATIONS } from '@/lib/translations';
+import dbConnect from '@/lib/mongodb';
+import Translation from '@/lib/models/Translation';
 
 /**
- * Translates a given text (plain text or HTML) into the target language using Gemini.
+ * Searches the static TRANSLATIONS dictionary for the English string
+ * and returns the translated value if present.
+ */
+function getStaticTranslation(text: string, lang: string): string | null {
+  if (lang === 'en') return text;
+  
+  const searchStr = text.toLowerCase().trim();
+  const enTranslations = TRANSLATIONS.en;
+  if (!enTranslations) return null;
+  
+  for (const [key, val] of Object.entries(enTranslations)) {
+    if (val.toLowerCase().trim() === searchStr) {
+      const translatedVal = TRANSLATIONS[lang]?.[key];
+      if (translatedVal) {
+        return translatedVal;
+      }
+    }
+  }
+  return null;
+}
+
+/**
+ * Translates a given text (plain text or HTML) using static dictionaries and MongoDB database cache.
+ * It NEVER calls the Gemini AI API, avoiding rate limit errors on the user-facing site.
  */
 export async function translateTextAction(text: string, locale: string): Promise<{ success: boolean; text?: string; error?: string }> {
   try {
-    const targetLanguage = getLanguageName(locale);
-    if (!targetLanguage || targetLanguage === 'English' || !text.trim()) {
+    if (!text.trim()) {
       return { success: true, text };
     }
 
-    const isHtml = /<[a-z][\s\S]*>/i.test(text);
+    const lang = locale.split('-')[0].toLowerCase();
+    const targetLanguage = getLanguageName(locale);
 
-    let prompt = `Translate the following text into ${targetLanguage}. Return ONLY the translated text, do not add any quotes or extra explanation.`;
-    if (isHtml) {
-      prompt = `Translate the following HTML content into ${targetLanguage}. Keep all HTML tags, structure, and attributes exactly the same, only translate the text content inside the HTML elements. Return ONLY the translated HTML content, do not add markdown code blocks (e.g. do not wrap in \`\`\`html) or extra explanation.`;
+    if (!targetLanguage || targetLanguage === 'English' || lang === 'en') {
+      return { success: true, text };
     }
 
-    const fullPrompt = `${prompt}\n\nContent:\n${text}`;
-
-    const result = await geminiGenerateText(fullPrompt);
-    if (!result.ok) {
-      return { success: false, error: result.error };
+    // 1. Static Dictionary Lookup
+    const staticText = getStaticTranslation(text, lang);
+    if (staticText) {
+      return { success: true, text: staticText };
     }
 
-    let translatedText = result.text.trim();
+    // 2. Database Cache Lookup
+    const hash = crypto.createHash('sha256').update(text).digest('hex');
+    await dbConnect();
     
-    // Clean up markdown code blocks if the AI returned them
-    if (translatedText.startsWith('```')) {
-      translatedText = translatedText.replace(/^```(?:html)?\n/i, '').replace(/\n```$/, '');
+    const cachedEntry = await Translation.findOne({ hash, locale: lang });
+    if (cachedEntry) {
+      return { success: true, text: cachedEntry.translatedText };
     }
 
-    return { success: true, text: translatedText };
+    // 3. Fallback: return the original English text
+    return { success: true, text };
   } catch (error: unknown) {
     console.error('Translation error:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
@@ -53,3 +83,58 @@ function getLanguageName(locale: string): string {
   };
   return mapping[lang] || 'English';
 }
+
+/**
+ * Returns statistics about the cached translations in MongoDB.
+ */
+export async function getTranslationStats() {
+  try {
+    await dbConnect();
+    const count = await Translation.countDocuments();
+    return { success: true, count };
+  } catch (error: any) {
+    return { success: false, error: error.message, count: 0 };
+  }
+}
+
+/**
+ * Clears the translation database cache.
+ */
+export async function clearTranslationCache() {
+  try {
+    await dbConnect();
+    await Translation.deleteMany({});
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Triggers the pre-translation crawl script in the background on the server.
+ */
+export async function runPreTranslateScriptAction() {
+  try {
+    const scriptPath = path.join(process.cwd(), 'scripts', 'pre-translate.ts');
+    if (!fs.existsSync(scriptPath)) {
+      return { success: false, error: 'Pre-translate script not found' };
+    }
+
+    // Run the script in the background
+    exec('npx tsx scripts/pre-translate.ts', { cwd: process.cwd() }, (error, stdout, stderr) => {
+      if (error) {
+        console.error('Pre-translate background process error:', error);
+      }
+      console.log('Pre-translate background process output:', stdout);
+      if (stderr) {
+        console.error('Pre-translate background process error output:', stderr);
+      }
+    });
+
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+
