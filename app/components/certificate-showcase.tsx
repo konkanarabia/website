@@ -36,6 +36,12 @@ const certificates = [
     ],
     description: "Official registration as a tourism unit under the Maharashtra Tourism Policy for KonkanArabia Hospitality.",
   },
+  {
+    title: "Goa Travel Agent Registration Certificate",
+    issuer: "Department of Tourism, Government of Goa",
+    pages: ["/certificates/goa-tourism-registration.jpeg"],
+    description: "Certificate of Registration as Travel Agent / Excursion Agent / Tour Operator (Certificate No: TRAN011678) issued by the Directorate of Tourism, North Goa, valid through 31-Mar-2025.",
+  },
 ];
 
 const otherDocuments = [
