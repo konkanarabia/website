@@ -5,15 +5,18 @@ import { Utensils, Hotel, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import dbConnect from "@/lib/mongodb";
 import TranslatedText from "@/components/TranslatedText";
+import { unstable_noStore as noStore } from "next/cache";
 
 import Hospitality from "@/lib/models/Hospitality";
 import Restaurant from "@/lib/models/Restaurant";
 
 export default async function SpecializedServices() {
+  noStore(); // Always fetch fresh data — no static cache
   await dbConnect();
   
   // Fetch up to 1 item from each category for the spotlight section
   const [stay] = await Hospitality.find().limit(1).lean();
+
   const [food] = await Restaurant.find().limit(1).lean();
 
   const services = [];
