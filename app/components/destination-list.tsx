@@ -101,19 +101,19 @@ export default async function DestinationList() {
   return (
     <div className="container mx-auto px-4">
       {renderSection(
-        "Domestic", 
-        "Explore the incredible beauty of Incredible India, from heritage sites to coastal retreats.",
-        <Pin className="w-3 h-3" />, 
-        domestic, 
-        "text-emerald-600 bg-emerald-600"
-      )}
-      
-      {renderSection(
         "International", 
         "Luxury global travel experiences curated for the discerning traveler.",
         <Globe className="w-3 h-3" />, 
         international, 
         "text-blue-600 bg-blue-600"
+      )}
+
+      {renderSection(
+        "Domestic", 
+        "Explore the incredible beauty of Incredible India, from heritage sites to coastal retreats.",
+        <Pin className="w-3 h-3" />, 
+        domestic, 
+        "text-emerald-600 bg-emerald-600"
       )}
     </div>
   );

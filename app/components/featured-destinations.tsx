@@ -13,7 +13,20 @@ import TranslatedText from "@/components/TranslatedText";
 
 export default async function FeaturedDestinations() {
   const destinations = await getDestinations();
-  const featured_destinations = destinations.slice(0, 6);
+  
+  // Separate and slice top 3 of each type to show a balanced international & domestic presentation
+  const international = destinations.filter((d: any) => d.type === 'International' || !d.type);
+  const domestic = destinations.filter((d: any) => d.type === 'Domestic');
+  
+  const featuredInt = international.slice(0, 3);
+  const featuredDom = domestic.slice(0, 3);
+  
+  const featured_destinations = [];
+  const maxLen = Math.max(featuredInt.length, featuredDom.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (i < featuredInt.length) featured_destinations.push(featuredInt[i]);
+    if (i < featuredDom.length) featured_destinations.push(featuredDom[i]);
+  }
 
   return (
     <section className="py-20 bg-gray-50">
