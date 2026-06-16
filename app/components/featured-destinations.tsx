@@ -21,12 +21,8 @@ export default async function FeaturedDestinations() {
   const featuredInt = international.slice(0, 3);
   const featuredDom = domestic.slice(0, 3);
   
-  const featured_destinations = [];
-  const maxLen = Math.max(featuredInt.length, featuredDom.length);
-  for (let i = 0; i < maxLen; i++) {
-    if (i < featuredInt.length) featured_destinations.push(featuredInt[i]);
-    if (i < featuredDom.length) featured_destinations.push(featuredDom[i]);
-  }
+  // Combine them: first 3 international, then remaining 3 domestic
+  const featured_destinations = [...featuredInt, ...featuredDom];
 
   return (
     <section className="py-20 bg-gray-50">
