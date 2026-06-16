@@ -14,7 +14,7 @@ if (!key) {
   process.exit(1);
 }
 const ai = new GoogleGenAI({ apiKey: key });
-const models = ['gemini-2.0-flash', 'gemini-2.5-flash'];
+const models = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'];
 
 // Target languages
 const targetLanguages: Record<string, string> = {
@@ -268,24 +268,34 @@ Each object in the array must have exactly these keys: "es", "fr", "de", "pt", "
         const errMsg = err.message || String(err);
         console.error(`[Batch ${b + 1} Error] (Attempt ${retries + 1}/${maxRetries}) on model ${currentModel}:`, errMsg);
 
-        // Check if rate limit/quota error (429 / RESOURCE_EXHAUSTED)
-        if (errMsg.includes('429') || errMsg.includes('RESOURCE_EXHAUSTED') || errMsg.includes('quota')) {
+        // Check if rate limit/quota error (429 / RESOURCE_EXHAUSTED) or model not found/unsupported (404 / 400)
+        const isQuotaError = errMsg.includes('429') || errMsg.includes('RESOURCE_EXHAUSTED') || errMsg.includes('quota');
+        const isModelNotFoundError = errMsg.includes('404') || errMsg.includes('not found') || errMsg.includes('not supported') || errMsg.includes('400');
+
+        if (isQuotaError || isModelNotFoundError) {
           modelIndex++;
           const nextModel = models[modelIndex % models.length];
-          console.log(`[Rate Limit] Switching model from ${currentModel} to ${nextModel}...`);
+          console.log(`[Error Fallback] Switching model from ${currentModel} to ${nextModel}...`);
           
           // If we have cycled through all available models, perform a wait
           if (modelIndex >= models.length) {
-            let waitSeconds = 45;
-            const match = errMsg.match(/retry in (\d+(\.\d+)?)/i) || errMsg.match(/retryDelay":"(\d+)s"/i);
-            if (match && match[1]) {
-              waitSeconds = Math.ceil(parseFloat(match[1])) + 2;
+            if (isModelNotFoundError) {
+              // If all models return 404/not supported, wait 5s and increment retries to avoid endless loop
+              console.log(`[Error Fallback] All models returned not found/unsupported errors. Retrying in 5 seconds...`);
+              await new Promise((resolve) => setTimeout(resolve, 5000));
+              modelIndex = 0;
+              retries++;
+            } else {
+              let waitSeconds = 45;
+              const match = errMsg.match(/retry in (\d+(\.\d+)?)/i) || errMsg.match(/retryDelay":"(\d+)s"/i);
+              if (match && match[1]) {
+                waitSeconds = Math.ceil(parseFloat(match[1])) + 2;
+              }
+              console.log(`[Rate Limit] All models exhausted for this attempt. Sleeping for ${waitSeconds} seconds before retrying...`);
+              await new Promise((resolve) => setTimeout(resolve, waitSeconds * 1000));
+              modelIndex = 0;
+              retries++;
             }
-            console.log(`[Rate Limit] All models exhausted for this attempt. Sleeping for ${waitSeconds} seconds before retrying...`);
-            await new Promise((resolve) => setTimeout(resolve, waitSeconds * 1000));
-            // Reset model index and increment retry count
-            modelIndex = 0;
-            retries++;
           }
         } else {
           // Regular error, wait a small bit and retry

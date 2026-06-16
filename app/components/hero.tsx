@@ -19,6 +19,14 @@ import 'swiper/css/effect-fade'
 
 const heroSlides = [
   {
+    id: 7,
+    title: "Experience the Peak of Luxury",
+    subtitle: "Indulge in the vibrant culture and opulence of Dubai",
+    image: "/hero/hero-7.png",
+    cta: "Explore Dubai Tours",
+    link: "/destinations"
+  },
+  {
     id: 1,
     title: "Journey Beyond Boundaries",
     subtitle: "Handcrafted experiences in breathtaking destinations",
@@ -64,14 +72,6 @@ const heroSlides = [
     subtitle: "Push boundaries with curated thrill-seeking experiences",
     image: "/hero/hero-6.jpg",
     cta: "Seek Your Adventure",
-    link: "/destinations"
-  },
-  {
-    id: 7,
-    title: "Experience the Peak of Luxury",
-    subtitle: "Indulge in the vibrant culture and opulence of Dubai",
-    image: "/hero/hero-7.png",
-    cta: "Explore Dubai Tours",
     link: "/destinations"
   }
 ]
@@ -120,7 +120,7 @@ export default function Hero() {
                 alt={slide.title}
                 fill
                 className="object-cover"
-                priority={slide.id === 1} // Only prioritize the first image
+                priority={slide.id === 7} // Only prioritize the first image (Dubai)
               />
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
