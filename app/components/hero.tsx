@@ -31,26 +31,6 @@ const heroSlides = [
   },
   {
     id: 2,
-    location: "Thailand",
-    title: "Land of Smiles & Temples",
-    subtitle: "Grand Palace · Phi Phi Islands · Floating Markets",
-    image: "/hero/hero-thailand.jpg?v=4",
-    cta: "Discover Thailand",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 3,
-    location: "Sri Lanka",
-    title: "The Pearl of the Indian Ocean",
-    subtitle: "Sigiriya · Ceylon Tea Hills · Pristine Beaches",
-    image: "/hero/hero-srilanka.jpg?v=4",
-    cta: "Explore Sri Lanka",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 4,
     location: "Vietnam",
     title: "Timeless Beauty of Vietnam",
     subtitle: "Ha Long Bay · Hoi An · Mekong Delta",
@@ -59,49 +39,9 @@ const heroSlides = [
     link: "/destinations",
     priority: false,
   },
-  {
-    id: 5,
-    location: "Cambodia",
-    title: "Temples of the Ancient World",
-    subtitle: "Angkor Wat · Siem Reap · Tonlé Sap Lake",
-    image: "/hero/hero-cambodia.jpg?v=4",
-    cta: "Explore Cambodia",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 6,
-    location: "Bali, Indonesia",
-    title: "Island of the Gods",
-    subtitle: "Tegallalang Rice Terraces · Uluwatu · Sacred Temples",
-    image: "/hero/hero-bali.jpg?v=4",
-    cta: "Discover Bali",
-    link: "/destinations",
-    priority: false,
-  },
   // ── Domestic ───────────────────────────────────────
   {
-    id: 7,
-    location: "Kashmir, India",
-    title: "Heaven on Earth",
-    subtitle: "Dal Lake · Gulmarg Ski Resort · Pahalgam Valley",
-    image: "/hero/hero-kashmir.jpg?v=4",
-    cta: "Explore Kashmir",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 8,
-    location: "Himachal Pradesh, India",
-    title: "The Himalayan Escape",
-    subtitle: "Spiti Valley · Manali · Dharamshala · Rohtang Pass",
-    image: "/hero/hero-himachal.jpg?v=4",
-    cta: "Discover Himachal",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 9,
+    id: 3,
     location: "Delhi & Agra, India",
     title: "A Monument to Eternal Love",
     subtitle: "Taj Mahal · Red Fort · Qutub Minar · Fatehpur Sikri",
@@ -111,17 +51,7 @@ const heroSlides = [
     priority: false,
   },
   {
-    id: 10,
-    location: "Nainital, India",
-    title: "Queen of Kumaon Hills",
-    subtitle: "Naini Lake · Snow View Point · Jim Corbett National Park",
-    image: "/hero/hero-nainital.jpg?v=4",
-    cta: "Discover Nainital",
-    link: "/destinations",
-    priority: false,
-  },
-  {
-    id: 11,
+    id: 4,
     location: "Rajasthan, India",
     title: "The Land of Maharajas",
     subtitle: "Amer Fort · Jaisalmer · City Palace · Thar Desert",
@@ -131,7 +61,7 @@ const heroSlides = [
     priority: false,
   },
   {
-    id: 12,
+    id: 5,
     location: "Bangalore & Mysore, India",
     title: "Royal Heritage of the South",
     subtitle: "Mysore Palace · Brindavan Gardens · Coorg Coffee Estates",
@@ -141,7 +71,7 @@ const heroSlides = [
     priority: false,
   },
   {
-    id: 13,
+    id: 6,
     location: "Kerala, India",
     title: "God's Own Country",
     subtitle: "Alleppey Backwaters · Munnar Tea Gardens · Kovalam Beach",
@@ -196,7 +126,7 @@ export default function Hero() {
                 alt={slide.title}
                 fill
                 className="object-cover"
-                priority={slide.id === 7} // Only prioritize the first image (Dubai)
+                priority={slide.priority}
               />
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
