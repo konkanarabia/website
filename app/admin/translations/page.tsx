@@ -5,22 +5,19 @@ import {
   Globe,
   RefreshCw,
   Trash2,
-  Play,
   Loader2,
   Database,
   CheckCircle2
 } from 'lucide-react';
 import {
   getTranslationStats,
-  clearTranslationCache,
-  runPreTranslateScriptAction
+  clearTranslationCache
 } from '@/app/actions/translate';
 import { toast } from 'sonner';
 
 export default function TranslationsAdminPage() {
   const [stats, setStats] = useState<{ count: number } | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
-  const [isRunning, setIsRunning] = useState(false);
   const [runMessage, setRunMessage] = useState('');
 
   useEffect(() => {
@@ -39,7 +36,7 @@ export default function TranslationsAdminPage() {
   };
 
   const handleClearCache = async () => {
-    if (!confirm('Are you sure you want to clear the entire translation cache in the database? This will reset all pre-translated texts.')) {
+    if (!confirm('Are you sure you want to clear the entire translation cache in the database? This will reset all cached translation texts.')) {
       return;
     }
 
@@ -57,37 +54,15 @@ export default function TranslationsAdminPage() {
     }
   };
 
-  const triggerPreTranslation = async () => {
-    if (isRunning) return;
-    setIsRunning(true);
-    setRunMessage('Initializing translation crawler on the server...');
-
-    try {
-      const res = await runPreTranslateScriptAction();
-      if (res.success) {
-        toast.success('Pre-translation script started in the background!');
-        setRunMessage('The translation crawler is currently running in the background on the server. Please wait a few minutes, then click "Refresh Stats" to view the updated counts.');
-      } else {
-        toast.error('Failed to start script: ' + res.error);
-        setRunMessage('Failed to start translation script: ' + res.error);
-      }
-    } catch (err: any) {
-      toast.error('Error starting script: ' + err.message);
-      setRunMessage('Error: ' + err.message);
-    } finally {
-      setIsRunning(false);
-    }
-  };
-
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-          <Globe className="w-8 h-8 text-blue-600 animate-pulse" />
-          AI Translation Cache Manager
+          <Globe className="w-8 h-8 text-blue-600" />
+          Translation Cache Manager
         </h1>
         <p className="text-gray-500 mt-1">
-          Pre-translate dynamic database content and static UI fields to prevent Gemini API rate limit problems.
+          Manage dynamic database content and static UI translations cache.
         </p>
       </div>
 
@@ -99,7 +74,7 @@ export default function TranslationsAdminPage() {
               <Database className="w-7 h-7" />
             </div>
             <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Total Translations</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Total Cached Translations</p>
               <h2 className="text-3xl font-black text-gray-800">
                 {loadingStats ? (
                   <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
@@ -123,25 +98,16 @@ export default function TranslationsAdminPage() {
           <div>
             <h3 className="font-bold text-gray-800 text-lg">Cache Actions</h3>
             <p className="text-sm text-gray-500 mt-1">
-              Purge translation cache, or pre-translate all available items.
+              Purge translation cache from the database.
             </p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
             <button
               onClick={handleClearCache}
-              disabled={isRunning}
-              className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 px-4 py-2.5 rounded-lg font-semibold transition-colors disabled:opacity-50 flex items-center gap-2 text-sm"
+              className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 px-4 py-2.5 rounded-lg font-semibold transition-colors flex items-center gap-2 text-sm"
             >
               <Trash2 className="w-4 h-4" />
               Clear Cache
-            </button>
-            <button
-              onClick={triggerPreTranslation}
-              disabled={isRunning}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm text-sm"
-            >
-              {isRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-              Run Pre-Translation Script
             </button>
           </div>
         </div>
@@ -152,7 +118,7 @@ export default function TranslationsAdminPage() {
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-4">
           <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-green-500" />
-            Background Task Status
+            Task Status
           </h3>
           <p className="text-gray-600 text-sm bg-gray-50 border border-gray-100 rounded-lg p-4 font-medium leading-relaxed">
             {runMessage}
@@ -167,19 +133,13 @@ export default function TranslationsAdminPage() {
           <li className="flex items-start gap-2.5">
             <span className="font-bold text-blue-600 shrink-0">1.</span>
             <span>
-              <strong>Zero-AI Runtime:</strong> Live page requests check the static translation dictionary and the database cache in MongoDB. If not found, they fall back to English immediately with absolutely no runtime Gemini API calls.
+              <strong>Lookup Pipeline:</strong> Live page requests check the static translation dictionary and the database cache in MongoDB.
             </span>
           </li>
           <li className="flex items-start gap-2.5">
             <span className="font-bold text-blue-600 shrink-0">2.</span>
             <span>
-              <strong>Pre-Translation Crawl:</strong> Clicking the script button above queries all destinations, event packages, stays, dining configurations, visas, vehicle offerings, and guest testimonials. It also scans client component files for static labels.
-            </span>
-          </li>
-          <li className="flex items-start gap-2.5">
-            <span className="font-bold text-blue-600 shrink-0">3.</span>
-            <span>
-              <strong>Rate Limiting & Safety:</strong> Translations are processed in batches with a 12-second delay between Gemini API calls to stay under the 5 RPM rate limit, saving strings incrementally directly to the database so progress is never lost.
+              <strong>Fallback:</strong> If no static dictionary translation or database translation is found, the system displays the original English text immediately.
             </span>
           </li>
         </ul>

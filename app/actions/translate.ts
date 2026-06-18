@@ -1,9 +1,6 @@
 'use server'
 
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
-import { exec } from 'child_process';
 import { TRANSLATIONS } from '@/lib/translations';
 import dbConnect from '@/lib/mongodb';
 import Translation from '@/lib/models/Translation';
@@ -80,6 +77,8 @@ function getLanguageName(locale: string): string {
     pt: 'Portuguese',
     hi: 'Hindi',
     ar: 'Arabic',
+    ru: 'Russian',
+    he: 'Hebrew',
   };
   return mapping[lang] || 'English';
 }
@@ -104,33 +103,6 @@ export async function clearTranslationCache() {
   try {
     await dbConnect();
     await Translation.deleteMany({});
-    return { success: true };
-  } catch (error: any) {
-    return { success: false, error: error.message };
-  }
-}
-
-/**
- * Triggers the pre-translation crawl script in the background on the server.
- */
-export async function runPreTranslateScriptAction() {
-  try {
-    const scriptPath = path.join(process.cwd(), 'scripts', 'pre-translate.ts');
-    if (!fs.existsSync(scriptPath)) {
-      return { success: false, error: 'Pre-translate script not found' };
-    }
-
-    // Run the script in the background
-    exec('npx tsx scripts/pre-translate.ts', { cwd: process.cwd() }, (error, stdout, stderr) => {
-      if (error) {
-        console.error('Pre-translate background process error:', error);
-      }
-      console.log('Pre-translate background process output:', stdout);
-      if (stderr) {
-        console.error('Pre-translate background process error output:', stderr);
-      }
-    });
-
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
