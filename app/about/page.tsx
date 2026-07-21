@@ -103,28 +103,98 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* Journey Comes Full Circle Poster Section */}
+        <section className="relative rounded-[4rem] px-8 py-20 md:p-24 mb-32 overflow-hidden shadow-2xl bg-gradient-to-b from-[#e0f2fe] via-[#bae6fd] to-white text-slate-800 border border-sky-100">
+          <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+          
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="text-center max-w-3xl mb-12">
+              <span className="text-[#0066a1] font-bold tracking-[0.2em] text-sm uppercase block mb-3 font-serif">
+                <TranslatedText text="OUR STORY" />
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
+                <TranslatedText text="The Journey Comes Full Circle" />
+              </h2>
+              <div className="w-24 h-1 bg-[#0066a1] rounded-full mx-auto mt-4"></div>
+            </div>
+
+            {/* Poster Showcase */}
+            <div className="w-full max-w-5xl mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/85 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+              <div className="relative w-full aspect-[16/10] md:aspect-[1.58] overflow-hidden rounded-2xl shadow-inner bg-slate-50">
+                <Image
+                  src="/story/journey-poster.jpg"
+                  alt="Our Story - The Journey Comes Full Circle Poster"
+                  fill
+                  className="object-contain"
+                  sizes="(max-w-768px) 100vw, (max-w-1200px) 90vw, 80vw"
+                  priority
+                />
+              </div>
+            </div>
+            
+            <div className="mt-8 text-center max-w-2xl text-slate-700 italic font-serif">
+              <p className="text-lg">
+                <TranslatedText text="Today, every guest who travels with us becomes part of our story, and every journey inspires us to do more." />
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Philosophy - Premium Dark Theme */}
-        <section className="bg-slate-950 rounded-[4rem] px-8 py-20 md:p-24 mb-32 text-white relative overflow-hidden shadow-2xl">
+        <section className="bg-gradient-to-b from-[#0a2540] to-[#031d30] border border-blue-950 rounded-[4rem] px-8 py-20 md:p-24 mb-32 text-white relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-[#0066a1]/5 blur-[120px] -z-0"></div>
           <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-[#0066a1]/10 blur-[100px] -z-0"></div>
           
           <div className="relative z-10">
-            <div className="flex flex-col items-center text-center mb-20">
+            <div className="flex flex-col items-center mb-20">
               <Quote className="w-12 h-12 text-[#0066a1] mb-6 opacity-50" />
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 uppercase tracking-wider">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 uppercase tracking-wider text-center">
                 <TranslatedText text="Our Values" />
               </h2>
-              <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-10 px-6">
-                <p className="text-slate-200 text-lg md:text-2xl font-serif italic leading-relaxed mb-6">
-                  <TranslatedText text='"A Guest is the most important visitor on our premises. He is not dependent on us. We are dependent on him. He is not an interruption in our work. He is the purpose of it. He is not an outsider in our business. He is part of it. We are not doing him a favor by serving him. He is doing us a favor by giving us an opportunity to do so."' />
-                </p>
-                <p className="text-[#0066a1] font-bold text-xl uppercase tracking-widest font-serif">
+              
+              <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-12 px-6 md:px-12 w-full">
+                <ul className="space-y-6 text-slate-200 text-lg md:text-2xl font-serif italic leading-relaxed mb-8">
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <p>
+                      <TranslatedText text="A Guest is the most important visitor to our premises." />
+                    </p>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <p>
+                      <TranslatedText text="He is not dependent on us, we are dependent on him." />
+                    </p>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <p>
+                      <TranslatedText text="He is not an interruption in our work, he is the purpose of it." />
+                    </p>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <p>
+                      <TranslatedText text="He is not an outsider in our business, he is part of it." />
+                    </p>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <p>
+                      <TranslatedText text="We are not doing any favor by serving him, he is doing us a favor by giving us an opportunity to do so." />
+                    </p>
+                  </li>
+                </ul>
+                <p className="text-[#0066a1] font-bold text-xl uppercase tracking-widest font-serif text-center mt-8">
                   <TranslatedText text="— Thoughts of Mahatma Gandhi" />
                 </p>
               </div>
-              <p className="text-slate-400 text-xl md:text-2xl font-serif italic max-w-3xl">
-                <TranslatedText text='"Hospitality is not a service—it is a responsibility."' />
-              </p>
+              
+              <div className="text-center w-full">
+                <p className="text-slate-400 text-xl md:text-2xl font-serif italic max-w-3xl mx-auto">
+                  <TranslatedText text='"Hospitality is not a service—it is a responsibility."' />
+                </p>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-16">
