@@ -46,7 +46,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Budget Currency",
     message: "Message",
     submit_enquiry: "Submit Enquiry",
-    submitting: "Submitting..."
+    submitting: "Submitting...",
+    
+    // New Translations
+    our_story_caps: "OUR STORY",
+    journey_full_circle: "The Journey Comes Full Circle",
+    guest_story_inspiration: "Today, every guest who travels with us becomes part of our story, and every journey inspires us to do more.",
+    gandhi_guest_visitor: "A Guest is the most important visitor to our premises.",
+    gandhi_dependent: "He is not dependent on us, we are dependent on him.",
+    gandhi_interruption: "He is not an interruption in our work, he is the purpose of it.",
+    gandhi_outsider: "He is not an outsider in our business, he is part of it.",
+    gandhi_favor: "We are not doing any favor by serving him, he is doing us a favor by giving us an opportunity to do so.",
+    our_partners: "Our Partners",
+    hotel_partners: "Hotel Partners",
+    airline_partners: "Airline Partners",
+    booking_partners: "Booking Partners",
+    tour_partners: "Tour Partners",
+    how_to_pay: "How to Make Payment?",
+    payment_options_desc: "Secure and flexible payment options for your convenience.",
+    accepted_methods: "Accepted Methods",
+    collab_desc: "We collaborate with the world's leading brands to provide you with the best travel experiences."
   },
   es: {
     // Navigation
@@ -95,7 +114,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Moneda de Presupuesto",
     message: "Mensaje",
     submit_enquiry: "Enviar Consulta",
-    submitting: "Enviando..."
+    submitting: "Enviando...",
+    
+    // New Translations
+    our_story_caps: "NUESTRA HISTORIA",
+    journey_full_circle: "El viaje se completa",
+    guest_story_inspiration: "Hoy, cada huésped que viaja con nosotros se convierte en parte de nuestra historia, y cada viaje nos inspira a hacer más.",
+    gandhi_guest_visitor: "Un huésped es el visitante más importante en nuestras instalaciones.",
+    gandhi_dependent: "Él no depende de nosotros, nosotros dependemos de él.",
+    gandhi_interruption: "Él no es una interrupción en nuestro trabajo, es el propósito de este.",
+    gandhi_outsider: "Él no es un extraño en nuestro negocio, es parte de él.",
+    gandhi_favor: "No le estamos haciendo ningún favor al servirle, él nos está haciendo un favor al darnos la oportunidad de hacerlo.",
+    our_partners: "Nuestros Socios",
+    hotel_partners: "Socios Hoteleros",
+    airline_partners: "Socios de Aerolíneas",
+    booking_partners: "Socios de Reservas",
+    tour_partners: "Socios de Viajes",
+    how_to_pay: "¿Cómo realizar el pago?",
+    payment_options_desc: "Opciones de pago seguras y flexibles para su comodidad.",
+    accepted_methods: "Métodos Aceptados",
+    collab_desc: "Colaboramos con las marcas líderes del mundo para brindarle las mejores experiencias de viaje."
   },
   fr: {
     // Navigation
@@ -144,7 +182,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Devise du Budget",
     message: "Message",
     submit_enquiry: "Envoyer la Demande",
-    submitting: "Envoi en cours..."
+    submitting: "Envoi en cours...",
+    
+    // New Translations
+    our_story_caps: "NOTRE HISTOIRE",
+    journey_full_circle: "Le voyage boucle la boucle",
+    guest_story_inspiration: "Aujourd'hui, chaque client qui voyage avec nous fait partie de notre histoire, et chaque voyage nous inspire à faire plus.",
+    gandhi_guest_visitor: "Un client est le visiteur le plus important dans nos locaux.",
+    gandhi_dependent: "Il ne dépend pas de nous, nous dépendons de lui.",
+    gandhi_interruption: "Il n'est pas une interruption dans notre travail, il en est le but.",
+    gandhi_outsider: "Il n'est pas un étranger à notre entreprise, il en fait partie.",
+    gandhi_favor: "Nous ne lui faisons pas de faveur en le servant, c'est lui qui nous fait une faveur en nous donnant l'opportunité de le faire.",
+    our_partners: "Nos Partenaires",
+    hotel_partners: "Partenaires Hôteliers",
+    airline_partners: "Partenaires Aériens",
+    booking_partners: "Partenaires de Réservation",
+    tour_partners: "Partenaires de Voyage",
+    how_to_pay: "Comment effectuer le paiement?",
+    payment_options_desc: "Options de paiement sécurisées et flexibles pour votre commodité.",
+    accepted_methods: "Méthodes Acceptées",
+    collab_desc: "Nous collaborons avec les plus grandes marques mondiales pour vous offrir les meilleures expériences de voyage."
   },
   de: {
     // Navigation
@@ -193,7 +250,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Budgetwährung",
     message: "Nachricht",
     submit_enquiry: "Anfrage Absenden",
-    submitting: "Wird übermittelt..."
+    submitting: "Wird übermittelt...",
+    
+    // New Translations
+    our_story_caps: "UNSERE GESCHICHTE",
+    journey_full_circle: "Die Reise schließt den Kreis",
+    guest_story_inspiration: "Heute wird jeder Gast, der mit uns reist, Teil unserer Geschichte, und jede Reise inspiriert uns, mehr zu tun.",
+    gandhi_guest_visitor: "Ein Gast ist der wichtigste Besucher in unseren Räumlichkeiten.",
+    gandhi_dependent: "Er ist nicht von uns abhängig, wir sind von ihm abhängig.",
+    gandhi_interruption: "Er ist keine Unterbrechung unserer Arbeit, er ist der Zweck derselben.",
+    gandhi_outsider: "Er ist kein Außenseiter in unserem Geschäft, er ist ein Teil davon.",
+    gandhi_favor: "Wir tun ihm keinen Gefallen, indem wir ihn bedienen, er tut uns einen Gefallen, indem er uns die Gelegenheit dazu gibt.",
+    our_partners: "Unsere Partner",
+    hotel_partners: "Hotelpartner",
+    airline_partners: "Fluggesellschaftspartner",
+    booking_partners: "Buchungspartner",
+    tour_partners: "Reisepartner",
+    how_to_pay: "Wie erfolgt die Zahlung?",
+    payment_options_desc: "Sichere und flexible Zahlungsoptionen für Ihre Bequemlichkeit.",
+    accepted_methods: "Akzeptierte Methoden",
+    collab_desc: "Wir arbeiten mit den weltweit führenden Marken zusammen, um Ihnen die besten Reiseerlebnisse zu bieten."
   },
   pt: {
     // Navigation
@@ -242,7 +318,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Moeda do Orçamento",
     message: "Mensagem",
     submit_enquiry: "Enviar Consulta",
-    submitting: "Enviando..."
+    submitting: "Enviando...",
+    
+    // New Translations
+    our_story_caps: "NOSSA HISTÓRIA",
+    journey_full_circle: "A jornada completa o ciclo",
+    guest_story_inspiration: "Hoje, cada hóspede que viaja conosco torna-se parte de nossa história, e cada jornada nos inspira a fazer mais.",
+    gandhi_guest_visitor: "O hóspede é o visitante mais importante em nossas instalações.",
+    gandhi_dependent: "Ele não depende de nós, nós dependemos dele.",
+    gandhi_interruption: "Ele não é uma interrupção em nosso trabalho, ele é o propósito dele.",
+    gandhi_outsider: "Ele não é um estranho em nosso negócio, ele faz parte dele.",
+    gandhi_favor: "Não estamos fazendo nenhum favor ao servi-lo, ele está nos fazendo um favor ao nos dar a oportunidade de fazê-lo.",
+    our_partners: "Nossos Parceiros",
+    hotel_partners: "Parceiros de Hotéis",
+    airline_partners: "Parceiros de Companhias Aéreas",
+    booking_partners: "Parceiros de Reservas",
+    tour_partners: "Parceiros de Viagem",
+    how_to_pay: "Como fazer o pagamento?",
+    payment_options_desc: "Opções de pagamento seguras e flexíveis para sua conveniência.",
+    accepted_methods: "Métodos Aceitos",
+    collab_desc: "Colaboramos com as principais marcas do mundo para fornecer a você as melhores experiências de viagem."
   },
   hi: {
     // Navigation
@@ -291,7 +386,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "बजट मुद्रा",
     message: "संदेश",
     submit_enquiry: "पूछताछ सबमिट करें",
-    submitting: "जमा किया जा रहा है..."
+    submitting: "जमा किया जा रहा है...",
+    
+    // New Translations
+    our_story_caps: "हमारी कहानी",
+    journey_full_circle: "यात्रा पूर्ण चक्र में आती है",
+    guest_story_inspiration: "आज, हमारे साथ यात्रा करने वाला हर अतिथि हमारी कहानी का हिस्सा बन जाता है, और हर यात्रा हमें और अधिक करने के लिए प्रेरित करती है।",
+    gandhi_guest_visitor: "अतिथि हमारे परिसर में सबसे महत्वपूर्ण आगंतुक होता है।",
+    gandhi_dependent: "वह हम पर निर्भर नहीं है, हम उस पर निर्भर हैं।",
+    gandhi_interruption: "वह हमारे काम में कोई बाधा नहीं है, वह इसका उद्देश्य है।",
+    gandhi_outsider: "वह हमारे व्यवसाय में कोई बाहरी व्यक्ति नहीं है, वह इसका हिस्सा है।",
+    gandhi_favor: "हम उसकी सेवा करके कोई एहसान नहीं कर रहे हैं, वह हमें ऐसा करने का अवसर देकर हम पर एहसान कर रहा है।",
+    our_partners: "हमारे साझेदार",
+    hotel_partners: "होटल पार्टनर्स",
+    airline_partners: "एयरलाइन पार्टनर्स",
+    booking_partners: "बुकिंग पार्टनर्स",
+    tour_partners: "टूर पार्टनर्स",
+    how_to_pay: "भुगतान कैसे करें?",
+    payment_options_desc: "आपकी सुविधा के लिए सुरक्षित और लचीले भुगतान विकल्प।",
+    accepted_methods: "स्वीकृत तरीके",
+    collab_desc: "हम आपको सर्वोत्तम यात्रा अनुभव प्रदान करने के लिए दुनिया के अग्रणी ब्रांडों के साथ सहयोग करते हैं।"
   },
   ar: {
     // Navigation
@@ -340,7 +454,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "عملة الميزانية",
     message: "الرسالة",
     submit_enquiry: "إرسال الاستفسار",
-    submitting: "جاري الإرسال..."
+    submitting: "جاري الإرسال...",
+    
+    // New Translations
+    our_story_caps: "قصتنا",
+    journey_full_circle: "الرحلة تكتمل وتعود إلى نقطة البداية",
+    guest_story_inspiration: "اليوم، يصبح كل ضيف يسافر معنا جزءًا من قصتنا، وكل رحلة تلهمنا للقيام بالمزيد.",
+    gandhi_guest_visitor: "الضيف هو أهم زائر لمبانينا.",
+    gandhi_dependent: "هو لا يعتمد علينا، بل نحن نعتمد عليه.",
+    gandhi_interruption: "هو ليس مقاطعة لعملنا، بل هو الغاية منه.",
+    gandhi_outsider: "هو ليس دخيلاً على عملنا، بل هو جزء منه.",
+    gandhi_favor: "نحن لا نسدي له معروفاً بخدمته، بل هو يسدي لنا معروفاً بمنحنا الفرصة للقيام بذلك.",
+    our_partners: "شركاؤنا",
+    hotel_partners: "شركاء الفنادق",
+    airline_partners: "شركاء شركات الطيران",
+    booking_partners: "شركاء الحجز",
+    tour_partners: "شركاء الرحلات",
+    how_to_pay: "كيفية الدفع؟",
+    payment_options_desc: "خيارات دفع آمنة ومرنة لراحتك.",
+    accepted_methods: "الطرق المقبولة",
+    collab_desc: "نحن نتعاون مع العلامات التجارية الرائدة في العالم لنقدم لك أفضل تجارب السفر."
   },
   ru: {
     // Navigation
@@ -389,7 +522,26 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "Валюта бюджета",
     message: "Сообщение",
     submit_enquiry: "Отправить заявку",
-    submitting: "Отправка..."
+    submitting: "Отправка...",
+    
+    // New Translations
+    our_story_caps: "НАША ИСТОРИЯ",
+    journey_full_circle: "Путь замыкает круг",
+    guest_story_inspiration: "Сегодня каждый гость, который путешествует с нами, становится частью нашей истории, и каждое путешествие вдохновляет нас делать больше.",
+    gandhi_guest_visitor: "Гость — самый важный посетитель в наших помещениях.",
+    gandhi_dependent: "Он не зависит от нас, мы зависим от него.",
+    gandhi_interruption: "Он не помеха в нашей работе, он является её целью.",
+    gandhi_outsider: "Он не посторонний в нашем бизнесе, он его часть.",
+    gandhi_favor: "Мы не оказываем ему услугу, обслуживая его, он оказывает нам услугу, давая возможность сделать это.",
+    our_partners: "Наши Партнеры",
+    hotel_partners: "Отели-партнеры",
+    airline_partners: "Авиакомпании-партнеры",
+    booking_partners: "Партнеры по бронированию",
+    tour_partners: "Туристические партнеры",
+    how_to_pay: "Как произвести оплату?",
+    payment_options_desc: "Безопасные и гибкие способы оплаты для вашего удобства.",
+    accepted_methods: "Принимаемые способы оплаты",
+    collab_desc: "Мы сотрудничаем с ведущими мировыми брендами, чтобы предоставить вам лучший опыт путешествий."
   },
   he: {
     // Navigation
@@ -438,6 +590,25 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     budget_currency: "מטבע תקציב",
     message: "הודעה",
     submit_enquiry: "שלח פנייה",
-    submitting: "שולח..."
+    submitting: "שולח...",
+    
+    // New Translations
+    our_story_caps: "הסיפור שלנו",
+    journey_full_circle: "המסע משלים מעגל",
+    guest_story_inspiration: "כיום, כל אורח שמטייל איתנו הופך לחלק מהסיפור שלנו, וכל מסע מעורר בנו השראה לעשות יותר.",
+    gandhi_guest_visitor: "אורח הוא המבקר החשוב ביותר במשרדנו.",
+    gandhi_dependent: "הוא אינו תלוי בנו, אנחנו תלויים בו.",
+    gandhi_interruption: "הוא אינו מהווה הפרעה לעבודתנו, הוא המטרה שלה.",
+    gandhi_outsider: "הוא אינו גורם חיצוני לעסק שלנו, הוא חלק ממנו.",
+    gandhi_favor: "איננו עושים לו טובה בכך שאנו משרתים אותו, הוא עושה לנו טובה בכך שהוא נותן לנו הזדמנות לעשות זאת.",
+    our_partners: "השותפים שלנו",
+    hotel_partners: "מלונות שותפים",
+    airline_partners: "חברות תעופה שותפות",
+    booking_partners: "שותפי הזמנות",
+    tour_partners: "שותפי טיולים",
+    how_to_pay: "איך לבצע תשלום?",
+    payment_options_desc: "אפשרויות תשלום מאובטחות וגמישות לנוחיותכם.",
+    accepted_methods: "שיטות מקובלות",
+    collab_desc: "אנו משתפים פעולה עם המותגים המובילים בעולם כדי לספק לכם את חוויות הנסיעה הטובות ביותר."
   }
 };
