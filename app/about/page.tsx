@@ -16,12 +16,12 @@ export default function AboutPage() {
     <div className="bg-white">
       {/* Refined About Hero Section */}
       <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-slate-900">
-        <div className="absolute inset-0 opacity-60">
+        <div className="absolute inset-0 opacity-80">
           <Image
-            src="/hero/hero-2.jpg"
+            src="/hero/about-hero.jpg"
             alt="About KonkanArabia"
             fill
-            className="object-cover"
+            className="object-cover object-center"
             priority
           />
         </div>
@@ -147,51 +147,51 @@ export default function AboutPage() {
           
           <div className="relative z-10">
             <div className="flex flex-col items-center mb-20">
-              <Quote className="w-12 h-12 text-[#0066a1] mb-6 opacity-50" />
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 uppercase tracking-wider text-center">
+              <Quote className="w-12 h-12 text-amber-400 mb-6 opacity-80" />
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 uppercase tracking-wider text-center text-white">
                 <TranslatedText text="Our Values" />
               </h2>
               
               <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-12 px-6 md:px-12 w-full">
-                <ul className="space-y-6 text-slate-200 text-lg md:text-2xl font-serif italic leading-relaxed mb-8">
+                <ul className="space-y-6 text-slate-100 text-lg md:text-2xl font-serif italic leading-relaxed mb-8">
                   <li className="flex items-start gap-4">
-                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="A Guest is the most important visitor to our premises." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not dependent on us, we are dependent on him." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not an interruption in our work, he is the purpose of it." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not an outsider in our business, he is part of it." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-[#0066a1] mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="We are not doing any favor by serving him, he is doing us a favor by giving us an opportunity to do so." />
                     </p>
                   </li>
                 </ul>
-                <p className="text-[#0066a1] font-bold text-xl uppercase tracking-widest font-serif text-center mt-8">
+                <p className="text-amber-400 font-bold text-xl md:text-2xl uppercase tracking-widest font-serif text-center mt-8 drop-shadow">
                   <TranslatedText text="— Thoughts of Mahatma Gandhi" />
                 </p>
               </div>
               
               <div className="text-center w-full">
-                <p className="text-slate-400 text-xl md:text-2xl font-serif italic max-w-3xl mx-auto">
+                <p className="text-slate-200 text-xl md:text-2xl font-serif italic max-w-3xl mx-auto">
                   <TranslatedText text='"Hospitality is not a service—it is a responsibility."' />
                 </p>
               </div>
@@ -199,31 +199,31 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 gap-16">
               <div className="group">
-                <div className="mb-6 inline-block px-4 py-1 rounded bg-[#0066a1]/20 text-[#0066a1] text-sm font-bold tracking-widest uppercase">
+                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-bold tracking-widest uppercase shadow-sm">
                   <TranslatedText text="Indian Heritage" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">
+                <h3 className="text-3xl font-serif font-bold mb-6 text-white group-hover:text-amber-400 transition-colors">
                   <TranslatedText text="Atithi Devo Bhava" />
                 </h3>
-                <p className="text-slate-400 leading-relaxed text-xl font-light">
+                <p className="text-slate-300 leading-relaxed text-xl font-light">
                   <TranslatedText text="The guest is God. We honor this ancient value through the authenticity and unfiltered warmth of the Konkan coast." />
                 </p>
               </div>
               <div className="group">
-                <div className="mb-6 inline-block px-4 py-1 rounded bg-[#0066a1]/20 text-[#0066a1] text-sm font-bold tracking-widest uppercase">
+                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 text-xs font-bold tracking-widest uppercase shadow-sm">
                   <TranslatedText text="Arabian Excellence" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 group-hover:text-[#0066a1] transition-colors">
+                <h3 className="text-3xl font-serif font-bold mb-6 text-white group-hover:text-sky-300 transition-colors">
                   <TranslatedText text="Visionary Welcome" />
                 </h3>
-                <p className="text-slate-400 leading-relaxed text-xl font-light">
+                <p className="text-slate-300 leading-relaxed text-xl font-light">
                   <TranslatedText text="Hospitality as honor and pride. We adopt the professionalism and scale that has made Dubai a global benchmark." />
                 </p>
               </div>
             </div>
             
             <div className="mt-24 text-center">
-              <p className="text-slate-500 max-w-2xl mx-auto font-serif italic text-lg">
+              <p className="text-slate-300 max-w-2xl mx-auto font-serif italic text-lg">
                 <TranslatedText text="We move people with experiences, connect them with culture, and leave them with memories that last a lifetime." />
               </p>
             </div>

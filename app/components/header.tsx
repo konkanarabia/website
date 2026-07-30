@@ -67,6 +67,7 @@ export default function Header() {
 
   const navItems = [
     { name: t('home'), href: "/" },
+    { name: t('about'), href: "/about" },
     {
       name: t('services'),
       href: "/services",
@@ -80,8 +81,8 @@ export default function Header() {
         { name: t('dining_restaurants'), href: "/restaurants" },
       ],
     },
-    { name: t('about'), href: "/about" },
     { name: t('partners'), href: "/partners" },
+    { name: t('europe_jv'), href: "/europe-joint-venture" },
     { name: t('contact'), href: "/contact" },
   ];
 
@@ -172,31 +173,31 @@ export default function Header() {
                 <div className="h-[1px] w-full bg-[#0066a1]/10 rounded-full overflow-hidden">
                     <div className="h-full w-1/3 bg-[#0066a1]"></div>
                 </div>
-                <span className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.1em] uppercase mt-1 leading-tight sm:leading-none truncate sm:whitespace-nowrap">
+                <span suppressHydrationWarning className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.08em] uppercase mt-1 leading-tight sm:leading-none whitespace-nowrap">
                   &#123; {t('slogan2')} &#125;
                 </span>
               </div>
             </div>
           </Link>
 
-          <div className="flex items-center justify-end flex-1 gap-2 lg:gap-6">
+          <div className="flex items-center justify-end min-w-0 gap-1 lg:gap-3 xl:gap-4">
             <nav className="hidden md:block">
-              <ul className="flex items-center space-x-1 lg:space-x-4">
+              <ul className="flex items-center gap-1 lg:gap-2">
                 {navItems.map((item) => (
-                  <li key={item.name} className="relative">
+                  <li key={item.name} className="relative flex-shrink-0">
                     {item.dropdown ? (
                       <div ref={dropdownRef}>
                         <button
                           onClick={toggleServicesDropdown}
-                          className={`flex items-center text-[15px] font-medium px-3 py-2 rounded-lg transition-all ${
+                          className={`flex items-center text-[12px] lg:text-[13px] xl:text-[15px] font-medium px-2 lg:px-2.5 xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                             pathname.startsWith(item.href)
-                              ? "text-[#0066a1] bg-slate-50"
+                              ? "text-[#0066a1] bg-slate-50 font-semibold"
                               : "text-slate-700 hover:text-[#0066a1] hover:bg-slate-50"
                           }`}
                         >
                           {item.name}
                           <ChevronDown
-                            className={`ml-1 h-4 w-4 transition-transform ${
+                            className={`ml-1 h-3.5 w-3.5 transition-transform ${
                               isServicesDropdownOpen ? "rotate-180" : ""
                             }`}
                           />
@@ -207,7 +208,7 @@ export default function Header() {
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#0066a1] hover:text-white transition-colors"
+                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#0066a1] hover:text-white transition-colors whitespace-nowrap"
                                 onClick={() => setIsServicesDropdownOpen(false)}
                               >
                                 {subItem.name}
@@ -219,9 +220,13 @@ export default function Header() {
                     ) : (
                       <Link
                         href={item.href}
-                        className={`text-[15px] font-medium px-3 py-2 rounded-lg transition-all block ${
-                          pathname === item.href
-                            ? "text-[#0066a1] bg-slate-50"
+                        className={`text-[12px] lg:text-[13px] xl:text-[15px] font-medium px-2 lg:px-2.5 xl:px-3 py-1.5 rounded-lg transition-all block whitespace-nowrap ${
+                          item.href === "/europe-joint-venture"
+                            ? pathname === item.href
+                              ? "bg-amber-500 text-slate-950 font-bold shadow-sm"
+                              : "bg-amber-500/10 text-amber-700 hover:bg-amber-500/20 border border-amber-400/40 font-semibold"
+                            : pathname === item.href
+                            ? "text-[#0066a1] bg-slate-50 font-semibold"
                             : "text-slate-700 hover:text-[#0066a1] hover:bg-slate-50"
                         }`}
                       >
@@ -234,7 +239,7 @@ export default function Header() {
             </nav>
             <Link href="/enquiry" className="hidden lg:block">
               <Button
-                className="bg-[#0066a1] hover:bg-[#00558a] text-white font-bold px-4 xl:px-6 py-4 xl:py-5 rounded-lg shadow-lg shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-sm xl:text-base"
+                className="bg-[#0066a1] hover:bg-[#00558a] text-white font-bold px-3 lg:px-4 py-2.5 rounded-lg shadow-lg shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-xs lg:text-sm whitespace-nowrap"
               >
                 {t('enquire_now')}
               </Button>

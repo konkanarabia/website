@@ -13,6 +13,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Event Management",
     hospitality_stays: "Hospitality & Stays",
     dining_restaurants: "Dining & Restaurants",
+    europe_jv: "Europe Joint Venture",
     
     // Layout
     slogan1: "Hospitality is our passion & culture",
