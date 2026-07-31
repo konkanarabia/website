@@ -88,16 +88,16 @@ export default function Header() {
 
   return (
     <>
-      <div className="bg-slate-900 py-2 text-slate-200 hidden md:block border-b border-slate-800">
+      <div className="bg-amber-50 py-2 text-slate-800 hidden md:block border-b border-amber-200/60">
         <div className="container mx-auto px-4 flex justify-between items-center text-xs">
           <div className="text-[11px] sm:text-[12px] flex items-center flex-wrap gap-y-2 font-medium">
-            <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap text-slate-300">
-              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-400" /> 
+            <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap text-slate-700">
+              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-600" /> 
               <span className="hidden xs:inline">+91-9370528517 | 9326380922 | +971-555995260 | 0557337618</span>
               <span className="xs:hidden">+91 9370528517</span>
             </span>
-            <span className="flex items-center whitespace-nowrap text-slate-300">
-              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-400" /> 
+            <span className="flex items-center whitespace-nowrap text-slate-700">
+              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-600" /> 
               <span className="hidden sm:inline">bookings@konkanarabiahospitalitygroup.com</span>
               <span className="sm:hidden text-[10px]">bookings@kahg.com</span>
             </span>
@@ -106,7 +106,7 @@ export default function Header() {
             <LocaleSwitcher className="mr-2" />
             <Link
               href="https://www.facebook.com/konkanarabiahospitalitygroup"
-              className="hover:text-amber-400 transition-colors text-slate-400"
+              className="hover:text-amber-600 transition-colors text-slate-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@ export default function Header() {
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-900 hover:text-amber-400 transition-colors whitespace-nowrap"
+                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-800 font-medium transition-colors whitespace-nowrap"
                                 onClick={() => setIsServicesDropdownOpen(false)}
                               >
                                 {subItem.name}

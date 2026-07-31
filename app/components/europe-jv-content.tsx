@@ -151,9 +151,9 @@ export default function EuropeJVContent() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-slate-950 text-white overflow-hidden py-20 lg:py-32">
+      <section className="relative bg-gradient-to-b from-amber-50 via-white to-slate-50 text-slate-900 overflow-hidden py-20 lg:py-32 border-b border-amber-100">
         {/* Background Overlay */}
-        <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute inset-0 z-0 opacity-75">
           <Image
             src="/partners/europe-jv-hero.png"
             alt="Europe Joint Venture Hero"
@@ -161,42 +161,42 @@ export default function EuropeJVContent() {
             className="object-cover object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-white/70 to-slate-50/90"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs md:text-sm font-medium tracking-widest uppercase backdrop-blur-md">
-              <Award className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/40 text-amber-800 text-xs md:text-sm font-semibold tracking-widest uppercase backdrop-blur-md">
+              <Award className="w-4 h-4 text-amber-600" />
               <span>International Division Partnership</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-slate-900 leading-tight">
               PROJECT: EUROPE DIVISION
             </h1>
 
-            <div className="text-xl md:text-3xl font-serif text-amber-400 font-semibold tracking-wide">
+            <div className="text-xl md:text-3xl font-serif text-amber-700 font-bold tracking-wide">
               A JOINT INITIATIVE
             </div>
 
-            <p className="text-base md:text-xl text-slate-200 font-light leading-relaxed max-w-3xl mx-auto pt-2">
+            <p className="text-base md:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto pt-2">
               <TranslatedText text="KonkanArabia Holidays is proud to present a joint expansion project with our trusted European Partner, Eva Pérez and her Travel Studio. This strategic collaboration is focused on establishing a comprehensive, premier Destination Management Company (DMC) with a special focus on authentic experiences." />
             </p>
 
             <div className="pt-8 flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => setIsEnquiryOpen(true)}
-                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl shadow-lg hover:shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
               >
                 <MessageSquare className="w-5 h-5" />
                 <span>Send Joint Venture Inquiry</span>
               </button>
               <a
                 href="#capabilities"
-                className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl border border-white/20 backdrop-blur-md transition-all duration-300 flex items-center gap-2"
+                className="px-8 py-4 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-sm transition-all duration-300 flex items-center gap-2"
               >
                 <span>Explore Capabilities</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-amber-600" />
               </a>
             </div>
           </div>
@@ -206,10 +206,9 @@ export default function EuropeJVContent() {
       {/* Main Partnership Showcase: KonkanArabia x Eva Pérez */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-12">
-          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-8 md:p-14 text-white shadow-2xl relative overflow-hidden border border-slate-700">
+          <div className="bg-gradient-to-br from-amber-50 via-white to-amber-100/60 rounded-3xl p-8 md:p-14 text-slate-900 shadow-xl relative overflow-hidden border border-amber-200">
             {/* Background Accent Graphics */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="grid lg:grid-cols-12 gap-12 items-center">
               {/* Partner Card / Photo */}
@@ -217,7 +216,7 @@ export default function EuropeJVContent() {
                 <div className="relative group">
                   {/* Decorative frame ring */}
                   <div className="absolute -inset-2 bg-gradient-to-tr from-amber-400 via-amber-300 to-amber-500 rounded-full blur-sm opacity-75 group-hover:opacity-100 transition duration-500"></div>
-                  <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-900 shadow-2xl">
+                  <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <Image
                       src="/partners/eva-perez-portrait.png"
                       alt="Eva Pérez - Joint Venture Partner"
@@ -228,53 +227,53 @@ export default function EuropeJVContent() {
                 </div>
 
                 <div className="mt-6 space-y-2">
-                  <span className="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 text-xs font-semibold rounded-full tracking-wider uppercase border border-amber-400/30">
+                  <span className="inline-block px-3 py-1 bg-amber-500/20 text-amber-800 text-xs font-bold rounded-full tracking-wider uppercase border border-amber-300">
                     Joint Venture Partner
                   </span>
-                  <h3 className="text-3xl font-serif font-bold text-white tracking-wide">
+                  <h3 className="text-3xl font-serif font-bold text-slate-900 tracking-wide">
                     EVA PÉREZ
                   </h3>
-                  <div className="text-slate-300 text-sm font-medium tracking-wide">
+                  <div className="text-amber-800 text-sm font-bold tracking-wide">
                     VISIONARY FOUNDER & LEAD TRAVEL DESIGNER
                   </div>
                 </div>
 
                 {/* Travel Studio Badge */}
-                <div className="mt-6 bg-slate-950/80 rounded-2xl p-4 border border-amber-500/20 flex items-center justify-center w-full max-w-xs shadow-inner">
+                <div className="mt-6 bg-white rounded-2xl p-4 border border-amber-300 flex items-center justify-center w-full max-w-xs shadow-md">
                   <div className="text-center">
-                    <span className="text-[10px] text-amber-400 tracking-widest uppercase font-semibold block">
+                    <span className="text-[10px] text-amber-700 tracking-widest uppercase font-bold block">
                       Partner Brand
                     </span>
-                    <span className="text-lg font-serif font-bold tracking-wider text-white">
+                    <span className="text-lg font-serif font-bold tracking-wider text-slate-900">
                       TRAVEL STUDIO
                     </span>
-                    <span className="text-xs text-slate-400 italic block">by Eva Pérez</span>
+                    <span className="text-xs text-slate-500 italic block">by Eva Pérez</span>
                   </div>
                 </div>
               </div>
 
               {/* Story & Description */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center gap-2 text-amber-400 font-semibold text-sm tracking-wider uppercase">
-                  <Globe className="w-4 h-4" />
+                <div className="inline-flex items-center gap-2 text-amber-700 font-bold text-sm tracking-wider uppercase">
+                  <Globe className="w-4 h-4 text-amber-600" />
                   <span>Strategic Expansion & Global Excellence</span>
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white leading-tight">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-tight">
                   Bridging European Travel Expertise with Authentic Asian Hospitality
                 </h2>
 
-                <p className="text-slate-300 leading-relaxed text-base md:text-lg font-light">
+                <p className="text-slate-700 leading-relaxed text-base md:text-lg font-medium">
                   By pooling our expertise, KonkanArabia Holidays and Travel Studio by Eva Pérez are dedicated to setting new benchmarks in personalised travel planning, seamless communication, and dedicated support for every journey. Together, we open the world.
                 </p>
 
                 {/* Quote Box */}
-                <div className="bg-slate-950/60 rounded-2xl p-6 border-l-4 border-amber-400 relative">
-                  <Quote className="w-8 h-8 text-amber-400/20 absolute top-4 right-4" />
-                  <p className="text-amber-200 font-serif italic text-base md:text-lg relative z-10">
+                <div className="bg-amber-50 rounded-2xl p-6 border-l-4 border-amber-500 relative shadow-sm">
+                  <Quote className="w-8 h-8 text-amber-500/20 absolute top-4 right-4" />
+                  <p className="text-amber-950 font-serif italic text-base md:text-lg relative z-10 font-medium">
                     &ldquo;Dedicated to crafting unforgettable journeys, connecting cultures, and creating memories.&rdquo;
                   </p>
-                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-3">
+                  <p className="text-xs text-slate-600 font-bold uppercase tracking-wider mt-3">
                     — A Message from Eva Pérez
                   </p>
                 </div>
@@ -358,17 +357,17 @@ export default function EuropeJVContent() {
         <div className="container mx-auto px-4 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-12">
             {/* Left: Project Details & Specialized Offerings */}
-            <div className="lg:col-span-7 bg-slate-900 text-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-800 flex flex-col justify-between">
+            <div className="lg:col-span-7 bg-white text-slate-900 rounded-3xl p-8 md:p-12 shadow-xl border border-amber-200/80 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 text-amber-700 flex items-center justify-center font-bold">
                     <Crown className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-white">
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-slate-900">
                       PROJECT DETAILS & EXPERIENCES
                     </h3>
-                    <p className="text-slate-400 text-sm">Curated specialized travel solutions</p>
+                    <p className="text-slate-500 text-sm font-medium">Curated specialized travel solutions</p>
                   </div>
                 </div>
 
@@ -380,10 +379,10 @@ export default function EuropeJVContent() {
                         setSelectedTopic(item);
                         setIsEnquiryOpen(true);
                       }}
-                      className="bg-slate-800/80 hover:bg-amber-500/20 hover:border-amber-400/40 border border-slate-700 rounded-xl p-3.5 flex items-center gap-3 transition-all duration-200 cursor-pointer group"
+                      className="bg-amber-50/50 hover:bg-amber-100/60 hover:border-amber-300 border border-amber-200/60 rounded-xl p-3.5 flex items-center gap-3 transition-all duration-200 cursor-pointer group"
                     >
-                      <Sparkles className="w-4 h-4 text-amber-400 group-hover:scale-125 transition-transform" />
-                      <span className="text-sm font-medium text-slate-200 group-hover:text-white">
+                      <Sparkles className="w-4 h-4 text-amber-600 group-hover:scale-125 transition-transform" />
+                      <span className="text-sm font-semibold text-slate-800 group-hover:text-amber-950">
                         {item}
                       </span>
                     </div>
@@ -391,13 +390,13 @@ export default function EuropeJVContent() {
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-xs text-slate-400">
+              <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs text-slate-500 font-medium">
                   Click any experience to send a direct inquiry to our Europe Division.
                 </span>
                 <button
                   onClick={() => setIsEnquiryOpen(true)}
-                  className="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-sm transition-colors shadow"
+                  className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-lg text-sm transition-colors shadow"
                 >
                   Request Customized Itinerary
                 </button>
@@ -481,17 +480,17 @@ export default function EuropeJVContent() {
       </section>
 
       {/* Expansion Hub Markets Showcase */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-20 bg-slate-50 text-slate-900 border-t border-slate-200">
         <div className="container mx-auto px-4 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <span className="text-amber-400 font-bold text-xs uppercase tracking-widest bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-400/30">
+            <span className="text-amber-800 font-bold text-xs uppercase tracking-widest bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300">
               European Network
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900">
               EXPANSION HUB MARKETS: AUTHENTIC EXPERIENCES
             </h2>
             <div className="w-20 h-1 bg-amber-500 mx-auto rounded-full"></div>
-            <p className="text-slate-300 text-base md:text-lg font-light">
+            <p className="text-slate-600 text-base md:text-lg font-medium">
               Connecting Europe with authentic cultural and luxury travel destinations.
             </p>
           </div>
@@ -500,7 +499,7 @@ export default function EuropeJVContent() {
             {hubMarkets.map((hub, idx) => (
               <div
                 key={idx}
-                className="bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700 group hover:border-amber-500/50 transition-all duration-300 flex flex-col"
+                className="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 group hover:border-amber-400 transition-all duration-300 flex flex-col"
               >
                 <div className="relative h-44 w-full overflow-hidden">
                   <Image
@@ -509,9 +508,9 @@ export default function EuropeJVContent() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-3 left-3 right-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 block">
                       {hub.role}
                     </span>
                     <h4 className="text-base font-serif font-bold text-white">
@@ -520,7 +519,7 @@ export default function EuropeJVContent() {
                   </div>
                 </div>
                 <div className="p-4 flex-1 flex flex-col justify-between">
-                  <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  <p className="text-xs text-slate-600 leading-relaxed font-medium">
                     {hub.description}
                   </p>
                 </div>
