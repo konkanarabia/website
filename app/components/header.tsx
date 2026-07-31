@@ -181,7 +181,7 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center justify-end min-w-0 gap-1 lg:gap-3 xl:gap-4">
-            <nav className="hidden md:block">
+            <nav className="hidden lg:block">
               <ul className="flex items-center gap-1 lg:gap-2">
                 {navItems.map((item) => (
                   <li key={item.name} className="relative flex-shrink-0">
@@ -247,13 +247,13 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden ml-2 sm:ml-4"
+              className="lg:hidden ml-2 sm:ml-4 text-slate-800"
               onClick={toggleMobileMenu}
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                <X className="h-6 w-6 text-[#0066a1]" />
               ) : (
-                <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                <Menu className="h-6 w-6 text-[#0066a1]" />
               )}
               <span className="sr-only">Toggle menu</span>
             </Button>
@@ -261,25 +261,25 @@ export default function Header() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden">
-            <nav className="bg-white px-4 pt-2 pb-4 shadow-inner border-t border-gray-100">
+          <div className="lg:hidden">
+            <nav className="bg-white px-4 pt-3 pb-6 shadow-2xl border-t border-slate-100">
               <ul className="space-y-2">
                 {navItems.map((item) => (
                   <li key={item.name}>
                     {item.dropdown ? (
                       <div
                         ref={mobileDropdownRef}
-                        className="border-b border-gray-100 pb-2"
+                        className="border-b border-slate-100 pb-2"
                       >
                         <button
                           onClick={toggleMobileServicesDropdown}
-                          className={`flex items-center w-full py-2 text-left transition-colors ${
+                          className={`flex items-center justify-between w-full py-2.5 text-left font-medium transition-colors ${
                             pathname.startsWith(item.href)
-                              ? "font-semibold text-primary"
-                              : "text-gray-700"
+                              ? "font-semibold text-[#0066a1]"
+                              : "text-slate-700"
                           }`}
                         >
-                          {item.name}
+                          <span>{item.name}</span>
                           <ChevronDown
                             className={`ml-1 h-4 w-4 transition-transform ${
                               isMobileServicesDropdownOpen ? "rotate-180" : ""
@@ -287,12 +287,12 @@ export default function Header() {
                           />
                         </button>
                         {isMobileServicesDropdownOpen && (
-                          <div className="pl-4 mt-1 space-y-1">
+                          <div className="pl-4 mt-1 space-y-1.5 border-l-2 border-[#0066a1]/20 my-1">
                             {item.subItems.map((subItem) => (
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="block py-1.5 text-sm text-gray-600 hover:text-primary"
+                                className="block py-2 text-sm text-slate-600 hover:text-[#0066a1] font-medium"
                                 onClick={() => setIsMobileMenuOpen(false)}
                               >
                                 {subItem.name}
@@ -304,26 +304,38 @@ export default function Header() {
                     ) : (
                       <Link
                         href={item.href}
-                        className={`block py-2 border-b border-gray-100 transition-colors ${
-                          pathname === item.href
-                            ? "font-semibold text-primary"
-                            : "text-gray-700"
+                        className={`block py-2.5 transition-all ${
+                          item.href === "/europe-joint-venture"
+                            ? "bg-amber-500/10 text-amber-800 font-bold border border-amber-300/80 rounded-xl px-3.5 py-2.5 my-1 flex items-center justify-between shadow-xs"
+                            : pathname === item.href
+                            ? "font-bold text-[#0066a1] border-b border-slate-100"
+                            : "text-slate-700 border-b border-slate-100"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        {item.name}
+                        <span>{item.name}</span>
+                        {item.href === "/europe-joint-venture" && (
+                          <span className="text-[10px] uppercase font-bold tracking-widest bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full">
+                            New
+                          </span>
+                        )}
                       </Link>
                     )}
                   </li>
-                ))}                <li className="pt-2">
-                  <Link href="/enquiry">
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-white">
+                ))}
+                <li className="pt-3">
+                  <Link href="/enquiry" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white font-bold py-3 shadow-md">
                       {t('enquire_now')}
                     </Button>
                   </Link>
                 </li>
-                <li className="pt-4 flex justify-center">
+                <li className="pt-4 flex flex-col items-center gap-3 border-t border-slate-100 mt-3">
                   <LocaleSwitcher />
+                  <div className="text-center text-xs text-slate-500 space-y-1 pt-1">
+                    <p className="font-semibold text-slate-700">📞 +91-9370528517 | +971-555995260</p>
+                    <p className="text-[11px] text-slate-400">bookings@konkanarabiahospitalitygroup.com</p>
+                  </div>
                 </li>
               </ul>
             </nav>
