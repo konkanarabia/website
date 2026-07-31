@@ -165,8 +165,8 @@ export default function EuropeJVContent() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00558a]/10 border border-[#00558a]/30 text-[#00558a] text-xs md:text-sm font-semibold tracking-widest uppercase backdrop-blur-md">
+          <div className="max-w-4xl mx-auto text-center space-y-6 bg-white/90 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/80 shadow-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00558a]/10 border border-[#00558a]/30 text-[#00558a] text-xs md:text-sm font-bold tracking-widest uppercase">
               <Award className="w-4 h-4 text-[#00558a]" />
               <span>International Division Partnership</span>
             </div>
@@ -179,11 +179,11 @@ export default function EuropeJVContent() {
               A JOINT INITIATIVE
             </div>
 
-            <p className="text-base md:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto pt-2">
+            <p className="text-base md:text-xl text-slate-700 font-medium leading-relaxed max-w-3xl mx-auto pt-2">
               <TranslatedText text="KonkanArabia Holidays is proud to present a joint expansion project with our trusted European Partner, Eva Pérez and her Travel Studio. This strategic collaboration is focused on establishing a comprehensive, premier Destination Management Company (DMC) with a special focus on authentic experiences." />
             </p>
 
-            <div className="pt-8 flex flex-wrap justify-center gap-4">
+            <div className="pt-6 flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => setIsEnquiryOpen(true)}
                 className="px-8 py-4 bg-[#00558a] hover:bg-[#00406c] text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
@@ -193,7 +193,7 @@ export default function EuropeJVContent() {
               </button>
               <a
                 href="#capabilities"
-                className="px-8 py-4 bg-white hover:bg-slate-100 text-slate-800 font-bold rounded-xl border border-slate-300 shadow-sm transition-all duration-300 flex items-center gap-2"
+                className="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl border border-slate-300 shadow-sm transition-all duration-300 flex items-center gap-2"
               >
                 <span>Explore Capabilities</span>
                 <ArrowRight className="w-4 h-4 text-[#00558a]" />

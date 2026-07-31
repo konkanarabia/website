@@ -128,19 +128,21 @@ export default function Hero() {
                 className="object-cover"
                 priority={slide.priority}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg">
-                  <TranslatedText text={slide.title} />
-                </h1>
-                <p className="text-xl md:text-2xl mb-8 drop-shadow-md font-medium">
-                  <TranslatedText text={slide.subtitle} />
-                </p>
-                <Link href={slide.link}>
-                  <Button size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold shadow-lg shadow-amber-500/20 border border-amber-400/40 px-8 py-6 rounded-xl text-base">
-                    <TranslatedText text={slide.cta} />
-                  </Button>
-                </Link>
+                <div className="bg-black/35 backdrop-blur-sm p-6 md:p-10 rounded-3xl border border-white/20 max-w-4xl mx-auto flex flex-col items-center">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] text-white tracking-tight">
+                    <TranslatedText text={slide.title} />
+                  </h1>
+                  <p className="text-xl md:text-2xl mb-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium text-slate-100">
+                    <TranslatedText text={slide.subtitle} />
+                  </p>
+                  <Link href={slide.link}>
+                    <Button size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold shadow-lg shadow-amber-500/20 border border-amber-400/40 px-8 py-6 rounded-xl text-base">
+                      <TranslatedText text={slide.cta} />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </SwiperSlide>
