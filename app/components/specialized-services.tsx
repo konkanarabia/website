@@ -104,7 +104,7 @@ export default async function SpecializedServices() {
                     {service.features?.map((feature: string, i: number) => (
                       <span 
                         key={i} 
-                        className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-600 rounded-xl group-hover:bg-slate-900 group-hover:text-amber-400 transition-all duration-300 border border-slate-100 uppercase tracking-wider"
+                        className="text-[11px] font-bold px-4 py-2 bg-amber-50 text-amber-800 rounded-xl border border-amber-200/80 uppercase tracking-wider shadow-sm"
                       >
                         <TranslatedText text={feature} />
                       </span>
@@ -112,7 +112,7 @@ export default async function SpecializedServices() {
                   </div>
  
                   <Link href={service.link} className="inline-block w-full">
-                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 hover:text-amber-300 py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-slate-900/10 active:scale-[0.98]">
+                    <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-amber-500/20 active:scale-[0.98]">
                       <TranslatedText text="View Details" />
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Button>

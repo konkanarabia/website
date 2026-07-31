@@ -43,7 +43,7 @@ export default async function OurServices() {
                    <Calendar className="w-3.5 h-3.5 text-amber-600" /> {dest.duration}
                 </div>
                 <Link href={`/destinations/${dest.id}`} passHref>
-                  <Button className="bg-slate-900 hover:bg-slate-800 text-amber-400 hover:text-amber-300 px-5 py-4 text-sm font-bold rounded-lg transition-all h-auto">
+                  <Button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-5 py-4 text-sm font-bold rounded-lg transition-all h-auto shadow-md">
                     Explore
                   </Button>
                 </Link>

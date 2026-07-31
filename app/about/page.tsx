@@ -140,58 +140,58 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Philosophy - Premium Dark Theme */}
-        <section className="bg-gradient-to-b from-[#0a2540] to-[#031d30] border border-blue-950 rounded-[4rem] px-8 py-20 md:p-24 mb-32 text-white relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#0066a1]/5 blur-[120px] -z-0"></div>
-          <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-[#0066a1]/10 blur-[100px] -z-0"></div>
+        {/* Philosophy - Warm Light Luxury Theme */}
+        <section className="bg-gradient-to-br from-amber-50/80 via-white to-amber-100/50 border border-amber-200 rounded-[4rem] px-8 py-20 md:p-24 mb-32 text-slate-900 relative overflow-hidden shadow-xl">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-amber-500/5 blur-[120px] -z-0"></div>
+          <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-amber-500/10 blur-[100px] -z-0"></div>
           
           <div className="relative z-10">
             <div className="flex flex-col items-center mb-20">
-              <Quote className="w-12 h-12 text-amber-400 mb-6 opacity-80" />
-              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 uppercase tracking-wider text-center text-white">
+              <Quote className="w-12 h-12 text-amber-600 mb-6 opacity-80" />
+              <h2 className="text-3xl md:text-5xl font-serif font-bold mb-12 uppercase tracking-wider text-center text-slate-900">
                 <TranslatedText text="Our Values" />
               </h2>
               
-              <div className="max-w-4xl mx-auto mb-12 border-y border-white/10 py-12 px-6 md:px-12 w-full">
-                <ul className="space-y-6 text-slate-100 text-lg md:text-2xl font-serif italic leading-relaxed mb-8">
+              <div className="max-w-4xl mx-auto mb-12 border-y border-amber-200/80 py-12 px-6 md:px-12 w-full">
+                <ul className="space-y-6 text-slate-800 text-lg md:text-2xl font-serif italic leading-relaxed mb-8">
                   <li className="flex items-start gap-4">
-                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-600 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="A Guest is the most important visitor to our premises." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-600 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not dependent on us, we are dependent on him." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-600 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not an interruption in our work, he is the purpose of it." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-600 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="He is not an outsider in our business, he is part of it." />
                     </p>
                   </li>
                   <li className="flex items-start gap-4">
-                    <span className="text-amber-400 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
+                    <span className="text-amber-600 mt-1.5 flex-shrink-0 text-xl md:text-2xl">✦</span>
                     <p>
                       <TranslatedText text="We are not doing any favor by serving him, he is doing us a favor by giving us an opportunity to do so." />
                     </p>
                   </li>
                 </ul>
-                <p className="text-amber-400 font-bold text-xl md:text-2xl uppercase tracking-widest font-serif text-center mt-8 drop-shadow">
+                <p className="text-amber-800 font-bold text-xl md:text-2xl uppercase tracking-widest font-serif text-center mt-8">
                   <TranslatedText text="— Thoughts of Mahatma Gandhi" />
                 </p>
               </div>
               
               <div className="text-center w-full">
-                <p className="text-slate-200 text-xl md:text-2xl font-serif italic max-w-3xl mx-auto">
+                <p className="text-slate-800 text-xl md:text-2xl font-serif italic max-w-3xl mx-auto">
                   <TranslatedText text='"Hospitality is not a service—it is a responsibility."' />
                 </p>
               </div>
@@ -199,31 +199,31 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 gap-16">
               <div className="group">
-                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-bold tracking-widest uppercase shadow-sm">
+                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-900 border border-amber-300 text-xs font-bold tracking-widest uppercase shadow-sm">
                   <TranslatedText text="Indian Heritage" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 text-white group-hover:text-amber-400 transition-colors">
+                <h3 className="text-3xl font-serif font-bold mb-6 text-slate-900 group-hover:text-amber-700 transition-colors">
                   <TranslatedText text="Atithi Devo Bhava" />
                 </h3>
-                <p className="text-slate-300 leading-relaxed text-xl font-light">
+                <p className="text-slate-700 leading-relaxed text-xl font-medium">
                   <TranslatedText text="The guest is God. We honor this ancient value through the authenticity and unfiltered warmth of the Konkan coast." />
                 </p>
               </div>
               <div className="group">
-                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 text-xs font-bold tracking-widest uppercase shadow-sm">
+                <div className="mb-6 inline-block px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-900 border border-amber-300 text-xs font-bold tracking-widest uppercase shadow-sm">
                   <TranslatedText text="Arabian Excellence" />
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-6 text-white group-hover:text-sky-300 transition-colors">
+                <h3 className="text-3xl font-serif font-bold mb-6 text-slate-900 group-hover:text-amber-700 transition-colors">
                   <TranslatedText text="Visionary Welcome" />
                 </h3>
-                <p className="text-slate-300 leading-relaxed text-xl font-light">
+                <p className="text-slate-700 leading-relaxed text-xl font-medium">
                   <TranslatedText text="Hospitality as honor and pride. We adopt the professionalism and scale that has made Dubai a global benchmark." />
                 </p>
               </div>
             </div>
             
             <div className="mt-24 text-center">
-              <p className="text-slate-300 max-w-2xl mx-auto font-serif italic text-lg">
+              <p className="text-slate-700 max-w-2xl mx-auto font-serif italic text-lg font-medium">
                 <TranslatedText text="We move people with experiences, connect them with culture, and leave them with memories that last a lifetime." />
               </p>
             </div>

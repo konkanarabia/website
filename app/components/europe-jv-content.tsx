@@ -151,52 +151,52 @@ export default function EuropeJVContent() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 overflow-hidden py-20 lg:py-32 border-b border-slate-200">
+      <section className="relative bg-slate-950 text-white overflow-hidden py-20 lg:py-32">
         {/* Background Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/partners/europe-jv-hero.png"
             alt="Europe Joint Venture Hero"
             fill
-            className="object-cover object-center opacity-90"
+            className="object-cover object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/20 to-slate-50/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-6 bg-white/90 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/80 shadow-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00558a]/10 border border-[#00558a]/30 text-[#00558a] text-xs md:text-sm font-bold tracking-widest uppercase">
-              <Award className="w-4 h-4 text-[#00558a]" />
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs md:text-sm font-bold tracking-widest uppercase backdrop-blur-md shadow-md">
+              <Award className="w-4 h-4 text-amber-400" />
               <span>International Division Partnership</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-slate-900 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-white leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
               PROJECT: EUROPE DIVISION
             </h1>
 
-            <div className="text-xl md:text-3xl font-serif text-[#00558a] font-bold tracking-wide">
+            <div className="text-xl md:text-3xl font-serif text-amber-400 font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
               A JOINT INITIATIVE
             </div>
 
-            <p className="text-base md:text-xl text-slate-700 font-medium leading-relaxed max-w-3xl mx-auto pt-2">
+            <p className="text-base md:text-xl text-slate-100 font-medium leading-relaxed max-w-3xl mx-auto pt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               <TranslatedText text="KonkanArabia Holidays is proud to present a joint expansion project with our trusted European Partner, Eva Pérez and her Travel Studio. This strategic collaboration is focused on establishing a comprehensive, premier Destination Management Company (DMC) with a special focus on authentic experiences." />
             </p>
 
-            <div className="pt-6 flex flex-wrap justify-center gap-4">
+            <div className="pt-8 flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => setIsEnquiryOpen(true)}
-                className="px-8 py-4 bg-[#00558a] hover:bg-[#00406c] text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
               >
                 <MessageSquare className="w-5 h-5" />
                 <span>Send Joint Venture Inquiry</span>
               </button>
               <a
                 href="#capabilities"
-                className="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl border border-slate-300 shadow-sm transition-all duration-300 flex items-center gap-2"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/30 backdrop-blur-md shadow-md transition-all duration-300 flex items-center gap-2"
               >
                 <span>Explore Capabilities</span>
-                <ArrowRight className="w-4 h-4 text-[#00558a]" />
+                <ArrowRight className="w-4 h-4 text-amber-400" />
               </a>
             </div>
           </div>
@@ -276,20 +276,20 @@ export default function EuropeJVContent() {
                 {/* Highlights list */}
                 <div className="grid sm:grid-cols-2 gap-4 pt-2">
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-200 text-sm">Personalized Bespoke Itineraries</span>
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-800 text-sm font-semibold">Personalized Bespoke Itineraries</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-200 text-sm">Direct European & Indian Offices</span>
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-800 text-sm font-semibold">Direct European & Indian Offices</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-200 text-sm">24/7 Dedicated Concierge Support</span>
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-800 text-sm font-semibold">24/7 Dedicated Concierge Support</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-200 text-sm">Authentic Cultural & Wellness Focus</span>
+                    <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-800 text-sm font-semibold">Authentic Cultural & Wellness Focus</span>
                   </div>
                 </div>
               </div>

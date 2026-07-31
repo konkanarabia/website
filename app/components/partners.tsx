@@ -138,15 +138,15 @@ export default function Partners() {
                     ))}
                   </div>
                 </div>
-                <div className="bg-blue-50 p-8 rounded-2xl border border-blue-100">
-                  <h4 className="text-xl font-bold mb-4 text-blue-900">
+                <div className="bg-amber-50/70 p-8 rounded-2xl border border-amber-200">
+                  <h4 className="text-xl font-serif font-bold mb-4 text-slate-900">
                     <TranslatedText text="Installment Options" />
                   </h4>
-                  <p className="text-blue-800 leading-relaxed font-medium">
+                  <p className="text-slate-700 leading-relaxed font-medium">
                     <TranslatedText text="Flexible installment options are available based on your Credit Card approvals. Plan your trip now and pay later!" />
                   </p>
-                  <div className="mt-6 flex items-center text-blue-600 font-bold">
-                    <span className="text-2xl mr-2">✓</span>
+                  <div className="mt-6 flex items-center text-amber-700 font-bold">
+                    <span className="text-2xl mr-2 text-amber-600">✓</span>
                     <span>
                       <TranslatedText text="Easy EMI Available" />
                     </span>
