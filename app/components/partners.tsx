@@ -89,7 +89,7 @@ export default function Partners() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             <TranslatedText text="Our Partners" />
           </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             <TranslatedText text="We collaborate with the world's leading brands to provide you with the best travel experiences." />
           </p>

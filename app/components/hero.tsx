@@ -137,7 +137,7 @@ export default function Hero() {
                   <TranslatedText text={slide.subtitle} />
                 </p>
                 <Link href={slide.link}>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  <Button size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold shadow-lg shadow-amber-500/20 border border-amber-400/40 px-8 py-6 rounded-xl text-base">
                     <TranslatedText text={slide.cta} />
                   </Button>
                 </Link>

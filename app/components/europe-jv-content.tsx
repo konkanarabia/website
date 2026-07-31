@@ -45,7 +45,7 @@ export default function EuropeJVContent() {
       icon: Crown,
       title: "LUXURY TRAVEL & PREMIUM HOLIDAYS",
       description: "Carefully selected 5-star hotels, exclusive VIP experiences, private transfers, and ultra-high-quality travel planning.",
-      accent: "from-blue-600 to-indigo-800"
+      accent: "from-amber-600 to-slate-900"
     },
     {
       icon: Palmtree,
@@ -57,7 +57,7 @@ export default function EuropeJVContent() {
       icon: Ship,
       title: "CRUISES & VOYAGES",
       description: "Luxury ocean liners, scenic European river cruises, Mediterranean sailing, and boutique expedition cruises worldwide.",
-      accent: "from-cyan-600 to-blue-700"
+      accent: "from-teal-700 to-slate-900"
     },
     {
       icon: Heart,

@@ -87,7 +87,7 @@ export default function ContactPage() {
           
           {/* Contact Info Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-[#0066a1] text-white p-8 rounded-3xl shadow-xl">
+            <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 rounded-3xl shadow-xl border border-slate-800">
               <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
                 <span className="p-2 bg-white/10 rounded-lg">🇮🇳</span>
                 <TranslatedText text="India Office" />
@@ -239,7 +239,7 @@ export default function ContactPage() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full py-8 text-lg font-bold rounded-xl shadow-lg shadow-[#0066a1]/20 bg-[#0066a1] hover:bg-[#00558a] transition-all hover:scale-[1.01] active:scale-[0.99]" 
+                  className="w-full py-8 text-lg font-bold rounded-xl shadow-lg shadow-amber-500/20 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 transition-all hover:scale-[1.01] active:scale-[0.99]" 
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
