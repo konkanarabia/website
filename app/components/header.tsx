@@ -88,16 +88,16 @@ export default function Header() {
 
   return (
     <>
-      <div className="bg-amber-50 py-2 text-slate-800 hidden md:block border-b border-amber-200/60">
+      <div className="bg-[#004e7c] py-2 text-white hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center text-xs">
           <div className="text-[11px] sm:text-[12px] flex items-center flex-wrap gap-y-2 font-medium">
-            <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap text-slate-700">
-              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-600" /> 
+            <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap text-white/90">
+              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-300" /> 
               <span className="hidden xs:inline">+91-9370528517 | 9326380922 | +971-555995260 | 0557337618</span>
               <span className="xs:hidden">+91 9370528517</span>
             </span>
-            <span className="flex items-center whitespace-nowrap text-slate-700">
-              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-600" /> 
+            <span className="flex items-center whitespace-nowrap text-white/90">
+              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-300" /> 
               <span className="hidden sm:inline">bookings@konkanarabiahospitalitygroup.com</span>
               <span className="sm:hidden text-[10px]">bookings@kahg.com</span>
             </span>
@@ -106,7 +106,7 @@ export default function Header() {
             <LocaleSwitcher className="mr-2" />
             <Link
               href="https://www.facebook.com/konkanarabiahospitalitygroup"
-              className="hover:text-amber-600 transition-colors text-slate-600"
+              className="hover:text-amber-300 transition-colors text-white/80"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ export default function Header() {
             </Link>
             <Link
               href="https://www.instagram.com/konkanarabiaholidays"
-              className="hover:text-amber-400 transition-colors text-slate-400"
+              className="hover:text-amber-300 transition-colors text-white/80"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -158,11 +158,11 @@ export default function Header() {
             <div className="flex flex-col justify-center min-w-0">
               <div className="flex flex-col items-center sm:items-start">
                 <div className="flex items-center w-full min-w-0">
-                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-amber-500/40"></div>
-                  <span className="px-1 xs:px-2 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] text-amber-800 font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#00558a]/30"></div>
+                  <span className="px-1 xs:px-2 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] text-[#00558a] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
                     {t('slogan1')}
                   </span>
-                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-amber-500/40"></div>
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#00558a]/30"></div>
                 </div>
                 <div className="flex items-center gap-0.5 leading-none mt-1 sm:mt-0.5">
                   <span className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-serif font-black text-slate-900 tracking-tight">KonkanArabia</span>
@@ -171,7 +171,7 @@ export default function Header() {
               </div>
               <div className="flex flex-col mt-0.5 min-w-0">
                 <div className="h-[1px] w-full bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 bg-amber-500"></div>
+                    <div className="h-full w-1/3 bg-[#00558a]"></div>
                 </div>
                 <span suppressHydrationWarning className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.08em] uppercase mt-1 leading-tight sm:leading-none whitespace-nowrap">
                   &#123; {t('slogan2')} &#125;
@@ -191,8 +191,8 @@ export default function Header() {
                           onClick={toggleServicesDropdown}
                           className={`flex items-center text-[12px] lg:text-[13px] xl:text-[15px] font-medium px-2 lg:px-2.5 xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                             pathname.startsWith(item.href)
-                              ? "text-slate-900 bg-amber-50 font-bold border border-amber-200/60"
-                              : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                              ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
+                              : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
                           }`}
                         >
                           {item.name}
@@ -208,7 +208,7 @@ export default function Header() {
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-800 font-medium transition-colors whitespace-nowrap"
+                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#00558a] hover:text-white font-medium transition-colors whitespace-nowrap"
                                 onClick={() => setIsServicesDropdownOpen(false)}
                               >
                                 {subItem.name}
@@ -224,10 +224,10 @@ export default function Header() {
                           item.href === "/europe-joint-venture"
                             ? pathname === item.href
                               ? "bg-amber-500 text-slate-950 font-bold shadow-sm"
-                              : "bg-amber-500/10 text-amber-800 hover:bg-amber-500/20 border border-amber-400/40 font-semibold"
+                              : "bg-amber-500/10 text-amber-800 hover:bg-amber-500/20 border border-amber-300/80 font-semibold"
                             : pathname === item.href
-                            ? "text-slate-900 bg-amber-50 font-bold border border-amber-200/60"
-                            : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                            ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
+                            : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
                         }`}
                       >
                         {item.name}
@@ -239,7 +239,7 @@ export default function Header() {
             </nav>
             <Link href="/enquiry" className="hidden lg:block">
               <Button
-                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-3 lg:px-4 py-2.5 rounded-lg shadow-md shadow-amber-500/20 transition-all hover:scale-[1.02] active:scale-[0.98] text-xs lg:text-sm whitespace-nowrap border border-amber-400/50"
+                className="bg-[#00558a] hover:bg-[#00406c] text-white font-bold px-3 lg:px-4 py-2.5 rounded-lg shadow-md shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-xs lg:text-sm whitespace-nowrap"
               >
                 {t('enquire_now')}
               </Button>

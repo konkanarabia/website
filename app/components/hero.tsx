@@ -128,7 +128,7 @@ export default function Hero() {
                 className="object-cover"
                 priority={slide.priority}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-900/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg">
                   <TranslatedText text={slide.title} />

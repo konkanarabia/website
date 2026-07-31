@@ -30,10 +30,10 @@ export default async function DestinationList() {
             {icon}
             {title}
           </div>
-          <h2 className="text-4xl font-black text-slate-900 tracking-tight">{title} <span className="text-blue-600">Escapes</span></h2>
+          <h2 className="text-4xl font-serif font-black text-slate-900 tracking-tight">{title} <span className="text-amber-600">Escapes</span></h2>
           <p className="text-slate-500 mt-2 font-medium">{subtitle}</p>
         </div>
-        <div className="text-sm font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-full">
+        <div className="text-sm font-bold text-slate-600 bg-amber-50 px-4 py-2 rounded-full border border-amber-200/60">
             {items.length} Packages Available
         </div>
       </div>
@@ -46,7 +46,7 @@ export default async function DestinationList() {
                 : dest.image;
 
             return (
-              <Card key={dest.id} className="group overflow-hidden border-none shadow-sm hover:shadow-2xl transition-all duration-500 rounded-3xl bg-white relative">
+              <Card key={dest.id} className="group overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 rounded-3xl bg-white relative">
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src={optImage || '/placeholder.jpg'}
@@ -54,10 +54,10 @@ export default async function DestinationList() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <div className="absolute bottom-4 left-4 right-4">
                      <div className="flex items-center gap-2 text-white/90 text-[10px] font-bold uppercase tracking-widest mb-1">
-                        <Calendar className="w-3 h-3" /> {dest.duration}
+                        <Calendar className="w-3 h-3 text-amber-400" /> {dest.duration}
                      </div>
                      <h3 className="text-xl font-bold text-white drop-shadow-md"><TranslatedText text={dest.name} /></h3>
                   </div>
@@ -79,7 +79,7 @@ export default async function DestinationList() {
                         )}
                     </div>
                     <Link href={`/destinations/${dest.id}`} passHref>
-                      <Button className="bg-slate-900 hover:bg-blue-600 text-white px-6 py-6 rounded-2xl transition-all shadow-lg hover:shadow-blue-500/25 flex items-center gap-2 font-bold group/btn">
+                      <Button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-6 py-6 rounded-2xl transition-all shadow-md flex items-center gap-2 font-bold group/btn">
                         Details
                         <Sparkles className="w-4 h-4 transition-transform group-hover/btn:rotate-12" />
                       </Button>

@@ -71,25 +71,25 @@ export default function ContactPage() {
   return (
     <div className="bg-slate-50 min-h-screen">
        {/* Small Hero Header */}
-       <section className="bg-slate-900 text-white py-20 px-4 text-center">
+       <section className="bg-slate-100 text-slate-900 py-20 px-4 text-center border-b border-slate-200">
           <div className="container mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+            <h1 className="text-4xl md:text-6xl font-serif font-black mb-6 tracking-tight text-slate-900">
               <TranslatedText text="Contact Us" />
             </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-slate-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium">
               <TranslatedText text="Have questions or ready to plan your next adventure? Our global team is here to help you every step of the way." />
             </p>
           </div>
        </section>
 
-      <div className="container mx-auto px-4 lg:px-20 -mt-10 pb-20">
+      <div className="container mx-auto px-4 lg:px-20 pt-12 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Contact Info Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 rounded-3xl shadow-xl border border-slate-800">
-              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                <span className="p-2 bg-white/10 rounded-lg">🇮🇳</span>
+            <div className="bg-white text-slate-900 p-8 rounded-3xl shadow-xl border border-slate-200">
+              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900">
+                <span className="p-2 bg-slate-100 rounded-lg">🇮🇳</span>
                 <TranslatedText text="India Office" />
               </h2>
               <div className="space-y-6">

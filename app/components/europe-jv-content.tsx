@@ -151,23 +151,23 @@ export default function EuropeJVContent() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-amber-50 via-white to-slate-50 text-slate-900 overflow-hidden py-20 lg:py-32 border-b border-amber-100">
+      <section className="relative bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 overflow-hidden py-20 lg:py-32 border-b border-slate-200">
         {/* Background Overlay */}
-        <div className="absolute inset-0 z-0 opacity-75">
+        <div className="absolute inset-0 z-0">
           <Image
             src="/partners/europe-jv-hero.png"
             alt="Europe Joint Venture Hero"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center opacity-90"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-white/70 to-slate-50/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/20 to-slate-50/40"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/40 text-amber-800 text-xs md:text-sm font-semibold tracking-widest uppercase backdrop-blur-md">
-              <Award className="w-4 h-4 text-amber-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00558a]/10 border border-[#00558a]/30 text-[#00558a] text-xs md:text-sm font-semibold tracking-widest uppercase backdrop-blur-md">
+              <Award className="w-4 h-4 text-[#00558a]" />
               <span>International Division Partnership</span>
             </div>
 
@@ -175,7 +175,7 @@ export default function EuropeJVContent() {
               PROJECT: EUROPE DIVISION
             </h1>
 
-            <div className="text-xl md:text-3xl font-serif text-amber-700 font-bold tracking-wide">
+            <div className="text-xl md:text-3xl font-serif text-[#00558a] font-bold tracking-wide">
               A JOINT INITIATIVE
             </div>
 
@@ -186,17 +186,17 @@ export default function EuropeJVContent() {
             <div className="pt-8 flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => setIsEnquiryOpen(true)}
-                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
+                className="px-8 py-4 bg-[#00558a] hover:bg-[#00406c] text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2"
               >
                 <MessageSquare className="w-5 h-5" />
                 <span>Send Joint Venture Inquiry</span>
               </button>
               <a
                 href="#capabilities"
-                className="px-8 py-4 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-sm transition-all duration-300 flex items-center gap-2"
+                className="px-8 py-4 bg-white hover:bg-slate-100 text-slate-800 font-bold rounded-xl border border-slate-300 shadow-sm transition-all duration-300 flex items-center gap-2"
               >
                 <span>Explore Capabilities</span>
-                <ArrowRight className="w-4 h-4 text-amber-600" />
+                <ArrowRight className="w-4 h-4 text-[#00558a]" />
               </a>
             </div>
           </div>
@@ -206,17 +206,12 @@ export default function EuropeJVContent() {
       {/* Main Partnership Showcase: KonkanArabia x Eva Pérez */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-12">
-          <div className="bg-gradient-to-br from-amber-50 via-white to-amber-100/60 rounded-3xl p-8 md:p-14 text-slate-900 shadow-xl relative overflow-hidden border border-amber-200">
-            {/* Background Accent Graphics */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
-
+          <div className="bg-slate-50 rounded-3xl p-8 md:p-14 text-slate-900 shadow-lg relative overflow-hidden border border-slate-200">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
               {/* Partner Card / Photo */}
               <div className="lg:col-span-5 flex flex-col items-center text-center">
                 <div className="relative group">
-                  {/* Decorative frame ring */}
-                  <div className="absolute -inset-2 bg-gradient-to-tr from-amber-400 via-amber-300 to-amber-500 rounded-full blur-sm opacity-75 group-hover:opacity-100 transition duration-500"></div>
-                  <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                  <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-xl">
                     <Image
                       src="/partners/eva-perez-portrait.png"
                       alt="Eva Pérez - Joint Venture Partner"
@@ -227,21 +222,21 @@ export default function EuropeJVContent() {
                 </div>
 
                 <div className="mt-6 space-y-2">
-                  <span className="inline-block px-3 py-1 bg-amber-500/20 text-amber-800 text-xs font-bold rounded-full tracking-wider uppercase border border-amber-300">
+                  <span className="inline-block px-3 py-1 bg-[#00558a]/10 text-[#00558a] text-xs font-bold rounded-full tracking-wider uppercase border border-[#00558a]/20">
                     Joint Venture Partner
                   </span>
                   <h3 className="text-3xl font-serif font-bold text-slate-900 tracking-wide">
                     EVA PÉREZ
                   </h3>
-                  <div className="text-amber-800 text-sm font-bold tracking-wide">
+                  <div className="text-[#00558a] text-sm font-bold tracking-wide">
                     VISIONARY FOUNDER & LEAD TRAVEL DESIGNER
                   </div>
                 </div>
 
                 {/* Travel Studio Badge */}
-                <div className="mt-6 bg-white rounded-2xl p-4 border border-amber-300 flex items-center justify-center w-full max-w-xs shadow-md">
+                <div className="mt-6 bg-white rounded-2xl p-4 border border-slate-200 flex items-center justify-center w-full max-w-xs shadow-sm">
                   <div className="text-center">
-                    <span className="text-[10px] text-amber-700 tracking-widest uppercase font-bold block">
+                    <span className="text-[10px] text-[#00558a] tracking-widest uppercase font-bold block">
                       Partner Brand
                     </span>
                     <span className="text-lg font-serif font-bold tracking-wider text-slate-900">
@@ -254,8 +249,8 @@ export default function EuropeJVContent() {
 
               {/* Story & Description */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center gap-2 text-amber-700 font-bold text-sm tracking-wider uppercase">
-                  <Globe className="w-4 h-4 text-amber-600" />
+                <div className="inline-flex items-center gap-2 text-[#00558a] font-bold text-sm tracking-wider uppercase">
+                  <Globe className="w-4 h-4 text-[#00558a]" />
                   <span>Strategic Expansion & Global Excellence</span>
                 </div>
 
@@ -268,12 +263,12 @@ export default function EuropeJVContent() {
                 </p>
 
                 {/* Quote Box */}
-                <div className="bg-amber-50 rounded-2xl p-6 border-l-4 border-amber-500 relative shadow-sm">
-                  <Quote className="w-8 h-8 text-amber-500/20 absolute top-4 right-4" />
-                  <p className="text-amber-950 font-serif italic text-base md:text-lg relative z-10 font-medium">
+                <div className="bg-white rounded-2xl p-6 border-l-4 border-[#00558a] border border-slate-200 relative shadow-sm">
+                  <Quote className="w-8 h-8 text-[#00558a]/20 absolute top-4 right-4" />
+                  <p className="text-slate-900 font-serif italic text-base md:text-lg relative z-10 font-medium">
                     &ldquo;Dedicated to crafting unforgettable journeys, connecting cultures, and creating memories.&rdquo;
                   </p>
-                  <p className="text-xs text-slate-600 font-bold uppercase tracking-wider mt-3">
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-3">
                     — A Message from Eva Pérez
                   </p>
                 </div>
