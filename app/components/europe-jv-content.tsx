@@ -102,34 +102,40 @@ export default function EuropeJVContent() {
 
   const hubMarkets = [
     {
-      name: "Madrid, Spain",
+      name: "Spain",
       role: "European Headquarters",
-      img: "/partners/hub-madrid.png",
-      description: "Strategic hub connecting Western Europe & Latin America with premium Asian & Global experiences."
+      img: "/partners/hub-spain.png",
+      description: "Strategic hub in Madrid & Barcelona connecting Western Europe with premium global & Asian travel."
     },
     {
-      name: "Warsaw, Poland",
-      role: "Upcoming Central European Hub",
-      img: "/partners/hub-warsaw.png",
-      description: "Expanding gateway serving Eastern & Central Europe with personalized travel concierge services."
+      name: "Poland",
+      role: "Central European Hub",
+      img: "/partners/hub-poland.png",
+      description: "Warsaw & Krakow gateway offering rich Central European heritage & bespoke travel concierge services."
     },
     {
-      name: "London, UK",
-      role: "Global Gateway Market",
-      img: "/partners/hub-london.png",
-      description: "Key international origin for bespoke cultural journeys and luxury wellness retreats."
+      name: "Italy",
+      role: "Heritage & Luxury Hub",
+      img: "/partners/hub-italy.png",
+      description: "Rome, Venice & Tuscany curated journeys, coastal luxury villas, and Mediterranean retreats."
     },
     {
-      name: "Santorini & Mediterranean",
-      role: "Luxury & Honeymoon Hub",
-      img: "/partners/hub-santorini.png",
-      description: "Unrivaled romantic escapes, coastal cruises, and Mediterranean luxury villas."
+      name: "Hungary",
+      role: "Danube & Cultural Hub",
+      img: "/partners/hub-hungary.png",
+      description: "Budapest thermal spa retreats, scenic Danube river cruises, and Eastern European imperial heritage."
     },
     {
-      name: "Bavaria & Central Europe",
-      role: "Heritage & Expedition Hub",
-      img: "/partners/hub-bavaria.png",
-      description: "Alpine wellness, fairy-tale castles, and rich cultural heritage tour operations."
+      name: "Switzerland",
+      role: "Alpine & Wellness Hub",
+      img: "/partners/hub-switzerland.png",
+      description: "Zurich & Alpine luxury chalets, scenic mountain railways, and world-class wellness escapes."
+    },
+    {
+      name: "France",
+      role: "Art & Gastronomy Hub",
+      img: "/partners/hub-france.png",
+      description: "Parisian romantic escapes, French Riviera yacht chartering, and bespoke gourmet wine tours."
     }
   ];
 
@@ -490,7 +496,7 @@ export default function EuropeJVContent() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6">
             {hubMarkets.map((hub, idx) => (
               <div
                 key={idx}
