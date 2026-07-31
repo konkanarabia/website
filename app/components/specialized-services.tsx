@@ -44,21 +44,21 @@ export default async function SpecializedServices() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center mb-16 text-center">
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
-            <span className="text-[#0066a1] font-bold tracking-[0.3em] uppercase text-xs sm:text-sm animate-fade-in font-sans">
+            <div className="h-[1px] w-8 bg-amber-500/40"></div>
+            <span className="text-amber-700 font-bold tracking-[0.3em] uppercase text-xs sm:text-sm animate-fade-in font-sans">
               <TranslatedText text="Our Extensions" />
             </span>
-            <div className="h-[1px] w-8 bg-[#0066a1]/30"></div>
+            <div className="h-[1px] w-8 bg-amber-500/40"></div>
           </div>
           
           <h2 className="text-4xl md:text-6xl font-serif font-black text-slate-900 mb-8 tracking-tight leading-tight">
-            <TranslatedText text='Hospitality, <span className="text-[#0066a1]">Food & Beverages</span>' isHtml />
+            <TranslatedText text='Hospitality, <span className="text-amber-600">Food & Beverages</span>' isHtml />
           </h2>
 
           <div className="w-full max-w-lg relative group">
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-[#0066a1]/20 to-transparent"></div>
-            <div className="relative inline-block px-12 py-6 bg-white shadow-xl shadow-blue-900/5 rounded-3xl border border-slate-100">
-               <div className="text-[10px] sm:text-xs font-bold text-[#0066a1] uppercase tracking-[0.2em] mb-3 opacity-80 font-sans">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+            <div className="relative inline-block px-12 py-6 bg-white shadow-xl shadow-slate-900/5 rounded-3xl border border-slate-100">
+               <div className="text-[10px] sm:text-xs font-bold text-amber-700 uppercase tracking-[0.2em] mb-3 opacity-80 font-sans">
                 <TranslatedText text="Our Managed Units" />
               </div>
               <div className="text-xl sm:text-2xl font-serif font-bold text-slate-800 tracking-tight leading-relaxed">
@@ -74,7 +74,7 @@ export default async function SpecializedServices() {
               key={`${service.type}-${service.id}`}
               className={`transition-all duration-700 scroll-mt-24`}
             >
-              <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-blue-900/15 transition-all duration-500 bg-white rounded-3xl">
+              <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-slate-900/10 transition-all duration-500 bg-white rounded-3xl">
                 <div className="relative h-80 overflow-hidden">
                   <Image
                     src={service.image || '/placeholder.svg'}
@@ -83,11 +83,11 @@ export default async function SpecializedServices() {
                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
-                  <div className="absolute top-6 left-6 p-3 bg-white/95 backdrop-blur-sm rounded-2xl text-[#0066a1] shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <div className="absolute top-6 left-6 p-3 bg-white/95 backdrop-blur-sm rounded-2xl text-amber-600 shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
                     {service.icon}
                   </div>
                   <div className="absolute bottom-6 left-8 right-8">
-                    <h4 className="text-white/90 font-bold text-xs mb-2 uppercase tracking-[0.15em]">
+                    <h4 className="text-amber-400 font-bold text-xs mb-2 uppercase tracking-[0.15em]">
                       <TranslatedText text={service.title} />
                     </h4>
                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
@@ -104,7 +104,7 @@ export default async function SpecializedServices() {
                     {service.features?.map((feature: string, i: number) => (
                       <span 
                         key={i} 
-                        className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-500 rounded-xl group-hover:bg-[#0066a1] group-hover:text-white transition-all duration-300 border border-slate-100 uppercase tracking-wider"
+                        className="text-[11px] font-bold px-4 py-2 bg-slate-50 text-slate-600 rounded-xl group-hover:bg-slate-900 group-hover:text-amber-400 transition-all duration-300 border border-slate-100 uppercase tracking-wider"
                       >
                         <TranslatedText text={feature} />
                       </span>
@@ -112,7 +112,7 @@ export default async function SpecializedServices() {
                   </div>
  
                   <Link href={service.link} className="inline-block w-full">
-                    <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-900/20 active:scale-[0.98]">
+                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 hover:text-amber-300 py-6 rounded-2xl text-lg font-bold group/btn flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-slate-900/10 active:scale-[0.98]">
                       <TranslatedText text="View Details" />
                       <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Button>

@@ -14,12 +14,12 @@ export default function DestinationsPage() {
     <main className="bg-white min-h-screen pt-24 pb-20">
       <div className="container mx-auto px-4 mb-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm font-bold tracking-wide uppercase mb-6">
-            <Sparkles className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 text-amber-700 border border-amber-300/60 rounded-full text-sm font-bold tracking-wide uppercase mb-6">
+            <Sparkles className="w-4 h-4 text-amber-600" />
             Curated Experiences
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter">
-            Handpicked <span className="text-[#0066a1]">Journeys</span>
+          <h1 className="text-5xl md:text-7xl font-serif font-black text-slate-900 mb-8 tracking-tighter">
+            Handpicked <span className="text-amber-600">Journeys</span>
           </h1>
           <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-3xl mx-auto">
             From the mystical valleys of Japan to the sun-kissed sands of the Konkan coast. 

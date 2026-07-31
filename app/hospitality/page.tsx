@@ -20,7 +20,7 @@ export default async function HospitalityPage() {
         title="Hospitality & Stays"
         description="Experience a stay that feels like home. Our managed resorts and hotels offer the perfect blend of natural beauty, local culture, and modern premium amenities."
         icon="Hotel"
-        accentColor="text-blue-600"
+        accentColor="text-amber-600"
       />
     </main>
   );

@@ -69,7 +69,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
         <div className="absolute left-1/2 -bottom-20 sm:-bottom-12 -translate-x-1/2 w-full max-w-4xl px-4 z-20">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-slate-100 py-4 sm:py-6 px-4 md:px-10">
             <div className="flex-1 p-4 sm:px-8 flex items-center gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-700 shrink-0">
                 <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
@@ -78,7 +78,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
               </div>
             </div>
             <div className="flex-1 p-4 sm:px-8 flex items-center gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0066a1]/10 flex items-center justify-center text-[#0066a1] shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-700 shrink-0">
                 <Pin className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
@@ -95,7 +95,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <div className="mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Explore <span className="text-[#0066a1]"><TranslatedText text={destination.name} /></span></h2>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">Explore <span className="text-amber-600"><TranslatedText text={destination.name} /></span></h2>
               <TranslatedText
                 text={destination.details}
                 isHtml={true}
@@ -105,8 +105,8 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
             
             <div className="mb-12">
               <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                <span className="w-8 h-8 rounded-lg bg-[#0066a1]/10 flex items-center justify-center mr-3">
-                  <CheckCircle2 className="h-5 w-5 text-[#0066a1]" />
+                <span className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center mr-3">
+                  <CheckCircle2 className="h-5 w-5 text-amber-600" />
                 </span>
                 Experience Highlights
               </h3>
@@ -114,8 +114,8 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
               {(destination.highlights && destination.highlights.length > 0 ? destination.highlights : [
                   "Experience the local culture and traditions",
                 ]).map((highlight: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm transition-all hover:border-[#0066a1]/20">
-                    <div className="w-2 h-2 rounded-full bg-[#0066a1] shrink-0"></div>
+                  <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm transition-all hover:border-amber-500/30">
+                    <div className="w-2 h-2 rounded-full bg-amber-500 shrink-0"></div>
                     <span className="text-slate-700 font-medium"><TranslatedText text={highlight} /></span>
                   </div>
                 ))}
@@ -123,33 +123,31 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
             </div>
 
             {/* Inclusions & Exclusions */}
-            {(destination.inclusions?.length > 0 || destination.exclusions?.length > 0) && (
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                {destination.inclusions && destination.inclusions.length > 0 && (
-                  <div className="bg-emerald-50/50 rounded-2xl p-6 border border-emerald-100">
-                    <h3 className="text-xl font-bold mb-4 flex items-center text-emerald-800">
-                      <CheckCircle2 className="mr-2 h-5 w-5 text-emerald-600" /> Inclusions
-                    </h3>
-                    <ul className="space-y-3">
-                      {destination.inclusions.map((item: string, index: number) => (
-                        <li key={index} className="flex items-start text-sm text-emerald-800/80 font-medium">
-                          <CheckCircle2 className="mr-2 h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
-                          <TranslatedText text={item} />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {destination.exclusions && destination.exclusions.length > 0 && (
-                  <div className="bg-red-50/50 rounded-2xl p-6 border border-red-100">
-                    <h3 className="text-xl font-bold mb-4 flex items-center text-red-800">
-                      <XCircle className="mr-2 h-5 w-5 text-red-600" /> Exclusions
-                    </h3>
-                    <ul className="space-y-3">
-                      {destination.exclusions.map((item: string, index: number) => (
-                        <li key={index} className="flex items-start text-sm text-red-800/80 font-medium">
-                          <XCircle className="mr-2 h-4 w-4 text-red-400 mt-0.5 shrink-0" />
-                          <TranslatedText text={item} />
+            {destination.inclusions && (
+              <div className="grid sm:grid-cols-2 gap-6 mb-12">
+                <div className="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100">
+                  <h4 className="font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" /> What's Included
+                  </h4>
+                  <ul className="space-y-2 text-sm text-emerald-800 font-medium">
+                    {destination.inclusions.map((inc: string, i: number) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-emerald-500 font-bold">•</span>
+                        <TranslatedText text={inc} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {destination.exclusions && (
+                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                      <span className="text-slate-400 font-bold">✕</span> Exclusions
+                    </h4>
+                    <ul className="space-y-2 text-sm text-slate-600 font-medium">
+                      {destination.exclusions.map((exc: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-slate-400">•</span>
+                          <TranslatedText text={exc} />
                         </li>
                       ))}
                     </ul>
@@ -162,13 +160,13 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
             {destination.itinerary && destination.itinerary.length > 0 && (
               <div className="mb-12">
                 <h3 className="text-2xl font-bold mb-8 flex items-center">
-                  <Clock className="mr-3 h-6 w-6 text-[#0066a1]" /> Tour Itinerary
+                  <Clock className="mr-3 h-6 w-6 text-amber-600" /> Tour Itinerary
                 </h3>
                 <div className="space-y-6 sm:space-y-8 relative before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
                   {destination.itinerary.map((item: any, index: number) => (
                     <div key={index} className="relative pl-10 sm:pl-12">
-                      <div className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border-4 border-[#0066a1] flex items-center justify-center z-10">
-                        <span className="text-[10px] sm:text-xs font-bold text-[#0066a1]">{item.day}</span>
+                      <div className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border-4 border-amber-500 flex items-center justify-center z-10">
+                        <span className="text-[10px] sm:text-xs font-bold text-amber-800">{item.day}</span>
                       </div>
                       <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
                         <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2">Day {item.day}: <TranslatedText text={item.title} /></h4>
@@ -196,11 +194,11 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
                   </p>
                   <div className="flex flex-col space-y-3">
                     <div className="flex items-center p-3 bg-slate-50 rounded-xl">
-                      <PhoneCall className="h-4 w-4 text-[#0066a1] mr-3" />
+                      <PhoneCall className="h-4 w-4 text-amber-600 mr-3" />
                       <span className="font-bold text-xs text-slate-900">+91-9370528517</span>
                     </div>
                     <div className="flex items-center p-3 bg-slate-50 rounded-xl">
-                      <PhoneCall className="h-4 w-4 text-[#0066a1] mr-3" />
+                      <PhoneCall className="h-4 w-4 text-amber-600 mr-3" />
                       <span className="font-bold text-xs text-slate-900">+971-555995260</span>
                     </div>
                   </div>
@@ -208,7 +206,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
 
                 <div className="space-y-4">
                   <Link href="/contact" passHref>
-                    <Button className="w-full bg-[#0066a1] hover:bg-[#00558a] text-white py-6 rounded-2xl font-bold shadow-lg shadow-blue-900/10">Enquire Now</Button>
+                    <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-6 rounded-2xl font-bold shadow-lg shadow-amber-500/20">Enquire Now</Button>
                   </Link>
                   <Link href="/destinations" passHref>
                     <Button variant="outline" className="w-full border-slate-200 text-slate-600 py-6 rounded-2xl font-bold">Explore More</Button>
@@ -230,7 +228,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
         <ReviewSection destinationId={Number(id)} reviews={reviews} />
 
         <div className="mt-16 text-center">
-            <Link href="/destinations" className="inline-flex items-center text-[#0066a1] font-bold hover:underline transition-all">
+            <Link href="/destinations" className="inline-flex items-center text-amber-700 font-bold hover:underline transition-all">
                 <ArrowLeft className="h-4 w-4 mr-2" /> Back to all destinations
             </Link>
         </div>

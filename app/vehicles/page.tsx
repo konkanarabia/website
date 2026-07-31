@@ -20,7 +20,7 @@ export default async function VehiclesPage() {
         title="Vehicle Rental"
         description="Experience the journey as much as the destination. We offer a curated fleet of premium vehicles for every travel requirement—from executive transfers to family group tours."
         icon="Car"
-        accentColor="text-blue-600"
+        accentColor="text-amber-600"
       />
     </main>
   );
