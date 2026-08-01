@@ -120,10 +120,10 @@ export default function EuropeJVContent() {
       description: "Rome, Venice & Tuscany curated journeys, coastal luxury villas, and Mediterranean retreats."
     },
     {
-      name: "Hungary",
-      role: "Danube & Cultural Hub",
-      img: "/partners/hub-hungary.png",
-      description: "Budapest thermal spa retreats, scenic Danube river cruises, and Eastern European imperial heritage."
+      name: "Africa & Safaris",
+      role: "African Safari & Wildlife Hub",
+      img: "/partners/hub-africa.png",
+      description: "Wild game safaris across Kenya & Tanzania, Victoria Falls, luxury Serengeti lodges, and South African coastal tours."
     },
     {
       name: "Switzerland",
@@ -168,20 +168,25 @@ export default function EuropeJVContent() {
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs md:text-sm font-bold tracking-widest uppercase backdrop-blur-md shadow-md">
               <Award className="w-4 h-4 text-amber-400" />
-              <span>International Division Partnership</span>
+              <span>Connecting Continents | Uniting Authentic Travel Experiences</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-white leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-              PROJECT: EUROPE DIVISION
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-extrabold tracking-tight text-white leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+              CONNECTING CONTINENTS & BRINGING THE WORLD TOGETHER!
             </h1>
 
-            <div className="text-xl md:text-3xl font-serif text-amber-400 font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
-              A JOINT INITIATIVE
+            <div className="text-lg md:text-2xl font-serif text-amber-400 font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] uppercase">
+              A STRATEGIC GLOBAL JOINT INITIATIVE
             </div>
 
-            <p className="text-base md:text-xl text-slate-100 font-medium leading-relaxed max-w-3xl mx-auto pt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
-              <TranslatedText text="KonkanArabia Holidays is proud to present a joint expansion project with our trusted European Partner, Eva Pérez and her Travel Studio. This strategic collaboration is focused on establishing a comprehensive, premier Destination Management Company (DMC) with a special focus on authentic experiences." />
-            </p>
+            <div className="space-y-4 text-base md:text-lg text-slate-100 font-medium leading-relaxed max-w-3xl mx-auto pt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <p>
+                <TranslatedText text="In partnership with Eva Pérez and Travel Studio, KonkanArabia Holidays introduces a dedicated European Expansion Initiative. Engineered to establish a world-class travel network, this strategic joint venture delivers tailored luxury itineraries, rich cultural connections, and dedicated local support for every journey." />
+              </p>
+              <p className="text-amber-200 font-semibold">
+                <TranslatedText text="By uniting our strengths, we set a new benchmark in personalized travel design—effortlessly bridging destinations across Europe, the Middle East, Africa, and Asia." />
+              </p>
+            </div>
 
             <div className="pt-8 flex flex-wrap justify-center gap-4">
               <button
@@ -423,7 +428,7 @@ export default function EuropeJVContent() {
                     <Globe className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-semibold text-slate-900 block">SERVICE AREA & MARKETS</span>
-                      <span>Europe | Primary Markets (Spain, Poland, UK, Central Europe, India, UAE)</span>
+                      <span className="font-bold text-amber-800">Europe | UAE & Middle East | Africa | India & South East Asia</span>
                     </div>
                   </div>
 
@@ -479,14 +484,14 @@ export default function EuropeJVContent() {
         <div className="container mx-auto px-4 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <span className="text-amber-800 font-bold text-xs uppercase tracking-widest bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300">
-              European Network
+              Global Regional Network
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900">
               EXPANSION HUB MARKETS: AUTHENTIC EXPERIENCES
             </h2>
             <div className="w-20 h-1 bg-amber-500 mx-auto rounded-full"></div>
             <p className="text-slate-600 text-base md:text-lg font-medium">
-              Connecting Europe with authentic cultural and luxury travel destinations.
+              Connecting Europe | UAE & Middle East | Africa | India & South East Asia with authentic luxury travel experiences.
             </p>
           </div>
 
