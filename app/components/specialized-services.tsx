@@ -49,7 +49,7 @@ export default async function SpecializedServices() {
     image: '/services/mumbai-to-malabar-express.jpg',
     features: ['Franchise Model', 'QSR & Fine Dine', 'Coastal Cuisine', 'High ROI'],
     icon: <Store className="w-6 h-6" />,
-    link: '/franchise.html'
+    link: '/franchise'
   });
 
   return (

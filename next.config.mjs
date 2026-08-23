@@ -42,6 +42,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/franchise.html',
+        destination: '/franchise',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 mergeConfig(nextConfig, userConfig);
