@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Utensils, Hotel, ArrowRight } from "lucide-react";
+import { Utensils, Hotel, ArrowRight, Store } from "lucide-react";
 import Link from "next/link";
 import dbConnect from "@/lib/mongodb";
 import TranslatedText from "@/components/TranslatedText";
@@ -39,6 +39,19 @@ export default async function SpecializedServices() {
     });
   }
 
+  // Mumbai to Malabar Food Express franchise opportunity card
+  services.push({
+    id: 'mumbai-to-malabar-express',
+    type: 'franchise',
+    name: 'Mumbai to Malabar Food Express',
+    title: 'Franchise & Business Opportunity',
+    description: 'A premier culinary concept celebrating authentic coastal flavors from CST Mumbai to Malabar Kerala. Multi-format franchise & investment opportunities across India, UAE & SE Asia.',
+    image: '/services/mumbai-to-malabar-express.jpg',
+    features: ['Franchise Model', 'QSR & Fine Dine', 'Coastal Cuisine', 'High ROI'],
+    icon: <Store className="w-6 h-6" />,
+    link: '/franchise.html'
+  });
+
   return (
     <section id="hospitality-dining" className="py-24 bg-slate-50 overflow-hidden scroll-mt-20">
       <div className="container mx-auto px-4">
@@ -68,7 +81,7 @@ export default async function SpecializedServices() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.map((service: any, index) => (
             <div
               key={`${service.type}-${service.id}`}

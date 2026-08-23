@@ -79,6 +79,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/franchise.html"
+                  className="text-slate-600 hover:text-amber-600 font-medium transition-colors duration-300 flex items-center"
+                >
+                  <span className="mr-2 text-amber-500">→</span> Franchise Opportunities
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact"
                   className="text-slate-600 hover:text-amber-600 font-medium transition-colors duration-300 flex items-center"
                 >

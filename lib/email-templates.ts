@@ -307,3 +307,119 @@ export function travelEnquiryCustomerEmail(input: TravelEnquiryTemplateInput): {
     html: layout({ title: 'We received your enquiry', preheader: dest, innerHtml: inner }),
   };
 }
+
+export type FranchiseEnquiryTemplateInput = {
+  fname: string;
+  company?: string;
+  email: string;
+  phone: string;
+  country: string;
+  itype: string;
+  format: string;
+  budget?: string;
+  message?: string;
+};
+
+export function franchiseEnquiryAdminEmail(input: FranchiseEnquiryTemplateInput): {
+  subject: string;
+  text: string;
+  html: string;
+} {
+  const safeName = input.fname.trim();
+  const subject = `[Franchise Enquiry] ${safeName} — ${input.format || 'Mumbai to Malabar'}`;
+
+  const rows: Array<[string, string]> = [
+    ['Investor / Lead Name', escapeHtml(safeName)],
+    ['Email', `<a href="mailto:${escapeHtml(input.email.trim())}" style="color:${COLORS.headerBg};">${escapeHtml(input.email.trim())}</a>`],
+    ['Phone / WhatsApp', `<a href="tel:${escapeHtml(input.phone.trim())}" style="color:${COLORS.headerBg};">${escapeHtml(input.phone.trim())}</a>`],
+    ['Company / Organisation', escapeHtml(input.company?.trim() || 'Individual')],
+    ['Country / Region', escapeHtml(input.country?.trim() || 'Not specified')],
+    ['Investor Profile', escapeHtml(input.itype?.trim() || 'Not specified')],
+    ['Preferred Format', escapeHtml(input.format?.trim() || 'Not specified')],
+    ['Investment Budget', escapeHtml(input.budget?.trim() || 'Not specified')],
+  ];
+
+  const text = [
+    `${BRAND_NAME} — Mumbai to Malabar Food Express Franchise Enquiry`,
+    '',
+    `Name: ${safeName}`,
+    `Email: ${input.email.trim()}`,
+    `Phone: ${input.phone.trim()}`,
+    `Company: ${input.company?.trim() || 'Individual'}`,
+    `Country / Region: ${input.country?.trim() || 'Not specified'}`,
+    `Investor Profile: ${input.itype?.trim() || 'Not specified'}`,
+    `Preferred Format: ${input.format?.trim() || 'Not specified'}`,
+    `Investment Budget: ${input.budget?.trim() || 'Not specified'}`,
+    ...(input.message?.trim() ? ['', 'Message:', input.message.trim()] : []),
+    '',
+    `— Submitted via ${SITE_URL}/franchise.html`,
+  ].join('\n');
+
+  const inner = `
+    <p style="margin:0 0 16px;color:${COLORS.muted};">A new franchise / partner enquiry has been submitted for <strong>Mumbai to Malabar Food Express</strong>.</p>
+    ${detailsTable(rows)}
+    ${
+      input.message?.trim()
+        ? `<p style="margin:24px 0 8px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:${COLORS.muted};">Message / Notes</p>
+           <div style="margin:0;padding:16px;background:#f8fafc;border-radius:8px;border:1px solid ${COLORS.border};font-size:14px;line-height:1.6;">${nl2br(input.message.trim())}</div>`
+        : ''
+    }
+  `;
+
+  return {
+    subject,
+    text,
+    html: layout({
+      title: 'New Franchise Enquiry — Mumbai to Malabar Express',
+      preheader: `Franchise lead: ${safeName} (${input.format || 'Express'})`,
+      innerHtml: inner,
+    }),
+  };
+}
+
+export function franchiseEnquiryUserConfirmation(input: {
+  fname: string;
+  format?: string;
+}): { subject: string; text: string; html: string } {
+  const name = input.fname.trim();
+  const subject = 'Thank you for your interest in Mumbai to Malabar Food Express';
+
+  const text = [
+    `Dear ${name},`,
+    '',
+    `Thank you for expressing interest in the Mumbai to Malabar Food Express franchise opportunity by ${BRAND_NAME}.`,
+    '',
+    'Our business development and franchise partnerships team has received your enquiry. We will review your profile and preferred format and get back to you with the franchise prospectus and financial overview.',
+    '',
+    'If you have urgent questions, feel free to reply to this email or reach us on WhatsApp at +91 9370528517 / +971 557337618.',
+    '',
+    'Kind regards,',
+    'Franchise & Business Development Team',
+    BRAND_NAME,
+    '',
+    SITE_URL,
+  ].join('\n');
+
+  const inner = `
+    <p style="margin:0 0 12px;">Dear ${escapeHtml(name)},</p>
+    <p style="margin:0 0 12px;">Thank you for your interest in partnering with <strong>Mumbai to Malabar Food Express</strong>, an authentic coastal culinary brand powered by <strong>${escapeHtml(BRAND_NAME)}</strong>.</p>
+    <p style="margin:0 0 20px;padding:14px 16px;background:${COLORS.accentBg};border-radius:8px;border-left:4px solid ${COLORS.headerBg};font-size:14px;">
+      Our Franchise & Business Development team has received your details and will get in touch with you shortly with our detailed <strong>Franchise Prospectus & Investment Deck</strong>.
+    </p>
+    <p style="margin:0 0 12px;font-size:14px;color:${COLORS.muted};">
+      Need immediate assistance? You can connect with our team on WhatsApp / Phone at <strong>+91-9370528517</strong> (India) or <strong>+971-557337618</strong> (UAE/International).
+    </p>
+    <p style="margin:24px 0 0;">Kind regards,<br /><strong>Franchise Partnerships Team</strong><br />${escapeHtml(BRAND_NAME)}</p>
+  `;
+
+  return {
+    subject,
+    text,
+    html: layout({
+      title: 'Welcome to Mumbai to Malabar Food Express',
+      preheader: 'Your franchise enquiry has been received',
+      innerHtml: inner,
+    }),
+  };
+}
+

@@ -15,6 +15,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     dining_restaurants: "Dining & Restaurants",
     europe_jv: "Europe Joint Venture",
     
+    franchise: "Franchise",
+    partner_with_us: "Partner With Us",
+    franchise_opportunities: "Franchise Opportunities",
     // Layout
     slogan1: "Hospitality is our passion & culture",
     slogan2: "Hospitality & Holiday Management Group",
@@ -83,6 +86,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Hostelería y Estancias",
     dining_restaurants: "Cena y Restaurantes",
     
+    franchise: "Franquicia",
+    partner_with_us: "Asóciese con Nosotros",
+    franchise_opportunities: "Oportunidades de Franquicia",
     // Layout
     slogan1: "La hospitalidad es nuestra pasión y cultura",
     slogan2: "Grupo de Gestión de Hostelería y Vacaciones",
@@ -151,6 +157,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Hébergement & Séjours",
     dining_restaurants: "Restauration",
     
+    franchise: "Franchise",
+    partner_with_us: "Devenez Partenaire",
+    franchise_opportunities: "Opportunités de Franchise",
     // Layout
     slogan1: "L'hospitalité est notre passion & notre culture",
     slogan2: "Groupe de Gestion d'Hébergement & de Vacances",
@@ -219,6 +228,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Gastgewerbe & Unterkünfte",
     dining_restaurants: "Gastronomie & Restaurants",
     
+    franchise: "Franchise",
+    partner_with_us: "Partner Werden",
+    franchise_opportunities: "Franchise-Möglichkeiten",
     // Layout
     slogan1: "Gastfreundschaft ist unsere Leidenschaft & Kultur",
     slogan2: "Gastgewerbe- & Urlaubsmanagementgruppe",
@@ -287,6 +299,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Hospedagem e Estadias",
     dining_restaurants: "Jantares e Restaurantes",
     
+    franchise: "Franquia",
+    partner_with_us: "Seja Nosso Parceiro",
+    franchise_opportunities: "Oportunidades de Franquia",
     // Layout
     slogan1: "A hospitalidade é a nossa paixão e cultura",
     slogan2: "Grupo de Gestão de Hospedagem e Férias",
@@ -355,6 +370,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "आतिथ्य और ठहराव",
     dining_restaurants: "भोजन और रेस्तरां",
     
+    franchise: "फ़्रैंचाइज़ी",
+    partner_with_us: "हमारे साथ जुड़ें",
+    franchise_opportunities: "फ़्रैंचाइज़ी के अवसर",
     // Layout
     slogan1: "आतिथ्य हमारा जुनून और संस्कृति है",
     slogan2: "आतिथ्य एवं अवकाश प्रबंधन समूह",
@@ -423,6 +441,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "الضيافة والإقامة",
     dining_restaurants: "المطاعم والمأكولات",
     
+    franchise: "الامتياز التجاري",
+    partner_with_us: "شارك معنا",
+    franchise_opportunities: "فرص الامتياز التجاري",
     // Layout
     slogan1: "الضيافة هي شغفنا وثقافتنا",
     slogan2: "مجموعة الضيافة وإدارة العطلات",
@@ -491,6 +512,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Проживание и гостеприимство",
     dining_restaurants: "Рестораны",
 
+    franchise: "Франшиза",
+    partner_with_us: "Партнерство",
+    franchise_opportunities: "Возможности франшизы",
     // Layout
     slogan1: "Гостеприимство — наша страсть и культура",
     slogan2: "Группа управления гостеприимством и отдыхом",
@@ -559,6 +583,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "אירוח ולינה",
     dining_restaurants: "מסעדות",
 
+    franchise: "זכיינות",
+    partner_with_us: "הצטרפו כשותפים",
+    franchise_opportunities: "הזדמנויות זכיינות",
     // Layout
     slogan1: "אירוח הוא התשוקה והתרבות שלנו",
     slogan2: "קבוצת ניהול אירוח ונופש",
