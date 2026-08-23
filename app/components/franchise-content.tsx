@@ -302,6 +302,20 @@ export default function FranchiseContent() {
                 <div className="text-xs sm:text-sm text-slate-600 font-semibold">SOP &amp; Supply Support</div>
               </div>
             </div>
+
+            {/* Concept Artwork Showcase */}
+            <div className="pt-8 max-w-4xl mx-auto">
+              <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-900/5 bg-white p-3">
+                <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden">
+                  <Image
+                    src="/services/franchise/mumbai-to-malabar-food-express-journey-t.jpg"
+                    alt="Mumbai to Malabar Food Express — Journey through Indian coastal food culture"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
