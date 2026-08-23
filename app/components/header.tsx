@@ -82,7 +82,7 @@ export default function Header() {
         { name: t('franchise_opportunities'), href: "/franchise" },
       ],
     },
-    { name: t('franchise_opportunities'), href: "/franchise" },
+    { name: t('franchise'), href: "/franchise" },
     { name: t('partners'), href: "/partners" },
     { name: t('europe_jv'), href: "/europe-joint-venture" },
     { name: t('contact'), href: "/contact" },
@@ -145,53 +145,53 @@ export default function Header() {
           isScrolled ? "shadow-sm sticky top-0 z-50 py-0" : "py-1"
         } transition-all duration-300 border-b border-slate-100`}
       >
-        <div className="container mx-auto px-4 flex justify-between items-center relative">
-          <Link href="/" className="flex items-center gap-1 sm:gap-2 group transition-all duration-300">
+        <div className="container mx-auto px-3 sm:px-4 flex justify-between items-center relative max-w-[1536px]">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group transition-all duration-300 flex-shrink-0 mr-2 xl:mr-4">
             <div className="relative flex-shrink-0">
                 <Image
                   src="/logo/KonkanArabia-New-Logo.png"
                   alt="KonkanArabia Logo"
                   width={88}
                   height={88}
-                  className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-16 h-16 sm:w-20 sm:h-20 md:w-[88px] md:h-[88px] object-contain px-1"
+                  className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] xl:w-[82px] xl:h-[82px] object-contain px-1"
                   style={{ height: "auto" }}
                 />
             </div>
-            <div className="flex flex-col justify-center min-w-0">
+            <div className="flex flex-col justify-center flex-shrink-0">
               <div className="flex flex-col items-center sm:items-start">
                 <div className="flex items-center w-full min-w-0">
-                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#00558a]/30"></div>
-                  <span className="px-1 xs:px-2 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] text-[#00558a] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-3 sm:w-6 bg-[#00558a]/30"></div>
+                  <span className="px-1 xs:px-1.5 text-[8px] xs:text-[9px] sm:text-[10px] md:text-[10.5px] text-[#00558a] font-serif italic font-bold tracking-wider whitespace-nowrap leading-none uppercase">
                     {t('slogan1')}
                   </span>
-                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-4 sm:w-8 bg-[#00558a]/30"></div>
+                  <div className="h-[1px] hidden xs:block xs:flex-none xs:w-3 sm:w-6 bg-[#00558a]/30"></div>
                 </div>
                 <div className="flex items-center gap-0.5 leading-none mt-1 sm:mt-0.5">
-                  <span className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-serif font-black text-slate-900 tracking-tight">KonkanArabia</span>
-                  <span className="text-[8px] sm:text-[10px] font-sans font-medium text-amber-600 self-start mt-1">®</span>
+                  <span className="text-base xs:text-lg sm:text-xl md:text-2xl font-serif font-black text-slate-900 tracking-tight whitespace-nowrap">KonkanArabia</span>
+                  <span className="text-[8px] sm:text-[9px] font-sans font-medium text-amber-600 self-start mt-0.5">®</span>
                 </div>
               </div>
               <div className="flex flex-col mt-0.5 min-w-0">
                 <div className="h-[1px] w-full bg-slate-200 rounded-full overflow-hidden">
                     <div className="h-full w-1/3 bg-[#00558a]"></div>
                 </div>
-                <span suppressHydrationWarning className="text-[7px] xxs:text-[8px] sm:text-[9px] md:text-[10px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.05em] sm:tracking-[0.08em] uppercase mt-1 leading-tight sm:leading-none whitespace-nowrap">
+                <span suppressHydrationWarning className="text-[7px] xxs:text-[7.5px] sm:text-[8.5px] md:text-[9.5px] font-sans font-bold text-slate-600 tracking-[0.02em] xs:tracking-[0.04em] sm:tracking-[0.06em] uppercase mt-0.5 leading-tight sm:leading-none whitespace-nowrap">
                   &#123; {t('slogan2')} &#125;
                 </span>
               </div>
             </div>
           </Link>
 
-          <div className="flex items-center justify-end min-w-0 gap-1 lg:gap-3 xl:gap-4">
-            <nav className="hidden lg:block">
-              <ul className="flex items-center gap-1 lg:gap-2">
+          <div className="flex items-center justify-end flex-shrink-0 min-w-0 gap-1.5 xl:gap-3">
+            <nav className="hidden lg:block flex-shrink-0">
+              <ul className="flex items-center gap-0.5 xl:gap-1 2xl:gap-2">
                 {navItems.map((item) => (
                   <li key={item.name} className="relative flex-shrink-0">
                     {item.dropdown ? (
                       <div ref={dropdownRef}>
                         <button
                           onClick={toggleServicesDropdown}
-                          className={`flex items-center text-[12px] lg:text-[13px] xl:text-[15px] font-medium px-2 lg:px-2.5 xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
+                          className={`flex items-center text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                             pathname.startsWith(item.href)
                               ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
                               : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
@@ -199,7 +199,7 @@ export default function Header() {
                         >
                           {item.name}
                           <ChevronDown
-                            className={`ml-1 h-3.5 w-3.5 transition-transform ${
+                            className={`ml-1 h-3 w-3 xl:h-3.5 xl:w-3.5 transition-transform ${
                               isServicesDropdownOpen ? "rotate-180" : ""
                             }`}
                           />
@@ -222,7 +222,7 @@ export default function Header() {
                     ) : (
                       <Link
                         href={item.href}
-                        className={`text-[12px] lg:text-[13px] xl:text-[15px] font-medium px-2 lg:px-2.5 xl:px-3 py-1.5 rounded-lg transition-all block whitespace-nowrap ${
+                        className={`text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all block whitespace-nowrap ${
                           item.href === "/europe-joint-venture"
                             ? pathname === item.href
                               ? "bg-amber-500 text-slate-950 font-bold shadow-sm"
@@ -239,9 +239,9 @@ export default function Header() {
                 ))}
               </ul>
             </nav>
-            <Link href="/enquiry" className="hidden lg:block">
+            <Link href="/enquiry" className="hidden lg:block flex-shrink-0 ml-1">
               <Button
-                className="bg-[#00558a] hover:bg-[#00406c] text-white font-bold px-3 lg:px-4 py-2.5 rounded-lg shadow-md shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-xs lg:text-sm whitespace-nowrap"
+                className="bg-[#00558a] hover:bg-[#00406c] text-white font-bold px-2.5 xl:px-3.5 py-2 rounded-lg shadow-md shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-[11px] xl:text-xs 2xl:text-sm whitespace-nowrap"
               >
                 {t('enquire_now')}
               </Button>
