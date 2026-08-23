@@ -35,7 +35,7 @@ const STATIONS = [
     code: "CST",
     station: "C.S.T. Mumbai",
     state: "Maharashtra",
-    image: "/services/franchise/c-s-t-mumbai-station-board.jpg",
+    image: "/services/franchise/cst-mumbai-food.jpg",
     tagline: "The Bustling Street Flavors of Bombay",
     dishes: ["Bombay Vada Pav & Misal", "Pav Bhaji & Bun Maska", "Coastal Street Chaat", "Cutting Chai & Frankie"],
     color: "from-amber-500 to-orange-600",
@@ -44,7 +44,7 @@ const STATIONS = [
     code: "SND",
     station: "Sindhudurg",
     state: "Konkan Maharashtra",
-    image: "/services/franchise/sindhudurg-konkan-station-board.jpg",
+    image: "/services/franchise/sindhudurg-food.jpg",
     tagline: "Authentic Malvani Coastal Soul",
     dishes: ["Malvani Surmai & Prawn Thali", "Kombdi Vade with Coconut Rassa", "Fresh Solkadhi & Tisrya Masala", "Ukadiche Modak"],
     color: "from-red-500 to-amber-600",
@@ -53,7 +53,7 @@ const STATIONS = [
     code: "MAO",
     station: "Madgaon",
     state: "Goa",
-    image: "/services/franchise/madgaon-goa-station-board.jpg",
+    image: "/services/franchise/madgaon-food.jpg",
     tagline: "Portuguese-Goan Heritage Flavors",
     dishes: ["Authentic Goan Fish Curry Thali", "Prawn Balchão & Xacuti", "Goan Poi Sandwiches", "Bebinca & Dodol Desserts"],
     color: "from-amber-400 to-yellow-600",
@@ -62,7 +62,7 @@ const STATIONS = [
     code: "MAQ",
     station: "Mangaluru",
     state: "Karnataka",
-    image: "/services/franchise/mangaluru-karnataka-station-board.jpg",
+    image: "/services/franchise/mangaluru-food.jpg",
     tagline: "Tulu Coastal Gastronomy & Ghee Roasts",
     dishes: ["Kundapura Chicken & Prawn Ghee Roast", "Neer Dosa with Kori Rotti", "Mangalore Fish Pulimunchi", "Mangalore Buns & Filter Coffee"],
     color: "from-emerald-500 to-teal-600",
@@ -71,7 +71,7 @@ const STATIONS = [
     code: "ERS",
     station: "Ernakulam",
     state: "Kerala",
-    image: "/services/franchise/ernakulam-kerala-station-board.jpg",
+    image: "/services/franchise/ernakulam-food.jpg",
     tagline: "God's Own Country Spice Trail",
     dishes: ["Malabar Porotta & Roast", "Appam with Coconut Milk Stew", "Karimeen Pollichathu (Banana Leaf)", "Thalassery Biryani & Payasam"],
     color: "from-teal-500 to-cyan-600",
@@ -393,22 +393,22 @@ export default function FranchiseContent() {
           </div>
 
           {/* Active Station Card */}
-          <div className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-900/5 p-6 sm:p-10">
+          <div className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-900/5 p-6 sm:p-8">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-              <div className="md:col-span-5 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                <div className="relative w-full max-w-[320px] aspect-[290/250] rounded-xl overflow-hidden bg-slate-50">
+              <div className="md:col-span-5 flex flex-col p-3 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md">
                   <Image
                     src={STATIONS[activeStation].image}
                     alt={STATIONS[activeStation].station}
                     fill
-                    className="object-contain"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
-                <div className="text-center mt-3">
+                <div className="text-center mt-3 pt-1">
                   <span className="text-xs uppercase font-bold tracking-wider text-amber-700">
                     {STATIONS[activeStation].state}
                   </span>
-                  <h4 className="text-2xl font-bold text-slate-900 font-serif">{STATIONS[activeStation].station}</h4>
+                  <h4 className="text-xl font-bold text-slate-900 font-serif">{STATIONS[activeStation].station}</h4>
                 </div>
               </div>
 
