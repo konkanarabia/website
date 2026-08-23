@@ -305,13 +305,14 @@ export default function FranchiseContent() {
 
             {/* Concept Artwork Showcase */}
             <div className="pt-8 max-w-4xl mx-auto">
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-900/5 bg-white p-3">
-                <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden">
+              <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-900/5 bg-white p-2 sm:p-4">
+                <div className="relative w-full aspect-[1200/800] rounded-2xl overflow-hidden bg-slate-50">
                   <Image
                     src="/services/franchise/mumbai-to-malabar-food-express-journey-t.jpg"
                     alt="Mumbai to Malabar Food Express — Journey through Indian coastal food culture"
                     fill
-                    className="object-cover"
+                    className="object-contain"
+                    priority
                   />
                 </div>
               </div>
@@ -323,39 +324,39 @@ export default function FranchiseContent() {
       {/* Train Route Visual Banner */}
       <section className="py-12 bg-slate-50 border-b border-slate-200">
         <div className="container mx-auto px-4">
-          <div className="relative rounded-3xl overflow-hidden border border-amber-200/70 bg-gradient-to-br from-amber-50/50 via-white to-white shadow-xl shadow-amber-900/5 p-6 sm:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 text-amber-800 text-xs font-bold tracking-widest uppercase bg-amber-100/90 px-3 py-1.5 rounded-full border border-amber-300">
-                  <Train className="w-4 h-4 text-amber-700" />
-                  <span>The Grand Coastal Train Route</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
-                  One Express. Five Culinary Civilizations.
-                </h2>
-                <p className="text-slate-600 leading-relaxed text-base sm:text-lg">
-                  Inspired by the legendary railway line that hugs the Arabian Sea, Mumbai to Malabar Food Express curates the most celebrated street foods, home-style thalis, and coastal seafood treasures into a single powerhouse restaurant brand.
-                </p>
-                <div className="flex flex-wrap gap-2.5 pt-2">
-                  {["Mumbai Street", "Sindhudurg Malvani", "Goan Heritage", "Mangaluru Ghee Roast", "Kerala Spice"].map((tag, idx) => (
-                    <span key={idx} className="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-800 text-xs font-bold shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+          <div className="relative rounded-3xl overflow-hidden border border-amber-200/70 bg-gradient-to-br from-amber-50/50 via-white to-white shadow-xl shadow-amber-900/5 p-6 sm:p-10 space-y-8">
+            <div className="space-y-4 max-w-3xl">
+              <div className="inline-flex items-center gap-2 text-amber-800 text-xs font-bold tracking-widest uppercase bg-amber-100/90 px-3 py-1.5 rounded-full border border-amber-300">
+                <Train className="w-4 h-4 text-amber-700" />
+                <span>The Grand Coastal Train Route</span>
               </div>
-              <div className="lg:col-span-5 relative h-64 sm:h-80 rounded-2xl overflow-hidden border border-slate-200 shadow-md">
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
+                One Express. Five Culinary Civilizations.
+              </h2>
+              <p className="text-slate-600 leading-relaxed text-base sm:text-lg">
+                Inspired by the legendary railway line that hugs the Arabian Sea, Mumbai to Malabar Food Express curates the most celebrated street foods, home-style thalis, and coastal seafood treasures into a single powerhouse restaurant brand.
+              </p>
+              <div className="flex flex-wrap gap-2.5 pt-2">
+                {["Mumbai Street", "Sindhudurg Malvani", "Goan Heritage", "Mangaluru Ghee Roast", "Kerala Spice"].map((tag, idx) => (
+                  <span key={idx} className="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-800 text-xs font-bold shadow-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-white p-2 sm:p-4 shadow-md">
+              <div className="relative w-full aspect-[1400/191] rounded-xl overflow-hidden bg-slate-50">
                 <Image
                   src="/services/franchise/the-mumbai-to-malabar-food-express-train.jpg"
-                  alt="Mumbai to Malabar Food Express Train"
+                  alt="Mumbai to Malabar Food Express Train Winding Coastline"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4 p-3 bg-white/95 backdrop-blur-md rounded-xl border border-slate-200 shadow-md text-xs text-slate-800 font-bold flex items-center justify-between">
-                  <span>Track Line: CST → SND → MAO → MAQ → ERS</span>
-                  <span className="text-emerald-700 flex items-center gap-1">● Route Live</span>
-                </div>
+              </div>
+              <div className="mt-3 px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-700 font-bold gap-2">
+                <span>Coastal Track: C.S.T. Mumbai → Sindhudurg → Madgaon Goa → Mangaluru → Ernakulam Kerala</span>
+                <span className="text-emerald-700 flex items-center gap-1">● Express Route Active</span>
               </div>
             </div>
           </div>
@@ -394,19 +395,20 @@ export default function FranchiseContent() {
           {/* Active Station Card */}
           <div className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden shadow-xl shadow-slate-900/5 p-6 sm:p-10">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-              <div className="md:col-span-5 relative h-56 sm:h-72 rounded-2xl overflow-hidden border border-slate-200 shadow-md">
-                <Image
-                  src={STATIONS[activeStation].image}
-                  alt={STATIONS[activeStation].station}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="text-xs uppercase font-bold tracking-wider text-amber-400">
+              <div className="md:col-span-5 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <div className="relative w-full max-w-[320px] aspect-[290/250] rounded-xl overflow-hidden bg-slate-50">
+                  <Image
+                    src={STATIONS[activeStation].image}
+                    alt={STATIONS[activeStation].station}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="text-center mt-3">
+                  <span className="text-xs uppercase font-bold tracking-wider text-amber-700">
                     {STATIONS[activeStation].state}
                   </span>
-                  <h4 className="text-2xl font-bold text-white font-serif">{STATIONS[activeStation].station}</h4>
+                  <h4 className="text-2xl font-bold text-slate-900 font-serif">{STATIONS[activeStation].station}</h4>
                 </div>
               </div>
 
