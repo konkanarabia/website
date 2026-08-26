@@ -14,8 +14,8 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     hospitality_stays: "Hospitality & Stays",
     dining_restaurants: "Dining & Restaurants",
     europe_jv: "Europe Joint Venture",
-    
     franchise: "Franchise",
+    franchise_offer: "Franchise Offer",
     partner_with_us: "Partner With Us",
     franchise_opportunities: "Franchise Opportunities",
     // Layout
@@ -85,8 +85,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Gestión de Eventos",
     hospitality_stays: "Hostelería y Estancias",
     dining_restaurants: "Cena y Restaurantes",
-    
+    europe_jv: "Empresa Conjunta Europea",
     franchise: "Franquicia",
+    franchise_offer: "Oferta de Franquicia",
     partner_with_us: "Asóciese con Nosotros",
     franchise_opportunities: "Oportunidades de Franquicia",
     // Layout
@@ -156,8 +157,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Gestion d'Événements",
     hospitality_stays: "Hébergement & Séjours",
     dining_restaurants: "Restauration",
-    
+    europe_jv: "Coentreprise Européenne",
     franchise: "Franchise",
+    franchise_offer: "Offre de Franchise",
     partner_with_us: "Devenez Partenaire",
     franchise_opportunities: "Opportunités de Franchise",
     // Layout
@@ -227,8 +229,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Eventmanagement",
     hospitality_stays: "Gastgewerbe & Unterkünfte",
     dining_restaurants: "Gastronomie & Restaurants",
-    
+    europe_jv: "Europa Joint Venture",
     franchise: "Franchise",
+    franchise_offer: "Franchise-Angebot",
     partner_with_us: "Partner Werden",
     franchise_opportunities: "Franchise-Möglichkeiten",
     // Layout
@@ -298,8 +301,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Gestão de Eventos",
     hospitality_stays: "Hospedagem e Estadias",
     dining_restaurants: "Jantares e Restaurantes",
-    
+    europe_jv: "Joint Venture Europeia",
     franchise: "Franquia",
+    franchise_offer: "Oferta de Franquia",
     partner_with_us: "Seja Nosso Parceiro",
     franchise_opportunities: "Oportunidades de Franquia",
     // Layout
@@ -369,8 +373,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "इवेंट मैनेजमेंट",
     hospitality_stays: "आतिथ्य और ठहराव",
     dining_restaurants: "भोजन और रेस्तरां",
-    
+    europe_jv: "यूरोप संयुक्त उद्यम",
     franchise: "फ़्रैंचाइज़ी",
+    franchise_offer: "फ़्रैंचाइज़ी प्रस्ताव",
     partner_with_us: "हमारे साथ जुड़ें",
     franchise_opportunities: "फ़्रैंचाइज़ी के अवसर",
     // Layout
@@ -440,8 +445,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "إدارة الفعاليات",
     hospitality_stays: "الضيافة والإقامة",
     dining_restaurants: "المطاعم والمأكولات",
-    
+    europe_jv: "المشروع المشترك الأوروبي",
     franchise: "الامتياز التجاري",
+    franchise_offer: "عرض الامتياز",
     partner_with_us: "شارك معنا",
     franchise_opportunities: "فرص الامتياز التجاري",
     // Layout
@@ -511,8 +517,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "Организация мероприятий",
     hospitality_stays: "Проживание и гостеприимство",
     dining_restaurants: "Рестораны",
-
+    europe_jv: "Европейское совместное предприятие",
     franchise: "Франшиза",
+    franchise_offer: "Предложение франшизы",
     partner_with_us: "Партнерство",
     franchise_opportunities: "Возможности франшизы",
     // Layout
@@ -526,13 +533,13 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     call_for_price: "Позвонить для уточнения цены",
     details: "Подробнее",
     explore: "Исследовать",
-
+    
     // Weather Component
     forecast: "прогноз",
     destination_outlook: "Прогноз для направления",
     essential_packing: "Что взять с собой",
     auras_pro_tip: "Совет от Ауры",
-
+    
     // Enquiry Form Labels
     full_name: "Полное имя",
     email_address: "Электронная почта",
@@ -582,8 +589,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     event_management: "ניהול אירועים",
     hospitality_stays: "אירוח ולינה",
     dining_restaurants: "מסעדות",
-
+    europe_jv: "מיזם משותף אירופי",
     franchise: "זכיינות",
+    franchise_offer: "הצעת זכיינות",
     partner_with_us: "הצטרפו כשותפים",
     franchise_opportunities: "הזדמנויות זכיינות",
     // Layout
@@ -597,13 +605,13 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     call_for_price: "התקשר לקבלת מחיר",
     details: "פרטים",
     explore: "חקור",
-
+    
     // Weather Component
     forecast: "תחזית",
     destination_outlook: "תחזית יעד",
     essential_packing: "פריטים חיוניים לאריזה",
     auras_pro_tip: "טיפ מקצועי של אורה",
-
+    
     // Enquiry Form Labels
     full_name: "שם מלא",
     email_address: "כתובת אימייל",

@@ -82,9 +82,9 @@ export default function Header() {
         { name: t('franchise_opportunities'), href: "/franchise" },
       ],
     },
-    { name: t('franchise'), href: "/franchise" },
-    { name: t('partners'), href: "/partners" },
+    { name: t('our_partners'), href: "/partners" },
     { name: t('europe_jv'), href: "/europe-joint-venture" },
+    { name: t('franchise_offer'), href: "/franchise" },
     { name: t('contact'), href: "/contact" },
   ];
 
