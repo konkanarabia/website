@@ -21,7 +21,7 @@ const partners = {
   airlines: [
     { name: "IndiGo", logo: `https://img.logo.dev/goindigo.in?token=${LOGO_DEV_TOKEN}&format=png` },
     { name: "SpiceJet", logo: `https://img.logo.dev/spicejet.com?token=${LOGO_DEV_TOKEN}&format=png` },
-    { name: "Air India", logo: `https://img.logo.dev/airindia.in?token=${LOGO_DEV_TOKEN}&format=png` },
+    { name: "Air India", logo: "/partners/air-india.svg" },
     { name: "Fly91", logo: `https://img.logo.dev/fly91.in?token=${LOGO_DEV_TOKEN}&format=png` },
   ],
   tour: [

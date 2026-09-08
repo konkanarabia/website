@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { FacebookIcon, InstagramIcon, YoutubeIcon } from "./social-icons";
 
 export default function Footer() {
   return (
@@ -11,24 +11,33 @@ export default function Footer() {
               KonkanArabia Hospitality & Holiday Mgmt. Pvt. Ltd.
             </h3>
             <p className="text-slate-600 text-base md:text-lg font-medium">Discover the world with us</p>
-            <div className="flex mt-6 space-x-5 items-center">
+            <div className="flex mt-6 space-x-4 items-center">
               <Link
                 href="https://www.facebook.com/konkanarabiahospitalitygroup"
-                className="text-slate-500 hover:text-amber-600 transition-colors duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
+                title="Facebook"
               >
-                <Facebook size={24} />
+                <FacebookIcon className="w-6 h-6" />
               </Link>
               <Link
                 href="https://www.instagram.com/konkanarabiaholidays"
-                className="text-slate-500 hover:text-amber-600 transition-colors duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
+                title="Instagram"
               >
-                <Instagram size={24} />
+                <InstagramIcon className="w-6 h-6" />
               </Link>
               <Link
                 href="https://www.youtube.com/@KonkanArabiaholiday"
-                className="text-slate-500 hover:text-amber-600 transition-colors duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
+                title="YouTube"
               >
-                <Youtube size={24} />
+                <YoutubeIcon className="w-6 h-6" />
               </Link>
             </div>
           </div>

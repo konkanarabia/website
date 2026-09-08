@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import EnquiryForm from "./enquiry-form";
 import TranslatedText from "@/components/TranslatedText";
+import { InstagramIcon } from "./social-icons";
 
 export default function EuropeJVContent() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
@@ -444,15 +445,15 @@ export default function EuropeJVContent() {
                     <Phone className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-semibold text-slate-900 block">WHATSAPP DIRECT</span>
-                      <a href="https://wa.me/34661605573" target="_blank" rel="noopener noreferrer" className="text-amber-700 font-bold hover:underline">
-                        +34 661 60 55 73 (Europe)
+                      <a href="https://wa.me/34681605573" target="_blank" rel="noopener noreferrer" className="text-amber-700 font-bold hover:underline">
+                        +34 681 60 55 73 (Europe)
                       </a>
                       <span className="text-xs text-slate-500 block">+91 9370528517 / +971 555995260</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3 p-3 bg-white rounded-xl shadow-sm border border-amber-100">
-                    <Instagram className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <InstagramIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-semibold text-slate-900 block">INSTAGRAM</span>
                       <a href="https://www.instagram.com/travelstudio.byevaperez" target="_blank" rel="noopener noreferrer" className="text-amber-700 font-bold hover:underline">
@@ -465,7 +466,7 @@ export default function EuropeJVContent() {
 
               <div className="pt-6 mt-6 border-t border-amber-200/80 flex flex-col gap-3">
                 <a
-                  href="https://wa.me/34661605573"
+                  href="https://wa.me/34681605573"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-center shadow transition-colors flex items-center justify-center gap-2"
