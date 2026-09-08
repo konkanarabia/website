@@ -453,7 +453,7 @@ export default function EuropeJVContent() {
                   </div>
 
                   <div className="flex items-start gap-3 p-3 bg-white rounded-xl shadow-sm border border-amber-100">
-                    <InstagramIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <InstagramIcon size={20} className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-semibold text-slate-900 block">INSTAGRAM</span>
                       <a href="https://www.instagram.com/travelstudio.byevaperez" target="_blank" rel="noopener noreferrer" className="text-amber-700 font-bold hover:underline">

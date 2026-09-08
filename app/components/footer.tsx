@@ -19,7 +19,7 @@ export default function Footer() {
                 className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
                 title="Facebook"
               >
-                <FacebookIcon className="w-6 h-6" />
+                <FacebookIcon size={28} className="w-7 h-7" />
               </Link>
               <Link
                 href="https://www.instagram.com/konkanarabiaholidays"
@@ -28,7 +28,7 @@ export default function Footer() {
                 className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
                 title="Instagram"
               >
-                <InstagramIcon className="w-6 h-6" />
+                <InstagramIcon size={28} className="w-7 h-7" />
               </Link>
               <Link
                 href="https://www.youtube.com/@KonkanArabiaholiday"
@@ -37,7 +37,7 @@ export default function Footer() {
                 className="hover:scale-110 transition-transform drop-shadow-xs flex items-center"
                 title="YouTube"
               >
-                <YoutubeIcon className="w-6 h-6" />
+                <YoutubeIcon size={28} className="w-7 h-7" />
               </Link>
             </div>
           </div>

@@ -114,7 +114,7 @@ export default function Header() {
               className="hover:scale-110 transition-transform flex items-center justify-center"
               title="Facebook"
             >
-              <FacebookIcon className="w-4 h-4 shadow-sm" />
+              <FacebookIcon size={18} className="w-[18px] h-[18px]" />
             </Link>
             <Link
               href="https://www.instagram.com/konkanarabiaholidays"
@@ -123,7 +123,7 @@ export default function Header() {
               className="hover:scale-110 transition-transform flex items-center justify-center"
               title="Instagram"
             >
-              <InstagramIcon className="w-4 h-4 shadow-sm" />
+              <InstagramIcon size={18} className="w-[18px] h-[18px]" />
             </Link>
             <Link
               href="https://www.youtube.com/@KonkanArabiaholiday"
@@ -132,7 +132,7 @@ export default function Header() {
               className="hover:scale-110 transition-transform flex items-center justify-center"
               title="YouTube"
             >
-              <YoutubeIcon className="w-4 h-4 shadow-sm" />
+              <YoutubeIcon size={18} className="w-[18px] h-[18px]" />
             </Link>
           </div>
         </div>
@@ -340,7 +340,7 @@ export default function Header() {
                       className="hover:scale-110 transition-transform"
                       title="Facebook"
                     >
-                      <FacebookIcon className="w-5 h-5" />
+                      <FacebookIcon size={24} className="w-6 h-6" />
                     </Link>
                     <Link
                       href="https://www.instagram.com/konkanarabiaholidays"
@@ -349,7 +349,7 @@ export default function Header() {
                       className="hover:scale-110 transition-transform"
                       title="Instagram"
                     >
-                      <InstagramIcon className="w-5 h-5" />
+                      <InstagramIcon size={24} className="w-6 h-6" />
                     </Link>
                     <Link
                       href="https://www.youtube.com/@KonkanArabiaholiday"
@@ -358,7 +358,7 @@ export default function Header() {
                       className="hover:scale-110 transition-transform"
                       title="YouTube"
                     >
-                      <YoutubeIcon className="w-5 h-5" />
+                      <YoutubeIcon size={24} className="w-6 h-6" />
                     </Link>
                   </div>
                   <div className="text-center text-xs text-slate-500 space-y-1 pt-1">
