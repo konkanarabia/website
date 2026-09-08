@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Mumbai to Malabar Food Express — Franchise & Business Opportunities',
     description: 'Multi-format coastal culinary franchise opportunities across India, UAE & SE Asia. Partner with KonkanArabia Hospitality Group.',
-    images: ['/services/franchise/the-mumbai-to-malabar-food-express-train.jpg'],
+    images: ['/services/franchise/the-mumbai-to-malabar-food-express-train.webp'],
   },
 };
 

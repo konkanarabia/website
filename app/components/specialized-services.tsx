@@ -46,7 +46,7 @@ export default async function SpecializedServices() {
     name: 'Mumbai to Malabar Food Express',
     title: 'Franchise & Business Opportunity',
     description: 'A premier culinary concept celebrating authentic coastal flavors from CST Mumbai to Malabar Kerala. Multi-format franchise & investment opportunities across India, UAE & SE Asia.',
-    image: '/services/mumbai-to-malabar-express.jpg',
+    image: '/services/mumbai-to-malabar-express.webp',
     features: ['Franchise Model', 'QSR & Fine Dine', 'Coastal Cuisine', 'High ROI'],
     icon: <Store className="w-6 h-6" />,
     link: '/franchise'

@@ -35,7 +35,7 @@ const STATIONS = [
     code: "CST",
     station: "C.S.T. Mumbai",
     state: "Maharashtra",
-    image: "/services/franchise/cst-mumbai-food.jpg",
+    image: "/services/franchise/cst-mumbai-food.webp",
     tagline: "The Bustling Street Flavors of Bombay",
     dishes: ["Bombay Vada Pav & Misal", "Pav Bhaji & Bun Maska", "Coastal Street Chaat", "Cutting Chai & Frankie"],
     color: "from-amber-500 to-orange-600",
@@ -44,7 +44,7 @@ const STATIONS = [
     code: "SND",
     station: "Sindhudurg",
     state: "Konkan Maharashtra",
-    image: "/services/franchise/sindhudurg-food.jpg",
+    image: "/services/franchise/sindhudurg-food.webp",
     tagline: "Authentic Malvani Coastal Soul",
     dishes: ["Malvani Surmai & Prawn Thali", "Kombdi Vade with Coconut Rassa", "Fresh Solkadhi & Tisrya Masala", "Ukadiche Modak"],
     color: "from-red-500 to-amber-600",
@@ -53,7 +53,7 @@ const STATIONS = [
     code: "MAO",
     station: "Madgaon",
     state: "Goa",
-    image: "/services/franchise/madgaon-food.jpg",
+    image: "/services/franchise/madgaon-food.webp",
     tagline: "Portuguese-Goan Heritage Flavors",
     dishes: ["Authentic Goan Fish Curry Thali", "Prawn Balchão & Xacuti", "Goan Poi Sandwiches", "Bebinca & Dodol Desserts"],
     color: "from-amber-400 to-yellow-600",
@@ -62,7 +62,7 @@ const STATIONS = [
     code: "MAQ",
     station: "Mangaluru",
     state: "Karnataka",
-    image: "/services/franchise/mangaluru-food.jpg",
+    image: "/services/franchise/mangaluru-food.webp",
     tagline: "Tulu Coastal Gastronomy & Ghee Roasts",
     dishes: ["Kundapura Chicken & Prawn Ghee Roast", "Neer Dosa with Kori Rotti", "Mangalore Fish Pulimunchi", "Mangalore Buns & Filter Coffee"],
     color: "from-emerald-500 to-teal-600",
@@ -71,7 +71,7 @@ const STATIONS = [
     code: "ERS",
     station: "Ernakulam",
     state: "Kerala",
-    image: "/services/franchise/ernakulam-food.jpg",
+    image: "/services/franchise/ernakulam-food.webp",
     tagline: "God's Own Country Spice Trail",
     dishes: ["Malabar Porotta & Roast", "Appam with Coconut Milk Stew", "Karimeen Pollichathu (Banana Leaf)", "Thalassery Biryani & Payasam"],
     color: "from-teal-500 to-cyan-600",
@@ -308,7 +308,7 @@ export default function FranchiseContent() {
               <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-900/5 bg-white p-2 sm:p-4">
                 <div className="relative w-full aspect-[1200/800] rounded-2xl overflow-hidden bg-slate-50">
                   <Image
-                    src="/services/franchise/mumbai-to-malabar-food-express-journey-t.jpg"
+                    src="/services/franchise/mumbai-to-malabar-food-express-journey-t.webp"
                     alt="Mumbai to Malabar Food Express — Journey through Indian coastal food culture"
                     fill
                     className="object-contain"
@@ -348,7 +348,7 @@ export default function FranchiseContent() {
             <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-white p-2 sm:p-4 shadow-md">
               <div className="relative w-full aspect-[1400/191] rounded-xl overflow-hidden bg-slate-50">
                 <Image
-                  src="/services/franchise/the-mumbai-to-malabar-food-express-train.jpg"
+                  src="/services/franchise/the-mumbai-to-malabar-food-express-train.webp"
                   alt="Mumbai to Malabar Food Express Train Winding Coastline"
                   fill
                   className="object-contain"

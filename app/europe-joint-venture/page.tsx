@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Our Europe Joint Venture | KonkanArabia Holidays & Travel Studio by Eva Pérez',
     description: 'Strategic collaboration between KonkanArabia Holidays & Eva Pérez establishing a premier Destination Management Company (DMC) for luxury travel and authentic experiences.',
-    images: ['/partners/europe-jv-hero.png'],
+    images: ['/partners/europe-jv-hero.webp'],
   },
 };
 

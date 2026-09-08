@@ -105,37 +105,37 @@ export default function EuropeJVContent() {
     {
       name: "Spain",
       role: "European Headquarters",
-      img: "/partners/hub-spain.png",
+      img: "/partners/hub-spain.webp",
       description: "Strategic hub in Madrid & Barcelona connecting Western Europe with premium global & Asian travel."
     },
     {
       name: "Poland",
       role: "Central European Hub",
-      img: "/partners/hub-poland.png",
+      img: "/partners/hub-poland.webp",
       description: "Warsaw & Krakow gateway offering rich Central European heritage & bespoke travel concierge services."
     },
     {
       name: "Italy",
       role: "Heritage & Luxury Hub",
-      img: "/partners/hub-italy.png",
+      img: "/partners/hub-italy.webp",
       description: "Rome, Venice & Tuscany curated journeys, coastal luxury villas, and Mediterranean retreats."
     },
     {
       name: "Africa & Safaris",
       role: "African Safari & Wildlife Hub",
-      img: "/partners/hub-africa.png",
+      img: "/partners/hub-africa.webp",
       description: "Wild game safaris across Kenya & Tanzania, Victoria Falls, luxury Serengeti lodges, and South African coastal tours."
     },
     {
       name: "Switzerland",
       role: "Alpine & Wellness Hub",
-      img: "/partners/hub-switzerland.png",
+      img: "/partners/hub-switzerland.webp",
       description: "Zurich & Alpine luxury chalets, scenic mountain railways, and world-class wellness escapes."
     },
     {
       name: "France",
       role: "Art & Gastronomy Hub",
-      img: "/partners/hub-france.png",
+      img: "/partners/hub-france.webp",
       description: "Parisian romantic escapes, French Riviera yacht chartering, and bespoke gourmet wine tours."
     }
   ];
@@ -156,7 +156,7 @@ export default function EuropeJVContent() {
         {/* Background Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/partners/europe-jv-hero.png"
+            src="/partners/europe-jv-hero.webp"
             alt="Europe Joint Venture Hero"
             fill
             className="object-cover object-center"
@@ -219,7 +219,7 @@ export default function EuropeJVContent() {
                 <div className="relative group">
                   <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-xl">
                     <Image
-                      src="/partners/eva-perez-portrait.png"
+                      src="/partners/eva-perez-portrait.webp"
                       alt="Eva Pérez - Joint Venture Partner"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"

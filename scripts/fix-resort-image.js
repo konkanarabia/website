@@ -13,7 +13,7 @@ async function main() {
   // Force update using $set operator
   const result = await Hospitality.collection.updateOne(
     { id: 1 },
-    { $set: { image: '/services/siddhivinayak-resort.jpeg', updatedAt: new Date() } }
+    { $set: { image: '/services/siddhivinayak-resort.webp', updatedAt: new Date() } }
   );
 
   console.log('Matched:', result.matchedCount, '| Modified:', result.modifiedCount);

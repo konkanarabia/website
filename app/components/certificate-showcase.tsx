@@ -18,28 +18,28 @@ const certificates = [
   {
     title: "Certificate of Incorporation",
     issuer: "Ministry of Corporate Affairs, Government of India",
-    pages: ["/certificates/certificate-of-incorporation.jpeg"],
+    pages: ["/certificates/certificate-of-incorporation.webp"],
     description: "Official incorporation of KonkanArabia Hospitality and Holiday Management Private Limited under the Companies Act, 2013.",
   },
   {
     title: "NIDHI Pledge Certificate",
     issuer: "Ministry of Tourism, Government of India",
-    pages: ["/certificates/nidhi-pledge.jpg"],
+    pages: ["/certificates/nidhi-pledge.webp"],
     description: "National Integrated Database of Hospitality Industry commitment towards safe and sustainable tourism.",
   },
   {
     title: "Primary Registration Certificate",
     issuer: "Directorate of Tourism, Government of Maharashtra",
     pages: [
-      "/certificates/maharashtra-tourism-registration.jpg",
-      "/certificates/disclaimer.jpg",
+      "/certificates/maharashtra-tourism-registration.webp",
+      "/certificates/disclaimer.webp",
     ],
     description: "Official registration as a tourism unit under the Maharashtra Tourism Policy for KonkanArabia Hospitality.",
   },
   {
     title: "Goa Travel Agent Registration Certificate",
     issuer: "Department of Tourism, Government of Goa",
-    pages: ["/certificates/goa-tourism-registration.jpeg"],
+    pages: ["/certificates/goa-tourism-registration.webp"],
     description: "Certificate of Registration as Travel Agent / Excursion Agent / Tour Operator (Certificate No: TRAN011678) issued by the Directorate of Tourism, North Goa, valid through 31-Mar-2025.",
   },
 ];

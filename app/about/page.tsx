@@ -18,7 +18,7 @@ export default function AboutPage() {
       <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 opacity-80">
           <Image
-            src="/hero/about-hero.jpg"
+            src="/hero/about-hero.webp"
             alt="About KonkanArabia"
             fill
             className="object-cover object-center"
@@ -43,7 +43,7 @@ export default function AboutPage() {
             <div className="absolute -inset-4 bg-[#0066a1]/5 rounded-[3rem] -z-10 transition-transform group-hover:scale-105 duration-700"></div>
             <div className="relative h-[400px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl">
               <Image 
-                src="/logo/KonkanArabia-New-Logo.png" 
+                src="/logo/KonkanArabia-New-Logo.webp" 
                 alt="KonkanArabia Logo" 
                 fill
                 className="object-contain bg-white p-12 transition-transform duration-700 group-hover:scale-110"
@@ -122,7 +122,7 @@ export default function AboutPage() {
             <div className="w-full max-w-5xl mx-auto bg-white/60 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-white/85 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
               <div className="relative w-full aspect-[16/10] md:aspect-[1.58] overflow-hidden rounded-2xl shadow-inner bg-slate-50">
                 <Image
-                  src="/story/journey-poster.jpg"
+                  src="/story/journey-poster.webp"
                   alt="Our Story - The Journey Comes Full Circle Poster"
                   fill
                   className="object-contain"
