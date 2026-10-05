@@ -76,7 +76,6 @@ export default function Header() {
       subItems: [
         { name: t('holiday_packages'), href: "/destinations" },
         { name: t('vehicle_rental'), href: "/vehicles" },
-          { name: 'PedneCar (Goa Travel)', href: "/pednecar" },
         { name: t('visa_services'), href: "/visas" },
         { name: t('event_management'), href: "/events" },
         { name: t('hospitality_stays'), href: "/hospitality" },
@@ -84,7 +83,8 @@ export default function Header() {
         { name: t('franchise_opportunities'), href: "/franchise" },
       ],
     },
-    { name: t('our_partners'), href: "/partners" },
+    { name: 'PedneCar', href: "/pednecar" },
+      { name: t('our_partners'), href: "/partners" },
     { name: t('europe_jv'), href: "/europe-joint-venture" },
     { name: t('franchise_offer'), href: "/franchise" },
     { name: t('contact'), href: "/contact" },
