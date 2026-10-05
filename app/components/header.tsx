@@ -182,10 +182,10 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center justify-end flex-shrink-0 min-w-0 gap-1.5 xl:gap-3">
-            <nav className="hidden lg:block flex-shrink-0">
+            <nav className="hidden lg:block flex-shrink-0" suppressHydrationWarning>
               <ul className="flex items-center gap-0.5 xl:gap-1 2xl:gap-2">
                 {navItems.map((item) => (
-                  <li key={item.name} className="relative flex-shrink-0">
+                  <li key={item.href} className="relative flex-shrink-0">
                     {item.dropdown ? (
                       <div ref={dropdownRef}>
                         <button
@@ -263,10 +263,10 @@ export default function Header() {
 
         {isMobileMenuOpen && (
           <div className="lg:hidden">
-            <nav className="bg-white px-4 pt-3 pb-6 shadow-2xl border-t border-slate-100">
+            <nav className="bg-white px-4 pt-3 pb-6 shadow-2xl border-t border-slate-100" suppressHydrationWarning>
               <ul className="space-y-2">
                 {navItems.map((item) => (
-                  <li key={item.name}>
+                  <li key={item.href}>
                     {item.dropdown ? (
                       <div
                         ref={mobileDropdownRef}
