@@ -25,13 +25,13 @@ export default function VehicleRentalSection() {
     {
       icon: <Car className="w-6 h-6 text-amber-600" />,
       title: "Tourist Taxi & Tempo Traveler",
-      description: "Clean, well-maintained AC Sedans, Innova Crysta, and 12 / 17 / 26 seater luxury tempo travelers with experienced chauffeurs.",
+      description: "Clean, well-maintained Toyota Rumion 7-seater MUV, AC sedans, and 12 / 17 / 26 seater luxury tempo travelers with experienced chauffeurs.",
       tag: "Fleet & Taxi",
     },
     {
       icon: <Hotel className="w-6 h-6 text-amber-600" />,
       title: "Hotels Booking",
-      description: "Exclusive partner rates and handpicked selections for luxury beachside resorts, heritage boutique villas, and budget stays across Goa.",
+      description: "Exclusive partner rates and handpicked selections for luxury beachside resorts, heritage boutique villas, and stays across Goa.",
       tag: "Stays & Resorts",
     },
     {
@@ -50,31 +50,31 @@ export default function VehicleRentalSection() {
 
   const fleetHighlights = [
     {
-      name: "Executive Sedans",
-      models: "Swift Dzire • Toyota Etios • Honda City",
-      capacity: "4 Passengers + Chauffeur",
-      features: "Chilled AC, clean interior, airport transfers, city tours",
-      image: "/vehicles/vehicle-1.webp",
-      badge: "Most Popular for Couples & Small Families",
-      link: "/vehicles/4"
-    },
-    {
-      name: "Toyota Innova Crysta & Ertiga",
-      models: "Innova Crysta • Maruti Ertiga",
+      name: "Toyota Rumion (7-Seater)",
+      models: "Toyota Rumion 7-Seater MUV",
       capacity: "6 - 7 Passengers + Chauffeur",
-      features: "Captain luxury seats, generous luggage space, smooth long drives",
-      image: "/vehicles/vehicle-3.webp",
-      badge: "Best for Family Holidays & Airport Runs",
-      link: "/vehicles/2"
+      features: "Spacious 3-row comfort, whisper-quiet AC vents, ample luggage room, ideal for Goan roads",
+      image: "/vehicles/pednecar-toyota-rumion.jpg",
+      badge: "Signature Goa Tourist Vehicle",
+      link: "/pednecar"
     },
     {
       name: "Luxury Tempo Traveler",
       models: "Force Traveler • Executive Mini Coach",
       capacity: "12, 17 & 26 Seater Options",
-      features: "High-roof AC, pushback luxury seating, mic system & huge boot",
+      features: "High-roof AC, pushback luxury seating, mic system & oversized luggage hold",
       image: "/vehicles/vehicle-2.webp",
       badge: "Ideal for Groups, Weddings & Corporate Trips",
-      link: "/vehicles/3"
+      link: "/pednecar"
+    },
+    {
+      name: "Executive Sedans",
+      models: "Swift Dzire • Toyota Etios • Honda City",
+      capacity: "4 Passengers + Chauffeur",
+      features: "Chilled AC, clean interior, airport transfers, couple sightseeing",
+      image: "/vehicles/vehicle-1.webp",
+      badge: "Most Popular for Couples & Small Families",
+      link: "/pednecar"
     },
   ];
 
@@ -98,7 +98,7 @@ export default function VehicleRentalSection() {
           </h2>
 
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-medium">
-            <TranslatedText text="Experience premier travel across Goa with PedneCar. From 24/7 airport pickups at MOPA & Dabolim to full-day beach excursions and luxury group Tempo Travelers, we ensure punctual, safe, and comfortable journeys." />
+            <TranslatedText text="Experience premier travel across Goa with PedneCar. Featuring the Toyota Rumion 7-seater MUV, 24/7 airport pickups at MOPA & Dabolim, full-day beach excursions, and luxury group Tempo Travelers." />
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function VehicleRentalSection() {
         <div className="mb-20 rounded-3xl overflow-hidden shadow-2xl border border-amber-200/60 bg-slate-900 text-white relative group">
           <div className="relative h-72 sm:h-96 md:h-[460px] w-full overflow-hidden">
             <Image
-              src="/vehicles/pednecar-banner.png"
+              src="/vehicles/pednecar-hero-banner.jpg"
               alt="PedneCar Goa Tourist Vehicle Service - Your Goa Travel Partner"
               fill
               priority
@@ -119,20 +119,20 @@ export default function VehicleRentalSection() {
             <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
               <div className="max-w-2xl bg-slate-950/70 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-xl">
                 <span className="inline-block px-3 py-1 bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider rounded-md mb-2">
-                  <TranslatedText text="Official Goa Tourist Fleet" />
+                  <TranslatedText text="Official Goa Tourist Fleet • Toyota Rumion" />
                 </span>
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-2">
                   <TranslatedText text="PedneCar Tourist Vehicle Service" />
                 </h3>
                 <p className="text-slate-200 text-sm sm:text-base font-medium leading-relaxed">
-                  <TranslatedText text="Authorized yellow-plate tourist taxis, premium SUVs, and luxury Tempo Travelers stationed in Mapusa and serving all destinations in North Goa, South Goa, and Maharashtra borders." />
+                  <TranslatedText text="Authorized yellow-plate tourist taxis, Toyota Rumion 7-seater MUVs, and luxury Tempo Travelers stationed in Mapusa and serving all destinations in North Goa, South Goa, and Maharashtra borders." />
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Link href="/vehicles">
+                <Link href="/pednecar">
                   <Button className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-6 rounded-xl shadow-lg shadow-amber-500/30 flex items-center gap-2 group/btn">
-                    <TranslatedText text="View Full Fleet" />
+                    <TranslatedText text="View PedneCar Details" />
                     <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
@@ -188,11 +188,11 @@ export default function VehicleRentalSection() {
                 <TranslatedText text="Curated Vehicle Fleet" />
               </span>
               <h3 className="text-3xl sm:text-4xl font-serif font-black text-slate-900 tracking-tight mt-1">
-                <TranslatedText text="Choose Your Ride Across Goa" />
+                <TranslatedText text="Featuring the Toyota Rumion Across Goa" />
               </h3>
             </div>
-            <Link href="/vehicles" className="inline-flex items-center gap-2 text-amber-700 font-bold hover:text-amber-800 transition-colors">
-              <TranslatedText text="Explore all vehicle rates & details" />
+            <Link href="/pednecar" className="inline-flex items-center gap-2 text-amber-700 font-bold hover:text-amber-800 transition-colors">
+              <TranslatedText text="Explore full PedneCar page" />
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -321,7 +321,7 @@ export default function VehicleRentalSection() {
 
             <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4">
               <a
-                href="https://wa.me/918625807465?text=Hello%20PedneCar%2C%20I%20would%20like%20to%20enquire%20about%20vehicle%20rental%20in%20Goa."
+                href="https://wa.me/918625807465?text=Hello%20PedneCar%2C%20I%20would%20like%20to%20enquire%20about%20Toyota%20Rumion%20vehicle%20rental%20in%20Goa."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full"
@@ -332,9 +332,9 @@ export default function VehicleRentalSection() {
                 </Button>
               </a>
 
-              <Link href="/enquiry/vehicle-rental" className="w-full">
+              <Link href="/pednecar" className="w-full">
                 <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-6 rounded-2xl text-base shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 transition-all">
-                  <TranslatedText text="Submit Online Rental Enquiry" />
+                  <TranslatedText text="Visit Dedicated PedneCar Page" />
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>

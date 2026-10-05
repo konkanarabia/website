@@ -76,6 +76,7 @@ export default function Header() {
       subItems: [
         { name: t('holiday_packages'), href: "/destinations" },
         { name: t('vehicle_rental'), href: "/vehicles" },
+          { name: 'PedneCar (Goa Travel)', href: "/pednecar" },
         { name: t('visa_services'), href: "/visas" },
         { name: t('event_management'), href: "/events" },
         { name: t('hospitality_stays'), href: "/hospitality" },
