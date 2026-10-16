@@ -4,20 +4,46 @@ import {
   contactFormAdminEmail,
   contactFormUserConfirmation,
 } from '@/lib/email-templates';
+import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { contactFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
     // Parse the request body
     const body = await request.json();
-    const { name, email, phone, message } = body;
 
-    // Validate form data
-    if (!name || !email || !message) {
+    // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
+    const spamResult = evaluateSpam(body, clientIp);
+    if (spamResult.isSpam) {
+      console.warn(`[AntiSpam] Blocked spam contact submission from ${clientIp} (${spamResult.reason}):`, {
+        name: body.name,
+        email: body.email,
+        phone: body.phone,
+      });
+      // Silently accept so bot thinks it succeeded without sending emails
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { 
+          success: true, 
+          message: 'Contact form submitted successfully' 
+        },
+        { status: 200 }
+      );
+    }
+
+    // Strict Schema Validation
+    const validation = contactFormSchema.safeParse(body);
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          error: 'Validation failed',
+          details: formatZodErrors(validation.error),
+        },
         { status: 400 }
       );
     }
+
+    const { name, email, phone, message } = validation.data;
 
     if (process.env.NODE_ENV === 'development') {
       console.log('Processing contact form submission');

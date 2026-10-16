@@ -17,7 +17,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Car, Bike, Calendar, Pin, Users } from "lucide-react";
 import { format } from "date-fns";
 import TranslatedText from "@/components/TranslatedText";
+import { vehicleEnquirySchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations";
+import { cn } from "@/lib/utils";
 import useTranslatedString from "@/hooks/use-translated-string";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 
 export default function VehicleEnquiryForm() {
@@ -37,6 +40,8 @@ export default function VehicleEnquiryForm() {
     setToday(format(new Date(), "yyyy-MM-dd"));
   }, []);
 
+  const [formLoadedAt] = useState(() => Date.now());
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,19 +55,56 @@ export default function VehicleEnquiryForm() {
     dropoffDate: "",
     passengers: "2",
     message: "",
+    website_hp: "",
+    business_url: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
   };
 
   const handleSelectChange = (name: string) => (value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleBlur = (field: 'name' | 'email') => {
+    if (field === 'name' && formData.name) {
+      const res = nameSchema.safeParse(formData.name);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, name: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validation = vehicleEnquirySchema.safeParse(formData);
+    if (!validation.success) {
+      const errMap = formatZodErrors(validation.error);
+      setErrors(errMap);
+      toast({
+        title: "Please check your inputs",
+        description: Object.values(errMap)[0] || "Some fields require your attention.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setErrors({});
     setIsSubmitting(true);
 
     try {
@@ -71,11 +113,12 @@ export default function VehicleEnquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          _form_loaded_at: formLoadedAt,
           travelType: `Vehicle Rental (${formData.vehicleType})`,
           destination: `Pickup: ${formData.pickupLocation}, Dropoff: ${formData.dropoffLocation}`,
           departureDate: formData.pickupDate,
           returnDate: formData.dropoffDate,
-          travelers: parseInt(formData.passengers),
+          travelers: parseInt(formData.passengers) || 1,
           message: `Vehicle Selection: ${formData.vehicleType === 'car' ? formData.carCategory : formData.bikeCategory}\n\n${formData.message}`,
         }),
       });
@@ -100,24 +143,72 @@ export default function VehicleEnquiryForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-slate-900 p-5 md:p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800">
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          zIndex: -1,
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          pointerEvents: "none",
+          left: "-9999px",
+          top: 0
+        }}
+      >
+        <label htmlFor="veh_website_hp">Website</label>
+        <input id="veh_website_hp" type="text" name="website_hp" value={formData.website_hp} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+        <label htmlFor="veh_business_url">Company URL</label>
+        <input id="veh_business_url" type="text" name="business_url" value={formData.business_url} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">
             <TranslatedText text="Full Name" />
           </Label>
-          <Input id="name" name="name" required value={formData.name} onChange={handleChange} placeholder={namePlaceholder} />
+          <Input
+            id="name"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+            onBlur={() => handleBlur('name')}
+            placeholder={namePlaceholder}
+            className={cn(errors.name && "border-red-500")}
+          />
+          {errors.name && <p className="text-xs text-red-500 font-medium mt-1">{errors.name}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">
             <TranslatedText text="Email Address" />
           </Label>
-          <Input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder={emailPlaceholder} />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={() => handleBlur('email')}
+            placeholder={emailPlaceholder}
+            className={cn(errors.email && "border-red-500")}
+          />
+          {errors.email && <p className="text-xs text-red-500 font-medium mt-1">{errors.email}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">
             <TranslatedText text="Phone Number" />
           </Label>
-          <Input id="phone" name="phone" required value={formData.phone} onChange={handleChange} placeholder={phonePlaceholder} />
+          <PhoneInput
+            id="phone"
+            name="phone"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+            error={Boolean(errors.phone)}
+          />
+          {errors.phone && <p className="text-xs text-red-500 font-medium mt-1">{errors.phone}</p>}
         </div>
         <div className="space-y-2">
           <Label>
@@ -214,8 +305,9 @@ export default function VehicleEnquiryForm() {
           </Label>
           <div className="relative">
             <Pin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-            <Input id="pickupLocation" name="pickupLocation" required value={formData.pickupLocation} onChange={handleChange} className="pl-10" placeholder={pickupPlaceholder} />
+            <Input id="pickupLocation" name="pickupLocation" required value={formData.pickupLocation} onChange={handleChange} className={cn("pl-10", errors.pickupLocation && "border-red-500")} placeholder={pickupPlaceholder} />
           </div>
+          {errors.pickupLocation && <p className="text-xs text-red-500 font-medium mt-1">{errors.pickupLocation}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="dropoffLocation">
@@ -223,8 +315,9 @@ export default function VehicleEnquiryForm() {
           </Label>
           <div className="relative">
             <Pin className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-            <Input id="dropoffLocation" name="dropoffLocation" required value={formData.dropoffLocation} onChange={handleChange} className="pl-10" placeholder={dropoffPlaceholder} />
+            <Input id="dropoffLocation" name="dropoffLocation" required value={formData.dropoffLocation} onChange={handleChange} className={cn("pl-10", errors.dropoffLocation && "border-red-500")} placeholder={dropoffPlaceholder} />
           </div>
+          {errors.dropoffLocation && <p className="text-xs text-red-500 font-medium mt-1">{errors.dropoffLocation}</p>}
         </div>
       </div>
 
@@ -233,13 +326,15 @@ export default function VehicleEnquiryForm() {
           <Label htmlFor="pickupDate">
             <TranslatedText text="Pickup Date" />
           </Label>
-          <Input id="pickupDate" name="pickupDate" type="date" required min={today} value={formData.pickupDate} onChange={handleChange} />
+          <Input id="pickupDate" name="pickupDate" type="date" required min={today} value={formData.pickupDate} onChange={handleChange} className={cn(errors.pickupDate && "border-red-500")} />
+          {errors.pickupDate && <p className="text-xs text-red-500 font-medium mt-1">{errors.pickupDate}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="dropoffDate">
             <TranslatedText text="Drop-off Date" />
           </Label>
-          <Input id="dropoffDate" name="dropoffDate" type="date" required min={formData.pickupDate || today} value={formData.dropoffDate} onChange={handleChange} />
+          <Input id="dropoffDate" name="dropoffDate" type="date" required min={formData.pickupDate || today} value={formData.dropoffDate} onChange={handleChange} className={cn(errors.dropoffDate && "border-red-500")} />
+          {errors.dropoffDate && <p className="text-xs text-red-500 font-medium mt-1">{errors.dropoffDate}</p>}
         </div>
       </div>
 

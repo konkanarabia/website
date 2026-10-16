@@ -11,6 +11,42 @@ import PriceDisplay from "@/components/PriceDisplay";
 import ReviewSection from "@/components/ReviewSection";
 import { getReviews } from "@/app/actions/reviews";
 import TranslatedText from "@/components/TranslatedText";
+import type { Metadata } from 'next';
+import { getDestinationSchema } from "@/lib/structured-data";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  await dbConnect();
+  const destination = await Destination.findOne({ id: Number(id) }).lean();
+  if (!destination) {
+    return { title: 'Destination Not Found' };
+  }
+
+  const title = `${destination.name} Luxury Holiday Package | KonkanArabia`;
+  const description = destination.shortDescription || (destination.description ? destination.description.slice(0, 155) + '...' : `Book luxury holiday tour packages to ${destination.name} with KonkanArabia.`);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/destinations/${destination.id}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://konkanarabiahospitalitygroup.com/destinations/${destination.id}`,
+      siteName: 'KonkanArabia Hospitality & Holiday Group',
+      images: destination.image ? [{ url: destination.image, alt: destination.name }] : undefined,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: destination.image ? [destination.image] : undefined,
+    },
+  };
+}
 
 export default async function DestinationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -39,6 +75,13 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* Schema.org TouristDestination */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getDestinationSchema(destination)),
+        }}
+      />
       {/* ... Hero Section remains the same ... */}
       <div className="relative h-[60vh] md:h-[70vh] min-h-[500px]">
         <Image

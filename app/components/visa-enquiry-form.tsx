@@ -16,7 +16,10 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Globe, FileText, Calendar, ShieldCheck } from "lucide-react";
 import TranslatedText from "@/components/TranslatedText";
+import { visaEnquirySchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations";
+import { cn } from "@/lib/utils";
 import useTranslatedString from "@/hooks/use-translated-string";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 
 export default function VisaEnquiryForm() {
@@ -37,6 +40,8 @@ export default function VisaEnquiryForm() {
     setToday(new Date().toISOString().split('T')[0]);
   }, []);
 
+  const [formLoadedAt] = useState(() => Date.now());
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,19 +52,56 @@ export default function VisaEnquiryForm() {
     passengerCount: "1",
     tentativeDate: "",
     message: "",
+    website_hp: "",
+    business_url: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
   };
 
   const handleSelectChange = (name: string) => (value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleBlur = (field: 'name' | 'email') => {
+    if (field === 'name' && formData.name) {
+      const res = nameSchema.safeParse(formData.name);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, name: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validation = visaEnquirySchema.safeParse(formData);
+    if (!validation.success) {
+      const errMap = formatZodErrors(validation.error);
+      setErrors(errMap);
+      toast({
+        title: "Please check your inputs",
+        description: Object.values(errMap)[0] || "Some fields require your attention.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setErrors({});
     setIsSubmitting(true);
 
     try {
@@ -68,10 +110,11 @@ export default function VisaEnquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          _form_loaded_at: formLoadedAt,
           travelType: `Visa Assistance (${formData.visaType})`,
           destination: formData.destinationCountry,
           departureDate: formData.tentativeDate,
-          travelers: parseInt(formData.passengerCount),
+          travelers: parseInt(formData.passengerCount) || 1,
           message: `Nationality: ${formData.nationality}\n\n${formData.message}`,
         }),
       });
@@ -96,30 +139,79 @@ export default function VisaEnquiryForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800">
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          zIndex: -1,
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          pointerEvents: "none",
+          left: "-9999px",
+          top: 0
+        }}
+      >
+        <label htmlFor="visa_website_hp">Website</label>
+        <input id="visa_website_hp" type="text" name="website_hp" value={formData.website_hp} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+        <label htmlFor="visa_business_url">Company URL</label>
+        <input id="visa_business_url" type="text" name="business_url" value={formData.business_url} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="name">
             <TranslatedText text="Full Name (as per Passport)" />
           </Label>
-          <Input id="name" name="name" required value={formData.name} onChange={handleChange} placeholder={namePlaceholder} />
+          <Input
+            id="name"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+            onBlur={() => handleBlur('name')}
+            placeholder={namePlaceholder}
+            className={cn(errors.name && "border-red-500")}
+          />
+          {errors.name && <p className="text-xs text-red-500 font-medium mt-1">{errors.name}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">
             <TranslatedText text="Email Address" />
           </Label>
-          <Input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder={emailPlaceholder} />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={() => handleBlur('email')}
+            placeholder={emailPlaceholder}
+            className={cn(errors.email && "border-red-500")}
+          />
+          {errors.email && <p className="text-xs text-red-500 font-medium mt-1">{errors.email}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">
             <TranslatedText text="Phone Number" />
           </Label>
-          <Input id="phone" name="phone" required value={formData.phone} onChange={handleChange} placeholder={phonePlaceholder} />
+          <PhoneInput
+            id="phone"
+            name="phone"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+            error={Boolean(errors.phone)}
+          />
+          {errors.phone && <p className="text-xs text-red-500 font-medium mt-1">{errors.phone}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="nationality">
             <TranslatedText text="Nationality" />
           </Label>
-          <Input id="nationality" name="nationality" required value={formData.nationality} onChange={handleChange} placeholder={nationalityPlaceholder} />
+          <Input id="nationality" name="nationality" required value={formData.nationality} onChange={handleChange} placeholder={nationalityPlaceholder} className={cn(errors.nationality && "border-red-500")} />
+          {errors.nationality && <p className="text-xs text-red-500 font-medium mt-1">{errors.nationality}</p>}
         </div>
       </div>
 
@@ -130,8 +222,9 @@ export default function VisaEnquiryForm() {
           </Label>
           <div className="relative">
             <Globe className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-            <Input id="destinationCountry" name="destinationCountry" required value={formData.destinationCountry} onChange={handleChange} className="pl-10" placeholder={destinationPlaceholder} />
+            <Input id="destinationCountry" name="destinationCountry" required value={formData.destinationCountry} onChange={handleChange} className={cn("pl-10", errors.destinationCountry && "border-red-500")} placeholder={destinationPlaceholder} />
           </div>
+          {errors.destinationCountry && <p className="text-xs text-red-500 font-medium mt-1">{errors.destinationCountry}</p>}
         </div>
         <div className="space-y-2">
           <Label>

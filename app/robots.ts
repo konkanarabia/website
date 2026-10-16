@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/'],
+      disallow: ['/api/', '/admin/', '/thank-you'],
     },
     sitemap: 'https://konkanarabiahospitalitygroup.com/sitemap.xml',
+    host: 'https://konkanarabiahospitalitygroup.com',
   };
 }

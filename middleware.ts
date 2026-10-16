@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 const bucket = new Map<string, { count: number; reset: number }>();
 const WINDOW_MS = 15 * 60 * 1000;
-const MAX_REQUESTS = 40;
+const MAX_REQUESTS = 10;
 
 function allow(ip: string): boolean {
   const now = Date.now();
@@ -36,17 +36,21 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (path !== '/api/contact' && path !== '/api/enquiry') {
+  if (
+    path !== '/api/contact' &&
+    path !== '/api/enquiry' &&
+    path !== '/api/franchise-enquiry'
+  ) {
     return NextResponse.next();
   }
   const xf = request.headers.get('x-forwarded-for');
   const ip = xf?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
   if (!allow(ip)) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ error: 'Too many requests. Please wait before submitting again.' }, { status: 429 });
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/api/contact', '/api/enquiry', '/admin/:path*'],
+  matcher: ['/api/contact', '/api/enquiry', '/api/franchise-enquiry', '/admin/:path*'],
 };

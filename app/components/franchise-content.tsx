@@ -29,6 +29,9 @@ import {
   Compass
 } from "lucide-react";
 import TranslatedText from "@/components/TranslatedText";
+import { franchiseFormSchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations";
+import { cn } from "@/lib/utils";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const STATIONS = [
   {
@@ -186,7 +189,9 @@ export default function FranchiseContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
+  const [formLoadedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     fname: "",
     company: "",
@@ -197,11 +202,34 @@ export default function FranchiseContent() {
     format: "QSR in Food Court",
     budget: "₹15L-45L / AED 200K-500K / $40K-75K",
     message: "",
+    website_hp: "", // Honeypot field for bot protection
+    business_url: "", // Decoy bot honeypot
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
+  };
+
+  const handleBlur = (field: 'fname' | 'email') => {
+    if (field === 'fname' && formData.fname) {
+      const res = nameSchema.safeParse(formData.fname);
+      if (!res.success) {
+        setFieldErrors((prev) => ({ ...prev, fname: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setFieldErrors((prev) => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
+    }
   };
 
   const handleSelectFormatFromCards = (formatName: string) => {
@@ -215,6 +243,17 @@ export default function FranchiseContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side schema validation
+    const validation = franchiseFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const errMap = formatZodErrors(validation.error);
+      setFieldErrors(errMap);
+      setErrorMsg(Object.values(errMap)[0] || "Please correct the highlighted fields.");
+      return;
+    }
+
+    setFieldErrors({});
     setIsSubmitting(true);
     setErrorMsg("");
 
@@ -222,7 +261,10 @@ export default function FranchiseContent() {
       const res = await fetch("/api/franchise-enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _form_loaded_at: formLoadedAt,
+        }),
       });
 
       const data = await res.json();
@@ -627,6 +669,8 @@ export default function FranchiseContent() {
                           format: "QSR in Food Court",
                           budget: "₹15L-45L / AED 200K-500K / $40K-75K",
                           message: "",
+                          website_hp: "",
+                          business_url: "",
                         });
                       }}
                       className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-2xl text-sm border border-slate-200 transition-all"
@@ -637,6 +681,43 @@ export default function FranchiseContent() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Decoy bot honeypots - completely invisible to humans, attracts automated bot crawlers */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      opacity: 0,
+                      zIndex: -1,
+                      width: "1px",
+                      height: "1px",
+                      overflow: "hidden",
+                      pointerEvents: "none",
+                      left: "-9999px",
+                      top: 0
+                    }}
+                  >
+                    <label htmlFor="franchise_website_hp">Website</label>
+                    <input
+                      id="franchise_website_hp"
+                      type="text"
+                      name="website_hp"
+                      value={formData.website_hp}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                    <label htmlFor="franchise_business_url">Company URL</label>
+                    <input
+                      id="franchise_business_url"
+                      type="text"
+                      name="business_url"
+                      value={formData.business_url}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   {errorMsg && (
                     <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-sm">
                       {errorMsg}
@@ -654,9 +735,14 @@ export default function FranchiseContent() {
                         required
                         value={formData.fname}
                         onChange={handleChange}
+                        onBlur={() => handleBlur('fname')}
                         placeholder="e.g. Rahul Sharma"
-                        className="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-sm font-medium"
+                        className={cn(
+                          "w-full px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-sm font-medium",
+                          fieldErrors.fname && "border-red-400 focus:border-red-500 bg-red-50/20"
+                        )}
                       />
+                      {fieldErrors.fname && <p className="text-xs font-semibold text-red-600 mt-1">{fieldErrors.fname}</p>}
                     </div>
 
                     <div className="space-y-2">
@@ -685,24 +771,30 @@ export default function FranchiseContent() {
                         required
                         value={formData.email}
                         onChange={handleChange}
+                        onBlur={() => handleBlur('email')}
                         placeholder="e.g. rahul@example.com"
-                        className="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-sm font-medium"
+                        className={cn(
+                          "w-full px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-sm font-medium",
+                          fieldErrors.email && "border-red-400 focus:border-red-500 bg-red-50/20"
+                        )}
                       />
+                      {fieldErrors.email && <p className="text-xs font-semibold text-red-600 mt-1">{fieldErrors.email}</p>}
                     </div>
 
                     <div className="space-y-2">
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                        Phone / WhatsApp <span className="text-amber-600">*</span> <span className="text-slate-400 font-normal">(with code)</span>
+                        Phone / WhatsApp <span className="text-amber-600">*</span>
                       </label>
-                      <input
-                        type="tel"
+                      <PhoneInput
+                        id="phone"
                         name="phone"
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+91 / +971 / +65 ..."
-                        className="w-full px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:bg-white transition-all text-sm font-medium"
+                        error={Boolean(fieldErrors.phone)}
+                        className="rounded-2xl border-slate-300 bg-slate-50 focus-within:bg-white"
                       />
+                      {fieldErrors.phone && <p className="text-xs font-semibold text-red-600 mt-1">{fieldErrors.phone}</p>}
                     </div>
                   </div>
 

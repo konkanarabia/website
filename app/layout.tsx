@@ -9,6 +9,7 @@ import ExchangeRatesInitializer from '@/components/exchange-rates-initializer'
 import AnalyticsTracker from '@/components/AnalyticsTracker'
 import TravelChat from '@/components/TravelChat'
 import ScrollToTop from '@/components/ScrollToTop'
+import { getOrganizationSchema, getWebSiteSchema } from '@/lib/structured-data'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' })
@@ -19,7 +20,7 @@ export const metadata = {
     template: '%s | KonkanArabia'
   },
   description: 'KonkanArabia Hospitality & Holiday Group offers premium holiday packages, vehicle rentals, visa services, and event management across India and the UAE. Discover the best of Konkan and beyond.',
-  keywords: ['KonkanArabia', 'Konkan Tourism', 'Holiday Packages India', 'Dubai Tourism', 'Vehicle Rental Mumbai', 'Visa Services UAE', 'Event Management Dubai', 'Luxury Travel India', 'Hospitality Group', 'Travel Agent Vashi', 'Tour Operator Navi Mumbai', 'Dubai Tours from Vashi', 'Holiday Packages Vashi', 'Travel Agency Navi Mumbai', 'Dubai Group Tours Navi Mumbai', 'Honeymoon Packages Navi Mumbai', 'Tour Packages Sector 30A Vashi'],
+  keywords: ['KonkanArabia', 'Konkan Tourism', 'Holiday Packages India', 'Dubai Tourism', 'PedneCar Goa', 'Goa Tourist Taxi', 'Mapusa Taxi Service', 'MOPA Airport Taxi', 'Dabolim Airport Cab', 'Toyota Rumion Rental Goa', 'Vehicle Rental Mumbai', 'Visa Services UAE', 'Event Management Dubai', 'Luxury Travel India', 'Hospitality Group', 'Travel Agent Vashi', 'Tour Operator Navi Mumbai', 'Dubai Tours from Vashi', 'Holiday Packages Vashi', 'Travel Agency Navi Mumbai', 'Dubai Group Tours Navi Mumbai', 'Honeymoon Packages Navi Mumbai', 'Mumbai to Malabar Food Express Franchise', 'Tour Packages Sector 30A Vashi'],
   authors: [{ name: 'KonkanArabia' }],
   creator: 'KonkanArabia',
   publisher: 'KonkanArabia',
@@ -31,14 +32,23 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://konkanarabiahospitalitygroup.com',
-    title: 'KonkanArabia Hospitality & Holiday Group',
-    description: 'Premier hospitality and travel management group in India and Dubai.',
+    title: 'KonkanArabia Hospitality & Holiday Group | Luxury Tours, Goa Taxi & Travel',
+    description: 'Premier hospitality and travel management group in India and Dubai. Luxury holiday packages, PedneCar Goa tourist taxi rentals, visa assistance, and franchise partnerships.',
     siteName: 'KonkanArabia',
+    images: [
+      {
+        url: 'https://konkanarabiahospitalitygroup.com/logo/KonkanArabia-New-Logo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'KonkanArabia Hospitality & Holiday Group',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'KonkanArabia Hospitality & Holiday Group',
-    description: 'Premier hospitality and travel management group in India and Dubai.',
+    description: 'Premier hospitality, luxury holiday packages, and Goa tourist taxi rentals.',
+    images: ['https://konkanarabiahospitalitygroup.com/logo/KonkanArabia-New-Logo.webp'],
   }
 }
 
@@ -62,6 +72,19 @@ export default function RootLayout({
             gtag('config', 'G-K09V6901MT');
           `}
         </Script>
+        {/* JSON-LD Organization & WebSite Schemas */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getOrganizationSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getWebSiteSchema()),
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans`}

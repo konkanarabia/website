@@ -8,15 +8,22 @@ import { useToast } from "@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
 import TranslatedText from "@/components/TranslatedText"
 import useTranslatedString from "@/hooks/use-translated-string"
+import { contactFormSchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations"
+import { cn } from "@/lib/utils"
+import { PhoneInput } from "@/components/ui/phone-input"
 
 
 export default function ContactPage() {
+  const [formLoadedAt] = useState(() => Date.now())
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    website_hp: '', // Honeypot field for bot protection
+    business_url: '', // Decoy honeypot for bot crawlers
   })
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
 
@@ -29,10 +36,46 @@ export default function ContactPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prevState => ({ ...prevState, [name]: value }))
+    if (errors[name]) {
+      setErrors(prev => {
+        const next = { ...prev }
+        delete next[name]
+        return next
+      })
+    }
   }
+
+  const handleBlur = (field: 'name' | 'email') => {
+    if (field === 'name' && formData.name) {
+      const res = nameSchema.safeParse(formData.name);
+      if (!res.success) {
+        setErrors(prev => ({ ...prev, name: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setErrors(prev => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Client-side schema validation
+    const validation = contactFormSchema.safeParse(formData)
+    if (!validation.success) {
+      const errMap = formatZodErrors(validation.error)
+      setErrors(errMap)
+      toast({
+        title: "Please check your inputs",
+        description: Object.values(errMap)[0] || "Some fields require your attention.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    setErrors({})
     setIsSubmitting(true)
     
     try {
@@ -41,7 +84,10 @@ export default function ContactPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _form_loaded_at: formLoadedAt,
+        }),
       })
       
       const data = await response.json()
@@ -56,7 +102,7 @@ export default function ContactPage() {
         variant: "default",
       })
       
-      setFormData({ name: '', email: '', phone: '', message: '' })
+      setFormData({ name: '', email: '', phone: '', message: '', website_hp: '', business_url: '' })
     } catch (error) {
       toast({
         title: "Error Sending Message",
@@ -177,6 +223,43 @@ export default function ContactPage() {
                 <TranslatedText text="Send us a Message" />
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Decoy bot honeypots - completely invisible to humans, attracts automated bot crawlers */}
+                <div 
+                  aria-hidden="true" 
+                  style={{
+                    position: 'absolute',
+                    opacity: 0,
+                    zIndex: -1,
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden',
+                    pointerEvents: 'none',
+                    left: '-9999px',
+                    top: 0
+                  }}
+                >
+                  <label htmlFor="contact_website_hp">Website</label>
+                  <input
+                    id="contact_website_hp"
+                    type="text"
+                    name="website_hp"
+                    value={formData.website_hp}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                  <label htmlFor="contact_business_url">Company URL</label>
+                  <input
+                    id="contact_business_url"
+                    type="text"
+                    name="business_url"
+                    value={formData.business_url}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
@@ -187,10 +270,15 @@ export default function ContactPage() {
                       placeholder={namePlaceholder}
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={() => handleBlur('name')}
                       required
                       disabled={isSubmitting}
-                      className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
+                      className={cn(
+                        "py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium",
+                        errors.name && "border-red-400 focus:border-red-500"
+                      )}
                     />
+                    {errors.name && <p className="text-xs font-semibold text-red-500 mt-1">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
@@ -202,25 +290,31 @@ export default function ContactPage() {
                       placeholder={emailPlaceholder}
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={() => handleBlur('email')}
                       required
                       disabled={isSubmitting}
-                      className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
+                      className={cn(
+                        "py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium",
+                        errors.email && "border-red-400 focus:border-red-500"
+                      )}
                     />
+                    {errors.email && <p className="text-xs font-semibold text-red-500 mt-1">{errors.email}</p>}
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
                     <TranslatedText text="Phone Number" />
                   </label>
-                  <Input
-                    type="tel"
+                  <PhoneInput
+                    id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder={phonePlaceholder}
                     disabled={isSubmitting}
-                    className="py-6 rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium"
+                    error={Boolean(errors.phone)}
+                    className="min-h-[50px] rounded-xl border-slate-200"
                   />
+                  {errors.phone && <p className="text-xs font-semibold text-red-500 mt-1">{errors.phone}</p>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-500 uppercase tracking-widest">
@@ -234,8 +328,12 @@ export default function ContactPage() {
                     required
                     placeholder={messagePlaceholder}
                     disabled={isSubmitting}
-                    className="rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium resize-none p-4"
+                    className={cn(
+                      "rounded-xl border-slate-200 focus:border-[#0066a1] focus:ring-[#0066a1]/20 transition-all font-medium resize-none p-4",
+                      errors.message && "border-red-400 focus:border-red-500"
+                    )}
                   />
+                  {errors.message && <p className="text-xs font-semibold text-red-500 mt-1">{errors.message}</p>}
                 </div>
                 <Button 
                   type="submit" 

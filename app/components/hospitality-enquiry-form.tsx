@@ -19,6 +19,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import TranslatedText from "@/components/TranslatedText";
 import useTranslatedString from "@/hooks/use-translated-string";
+import { hospitalityEnquirySchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 
 import { useSearchParams } from "next/navigation";
@@ -35,6 +37,7 @@ export default function SpecializedEnquiryForm() {
   const emailPlaceholder = useTranslatedString("example@gmail.com");
   const detailsPlaceholder = useTranslatedString("Tell us more about your requirements (e.g., room preference, dietary needs, special events)...");
 
+  const [formLoadedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,6 +48,8 @@ export default function SpecializedEnquiryForm() {
     checkOutDate: "",
     guests: "2",
     message: "",
+    website_hp: "",
+    business_url: "",
   });
 
   useEffect(() => {
@@ -105,17 +110,29 @@ export default function SpecializedEnquiryForm() {
     }
   };
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+  const handleBlur = (field: 'name' | 'email') => {
+    if (field === 'name' && formData.name) {
+      const res = nameSchema.safeParse(formData.name);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, name: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
     }
-    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateForm = () => {
+    const validation = hospitalityEnquirySchema.safeParse(formData);
+    if (!validation.success) {
+      const newErrors = formatZodErrors(validation.error);
+      setErrors(newErrors);
+      return false;
+    }
+    setErrors({});
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -129,10 +146,11 @@ export default function SpecializedEnquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          _form_loaded_at: formLoadedAt,
           travelType: formData.serviceType === "hospitality" ? "Hospitality Stay" : "Dining Enquiry",
           departureDate: formData.checkInDate,
           returnDate: formData.checkOutDate,
-          travelers: parseInt(formData.guests),
+          travelers: parseInt(formData.guests) || 1,
         }),
       });
 
@@ -156,6 +174,25 @@ export default function SpecializedEnquiryForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          zIndex: -1,
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          pointerEvents: "none",
+          left: "-9999px",
+          top: 0
+        }}
+      >
+        <label htmlFor="hosp_website_hp">Website</label>
+        <input id="hosp_website_hp" type="text" name="website_hp" value={formData.website_hp} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+        <label htmlFor="hosp_business_url">Company URL</label>
+        <input id="hosp_business_url" type="text" name="business_url" value={formData.business_url} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="space-y-2">
@@ -231,8 +268,10 @@ export default function SpecializedEnquiryForm() {
               placeholder={namePlaceholder}
               value={formData.name}
               onChange={handleChange}
+              onBlur={() => handleBlur('name')}
               className={cn("h-12 rounded-xl border-slate-200", errors.name && "border-red-500")}
             />
+            {errors.name && <p className="text-xs text-red-500 font-medium mt-1">{errors.name}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="email" className="text-slate-700 font-semibold">
@@ -245,8 +284,10 @@ export default function SpecializedEnquiryForm() {
               placeholder={emailPlaceholder}
               value={formData.email}
               onChange={handleChange}
+              onBlur={() => handleBlur('email')}
               className={cn("h-12 rounded-xl border-slate-200", errors.email && "border-red-500")}
             />
+            {errors.email && <p className="text-xs text-red-500 font-medium mt-1">{errors.email}</p>}
           </div>
         </div>
 
@@ -255,14 +296,15 @@ export default function SpecializedEnquiryForm() {
             <Label htmlFor="phone" className="text-slate-700 font-semibold">
               <TranslatedText text="Phone Number" />
             </Label>
-            <Input
+            <PhoneInput
               id="phone"
               name="phone"
-              placeholder="+44"
               value={formData.phone}
               onChange={handleChange}
-              className={cn("h-12 rounded-xl border-slate-200", errors.phone && "border-red-500")}
+              error={Boolean(errors.phone)}
+              className="rounded-xl border-slate-200"
             />
+            {errors.phone && <p className="text-xs text-red-500 font-medium mt-1">{errors.phone}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="guests" className="text-slate-700 font-semibold">

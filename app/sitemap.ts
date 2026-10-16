@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const shouldExcludeRouteSegment = (segment: string) =>
     segment === 'admin' ||
     segment === 'api' ||
+    segment === 'thank-you' ||
     segment.startsWith('(') || // route groups
     segment.startsWith('_') || // private conventions
     segment.startsWith('@'); // parallel routes
@@ -57,79 +58,95 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes = await getStaticRoutesFromAppDir();
 
-  const urlEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.8,
-  }));
+  const urlEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => {
+    let priority = 0.8;
+    if (route === '') priority = 1.0;
+    else if (['/destinations', '/pednecar', '/franchise', '/hospitality'].includes(route)) priority = 0.9;
+    
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: now,
+      changeFrequency: route === '' || route === '/destinations' || route === '/pednecar' ? ('daily' as const) : ('weekly' as const),
+      priority,
+    };
+  });
 
-  await dbConnect();
-  const [
-    destinations,
-    events,
-    vehicles,
-    hospitality,
-    restaurants,
-    visas,
-  ] = await Promise.all([
-    Destination.find().select('id').lean(),
-    Event.find().select('id').lean(),
-    Vehicle.find().select('id').lean(),
-    Hospitality.find().select('id').lean(),
-    Restaurant.find().select('id').lean(),
-    Visa.find().select('id').lean(),
-  ]);
+  let dynamicRoutes: MetadataRoute.Sitemap = [];
 
-  const destinationRoutes = destinations.map((d: any) => ({
-    url: `${baseUrl}/destinations/${d.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  try {
+    await dbConnect();
+    const [
+      destinations,
+      events,
+      vehicles,
+      hospitality,
+      restaurants,
+      visas,
+    ] = await Promise.all([
+      Destination.find().select('id').lean(),
+      Event.find().select('id').lean(),
+      Vehicle.find().select('id').lean(),
+      Hospitality.find().select('id').lean(),
+      Restaurant.find().select('id').lean(),
+      Visa.find().select('id').lean(),
+    ]);
 
-  const eventRoutes = events.map((e: any) => ({
-    url: `${baseUrl}/events/${e.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    const destinationRoutes = destinations.map((d: any) => ({
+      url: `${baseUrl}/destinations/${d.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
 
-  const vehicleRoutes = vehicles.map((v: any) => ({
-    url: `${baseUrl}/vehicles/${v.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    const eventRoutes = events.map((e: any) => ({
+      url: `${baseUrl}/events/${e.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
 
-  const hospitalityRoutes = hospitality.map((h: any) => ({
-    url: `${baseUrl}/hospitality/${h.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    const vehicleRoutes = vehicles.map((v: any) => ({
+      url: `${baseUrl}/vehicles/${v.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
 
-  const restaurantRoutes = restaurants.map((r: any) => ({
-    url: `${baseUrl}/restaurants/${r.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    const hospitalityRoutes = hospitality.map((h: any) => ({
+      url: `${baseUrl}/hospitality/${h.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
 
-  const visaRoutes = visas.map((v: any) => ({
-    url: `${baseUrl}/visas/${v.id}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    const restaurantRoutes = restaurants.map((r: any) => ({
+      url: `${baseUrl}/restaurants/${r.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+
+    const visaRoutes = visas.map((v: any) => ({
+      url: `${baseUrl}/visas/${v.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+
+    dynamicRoutes = [
+      ...destinationRoutes,
+      ...eventRoutes,
+      ...vehicleRoutes,
+      ...hospitalityRoutes,
+      ...restaurantRoutes,
+      ...visaRoutes,
+    ];
+  } catch (dbErr) {
+    console.error('Sitemap dynamic routes fetch error (fallback to static routes):', dbErr);
+  }
 
   return [
     ...urlEntries,
-    ...destinationRoutes,
-    ...eventRoutes,
-    ...vehicleRoutes,
-    ...hospitalityRoutes,
-    ...restaurantRoutes,
-    ...visaRoutes,
+    ...dynamicRoutes,
   ];
 }

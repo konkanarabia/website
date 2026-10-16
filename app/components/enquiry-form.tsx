@@ -24,6 +24,8 @@ import { Badge } from "@/components/ui/badge";
 import { Price } from "@/components/ui/price";
 
 import { useI18n } from "@/lib/i18n-provider";
+import { travelEnquirySchema, formatZodErrors, nameSchema, emailSchema } from "@/lib/validations";
+import { PhoneInput } from "@/components/ui/phone-input";
  
 export default function EnquiryForm() {
   const { t } = useI18n();
@@ -49,6 +51,7 @@ export default function EnquiryForm() {
     }
   }, []);
 
+  const [formLoadedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -64,6 +67,8 @@ export default function EnquiryForm() {
     budgetCurrency: "INR", // Default currency for budget
     message: "",
     subscribe: false, // Newsletter subscription
+    website_hp: "", // Honeypot field for bot protection
+    business_url: "", // Decoy bot honeypot
   });
   // Helper function to parse date strings to Date objects
   const parseDate = (dateString: string): Date | null => {
@@ -137,56 +142,30 @@ export default function EnquiryForm() {
       setFormData((prev) => ({ ...prev, budgetMin: numValue }));
     }
   };
+
+  const handleBlur = (field: 'name' | 'email') => {
+    if (field === 'name' && formData.name) {
+      const res = nameSchema.safeParse(formData.name);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, name: res.error.issues[0]?.message || 'Invalid name' }));
+      }
+    } else if (field === 'email' && formData.email) {
+      const res = emailSchema.safeParse(formData.email);
+      if (!res.success) {
+        setErrors((prev) => ({ ...prev, email: res.error.issues[0]?.message || 'Invalid email address' }));
+      }
+    }
+  };
+
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    // Validate required fields
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+    const validation = travelEnquirySchema.safeParse(formData);
+    if (!validation.success) {
+      const newErrors = formatZodErrors(validation.error);
+      setErrors(newErrors);
+      return false;
     }
-
-    if (!formData.travelType)
-      newErrors.travelType = "Please select a travel type";
-    if (!formData.destination.trim())
-      newErrors.destination = "Destination is required";
-
-    // Date validation
-    if (formData.departureDate) {
-      const departureDate = parseDate(formData.departureDate);
-      if (!departureDate) {
-        newErrors.departureDate = "Please enter a valid date (YYYY-MM-DD)";
-      } else if (isBefore(departureDate, new Date())) {
-        newErrors.departureDate = "Departure date must be in the future";
-      }
-    }
-
-    if (formData.returnDate) {
-      const returnDate = parseDate(formData.returnDate);
-      if (!returnDate) {
-        newErrors.returnDate = "Please enter a valid date (YYYY-MM-DD)";
-      } else if (formData.departureDate) {
-        const departureDate = parseDate(formData.departureDate);
-        if (departureDate && isBefore(returnDate, departureDate)) {
-          newErrors.returnDate = "Return date must be after departure date";
-        }
-      }
-    }
-
-    // Budget validation
-    if (formData.budgetMin <= 0) {
-      newErrors.budgetMin = "Minimum budget must be greater than 0";
-    }
-    if (formData.budgetMax <= 0) {
-      newErrors.budgetMax = "Maximum budget must be greater than 0";
-    }
-    if (formData.budgetMin > formData.budgetMax) {
-      newErrors.budgetMin = "Minimum budget cannot exceed maximum budget";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors({});
+    return true;
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -209,7 +188,10 @@ export default function EnquiryForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _form_loaded_at: formLoadedAt,
+        }),
       });
 
       const responseData = await response.json();
@@ -238,6 +220,8 @@ export default function EnquiryForm() {
         budgetCurrency: "INR",
         message: "",
         subscribe: false,
+        website_hp: "",
+        business_url: "",
       });
 
       // Redirect user to thank you page
@@ -257,6 +241,43 @@ export default function EnquiryForm() {
   // JSX form implementation
   return (
     <form onSubmit={handleSubmit} noValidate>
+      {/* Decoy bot honeypots - completely invisible to humans, attracts automated bot crawlers */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          zIndex: -1,
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          pointerEvents: "none",
+          left: "-9999px",
+          top: 0
+        }}
+      >
+        <label htmlFor="enquiry_website_hp">Website</label>
+        <input
+          id="enquiry_website_hp"
+          type="text"
+          name="website_hp"
+          value={formData.website_hp}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+        <label htmlFor="enquiry_business_url">Company URL</label>
+        <input
+          id="enquiry_business_url"
+          type="text"
+          name="business_url"
+          value={formData.business_url}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className="w-full max-w-4xl mx-auto p-6 bg-card rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Travel Enquiry Form
@@ -274,6 +295,7 @@ export default function EnquiryForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                onBlur={() => handleBlur('name')}
                 placeholder="Your full name"
                 className={cn(errors.name && "border-destructive")}
                 disabled={isSubmitting}
@@ -291,6 +313,7 @@ export default function EnquiryForm() {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={() => handleBlur('email')}
                 placeholder="your.email@example.com"
                 className={cn(errors.email && "border-destructive")}
                 disabled={isSubmitting}
@@ -303,14 +326,14 @@ export default function EnquiryForm() {
 
           <div>
             <Label htmlFor="phone">{t('phone_number')}</Label>
-            <Input
+            <PhoneInput
               id="phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="Your phone number"
-              className={cn(errors.phone && "border-destructive")}
               disabled={isSubmitting}
+              error={Boolean(errors.phone)}
+              className="mt-1"
             />
             {errors.phone && (
               <p className="text-sm text-destructive mt-1">{errors.phone}</p>

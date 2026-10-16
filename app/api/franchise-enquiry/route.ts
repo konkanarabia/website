@@ -4,19 +4,46 @@ import {
   franchiseEnquiryAdminEmail,
   franchiseEnquiryUserConfirmation,
 } from '@/lib/email-templates';
+import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { franchiseFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
     const body = await request.json();
-    const { fname, company, email, phone, country, itype, format, budget, message } = body;
 
-    // Validate required fields
-    if (!fname || !email || !phone) {
+    // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
+    const spamResult = evaluateSpam(body, clientIp);
+    if (spamResult.isSpam) {
+      console.warn(`[AntiSpam] Blocked spam franchise enquiry from ${clientIp} (${spamResult.reason}):`, {
+        fname: body.fname,
+        email: body.email,
+        phone: body.phone,
+        company: body.company,
+      });
+      // Silently accept so bot thinks it succeeded without sending emails
       return NextResponse.json(
-        { error: 'Missing required fields (Full Name, Email Address, and Phone Number are required)' },
+        {
+          success: true,
+          message: 'Franchise enquiry submitted successfully',
+        },
+        { status: 200 }
+      );
+    }
+
+    // Strict Schema Validation
+    const validation = franchiseFormSchema.safeParse(body);
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          error: 'Validation failed',
+          details: formatZodErrors(validation.error),
+        },
         { status: 400 }
       );
     }
+
+    const { fname, company, email, phone, country, itype, format, budget, message } = validation.data;
 
     if (process.env.NODE_ENV === 'development') {
       console.log('Processing franchise enquiry submission:', { fname, email, phone, format, country });

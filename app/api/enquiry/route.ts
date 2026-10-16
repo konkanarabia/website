@@ -7,12 +7,45 @@ import {
 import { formatServerPriceRange } from '@/lib/server-currency';
 import { formatServerDate, formatServerDuration } from '@/lib/server-date';
 import dbConnect from '@/lib/mongodb';
+import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { travelEnquirySchema, formatZodErrors } from '@/lib/validations';
 import Enquiry from '@/lib/models/Enquiry';
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
     // Parse the request body
     const body = await request.json();
+
+    // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
+    const spamResult = evaluateSpam(body, clientIp);
+    if (spamResult.isSpam) {
+      console.warn(`[AntiSpam] Blocked spam travel enquiry from ${clientIp} (${spamResult.reason}):`, {
+        name: body.name,
+        email: body.email,
+        phone: body.phone,
+      });
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Enquiry submitted successfully' 
+        },
+        { status: 200 }
+      );
+    }
+
+    // Strict Schema Validation
+    const validation = travelEnquirySchema.safeParse(body);
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          error: 'Validation failed',
+          details: formatZodErrors(validation.error),
+        },
+        { status: 400 }
+      );
+    }
+
     const { 
       name, 
       email, 
@@ -27,15 +60,7 @@ export async function POST(request: Request) {
       budgetMax,
       message,
       subscribe
-    } = body;
-
-    // Validate form data
-    if (!name || !email || !travelType || !destination) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }    // Format dates for display
+    } = validation.data;    // Format dates for display
     let formattedDepartureDate = 'Not specified';
     let formattedReturnDate = 'Not specified';
     let tripDuration;

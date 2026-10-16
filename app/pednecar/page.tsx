@@ -20,10 +20,50 @@ import {
   Award
 } from 'lucide-react';
 import TranslatedText from '@/components/TranslatedText';
+import { getPedneCarSchema, getPedneCarFAQSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
-  title: 'PedneCar • Your Goa Travel Partner | Tourist Vehicle Service Division',
-  description: 'Established in 2010. Premier Goa tourist taxi, Toyota Rumion 7-seater MUV, luxury Tempo Travelers, airport transfers (MOPA & Dabolim), hotel bookings, and sightseeing packages in Mapusa & across Goa.',
+  title: 'PedneCar • Your Goa Travel Partner | Tourist Taxi & Vehicle Rental Service Mapusa',
+  description: 'Established in 2010 in Mapusa, Goa. Premier Goa tourist taxi service, Toyota Rumion 7-seater MUV, luxury Tempo Travelers, MOPA & Dabolim airport transfers, hotel bookings, and sightseeing packages.',
+  keywords: [
+    'PedneCar',
+    'PedneCar Goa',
+    'Goa tourist taxi',
+    'Mapusa taxi service',
+    'Toyota Rumion rental Goa',
+    'MOPA airport taxi',
+    'Dabolim airport cab',
+    'Tempo Traveler Goa',
+    'North Goa taxi booking',
+    'South Goa sightseeing cab',
+    'Goa vehicle rental',
+    'Peddem Mapusa taxi',
+  ],
+  alternates: {
+    canonical: '/pednecar',
+  },
+  openGraph: {
+    title: 'PedneCar • Tourist Taxi & Vehicle Rental Service Mapusa Goa',
+    description: 'Premier Goa tourist taxi fleet featuring Toyota Rumion 7-seaters, Tempo Travelers, and 24/7 airport transfers from MOPA and Dabolim.',
+    url: 'https://konkanarabiahospitalitygroup.com/pednecar',
+    siteName: 'KonkanArabia Hospitality & Holiday Group',
+    images: [
+      {
+        url: 'https://konkanarabiahospitalitygroup.com/vehicles/pednecar-toyota-rumion.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'PedneCar Toyota Rumion 7-Seater Tourist Vehicle in Goa',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PedneCar • Tourist Taxi & Vehicle Rental Service Mapusa Goa',
+    description: 'Premier Goa tourist taxi fleet, Toyota Rumion 7-seaters, and airport transfers.',
+    images: ['https://konkanarabiahospitalitygroup.com/vehicles/pednecar-toyota-rumion.jpg'],
+  },
 };
 
 export default function PedneCarPage() {
