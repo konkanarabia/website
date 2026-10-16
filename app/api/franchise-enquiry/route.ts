@@ -5,6 +5,7 @@ import {
   franchiseEnquiryUserConfirmation,
 } from '@/lib/email-templates';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
 import { franchiseFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
@@ -44,6 +45,27 @@ export async function POST(request: Request) {
     }
 
     const { fname, company, email, phone, country, itype, format, budget, message } = validation.data;
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name: fname,
+      email,
+      phone,
+      destination: country,
+      travelType: `Franchise (${format})`,
+      message: `${company ? `Company: ${company}. ` : ''}${message || ''}`,
+    });
+
+    if (aiSpam.isSpam && aiSpam.confidence >= 0.75) {
+      console.warn(`[AI Spam Agent] Blocked franchise enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+      return NextResponse.json(
+        {
+          success: true,
+          message: 'Franchise enquiry submitted successfully',
+        },
+        { status: 200 }
+      );
+    }
 
     if (process.env.NODE_ENV === 'development') {
       console.log('Processing franchise enquiry submission:', { fname, email, phone, format, country });

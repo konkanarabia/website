@@ -5,6 +5,7 @@ import {
   contactFormUserConfirmation,
 } from '@/lib/email-templates';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
 import { contactFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
@@ -44,6 +45,28 @@ export async function POST(request: Request) {
     }
 
     const { name, email, phone, message } = validation.data;
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name,
+      email,
+      phone,
+      message,
+    });
+
+    if (aiSpam.isSpam && aiSpam.confidence >= 0.75) {
+      console.warn(`[AI Spam Agent] Blocked contact submission (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`, {
+        name,
+        email,
+      });
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Contact form submitted successfully' 
+        },
+        { status: 200 }
+      );
+    }
 
     if (process.env.NODE_ENV === 'development') {
       console.log('Processing contact form submission');

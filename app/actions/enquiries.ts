@@ -3,6 +3,7 @@
 import dbConnect from '@/lib/mongodb';
 import Enquiry from '@/lib/models/Enquiry';
 import { revalidatePath } from 'next/cache';
+import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
 
 export async function getEnquiries(limit = 50) {
   await dbConnect();
@@ -46,9 +47,107 @@ export async function getPaginatedEnquiries(page = 1, limit = 10) {
 export async function updateEnquiryStatus(id: string, status: string) {
   await dbConnect();
   try {
-    await Enquiry.findByIdAndUpdate(id, { status });
+    const isSpam = status === 'Spam';
+    await Enquiry.findByIdAndUpdate(id, { 
+      status, 
+      ...(isSpam ? { isSpam: true } : {}) 
+    });
     revalidatePath('/admin');
     return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * AI Spam Agent: Scan a specific enquiry and label it
+ */
+export async function auditEnquirySpam(id: string) {
+  await dbConnect();
+  try {
+    const enq = await Enquiry.findById(id).lean();
+    if (!enq) return { success: false, error: 'Enquiry not found' };
+
+    const analysis = await analyzeSpamWithAi({
+      name: enq.name,
+      email: enq.email,
+      phone: enq.phone,
+      destination: enq.destination,
+      travelType: enq.travelType,
+      message: enq.message,
+    });
+
+    const isSpam = analysis.isSpam && analysis.confidence >= 0.75;
+    await Enquiry.findByIdAndUpdate(id, {
+      isSpam,
+      status: isSpam ? 'Spam' : (enq.status === 'Spam' ? 'New' : enq.status),
+      spamScore: analysis.confidence,
+      spamReason: analysis.reason,
+      spamCategory: analysis.category,
+    });
+
+    revalidatePath('/admin');
+    return { success: true, analysis };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * AI Spam Agent: Bulk scan pending/recent enquiries
+ */
+export async function bulkScanSpamEnquiries(limit = 15) {
+  await dbConnect();
+  try {
+    const enquiries = await Enquiry.find({ status: { $ne: 'Spam' } })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
+
+    let scannedCount = 0;
+    let spamCount = 0;
+
+    for (const enq of enquiries) {
+      scannedCount++;
+      const analysis = await analyzeSpamWithAi({
+        name: enq.name,
+        email: enq.email,
+        phone: enq.phone,
+        destination: enq.destination,
+        travelType: enq.travelType,
+        message: enq.message,
+      });
+
+      if (analysis.isSpam && analysis.confidence >= 0.75) {
+        spamCount++;
+        await Enquiry.findByIdAndUpdate(enq._id, {
+          isSpam: true,
+          status: 'Spam',
+          spamScore: analysis.confidence,
+          spamReason: analysis.reason,
+          spamCategory: analysis.category,
+        });
+      }
+    }
+
+    revalidatePath('/admin');
+    return { success: true, scannedCount, spamCount };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Delete all enquiries flagged as spam
+ */
+export async function purgeSpamEnquiries() {
+  await dbConnect();
+  try {
+    const result = await Enquiry.deleteMany({
+      $or: [{ status: 'Spam' }, { isSpam: true }]
+    });
+    revalidatePath('/admin');
+    return { success: true, deletedCount: result.deletedCount };
   } catch (error: any) {
     return { success: false, error: error.message };
   }

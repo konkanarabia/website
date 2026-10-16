@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Mail, Loader2, Send } from 'lucide-react';
-import { updateEnquiryStatus } from '@/app/actions/enquiries';
+import { Sparkles, Mail, Loader2, Send, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { updateEnquiryStatus, auditEnquirySpam } from '@/app/actions/enquiries';
 import { draftEnquiryReply } from '@/app/actions/gemini';
 import { sendAdminLeadEmail } from '@/app/actions/admin-email';
 import { toast } from 'sonner';
@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label';
 export default function EnquiryRow({ enq }: { enq: any }) {
   const [loading, setLoading] = useState(false);
   const [drafting, setDrafting] = useState(false);
+  const [auditing, setAuditing] = useState(false);
   const [sending, setSending] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [subject, setSubject] = useState('');
@@ -46,6 +47,22 @@ export default function EnquiryRow({ enq }: { enq: any }) {
       toast.error('Failed to update status');
     }
     setLoading(false);
+  };
+
+  const handleAiSpamAudit = async () => {
+    setAuditing(true);
+    toast.info('AI Spam Agent is analyzing this lead...');
+    const res = await auditEnquirySpam(enq._id);
+    setAuditing(false);
+    if (res.success && res.analysis) {
+      if (res.analysis.isSpam) {
+        toast.warning(`Flagged as Spam (${res.analysis.category}): ${res.analysis.reason}`);
+      } else {
+        toast.success(`Verified Clean: ${res.analysis.reason}`);
+      }
+    } else {
+      toast.error('Spam audit failed');
+    }
   };
 
   const loadAiDraftIntoBody = async () => {
@@ -105,11 +122,27 @@ export default function EnquiryRow({ enq }: { enq: any }) {
 
   return (
     <>
-      <tr className="hover:bg-blue-50/20 transition-colors group">
+      <tr className={`transition-colors group ${enq.isSpam || enq.status === 'Spam' ? 'bg-red-50/30 hover:bg-red-50/50' : 'hover:bg-blue-50/20'}`}>
         <td className="px-6 py-4">
-          <div className="font-bold text-gray-800">{enq.name}</div>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-gray-800">{enq.name}</span>
+            {(enq.isSpam || enq.status === 'Spam') && (
+              <span 
+                title={enq.spamReason || 'Flagged by AI Spam Agent'} 
+                className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200"
+              >
+                <ShieldAlert className="w-3 h-3 text-red-600" />
+                Spam {enq.spamScore ? `(${Math.round(enq.spamScore * 100)}%)` : ''}
+              </span>
+            )}
+          </div>
           <div className="text-xs text-gray-500">{enq.email}</div>
           {enq.phone && <div className="text-[10px] text-gray-400">{enq.phone}</div>}
+          {enq.spamReason && (
+            <div className="text-[10px] text-red-600 italic mt-0.5 max-w-xs truncate" title={enq.spamReason}>
+              Reason: {enq.spamReason}
+            </div>
+          )}
         </td>
         <td className="px-6 py-4">
           <div className="text-sm font-medium text-gray-700">{enq.destination}</div>
@@ -131,17 +164,29 @@ export default function EnquiryRow({ enq }: { enq: any }) {
                   ? 'text-blue-600 bg-blue-50'
                   : enq.status === 'Booked'
                     ? 'text-emerald-700 bg-emerald-50'
-                    : 'text-gray-600 bg-gray-100'
+                    : enq.status === 'Spam'
+                      ? 'text-red-700 bg-red-100 font-black'
+                      : 'text-gray-600 bg-gray-100'
             }`}
           >
             <option value="New">New</option>
             <option value="Contacted">Contacted</option>
             <option value="Booked">Booked</option>
             <option value="Cancelled">Cancelled</option>
+            <option value="Spam">Spam</option>
           </select>
         </td>
         <td className="px-6 py-4 text-right">
           <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              type="button"
+              onClick={handleAiSpamAudit}
+              disabled={auditing}
+              title="Audit with AI Spam Agent"
+              className="p-2 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors"
+            >
+              {auditing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldAlert className="w-4 h-4" />}
+            </button>
             <button
               type="button"
               onClick={openEmailDialog}

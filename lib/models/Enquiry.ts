@@ -14,7 +14,11 @@ const EnquirySchema = new mongoose.Schema({
   budgetMax: Number,
   message: String,
   subscribe: Boolean,
-  status: { type: String, default: 'New', enum: ['New', 'Contacted', 'Booked', 'Cancelled'] },
+  status: { type: String, default: 'New', enum: ['New', 'Contacted', 'Booked', 'Cancelled', 'Spam'] },
+  isSpam: { type: Boolean, default: false },
+  spamScore: { type: Number, default: 0 },
+  spamReason: String,
+  spamCategory: String,
   createdAt: { type: Date, default: Date.now },
   lastFollowUp: Date,
 });

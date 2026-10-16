@@ -8,6 +8,7 @@ import { formatServerPriceRange } from '@/lib/server-currency';
 import { formatServerDate, formatServerDuration } from '@/lib/server-date';
 import dbConnect from '@/lib/mongodb';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
+import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
 import { travelEnquirySchema, formatZodErrors } from '@/lib/validations';
 import Enquiry from '@/lib/models/Enquiry';
 
@@ -60,7 +61,44 @@ export async function POST(request: Request) {
       budgetMax,
       message,
       subscribe
-    } = validation.data;    // Format dates for display
+    } = validation.data;
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name,
+      email,
+      phone,
+      destination,
+      travelType,
+      message,
+    });
+
+    // If AI detects spam, save tagged as Spam for admin review, but SUPPRESS emails
+    if (aiSpam.isSpam && aiSpam.confidence >= 0.75) {
+      console.warn(`[AI Spam Agent] Blocked spam enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+      await dbConnect();
+      const newEnquiry = new Enquiry({
+        ...body,
+        departureDate: departureDate ? new Date(departureDate) : undefined,
+        returnDate: returnDate ? new Date(returnDate) : undefined,
+        status: 'Spam',
+        isSpam: true,
+        spamScore: aiSpam.confidence,
+        spamReason: aiSpam.reason,
+        spamCategory: aiSpam.category,
+      });
+      await newEnquiry.save();
+
+      return NextResponse.json(
+        { 
+          success: true, 
+          message: 'Travel enquiry submitted successfully',
+          adminEmailSent: false,
+          customerEmailSent: false,
+        },
+        { status: 200 }
+      );
+    }    // Format dates for display
     let formattedDepartureDate = 'Not specified';
     let formattedReturnDate = 'Not specified';
     let tripDuration;

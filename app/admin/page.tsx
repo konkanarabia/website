@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import DeleteButton from './DeleteButton';
 import EnquiryRow from './EnquiryRow';
+import SpamTriageBar from './SpamTriageBar';
 import ReviewRow from './ReviewRow';
 import VehicleDeleteButton from './VehicleDeleteButton';
 import VisaDeleteButton from './VisaDeleteButton';
@@ -902,7 +903,10 @@ export default async function AdminDashboard(props: {
               <Inbox className="w-5 h-5 text-blue-600" />
               Lead enquiries
             </h2>
-            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">LEADS</span>
+            <div className="flex items-center gap-3">
+              <SpamTriageBar />
+              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">LEADS</span>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[640px]">
