@@ -38,7 +38,7 @@ export async function getEnquiryStats() {
   }
 }
 
-export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: string) {
+export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: string, search?: string) {
   await dbConnect();
   try {
     const safePage = page > 0 ? page : 1;
@@ -54,6 +54,24 @@ export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: strin
       query.travelType = { $regex: filter, $options: 'i' };
     }
 
+    if (search && search.trim()) {
+      const s = search.trim();
+      const searchConditions = [
+        { name: { $regex: s, $options: 'i' } },
+        { fname: { $regex: s, $options: 'i' } },
+        { email: { $regex: s, $options: 'i' } },
+        { phone: { $regex: s, $options: 'i' } },
+        { destination: { $regex: s, $options: 'i' } },
+        { message: { $regex: s, $options: 'i' } },
+      ];
+      if (query.$or) {
+        query.$and = [{ $or: query.$or }, { $or: searchConditions }];
+        delete query.$or;
+      } else {
+        query.$or = searchConditions;
+      }
+    }
+
     const [data, total] = await Promise.all([
       Enquiry.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       Enquiry.countDocuments(query),
@@ -66,6 +84,44 @@ export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: strin
     };
   } catch {
     return { data: [], totalPages: 0, currentPage: 1, totalCount: 0 };
+  }
+}
+
+export async function exportEnquiriesCsv(filter?: string, search?: string) {
+  await dbConnect();
+  try {
+    const query: any = {};
+    if (filter === 'spam') {
+      query.$or = [{ status: 'Spam' }, { isSpam: true }];
+    } else if (filter === 'clean') {
+      query.status = { $ne: 'Spam' };
+      query.isSpam = { $ne: true };
+    } else if (filter && filter !== 'all') {
+      query.travelType = { $regex: filter, $options: 'i' };
+    }
+
+    if (search && search.trim()) {
+      const s = search.trim();
+      const searchConditions = [
+        { name: { $regex: s, $options: 'i' } },
+        { fname: { $regex: s, $options: 'i' } },
+        { email: { $regex: s, $options: 'i' } },
+        { phone: { $regex: s, $options: 'i' } },
+        { destination: { $regex: s, $options: 'i' } },
+        { message: { $regex: s, $options: 'i' } },
+      ];
+      if (query.$or) {
+        query.$and = [{ $or: query.$or }, { $or: searchConditions }];
+        delete query.$or;
+      } else {
+        query.$or = searchConditions;
+      }
+    }
+
+    const data = await Enquiry.find(query).sort({ createdAt: -1 }).limit(1000).lean();
+    return { success: true, data: JSON.parse(JSON.stringify(data)) };
+  } catch (error: any) {
+    return { success: false, error: error.message };
   }
 }
 

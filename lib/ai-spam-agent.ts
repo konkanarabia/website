@@ -5,7 +5,7 @@
  */
 
 import { geminiGenerateText } from '@/lib/gemini-generate';
-import { isDotStuffedEmail, isGibberishToken, evaluateSpam } from '@/lib/antispam';
+import { isDotStuffedEmail, isGibberishToken, evaluateSpam, isDisposableEmail } from '@/lib/antispam';
 
 export interface AiSpamAnalysis {
   isSpam: boolean;
@@ -37,6 +37,15 @@ export async function analyzeSpamWithAi(payload: {
       confidence: 0.99,
       category: 'gibberish',
       reason: 'Dot-stuffed bot email address pattern',
+    };
+  }
+
+  if (email && isDisposableEmail(email)) {
+    return {
+      isSpam: true,
+      confidence: 0.99,
+      category: 'other_spam',
+      reason: 'Temporary / disposable email address not allowed',
     };
   }
 

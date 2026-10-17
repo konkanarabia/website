@@ -175,6 +175,28 @@ export function countCaseTransitions(str: string): number {
   return transitions;
 }
 
+// Common disposable/temporary email provider domains used by bot spammers
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  'tempmail.com', 'temp-mail.org', '10minutemail.com', '10minutemail.net',
+  'guerrillamail.com', 'guerrillamail.net', 'guerrillamail.org', 'mailinator.com',
+  'throwawaymail.com', 'trashmail.com', 'yopmail.com', 'sharklasers.com',
+  'getnada.com', 'dispostable.com', 'mohmal.com', 'fakemailgenerator.com',
+  'burnermail.io', 'inboxkitten.com', 'generator.email', 'crazymailing.com',
+  'maildrop.cc', 'tempail.com', 'tmpmail.org', 'byom.de', 'dropmail.me',
+  'nada.ltd', 'emailondeck.com', 'mytemp.email', 'tempinbox.com', 'clipmail.eu',
+  'proton66.org', 'luxusmail.xyz', 'spamgourmet.com', 'trashmail.net'
+]);
+
+/**
+ * Check if email belongs to a known temporary/burner email service
+ */
+export function isDisposableEmail(email?: string): boolean {
+  if (!email || !email.includes('@')) return false;
+  const domain = email.split('@')[1]?.toLowerCase().trim();
+  if (!domain) return false;
+  return DISPOSABLE_EMAIL_DOMAINS.has(domain);
+}
+
 /**
  * Detect dot-stuffed spam emails (e.g. "a.t.in.u.j.o.l.uj.3.5@gmail.com").
  * Spambots insert multiple dots in the username portion to bypass duplicate account checks.
@@ -286,8 +308,13 @@ export function evaluateSpam(
   }
 
   const email = (payload.email || '').trim();
-  if (email && isDotStuffedEmail(email)) {
-    return { isSpam: true, reason: 'Dot-stuffed bot email address pattern' };
+  if (email) {
+    if (isDotStuffedEmail(email)) {
+      return { isSpam: true, reason: 'Dot-stuffed bot email address pattern' };
+    }
+    if (isDisposableEmail(email)) {
+      return { isSpam: true, reason: 'Temporary / disposable email address not allowed' };
+    }
   }
 
   const message = (payload.message || '').trim();

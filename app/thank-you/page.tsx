@@ -36,7 +36,39 @@ export default function ThankYouPage() {
               <li>We&apos;ll work together to create your perfect trip</li>
             </ul>
           </div>
-          
+
+          {/* WhatsApp Instant Concierge Quick-Connect */}
+          <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-6 mb-8 text-left shadow-sm">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="flex h-3 w-3 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              </span>
+              <h3 className="font-bold text-emerald-950 text-base">Want to fast-track your trip or get an instant quote?</h3>
+            </div>
+            <p className="text-xs text-emerald-800 mb-4">
+              Our 24/7 travel desk is active on WhatsApp. Chat directly with our private travel concierge:
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://wa.me/919370528517?text=Hi%20KonkanArabia,%20I%20just%20submitted%20an%20enquiry%20on%20your%20website%20and%20would%20like%20to%20connect%20regarding%20my%20trip."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-900/10 transition-all hover:scale-[1.02]"
+              >
+                <span>💬 WhatsApp India Desk (+91-9370528517)</span>
+              </a>
+              <a
+                href="https://wa.me/971555995260?text=Hi%20KonkanArabia,%20I%20just%20submitted%20an%20enquiry%20on%20your%20website%20and%20would%20like%20to%20connect%20regarding%20my%20trip."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow-md shadow-emerald-900/10 transition-all hover:scale-[1.02]"
+              >
+                <span>💬 WhatsApp UAE Desk (+971-555995260)</span>
+              </a>
+            </div>
+          </div>
+
           <div className="flex justify-center space-x-4">
             <Button asChild>
               <Link href="/" className="px-5 py-2">

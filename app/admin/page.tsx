@@ -29,6 +29,7 @@ import {
 import DeleteButton from './DeleteButton';
 import EnquiryRow from './EnquiryRow';
 import SpamTriageBar from './SpamTriageBar';
+import AdminExportAndSearch from './AdminExportAndSearch';
 import ReviewRow from './ReviewRow';
 import VehicleDeleteButton from './VehicleDeleteButton';
 import VisaDeleteButton from './VisaDeleteButton';
@@ -52,26 +53,30 @@ function getServiceIcon(iconName: string) {
 
 type AdminTab = 'destinations' | 'enquiries' | 'reviews' | 'vehicles' | 'visas' | 'events' | 'hospitality' | 'restaurants';
 
-function adminHref(tab: AdminTab, page?: number, filter?: string) {
-  const q = new URLSearchParams();
-  q.set('tab', tab);
+function adminHref(tab: AdminTab, page?: number, filter?: string, q?: string) {
+  const params = new URLSearchParams();
+  params.set('tab', tab);
   if (page && page > 1) {
-    q.set('page', String(page));
+    params.set('page', String(page));
   }
   if (filter && filter !== 'all') {
-    q.set('filter', filter);
+    params.set('filter', filter);
   }
-  return `/admin?${q.toString()}`;
+  if (q && q.trim()) {
+    params.set('q', q.trim());
+  }
+  return `/admin?${params.toString()}`;
 }
 
 export default async function AdminDashboard(props: {
-  searchParams: Promise<{ page?: string; tab?: string; filter?: string }>;
+  searchParams: Promise<{ page?: string; tab?: string; filter?: string; q?: string }>;
 }) {
   const params = await props.searchParams;
   const pageRaw = params.page ? parseInt(params.page, 10) : 1;
   const page = Number.isFinite(pageRaw) && pageRaw > 0 ? pageRaw : 1;
   const tabParam = params.tab;
   const encFilter = params.filter || 'all';
+  const encSearch = params.q || '';
   const tab: AdminTab =
     tabParam === 'enquiries' || 
     tabParam === 'reviews' || 
@@ -107,7 +112,7 @@ export default async function AdminDashboard(props: {
     getAnalytics(),
     getEnquiryStats(),
     getReviewCount(),
-    tab === 'enquiries' ? getPaginatedEnquiries(encPage, 10, encFilter) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
+    tab === 'enquiries' ? getPaginatedEnquiries(encPage, 10, encFilter, encSearch) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'reviews' ? getPaginatedReviews(revPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'vehicles' ? getPaginatedVehicles(vehPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'visas' ? getPaginatedVisas(visaPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
@@ -904,12 +909,20 @@ export default async function AdminDashboard(props: {
 
       {tab === 'enquiries' && (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
-            <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-              <Inbox className="w-5 h-5 text-blue-600" />
-              Lead enquiries
-            </h2>
-            <div className="flex items-center gap-3">
+          <div className="p-6 border-b border-gray-200 flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-gray-50/50">
+            <div>
+              <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <Inbox className="w-5 h-5 text-blue-600" />
+                Lead enquiries
+              </h2>
+              {encSearch && (
+                <div className="text-xs text-blue-600 font-medium mt-1">
+                  Filtering by search: &ldquo;{encSearch}&rdquo;
+                </div>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <AdminExportAndSearch />
               <SpamTriageBar />
               <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">LEADS</span>
             </div>
@@ -933,7 +946,7 @@ export default async function AdminDashboard(props: {
               return (
                 <Link
                   key={f.id}
-                  href={adminHref('enquiries', 1, f.id)}
+                  href={adminHref('enquiries', 1, f.id, encSearch)}
                   className={`px-3 py-1.5 rounded-full font-medium transition-all ${
                     active
                       ? f.isSpamBadge
@@ -966,7 +979,7 @@ export default async function AdminDashboard(props: {
                 {enquiries.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
-                      No enquiries match the current filter.
+                      No enquiries match the current filter or search.
                     </td>
                   </tr>
                 ) : null}
@@ -983,7 +996,7 @@ export default async function AdminDashboard(props: {
                 Page {encCurrentPage} of {encTotalPages}
               </span>
               <div className="flex space-x-3">
-                <Link href={encCurrentPage > 1 ? adminHref('enquiries', encCurrentPage - 1, encFilter) : '#'}>
+                <Link href={encCurrentPage > 1 ? adminHref('enquiries', encCurrentPage - 1, encFilter, encSearch) : '#'}>
                   <button
                     type="button"
                     disabled={encCurrentPage <= 1}
@@ -992,7 +1005,7 @@ export default async function AdminDashboard(props: {
                     Prev
                   </button>
                 </Link>
-                <Link href={encCurrentPage < encTotalPages ? adminHref('enquiries', encCurrentPage + 1, encFilter) : '#'}>
+                <Link href={encCurrentPage < encTotalPages ? adminHref('enquiries', encCurrentPage + 1, encFilter, encSearch) : '#'}>
                   <button
                     type="button"
                     disabled={encCurrentPage >= encTotalPages}
