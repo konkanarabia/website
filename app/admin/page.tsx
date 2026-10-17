@@ -5,7 +5,7 @@ import { getPaginatedVisas } from '@/app/actions/visas';
 import { getPaginatedEvents } from '@/app/actions/events';
 import { getPaginatedHospitality } from '@/app/actions/hospitality';
 import { getPaginatedRestaurants } from '@/app/actions/restaurants';
-import { getEnquiryCount, getPaginatedEnquiries } from '@/app/actions/enquiries';
+import { getEnquiryCount, getPaginatedEnquiries, getEnquiryStats } from '@/app/actions/enquiries';
 import { getReviewCount, getPaginatedReviews } from '@/app/actions/reviews';
 import Link from 'next/link';
 
@@ -52,22 +52,26 @@ function getServiceIcon(iconName: string) {
 
 type AdminTab = 'destinations' | 'enquiries' | 'reviews' | 'vehicles' | 'visas' | 'events' | 'hospitality' | 'restaurants';
 
-function adminHref(tab: AdminTab, page?: number) {
+function adminHref(tab: AdminTab, page?: number, filter?: string) {
   const q = new URLSearchParams();
   q.set('tab', tab);
   if (page && page > 1) {
     q.set('page', String(page));
   }
+  if (filter && filter !== 'all') {
+    q.set('filter', filter);
+  }
   return `/admin?${q.toString()}`;
 }
 
 export default async function AdminDashboard(props: {
-  searchParams: Promise<{ page?: string; tab?: string }>;
+  searchParams: Promise<{ page?: string; tab?: string; filter?: string }>;
 }) {
   const params = await props.searchParams;
   const pageRaw = params.page ? parseInt(params.page, 10) : 1;
   const page = Number.isFinite(pageRaw) && pageRaw > 0 ? pageRaw : 1;
   const tabParam = params.tab;
+  const encFilter = params.filter || 'all';
   const tab: AdminTab =
     tabParam === 'enquiries' || 
     tabParam === 'reviews' || 
@@ -89,7 +93,7 @@ export default async function AdminDashboard(props: {
   const [
     { data: destinations, totalPages, currentPage, totalCount },
     analytics,
-    enquiryCount,
+    enquiryStats,
     reviewCount,
     enquiriesResult,
     reviewsResult,
@@ -101,9 +105,9 @@ export default async function AdminDashboard(props: {
   ] = await Promise.all([
     getPaginatedDestinations(destPage, 10),
     getAnalytics(),
-    getEnquiryCount(),
+    getEnquiryStats(),
     getReviewCount(),
-    tab === 'enquiries' ? getPaginatedEnquiries(encPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
+    tab === 'enquiries' ? getPaginatedEnquiries(encPage, 10, encFilter) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'reviews' ? getPaginatedReviews(revPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'vehicles' ? getPaginatedVehicles(vehPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'visas' ? getPaginatedVisas(visaPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
@@ -111,6 +115,8 @@ export default async function AdminDashboard(props: {
     tab === 'hospitality' ? getPaginatedHospitality(hospPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
     tab === 'restaurants' ? getPaginatedRestaurants(resPage, 10) : Promise.resolve({ data: [], totalPages: 0, currentPage: 1, totalCount: 0 }),
   ]);
+
+  const enquiryCount = enquiryStats.total;
 
   const enquiries = enquiriesResult.data;
   const encTotalPages = enquiriesResult.totalPages;
@@ -908,12 +914,48 @@ export default async function AdminDashboard(props: {
               <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">LEADS</span>
             </div>
           </div>
+
+          {/* Quick Filter Bar for All Forms & Spam Status */}
+          <div className="px-6 py-3 bg-white border-b border-gray-100 flex items-center gap-2 overflow-x-auto text-xs">
+            <span className="text-gray-400 font-bold uppercase tracking-wider text-[10px] mr-1">Filter Forms:</span>
+            {[
+              { id: 'all', label: `All (${enquiryStats.total})` },
+              { id: 'clean', label: `Clean (${enquiryStats.clean})` },
+              { id: 'spam', label: `Spam (${enquiryStats.spam})`, isSpamBadge: true },
+              { id: 'contact', label: 'Contact Us' },
+              { id: 'franchise', label: 'Franchise' },
+              { id: 'vehicle', label: 'Vehicles' },
+              { id: 'hospitality', label: 'Hospitality' },
+              { id: 'event', label: 'Events' },
+              { id: 'visa', label: 'Visas' },
+            ].map((f) => {
+              const active = encFilter === f.id;
+              return (
+                <Link
+                  key={f.id}
+                  href={adminHref('enquiries', 1, f.id)}
+                  className={`px-3 py-1.5 rounded-full font-medium transition-all ${
+                    active
+                      ? f.isSpamBadge
+                        ? 'bg-red-600 text-white shadow-sm'
+                        : 'bg-blue-600 text-white shadow-sm'
+                      : f.isSpamBadge
+                        ? 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[640px]">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Customer</th>
-                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Trip</th>
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Trip / Form</th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
                   <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">
                     Actions
@@ -924,7 +966,7 @@ export default async function AdminDashboard(props: {
                 {enquiries.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
-                      No enquiries yet
+                      No enquiries match the current filter.
                     </td>
                   </tr>
                 ) : null}
@@ -941,7 +983,7 @@ export default async function AdminDashboard(props: {
                 Page {encCurrentPage} of {encTotalPages}
               </span>
               <div className="flex space-x-3">
-                <Link href={encCurrentPage > 1 ? adminHref('enquiries', encCurrentPage - 1) : '#'}>
+                <Link href={encCurrentPage > 1 ? adminHref('enquiries', encCurrentPage - 1, encFilter) : '#'}>
                   <button
                     type="button"
                     disabled={encCurrentPage <= 1}
@@ -950,7 +992,7 @@ export default async function AdminDashboard(props: {
                     Prev
                   </button>
                 </Link>
-                <Link href={encCurrentPage < encTotalPages ? adminHref('enquiries', encCurrentPage + 1) : '#'}>
+                <Link href={encCurrentPage < encTotalPages ? adminHref('enquiries', encCurrentPage + 1, encFilter) : '#'}>
                   <button
                     type="button"
                     disabled={encCurrentPage >= encTotalPages}

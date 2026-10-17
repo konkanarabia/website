@@ -24,14 +24,39 @@ export async function getEnquiryCount() {
   }
 }
 
-export async function getPaginatedEnquiries(page = 1, limit = 10) {
+export async function getEnquiryStats() {
+  await dbConnect();
+  try {
+    const [total, spam, clean] = await Promise.all([
+      Enquiry.countDocuments(),
+      Enquiry.countDocuments({ $or: [{ status: 'Spam' }, { isSpam: true }] }),
+      Enquiry.countDocuments({ status: { $ne: 'Spam' }, isSpam: { $ne: true } }),
+    ]);
+    return { total, spam, clean };
+  } catch {
+    return { total: 0, spam: 0, clean: 0 };
+  }
+}
+
+export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: string) {
   await dbConnect();
   try {
     const safePage = page > 0 ? page : 1;
     const skip = (safePage - 1) * limit;
+
+    const query: any = {};
+    if (filter === 'spam') {
+      query.$or = [{ status: 'Spam' }, { isSpam: true }];
+    } else if (filter === 'clean') {
+      query.status = { $ne: 'Spam' };
+      query.isSpam = { $ne: true };
+    } else if (filter && filter !== 'all') {
+      query.travelType = { $regex: filter, $options: 'i' };
+    }
+
     const [data, total] = await Promise.all([
-      Enquiry.find().sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      Enquiry.countDocuments(),
+      Enquiry.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      Enquiry.countDocuments(query),
     ]);
     return {
       data: JSON.parse(JSON.stringify(data)),

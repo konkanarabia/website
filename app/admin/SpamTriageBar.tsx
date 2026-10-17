@@ -12,7 +12,7 @@ export default function SpamTriageBar() {
   const handleBulkScan = async () => {
     setScanning(true);
     toast.info('AI Spam Agent is scanning recent inquiries...');
-    const res = await bulkScanSpamEnquiries(20);
+    const res = await bulkScanSpamEnquiries(100);
     setScanning(false);
     if (res.success) {
       if (res.spamCount && res.spamCount > 0) {

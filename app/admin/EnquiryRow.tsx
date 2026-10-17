@@ -29,7 +29,7 @@ export default function EnquiryRow({ enq }: { enq: any }) {
   const [body, setBody] = useState('');
   const [markContacted, setMarkContacted] = useState(true);
 
-  const defaultSubject = `Re: Your ${enq.destination || 'travel'} enquiry — KonkanArabia`;
+  const defaultSubject = `Re: Your ${enq.destination || enq.travelType || 'enquiry'} — KonkanArabia`;
 
   const openEmailDialog = () => {
     setSubject(defaultSubject);
@@ -125,7 +125,7 @@ export default function EnquiryRow({ enq }: { enq: any }) {
       <tr className={`transition-colors group ${enq.isSpam || enq.status === 'Spam' ? 'bg-red-50/30 hover:bg-red-50/50' : 'hover:bg-blue-50/20'}`}>
         <td className="px-6 py-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-gray-800">{enq.name}</span>
+            <span className="font-bold text-gray-800">{enq.name || enq.fname || 'Enquiry Lead'}</span>
             {(enq.isSpam || enq.status === 'Spam') && (
               <span 
                 title={enq.spamReason || 'Flagged by AI Spam Agent'} 
@@ -145,8 +145,10 @@ export default function EnquiryRow({ enq }: { enq: any }) {
           )}
         </td>
         <td className="px-6 py-4">
-          <div className="text-sm font-medium text-gray-700">{enq.destination}</div>
-          {enq.travelType && (
+          <div className="text-sm font-medium text-gray-700">
+            {enq.destination || (enq.travelType ? enq.travelType : 'General Inquiry')}
+          </div>
+          {enq.travelType && enq.destination && (
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
               {enq.travelType}
             </span>
