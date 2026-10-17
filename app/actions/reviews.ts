@@ -5,12 +5,37 @@ import Review from '@/lib/models/Review';
 import { geminiGenerateText, getGeminiClient } from '@/lib/gemini-generate';
 import { revalidatePath } from 'next/cache';
 
+import { evaluateSpam } from '@/lib/antispam';
+import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
+
 export async function submitReview(destinationId: number, formData: FormData) {
   await dbConnect();
   try {
-    const userName = formData.get('userName') as string;
+    const userName = (formData.get('userName') as string || '').trim();
     const rating = Number(formData.get('rating'));
-    const comment = formData.get('comment') as string;
+    const comment = (formData.get('comment') as string || '').trim();
+
+    // Anti-spam evaluation (heuristics, gibberish name & comment checks)
+    const spamCheck = evaluateSpam({
+      name: userName,
+      message: comment,
+      _form_loaded_at: Date.now() - 5000,
+    });
+    if (spamCheck.isSpam) {
+      console.warn(`[AntiSpam] Blocked spam review submission: ${spamCheck.reason}`, { userName, comment });
+      return { success: false, error: 'Review could not be posted. Please ensure your submission is authentic.' };
+    }
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name: userName,
+      message: comment,
+      destination: `Destination #${destinationId}`,
+    });
+    if (aiSpam.isSpam && aiSpam.confidence >= 0.65) {
+      console.warn(`[AI Spam Agent] Blocked spam review (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+      return { success: false, error: 'Review submission flagged as spam.' };
+    }
 
     const newReview = new Review({
       destinationId,

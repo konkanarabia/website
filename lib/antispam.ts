@@ -155,6 +155,62 @@ const RUSSIAN_SPAM_KEYWORDS =
 const CONSONANT_GIBBERISH_REGEX =
   /[bcdfghjklmnpqrstvwxyz]{6,}/i;
 
+/**
+ * Count transitions between lowercase and uppercase characters.
+ * Automated bot scripts generate pseudorandom strings with alternating case switching,
+ * e.g., "BpQoLLrFcuHTEUZsInCLlazb" or "PGXmWmKHvHZiJuqbew".
+ */
+export function countCaseTransitions(str: string): number {
+  let transitions = 0;
+  for (let i = 0; i < str.length - 1; i++) {
+    const isCurrentUpper = str[i] >= 'A' && str[i] <= 'Z';
+    const isCurrentLower = str[i] >= 'a' && str[i] <= 'z';
+    const isNextUpper = str[i + 1] >= 'A' && str[i + 1] <= 'Z';
+    const isNextLower = str[i + 1] >= 'a' && str[i + 1] <= 'z';
+
+    if ((isCurrentUpper && isNextLower) || (isCurrentLower && isNextUpper)) {
+      transitions++;
+    }
+  }
+  return transitions;
+}
+
+/**
+ * Detect dot-stuffed spam emails (e.g. "a.t.in.u.j.o.l.uj.3.5@gmail.com").
+ * Spambots insert multiple dots in the username portion to bypass duplicate account checks.
+ */
+export function isDotStuffedEmail(email?: string): boolean {
+  if (!email || !email.includes('@')) return false;
+  const username = email.split('@')[0];
+  const dots = (username.match(/\./g) || []).length;
+  if (dots >= 3) {
+    const parts = username.split('.');
+    const avgLen = username.length / (dots + 1);
+    const singleLetterParts = parts.filter((p) => p.length <= 1).length;
+    if (avgLen < 3.8 || singleLetterParts >= 2) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Detect high-entropy or alternating-case bot gibberish in single tokens.
+ */
+export function isGibberishToken(str?: string): boolean {
+  if (!str) return false;
+  const trimmed = str.trim();
+  // Single unbroken token of length >= 12
+  if (trimmed.length >= 12 && !trimmed.includes(' ')) {
+    const transitions = countCaseTransitions(trimmed);
+    if (transitions >= 3) return true;
+    const letters = (trimmed.match(/[a-zA-Z]/g) || []).length;
+    const consonants = (trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g) || []).length;
+    if (letters >= 10 && consonants / letters > 0.75) return true;
+  }
+  return false;
+}
+
 // -------------------------------------------------------------
 // Core Spam Evaluation Function
 // -------------------------------------------------------------
@@ -229,6 +285,11 @@ export function evaluateSpam(
     };
   }
 
+  const email = (payload.email || '').trim();
+  if (email && isDotStuffedEmail(email)) {
+    return { isSpam: true, reason: 'Dot-stuffed bot email address pattern' };
+  }
+
   const message = (payload.message || '').trim();
   const name = (payload.name || payload.fname || '').trim();
   const company = (payload.company || '').trim();
@@ -241,6 +302,9 @@ export function evaluateSpam(
     }
     if (CONSONANT_GIBBERISH_REGEX.test(name)) {
       return { isSpam: true, reason: 'Gibberish consonant sequence in name' };
+    }
+    if (isGibberishToken(name)) {
+      return { isSpam: true, reason: 'Automated bot gibberish name detected' };
     }
   }
 
@@ -258,6 +322,22 @@ export function evaluateSpam(
 
   // 5. Message Content Analysis
   if (message.length > 0) {
+    // Bot gibberish message check (e.g. "PGXmWmKHvHZiJuqbew")
+    if (isGibberishToken(message)) {
+      return {
+        isSpam: true,
+        reason: 'Automated bot gibberish message detected',
+      };
+    }
+
+    // Single unbroken token message without spaces (e.g. "wKTFwLIZMPfbFARkfk")
+    if (message.length >= 14 && !message.includes(' ') && !message.includes('http')) {
+      return {
+        isSpam: true,
+        reason: 'Single unbroken token message without spaces',
+      };
+    }
+
     // Pure numeric message check
     const lettersCount = (message.match(/[a-zA-Z\u0600-\u06FF\u0900-\u097F]/g) || []).length;
     const digitsOnly = message.replace(/[\s\-\+\(\)\.]/g, '');

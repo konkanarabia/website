@@ -26,6 +26,28 @@ export async function POST(request: Request) {
         email: body.email,
         phone: body.phone,
       });
+
+      try {
+        await dbConnect();
+        const spamEntry = new Enquiry({
+          name: body.name || 'Anonymous',
+          email: body.email || 'unknown@example.com',
+          phone: body.phone,
+          preferredContact: body.preferredContact,
+          travelType: body.travelType || 'Travel Enquiry',
+          destination: body.destination,
+          message: body.message,
+          status: 'Spam',
+          isSpam: true,
+          spamScore: 1.0,
+          spamReason: spamResult.reason,
+          spamCategory: 'gibberish',
+        });
+        await spamEntry.save();
+      } catch (dbErr) {
+        console.error('Failed to log blocked spam enquiry to DB:', dbErr);
+      }
+
       return NextResponse.json(
         { 
           success: true, 
@@ -74,7 +96,7 @@ export async function POST(request: Request) {
     });
 
     // If AI detects spam, save tagged as Spam for admin review, but SUPPRESS emails
-    if (aiSpam.isSpam && aiSpam.confidence >= 0.75) {
+    if (aiSpam.isSpam && aiSpam.confidence >= 0.65) {
       console.warn(`[AI Spam Agent] Blocked spam enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
       await dbConnect();
       const newEnquiry = new Enquiry({

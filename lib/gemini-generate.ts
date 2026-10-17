@@ -14,7 +14,7 @@ export function geminiModelCandidates(): string[] {
   const fromEnv =
     process.env.GEMINI_MODELS?.split(',').map((s) => s.trim()).filter(Boolean) ?? [];
   if (fromEnv.length > 0) return fromEnv;
-  return ['gemini-2.0-flash', 'gemini-2.5-flash'];
+  return ['gemini-2.5-flash', 'gemini-2.5-flash-lite'];
 }
 
 function extractModelText(response: unknown): string {

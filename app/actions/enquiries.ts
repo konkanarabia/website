@@ -69,7 +69,8 @@ export async function auditEnquirySpam(id: string) {
     if (!enq) return { success: false, error: 'Enquiry not found' };
 
     const analysis = await analyzeSpamWithAi({
-      name: enq.name,
+      name: enq.name || enq.fname,
+      fname: enq.fname,
       email: enq.email,
       phone: enq.phone,
       destination: enq.destination,
@@ -77,7 +78,7 @@ export async function auditEnquirySpam(id: string) {
       message: enq.message,
     });
 
-    const isSpam = analysis.isSpam && analysis.confidence >= 0.75;
+    const isSpam = analysis.isSpam && analysis.confidence >= 0.65;
     await Enquiry.findByIdAndUpdate(id, {
       isSpam,
       status: isSpam ? 'Spam' : (enq.status === 'Spam' ? 'New' : enq.status),
@@ -96,7 +97,7 @@ export async function auditEnquirySpam(id: string) {
 /**
  * AI Spam Agent: Bulk scan pending/recent enquiries
  */
-export async function bulkScanSpamEnquiries(limit = 15) {
+export async function bulkScanSpamEnquiries(limit = 100) {
   await dbConnect();
   try {
     const enquiries = await Enquiry.find({ status: { $ne: 'Spam' } })
@@ -110,7 +111,8 @@ export async function bulkScanSpamEnquiries(limit = 15) {
     for (const enq of enquiries) {
       scannedCount++;
       const analysis = await analyzeSpamWithAi({
-        name: enq.name,
+        name: enq.name || enq.fname,
+        fname: enq.fname,
         email: enq.email,
         phone: enq.phone,
         destination: enq.destination,
@@ -118,7 +120,7 @@ export async function bulkScanSpamEnquiries(limit = 15) {
         message: enq.message,
       });
 
-      if (analysis.isSpam && analysis.confidence >= 0.75) {
+      if (analysis.isSpam && analysis.confidence >= 0.65) {
         spamCount++;
         await Enquiry.findByIdAndUpdate(enq._id, {
           isSpam: true,
