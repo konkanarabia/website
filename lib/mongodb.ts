@@ -6,6 +6,15 @@ if (!cached) {
   cached = (global as any).mongoose = { conn: null, promise: null };
 }
 
+/**
+ * False when MONGO_URI is unset, e.g. in CI or a local `next build` without a
+ * database. Public list getters check this and return [] so the build can
+ * prerender those pages; at runtime on Netlify MONGO_URI is always set.
+ */
+export function isMongoConfigured(): boolean {
+  return Boolean(process.env.MONGO_URI);
+}
+
 async function dbConnect() {
   const MONGODB_URI = process.env.MONGO_URI;
   if (!MONGODB_URI) {

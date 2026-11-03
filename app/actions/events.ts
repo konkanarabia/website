@@ -1,7 +1,7 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Event from '@/lib/models/Event';
 import { revalidatePath } from 'next/cache';
 import { FALLBACK_IMAGE } from '@/lib/images';
@@ -12,6 +12,7 @@ export async function deleteEvent(id: number) {
     await Event.findOneAndDelete({ id });
     revalidatePath('/admin');
     revalidatePath('/events');
+    revalidatePath(`/events/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -19,6 +20,8 @@ export async function deleteEvent(id: number) {
 }
 
 export async function getEvents() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const events = await Event.find().sort({ id: 1 }).lean();

@@ -1,7 +1,7 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Visa from '@/lib/models/Visa';
 import { revalidatePath } from 'next/cache';
 import { FALLBACK_IMAGE } from '@/lib/images';
@@ -12,6 +12,7 @@ export async function deleteVisa(id: number) {
     await Visa.findOneAndDelete({ id });
     revalidatePath('/admin');
     revalidatePath('/visas');
+    revalidatePath(`/visas/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -19,6 +20,8 @@ export async function deleteVisa(id: number) {
 }
 
 export async function getVisas() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const visas = await Visa.find().sort({ id: 1 }).lean();
