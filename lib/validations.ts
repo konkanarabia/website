@@ -5,6 +5,60 @@ import { validateCountryPhoneNumber } from './country-codes';
  * Common field validation primitives
  */
 
+// zod 4 reworded its built-in messages ("Too big: expected string to have
+// <=120 characters", "Invalid option: ..."). Fields without a custom message
+// show these to users through formatZodErrors, so keep the zod 3 wording.
+function parsedType(input: unknown): string {
+  if (input === null) return 'null';
+  if (Array.isArray(input)) return 'array';
+  if (typeof input === 'number') return Number.isNaN(input) ? 'nan' : 'number';
+  if (input instanceof Date) return 'date';
+  return typeof input;
+}
+
+z.config({
+  customError: (issue) => {
+    switch (issue.code) {
+      case 'invalid_type':
+        if (issue.input === undefined) return 'Required';
+        return `Expected ${issue.expected}, received ${parsedType(issue.input)}`;
+      case 'invalid_value': {
+        const options = issue.values.map((v) => `'${String(v)}'`).join(' | ');
+        if (issue.input === undefined) return 'Required';
+        if (typeof issue.input !== 'string') {
+          return `Expected ${options}, received ${parsedType(issue.input)}`;
+        }
+        return `Invalid enum value. Expected ${options}, received '${issue.input}'`;
+      }
+      case 'too_big':
+        if (issue.origin === 'string') {
+          return `String must contain at most ${issue.maximum} character(s)`;
+        }
+        if (issue.origin === 'number') {
+          return `Number must be less than ${issue.inclusive ? 'or equal to ' : ''}${issue.maximum}`;
+        }
+        return undefined;
+      case 'too_small':
+        if (issue.origin === 'string') {
+          return `String must contain at least ${issue.minimum} character(s)`;
+        }
+        if (issue.origin === 'number') {
+          return `Number must be greater than ${issue.inclusive ? 'or equal to ' : ''}${issue.minimum}`;
+        }
+        return undefined;
+      default:
+        return undefined;
+    }
+  },
+});
+
+// Message for a missing (undefined) value. Other type mismatches fall through
+// to the messages above, matching the old required_error behaviour.
+const requiredMessage =
+  (message: string): z.core.$ZodErrorMap =>
+  (issue) =>
+    issue.input === undefined ? message : undefined;
+
 // Common placeholder / dummy / test names
 const FAKE_NAMES = new Set([
   'test', 'testing', 'asdf', 'qwerty', 'admin', 'administrator', 'user', 'null', 'undefined',
@@ -46,7 +100,7 @@ const COMMON_DOMAIN_TYPOS: Record<string, string> = {
 
 // Name: 2-70 characters, strict letters/spaces/hyphens, no digits, no code injection, no gibberish
 export const nameSchema = z
-  .string({ required_error: 'Full name is required' })
+  .string({ error: requiredMessage('Full name is required') })
   .trim()
   .min(2, 'Name must be at least 2 characters')
   .max(70, 'Name cannot exceed 70 characters')
@@ -91,7 +145,7 @@ export const nameSchema = z
 
 // Email: Comprehensive RFC-compliant email validation with domain, TLD, typo, and disposable checks
 export const emailSchema = z
-  .string({ required_error: 'Email address is required' })
+  .string({ error: requiredMessage('Email address is required') })
   .trim()
   .min(5, 'Email address is too short')
   .max(100, 'Email cannot exceed 100 characters')
@@ -108,7 +162,7 @@ export const emailSchema = z
     const parts = val.split('@');
     if (parts.length !== 2) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email must contain exactly one "@" symbol',
       });
       return;
@@ -118,28 +172,28 @@ export const emailSchema = z
 
     if (!local || local.length > 64) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Username portion of email must be between 1 and 64 characters',
       });
     }
 
     if (local.startsWith('.') || local.endsWith('.')) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email username cannot start or end with a dot',
       });
     }
 
     if (local.startsWith('-') || local.endsWith('-')) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email username cannot start or end with a hyphen',
       });
     }
 
     if (!domain || domain.length > 255) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email domain is invalid or too long',
       });
     }
@@ -147,7 +201,7 @@ export const emailSchema = z
     const domainParts = domain.split('.');
     if (domainParts.length < 2) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email domain must include a top-level extension (e.g. .com, .ae, .in)',
       });
       return;
@@ -156,7 +210,7 @@ export const emailSchema = z
     const tld = domainParts[domainParts.length - 1];
     if (!/^[a-zA-Z]{2,24}$/.test(tld)) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Email domain extension is invalid (must be at least 2 letters, e.g. .com, .in, .ae)',
       });
     }
@@ -164,14 +218,14 @@ export const emailSchema = z
     const lowerDomain = domain.toLowerCase();
     if (COMMON_DOMAIN_TYPOS[lowerDomain]) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: `Did you mean @${COMMON_DOMAIN_TYPOS[lowerDomain]}? Please verify your email domain.`,
       });
     }
 
     if (DISPOSABLE_EMAIL_DOMAINS.has(lowerDomain)) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Temporary or disposable email addresses are not permitted. Please use your personal or business email.',
       });
     }
@@ -179,14 +233,14 @@ export const emailSchema = z
 
 // Phone: Validated dynamically based on selected country code and digit length rules.
 export const phoneSchema = z
-  .string({ required_error: 'Phone number is required' })
+  .string({ error: requiredMessage('Phone number is required') })
   .trim()
   .min(1, 'Phone number is required')
   .superRefine((val, ctx) => {
     const res = validateCountryPhoneNumber(val);
     if (!res.isValid) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: res.error || 'Please enter a valid phone number',
       });
     }
@@ -201,7 +255,7 @@ export const optionalPhoneSchema = z
     const res = validateCountryPhoneNumber(val);
     if (!res.isValid) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: res.error || 'Please enter a valid phone number or leave blank',
       });
     }
@@ -209,7 +263,7 @@ export const optionalPhoneSchema = z
 
 // Message: Minimum 5 characters, max 3000, must contain text (not only numbers)
 export const messageSchema = z
-  .string({ required_error: 'Message is required' })
+  .string({ error: requiredMessage('Message is required') })
   .trim()
   .min(5, 'Message must be at least 5 characters')
   .max(3000, 'Message cannot exceed 3000 characters')
@@ -236,7 +290,7 @@ export const optionalMessageSchema = z
 // Date helper: Validates non-empty date and ensures it is today or in future
 export const futureOrTodayDateSchema = (fieldName: string = 'Date') =>
   z
-    .string({ required_error: `${fieldName} is required` })
+    .string({ error: requiredMessage(`${fieldName} is required`) })
     .trim()
     .min(1, `${fieldName} is required`)
     .refine((val) => {
@@ -322,7 +376,7 @@ export const travelEnquirySchema = z
       return true;
     },
     {
-      message: 'Return date must be on or after departure date',
+      error: 'Return date must be on or after departure date',
       path: ['returnDate'],
     }
   );
@@ -353,7 +407,7 @@ export const vehicleEnquirySchema = z
   .refine(
     (data) => new Date(data.dropoffDate) >= new Date(data.pickupDate),
     {
-      message: 'Drop-off date must be on or after pickup date',
+      error: 'Drop-off date must be on or after pickup date',
       path: ['dropoffDate'],
     }
   );
@@ -386,7 +440,7 @@ export const hospitalityEnquirySchema = z
       return true;
     },
     {
-      message: 'Check-out date must be on or after check-in date',
+      error: 'Check-out date must be on or after check-in date',
       path: ['checkOutDate'],
     }
   );
