@@ -4,8 +4,11 @@ import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from '@/lib/mongodb';
 import Restaurant from '@/lib/models/Restaurant';
 import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '@/lib/auth';
+import { sanitizeRichHtml } from '@/lib/sanitize';
 
 export async function deleteRestaurant(id: number) {
+  await requireAdmin();
   await dbConnect();
   try {
     await Restaurant.findOneAndDelete({ id });
@@ -52,6 +55,7 @@ cloudinary.config({
 });
 
 export async function addRestaurant(formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -97,6 +101,8 @@ export async function addRestaurant(formData: FormData) {
       payload.image = '/placeholder.svg';
     }
 
+    payload.details = sanitizeRichHtml(payload.details);
+
     const newRestaurant = new Restaurant(payload);
     await newRestaurant.save();
     
@@ -109,6 +115,7 @@ export async function addRestaurant(formData: FormData) {
 }
 
 export async function updateRestaurant(id: string | number, formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -131,6 +138,8 @@ export async function updateRestaurant(id: string | number, formData: FormData) 
     if (imageUrl) {
       payload.image = imageUrl;
     }
+
+    if ('details' in payload) payload.details = sanitizeRichHtml(payload.details);
 
     const updated = await Restaurant.findOneAndUpdate(
       { id: Number(id) }, 

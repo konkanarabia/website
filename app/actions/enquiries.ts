@@ -4,8 +4,16 @@ import dbConnect from '@/lib/mongodb';
 import Enquiry from '@/lib/models/Enquiry';
 import { revalidatePath } from 'next/cache';
 import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
+import { requireAdmin } from '@/lib/auth';
+
+const ENQUIRY_STATUSES = ['New', 'Contacted', 'Booked', 'Cancelled', 'Spam'] as const;
+
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 export async function getEnquiries(limit = 50) {
+  await requireAdmin();
   await dbConnect();
   try {
     const enquiries = await Enquiry.find().sort({ createdAt: -1 }).limit(limit).lean();
@@ -16,6 +24,7 @@ export async function getEnquiries(limit = 50) {
 }
 
 export async function getEnquiryCount() {
+  await requireAdmin();
   await dbConnect();
   try {
     return await Enquiry.countDocuments();
@@ -25,6 +34,7 @@ export async function getEnquiryCount() {
 }
 
 export async function getEnquiryStats() {
+  await requireAdmin();
   await dbConnect();
   try {
     const [total, spam, clean] = await Promise.all([
@@ -39,6 +49,7 @@ export async function getEnquiryStats() {
 }
 
 export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: string, search?: string) {
+  await requireAdmin();
   await dbConnect();
   try {
     const safePage = page > 0 ? page : 1;
@@ -51,11 +62,11 @@ export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: strin
       query.status = { $ne: 'Spam' };
       query.isSpam = { $ne: true };
     } else if (filter && filter !== 'all') {
-      query.travelType = { $regex: filter, $options: 'i' };
+      query.travelType = { $regex: escapeRegex(filter.slice(0, 100)), $options: 'i' };
     }
 
     if (search && search.trim()) {
-      const s = search.trim();
+      const s = escapeRegex(search.trim().slice(0, 100));
       const searchConditions = [
         { name: { $regex: s, $options: 'i' } },
         { fname: { $regex: s, $options: 'i' } },
@@ -88,6 +99,7 @@ export async function getPaginatedEnquiries(page = 1, limit = 10, filter?: strin
 }
 
 export async function exportEnquiriesCsv(filter?: string, search?: string) {
+  await requireAdmin();
   await dbConnect();
   try {
     const query: any = {};
@@ -97,11 +109,11 @@ export async function exportEnquiriesCsv(filter?: string, search?: string) {
       query.status = { $ne: 'Spam' };
       query.isSpam = { $ne: true };
     } else if (filter && filter !== 'all') {
-      query.travelType = { $regex: filter, $options: 'i' };
+      query.travelType = { $regex: escapeRegex(filter.slice(0, 100)), $options: 'i' };
     }
 
     if (search && search.trim()) {
-      const s = search.trim();
+      const s = escapeRegex(search.trim().slice(0, 100));
       const searchConditions = [
         { name: { $regex: s, $options: 'i' } },
         { fname: { $regex: s, $options: 'i' } },
@@ -126,6 +138,10 @@ export async function exportEnquiriesCsv(filter?: string, search?: string) {
 }
 
 export async function updateEnquiryStatus(id: string, status: string) {
+  await requireAdmin();
+  if (!ENQUIRY_STATUSES.includes(status as (typeof ENQUIRY_STATUSES)[number])) {
+    return { success: false, error: 'Invalid status' };
+  }
   await dbConnect();
   try {
     const isSpam = status === 'Spam';
@@ -144,6 +160,7 @@ export async function updateEnquiryStatus(id: string, status: string) {
  * AI Spam Agent: Scan a specific enquiry and label it
  */
 export async function auditEnquirySpam(id: string) {
+  await requireAdmin();
   await dbConnect();
   try {
     const enq = await Enquiry.findById(id).lean();
@@ -179,6 +196,7 @@ export async function auditEnquirySpam(id: string) {
  * AI Spam Agent: Bulk scan pending/recent enquiries
  */
 export async function bulkScanSpamEnquiries(limit = 100) {
+  await requireAdmin();
   await dbConnect();
   try {
     const enquiries = await Enquiry.find({ status: { $ne: 'Spam' } })
@@ -224,6 +242,7 @@ export async function bulkScanSpamEnquiries(limit = 100) {
  * Delete all enquiries flagged as spam
  */
 export async function purgeSpamEnquiries() {
+  await requireAdmin();
   await dbConnect();
   try {
     const result = await Enquiry.deleteMany({

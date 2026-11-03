@@ -1,15 +1,8 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { requireAdmin } from '@/lib/auth';
 import { sendEmail } from '@/lib/email';
 import { updateEnquiryStatus } from '@/app/actions/enquiries';
-
-async function isAdminSession(): Promise<boolean> {
-  const secret = process.env.ADMIN_TOKEN_SECRET;
-  if (!secret) return false;
-  const token = (await cookies()).get('admin_token')?.value;
-  return token === secret;
-}
 
 function escapeHtml(s: string): string {
   return s
@@ -41,9 +34,7 @@ export type SendAdminLeadEmailInput = {
  * Requires admin cookie + RESEND_API_KEY + EMAIL_FROM.
  */
 export async function sendAdminLeadEmail(input: SendAdminLeadEmailInput) {
-  if (!(await isAdminSession())) {
-    return { success: false as const, error: 'Unauthorized' };
-  }
+  await requireAdmin();
 
   const to = input.to?.trim();
   const subject = input.subject?.trim().slice(0, 200);
