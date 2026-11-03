@@ -215,7 +215,7 @@ export default function EditVisaAdmin({ params }: { params: Promise<{ id: string
           {!formData.isCustomLink && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1.5">Cover Image</label>
-              {!isPlaceholderImage(currentImageUrl) && (
+              {currentImageUrl && !isPlaceholderImage(currentImageUrl) && (
                 <div className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 mb-3 shadow-sm">
                   <img src={currentImageUrl} alt="Preview" className="w-full h-full object-cover" />
                 </div>
