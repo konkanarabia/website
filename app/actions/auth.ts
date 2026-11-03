@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { endAdminSession, startAdminSession } from '@/lib/auth';
 import { getAdminAuthConfig, safeEqual } from '@/lib/session-token';
 import { clientIpFromHeaders, rateLimit } from '@/lib/rate-limit';
+import { allowLoginAttempt } from '@/lib/login-throttle';
 
 const LOGIN_LIMIT = 5;
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
@@ -21,6 +22,10 @@ export async function login(password: string) {
   if (!limit.allowed) {
     const minutes = Math.max(1, Math.ceil(limit.retryAfterMs / 60000));
     return { success: false, error: `Too many attempts. Try again in ${minutes} minute(s).` };
+  }
+  // The in-memory limit above is per server instance; this one is shared.
+  if (!(await allowLoginAttempt(ip))) {
+    return { success: false, error: 'Too many attempts. Try again in 15 minutes.' };
   }
 
   if (typeof password !== 'string' || password.length > 256 || !safeEqual(password, config.password)) {

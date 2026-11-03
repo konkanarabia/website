@@ -14,6 +14,7 @@ const h = vi.hoisted(() => {
     sessionFindOne: vi.fn(),
     sessionCreate: vi.fn(),
     sessionDeleteOne: vi.fn(),
+    attemptCounts: new Map<string, number>(),
   };
 });
 
@@ -39,6 +40,17 @@ vi.mock('@/lib/models/AdminSession', () => ({
     findOne: (...args: unknown[]) => ({ lean: () => h.sessionFindOne(...args) }),
     create: h.sessionCreate,
     deleteOne: h.sessionDeleteOne,
+  },
+}));
+vi.mock('@/lib/models/LoginAttempt', () => ({
+  default: {
+    findOneAndUpdate: (filter: { key: string }) => ({
+      lean: async () => {
+        const count = (h.attemptCounts.get(filter.key) ?? 0) + 1;
+        h.attemptCounts.set(filter.key, count);
+        return { count };
+      },
+    }),
   },
 }));
 vi.mock('@/lib/email', () => ({ sendEmail: vi.fn() }));
@@ -119,6 +131,7 @@ beforeEach(() => {
   h.sessionCreate.mockReset();
   h.sessionDeleteOne.mockReset();
   h.setCookie.mockClear();
+  h.attemptCounts.clear();
   resetRateLimits();
 });
 
@@ -245,6 +258,33 @@ describe('login', () => {
     const r = await login('test');
     expect(r.success).toBe(false);
     expect(r.error).toMatch(/Too many attempts/);
+    h.requestHeaders.delete('x-nf-client-connection-ip');
+  });
+
+  it('shares the limit across server instances through the database', async () => {
+    h.dbAllowed.value = true;
+    const { login } = await import('@/app/actions/auth');
+    h.requestHeaders.set('x-nf-client-connection-ip', '203.0.113.10');
+    // 10 earlier attempts recorded by other instances; this instance's own
+    // in-memory counter is still empty.
+    const windowStart = Math.floor(Date.now() / (15 * 60 * 1000)) * 15 * 60 * 1000;
+    h.attemptCounts.set(`ip:203.0.113.10:${windowStart}`, 10);
+    const r = await login('test');
+    expect(r.success).toBe(false);
+    expect(r.error).toMatch(/Too many attempts/);
+    expect(h.sessionCreate).not.toHaveBeenCalled();
+    h.requestHeaders.delete('x-nf-client-connection-ip');
+  });
+
+  it('caps attempts from all IPs together', async () => {
+    h.dbAllowed.value = true;
+    const { login } = await import('@/app/actions/auth');
+    const windowStart = Math.floor(Date.now() / (15 * 60 * 1000)) * 15 * 60 * 1000;
+    h.attemptCounts.set(`all:${windowStart}`, 100);
+    h.requestHeaders.set('x-nf-client-connection-ip', '198.51.100.77');
+    const r = await login('test');
+    expect(r.success).toBe(false);
+    expect(h.sessionCreate).not.toHaveBeenCalled();
     h.requestHeaders.delete('x-nf-client-connection-ip');
   });
 
