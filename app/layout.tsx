@@ -10,6 +10,7 @@ import AnalyticsTracker from '@/components/AnalyticsTracker'
 import TravelChat from '@/components/TravelChat'
 import ScrollToTop from '@/components/ScrollToTop'
 import { getOrganizationSchema, getWebSiteSchema } from '@/lib/structured-data'
+import { jsonLd } from '@/lib/json-ld';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' })
@@ -76,13 +77,13 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getOrganizationSchema()),
+            __html: jsonLd(getOrganizationSchema()),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getWebSiteSchema()),
+            __html: jsonLd(getWebSiteSchema()),
           }}
         />
       </head>

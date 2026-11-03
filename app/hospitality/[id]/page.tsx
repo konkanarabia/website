@@ -4,6 +4,8 @@ import Hospitality from "@/lib/models/Hospitality";
 import { notFound } from "next/navigation";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -56,7 +58,7 @@ export default async function HospitalityDetailPage({ params }: { params: Promis
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getItemDetailSchema({
+          __html: jsonLd(getItemDetailSchema({
             id: hospitality.id,
             name: hospitality.name,
             description: hospitality.description,
@@ -68,11 +70,11 @@ export default async function HospitalityDetailPage({ params }: { params: Promis
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getBreadcrumbSchema(breadcrumbs)),
+          __html: jsonLd(getBreadcrumbSchema(breadcrumbs)),
         }}
       />
       <DetailClient 
-        item={JSON.parse(JSON.stringify(hospitality))} 
+        item={withSanitizedDetails(JSON.parse(JSON.stringify(hospitality)))} 
         allItems={JSON.parse(JSON.stringify(allHospitality))}
         category="hospitality"
         categoryTitle="Hospitality & Stays"

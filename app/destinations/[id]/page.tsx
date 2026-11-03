@@ -13,6 +13,8 @@ import { getReviews } from "@/app/actions/reviews";
 import TranslatedText from "@/components/TranslatedText";
 import type { Metadata } from 'next';
 import { getDestinationSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { sanitizeRichHtml } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -79,7 +81,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getDestinationSchema(destination)),
+          __html: jsonLd(getDestinationSchema(destination)),
         }}
       />
       {/* ... Hero Section remains the same ... */}
@@ -140,7 +142,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
             <div className="mb-12">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">Explore <span className="text-amber-600"><TranslatedText text={destination.name} /></span></h2>
               <TranslatedText
-                text={destination.details}
+                text={sanitizeRichHtml(destination.details)}
                 isHtml={true}
                 className="text-slate-600 leading-relaxed text-lg mb-8 prose max-w-none block"
               />

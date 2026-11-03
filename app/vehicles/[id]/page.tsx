@@ -4,6 +4,8 @@ import Vehicle from "@/lib/models/Vehicle";
 import { notFound } from "next/navigation";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -56,7 +58,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ id: st
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getItemDetailSchema({
+          __html: jsonLd(getItemDetailSchema({
             id: vehicle.id,
             name: vehicle.name,
             description: vehicle.description,
@@ -68,11 +70,11 @@ export default async function VehiclePage({ params }: { params: Promise<{ id: st
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getBreadcrumbSchema(breadcrumbs)),
+          __html: jsonLd(getBreadcrumbSchema(breadcrumbs)),
         }}
       />
       <DetailClient 
-        item={JSON.parse(JSON.stringify(vehicle))} 
+        item={withSanitizedDetails(JSON.parse(JSON.stringify(vehicle)))} 
         allItems={JSON.parse(JSON.stringify(allVehicles))}
         category="vehicles"
         categoryTitle="Vehicle Rentals"
