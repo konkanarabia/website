@@ -26,7 +26,7 @@ const services = [
     icon: Building2,
     title: 'Hotel & Hospitality Bookings',
     desc: 'Premium hotel accommodations across India and UAE — trusted by thousands of travelers from Navi Mumbai.',
-    href: '/hotels',
+    href: '/hospitality',
   },
 ]
 

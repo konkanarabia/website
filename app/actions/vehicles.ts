@@ -1,16 +1,22 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Vehicle from '@/lib/models/Vehicle';
 import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '@/lib/auth';
+import { clampPagination } from '@/lib/pagination';
+import { sanitizeRichHtml } from '@/lib/sanitize';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteVehicle(id: number) {
+  await requireAdmin();
   await dbConnect();
   try {
     await Vehicle.findOneAndDelete({ id });
     revalidatePath('/admin');
     revalidatePath('/vehicles');
+    revalidatePath(`/vehicles/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -18,6 +24,8 @@ export async function deleteVehicle(id: number) {
 }
 
 export async function getVehicles() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const vehicles = await Vehicle.find().sort({ id: 1 }).lean();
@@ -27,7 +35,8 @@ export async function getVehicles() {
   }
 }
 
-export async function getPaginatedVehicles(page: number = 1, limit: number = 9) {
+export async function getPaginatedVehicles(rawPage: number = 1, rawLimit: number = 9) {
+  const { page, limit } = clampPagination(rawPage, rawLimit);
   await dbConnect();
   try {
     const skip = (page - 1) * limit;
@@ -52,6 +61,7 @@ cloudinary.config({
 });
 
 export async function addVehicle(formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -94,8 +104,10 @@ export async function addVehicle(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
+
+    payload.details = sanitizeRichHtml(payload.details);
 
     const newVehicle = new Vehicle(payload);
     await newVehicle.save();
@@ -109,6 +121,7 @@ export async function addVehicle(formData: FormData) {
 }
 
 export async function updateVehicle(id: string | number, formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -131,6 +144,8 @@ export async function updateVehicle(id: string | number, formData: FormData) {
     if (imageUrl) {
       payload.image = imageUrl;
     }
+
+    if ('details' in payload) payload.details = sanitizeRichHtml(payload.details);
 
     const updated = await Vehicle.findOneAndUpdate(
       { id: Number(id) }, 

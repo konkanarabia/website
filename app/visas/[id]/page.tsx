@@ -2,13 +2,17 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Visa from "@/lib/models/Visa";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const visa = await Visa.findOne({ id: Number(id) }).lean();
+  const visa = await Visa.findOne({ id }).lean();
   if (!visa) return { title: 'Visa Service Not Found' };
 
   const title = `${visa.name} Visa Assistance | KonkanArabia Travel Services`;
@@ -38,9 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function VisaPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const visa = await Visa.findOne({ id: Number(id) }).lean();
+  const visa = await Visa.findOne({ id }).lean();
   const allVisas = await Visa.find().select('id name').lean();
   if (!visa) notFound();
 
@@ -56,7 +61,7 @@ export default async function VisaPage({ params }: { params: Promise<{ id: strin
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getItemDetailSchema({
+          __html: jsonLd(getItemDetailSchema({
             id: visa.id,
             name: visa.name,
             description: visa.description,
@@ -68,11 +73,11 @@ export default async function VisaPage({ params }: { params: Promise<{ id: strin
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getBreadcrumbSchema(breadcrumbs)),
+          __html: jsonLd(getBreadcrumbSchema(breadcrumbs)),
         }}
       />
       <DetailClient 
-        item={JSON.parse(JSON.stringify(visa))} 
+        item={withSanitizedDetails(JSON.parse(JSON.stringify(visa)))} 
         allItems={JSON.parse(JSON.stringify(allVisas))}
         category="visas"
         categoryTitle="Visa Processing"

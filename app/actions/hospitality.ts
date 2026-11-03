@@ -1,16 +1,22 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Hospitality from '@/lib/models/Hospitality';
 import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '@/lib/auth';
+import { clampPagination } from '@/lib/pagination';
+import { sanitizeRichHtml } from '@/lib/sanitize';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteHospitality(id: number) {
+  await requireAdmin();
   await dbConnect();
   try {
     await Hospitality.findOneAndDelete({ id });
     revalidatePath('/admin');
-    revalidatePath('/hospitalitys');
+    revalidatePath('/hospitality');
+    revalidatePath(`/hospitality/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -18,6 +24,8 @@ export async function deleteHospitality(id: number) {
 }
 
 export async function getHospitality() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const hospitality = await Hospitality.find().sort({ id: 1 }).lean();
@@ -27,7 +35,8 @@ export async function getHospitality() {
   }
 }
 
-export async function getPaginatedHospitality(page: number = 1, limit: number = 9) {
+export async function getPaginatedHospitality(rawPage: number = 1, rawLimit: number = 9) {
+  const { page, limit } = clampPagination(rawPage, rawLimit);
   await dbConnect();
   try {
     const skip = (page - 1) * limit;
@@ -52,6 +61,7 @@ cloudinary.config({
 });
 
 export async function addHospitality(formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -94,14 +104,16 @@ export async function addHospitality(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
+
+    payload.details = sanitizeRichHtml(payload.details);
 
     const newHospitality = new Hospitality(payload);
     await newHospitality.save();
     
     revalidatePath('/admin');
-    revalidatePath('/hospitalitys');
+    revalidatePath('/hospitality');
     return { success: true, id: newHospitality._id.toString() };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -109,6 +121,7 @@ export async function addHospitality(formData: FormData) {
 }
 
 export async function updateHospitality(id: string | number, formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -131,6 +144,8 @@ export async function updateHospitality(id: string | number, formData: FormData)
     if (imageUrl) {
       payload.image = imageUrl;
     }
+
+    if ('details' in payload) payload.details = sanitizeRichHtml(payload.details);
 
     const updated = await Hospitality.findOneAndUpdate(
       { id: Number(id) }, 

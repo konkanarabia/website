@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Destination from '@/lib/models/Destination';
 import Event from '@/lib/models/Event';
 import Vehicle from '@/lib/models/Vehicle';
@@ -70,6 +70,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority,
     };
   });
+
+  // Builds without a database (CI, local) get the static routes only.
+  if (!isMongoConfigured()) return urlEntries;
 
   let dynamicRoutes: MetadataRoute.Sitemap = [];
 

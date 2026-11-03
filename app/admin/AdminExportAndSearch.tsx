@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Download, Loader2, X } from 'lucide-react';
 import { exportEnquiriesCsv } from '@/app/actions/enquiries';
 import { toast } from 'sonner';
+import { toCsv } from '@/lib/csv';
 
 export default function AdminExportAndSearch() {
   const router = useRouter();
@@ -50,19 +51,19 @@ export default function AdminExportAndSearch() {
     // Format CSV
     const headers = ['ID', 'Customer Name', 'Email', 'Phone', 'Service / Destination', 'Status', 'Is Spam', 'Spam Score', 'Spam Reason', 'Date'];
     const rows = res.data.map((enq: any) => [
-      `"${enq._id}"`,
-      `"${(enq.name || enq.fname || '').replace(/"/g, '""')}"`,
-      `"${(enq.email || '').replace(/"/g, '""')}"`,
-      `"${(enq.phone || '').replace(/"/g, '""')}"`,
-      `"${(enq.destination || enq.travelType || '').replace(/"/g, '""')}"`,
-      `"${enq.status || 'New'}"`,
+      enq._id,
+      enq.name || enq.fname || '',
+      enq.email || '',
+      enq.phone || '',
+      enq.destination || enq.travelType || '',
+      enq.status || 'New',
       enq.isSpam ? 'YES' : 'NO',
       enq.spamScore ? `${Math.round(enq.spamScore * 100)}%` : '0%',
-      `"${(enq.spamReason || '').replace(/"/g, '""')}"`,
-      `"${new Date(enq.createdAt).toISOString()}"`,
+      enq.spamReason || '',
+      enq.createdAt ? new Date(enq.createdAt).toISOString() : '',
     ]);
 
-    const csvContent = [headers.join(','), ...rows.map((r: string[]) => r.join(','))].join('\n');
+    const csvContent = toCsv(headers, rows);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Globe,
   RefreshCw,
@@ -20,19 +20,27 @@ export default function TranslationsAdminPage() {
   const [loadingStats, setLoadingStats] = useState(true);
   const [runMessage, setRunMessage] = useState('');
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
-    setLoadingStats(true);
-    const res = await getTranslationStats();
-    if (res.success) {
-      setStats({ count: res.count });
-    } else {
-      toast.error('Failed to load translation stats: ' + res.error);
+  const loadStats = useCallback(async () => {
+    try {
+      const res = await getTranslationStats();
+      if (res.success) {
+        setStats({ count: res.count });
+      } else {
+        toast.error('Failed to load translation stats: ' + res.error);
+      }
+    } catch {
+      toast.error('Failed to load translation stats. Please log in again.');
     }
     setLoadingStats(false);
+  }, []);
+
+  useEffect(() => {
+    void loadStats();
+  }, [loadStats]);
+
+  const fetchStats = () => {
+    setLoadingStats(true);
+    void loadStats();
   };
 
   const handleClearCache = async () => {

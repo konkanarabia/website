@@ -66,6 +66,10 @@ export default function Header() {
     };
   }, []);
 
+  // "Services" has no page of its own, so it is active on any of its sub-pages.
+  const isServiceActive = (subItems?: { href: string }[]) =>
+    !!subItems?.some((s) => pathname === s.href || pathname.startsWith(`${s.href}/`));
+
   const navItems = [
     { name: t('home'), href: "/" },
     { name: t('about'), href: "/about" },
@@ -100,11 +104,13 @@ export default function Header() {
               <span className="hidden xs:inline">+91-9370528517 | 9326380922 | +971-555995260 | 0557337618</span>
               <span className="xs:hidden">+91 9370528517</span>
             </span>
-            <span className="flex items-center whitespace-nowrap text-white/90">
-              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-300" /> 
-              <span className="hidden sm:inline">bookings@konkanarabiahospitalitygroup.com</span>
-              <span className="sm:hidden text-[10px]">bookings@kahg.com</span>
-            </span>
+            <a
+              href="mailto:bookings@konkanarabiahospitalitygroup.com"
+              className="flex items-center min-w-0 text-white/90 hover:text-white"
+            >
+              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-300 shrink-0" />
+              <span className="break-all text-[10px] sm:text-xs">bookings@konkanarabiahospitalitygroup.com</span>
+            </a>
           </div>
           <div className="flex space-x-3 items-center">
             <LocaleSwitcher className="mr-2" />
@@ -191,7 +197,7 @@ export default function Header() {
                         <button
                           onClick={toggleServicesDropdown}
                           className={`flex items-center text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                            pathname.startsWith(item.href)
+                            isServiceActive(item.subItems)
                               ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
                               : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
                           }`}
@@ -275,7 +281,7 @@ export default function Header() {
                         <button
                           onClick={toggleMobileServicesDropdown}
                           className={`flex items-center justify-between w-full py-2.5 text-left font-medium transition-colors ${
-                            pathname.startsWith(item.href)
+                            isServiceActive(item.subItems)
                               ? "font-semibold text-amber-800"
                               : "text-slate-700"
                           }`}

@@ -53,7 +53,22 @@ export type GeminiTextResult =
 export type GeminiGenerateOptions = {
   /** Ask the API for strict JSON text (helps structured weather/review-style replies). */
   responseMimeType?: 'application/json' | 'text/plain';
+  /** JSON schema the reply must follow (use with responseMimeType 'application/json'). */
+  responseSchema?: Record<string, unknown>;
+  /** Instructions kept separate from user-supplied content. */
+  systemInstruction?: string;
+  /** Abort the whole call (all fallback models) after this many ms. */
+  timeoutMs?: number;
 };
+
+function buildConfig(options: GeminiGenerateOptions | undefined, signal: AbortSignal | undefined) {
+  const config: Record<string, unknown> = {};
+  if (options?.responseMimeType) config.responseMimeType = options.responseMimeType;
+  if (options?.responseSchema) config.responseSchema = options.responseSchema;
+  if (options?.systemInstruction) config.systemInstruction = options.systemInstruction;
+  if (signal) config.abortSignal = signal;
+  return Object.keys(config).length > 0 ? { config } : {};
+}
 
 /**
  * Calls generateContent across fallback models so one model hitting free-tier
@@ -70,25 +85,46 @@ export async function geminiGenerateText(
 
   const models = geminiModelCandidates();
   let lastError = 'All Gemini models failed or returned empty text';
+  const signal = options?.timeoutMs ? AbortSignal.timeout(options.timeoutMs) : undefined;
 
   for (const model of models) {
+    if (signal?.aborted) return { ok: false, error: 'Gemini request timed out' };
     try {
-      const response = await ai.models.generateContent({
+      const request = ai.models.generateContent({
         model,
         contents: prompt,
-        ...(options?.responseMimeType
-          ? { config: { responseMimeType: options.responseMimeType } }
-          : {}),
+        ...buildConfig(options, signal),
       });
+      const response = signal ? await raceAbort(request, signal) : await request;
       const text = extractModelText(response).trim();
       if (text) return { ok: true, text, model };
       lastError = 'Model returned empty text';
     } catch (e) {
       lastError = e instanceof Error ? e.message : String(e);
+      if (signal?.aborted) return { ok: false, error: 'Gemini request timed out' };
       if (isRetryableModelError(e)) continue;
       return { ok: false, error: lastError };
     }
   }
 
   return { ok: false, error: lastError };
+}
+
+/** Rejects when the signal fires, even if the SDK ignores abortSignal. */
+function raceAbort<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const onAbort = () => reject(new Error('Gemini request timed out'));
+    if (signal.aborted) return onAbort();
+    signal.addEventListener('abort', onAbort, { once: true });
+    promise.then(
+      (v) => {
+        signal.removeEventListener('abort', onAbort);
+        resolve(v);
+      },
+      (e) => {
+        signal.removeEventListener('abort', onAbort);
+        reject(e);
+      },
+    );
+  });
 }

@@ -8,6 +8,7 @@ import SpecializedServices from './components/specialized-services'
 import LocalSeoSection from './components/local-seo-section'
 import VehicleRentalSection from './components/vehicle-rental-section'
 import { getHomeFAQSchema, getLocalBusinessSchema } from '@/lib/structured-data'
+import { jsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'KonkanArabia Hospitality & Holiday Group | Luxury Tours, Goa Taxi & Travel',
@@ -40,13 +41,13 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getHomeFAQSchema()),
+          __html: jsonLd(getHomeFAQSchema()),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getLocalBusinessSchema()),
+          __html: jsonLd(getLocalBusinessSchema()),
         }}
       />
       <Hero />

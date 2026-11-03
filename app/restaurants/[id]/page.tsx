@@ -2,13 +2,17 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Restaurant from "@/lib/models/Restaurant";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const res = await Restaurant.findOne({ id: Number(id) }).lean();
+  const res = await Restaurant.findOne({ id }).lean();
   if (!res) return { title: 'Restaurant Not Found' };
 
   const title = `${res.name} | Authentic Malvani & Coastal Dining | KonkanArabia`;
@@ -38,9 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const res = await Restaurant.findOne({ id: Number(id) }).lean();
+  const res = await Restaurant.findOne({ id }).lean();
   const allRes = await Restaurant.find().select('id name').lean();
   if (!res) notFound();
 
@@ -56,7 +61,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getItemDetailSchema({
+          __html: jsonLd(getItemDetailSchema({
             id: res.id,
             name: res.name,
             description: res.description,
@@ -68,11 +73,11 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getBreadcrumbSchema(breadcrumbs)),
+          __html: jsonLd(getBreadcrumbSchema(breadcrumbs)),
         }}
       />
       <DetailClient 
-        item={JSON.parse(JSON.stringify(res))} 
+        item={withSanitizedDetails(JSON.parse(JSON.stringify(res)))} 
         allItems={JSON.parse(JSON.stringify(allRes))}
         category="restaurants"
         categoryTitle="Food & Restaurants"

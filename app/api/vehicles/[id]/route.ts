@@ -12,6 +12,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     }
     return NextResponse.json({ success: true, vehicle });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    console.error('GET /api/vehicles/[id] failed:', error);
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

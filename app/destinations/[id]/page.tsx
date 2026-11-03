@@ -5,6 +5,7 @@ import { Pin, Calendar, PhoneCall, ArrowLeft, CheckCircle2, XCircle, Clock } fro
 import dbConnect from "@/lib/mongodb";
 import Destination from "@/lib/models/Destination";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import WeatherPacking from "@/components/WeatherPacking";
 import PriceDisplay from "@/components/PriceDisplay";
@@ -13,11 +14,14 @@ import { getReviews } from "@/app/actions/reviews";
 import TranslatedText from "@/components/TranslatedText";
 import type { Metadata } from 'next';
 import { getDestinationSchema } from "@/lib/structured-data";
+import { jsonLd } from '@/lib/json-ld';
+import { sanitizeRichHtml } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const destination = await Destination.findOne({ id: Number(id) }).lean();
+  const destination = await Destination.findOne({ id }).lean();
   if (!destination) {
     return { title: 'Destination Not Found' };
   }
@@ -49,24 +53,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function DestinationPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   
   await dbConnect();
-  const destination = await Destination.findOne({ id: Number(id) }).lean();
+  const destination = await Destination.findOne({ id }).lean();
 
-  if (!destination) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Destination Not Found</h1>
-        <p className="text-gray-600 mb-8">We couldn't find the destination you're looking for.</p>
-        <Link href="/destinations" passHref>
-          <Button className="bg-primary">View All Destinations</Button>
-        </Link>
-      </div>
-    );
-  }
+  if (!destination) notFound();
 
-  const reviews = await getReviews(Number(id));
+  const reviews = await getReviews(id);
 
   // Cloudinary Optimization
   const optImage = destination.image?.includes("/upload/") 
@@ -79,7 +74,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getDestinationSchema(destination)),
+          __html: jsonLd(getDestinationSchema(destination)),
         }}
       />
       {/* ... Hero Section remains the same ... */}
@@ -140,7 +135,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
             <div className="mb-12">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-6">Explore <span className="text-amber-600"><TranslatedText text={destination.name} /></span></h2>
               <TranslatedText
-                text={destination.details}
+                text={sanitizeRichHtml(destination.details)}
                 isHtml={true}
                 className="text-slate-600 leading-relaxed text-lg mb-8 prose max-w-none block"
               />
@@ -268,7 +263,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
         </div>
 
         {/* Reviews Section */}
-        <ReviewSection destinationId={Number(id)} reviews={reviews} />
+        <ReviewSection destinationId={id} reviews={reviews} />
 
         <div className="mt-16 text-center">
             <Link href="/destinations" className="inline-flex items-center text-amber-700 font-bold hover:underline transition-all">

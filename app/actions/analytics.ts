@@ -2,8 +2,10 @@
 
 import dbConnect from '@/lib/mongodb';
 import Visit from '@/lib/models/Visit';
+import { requireAdmin } from '@/lib/auth';
 
 export async function getAnalytics() {
+  await requireAdmin();
   await dbConnect();
   try {
     const uniqueSessions = await Visit.distinct('sessionId', { sessionId: { $exists: true, $ne: null } });
