@@ -5,6 +5,7 @@ import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Visa from '@/lib/models/Visa';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth';
+import { clampPagination } from '@/lib/pagination';
 import { sanitizeRichHtml } from '@/lib/sanitize';
 import { FALLBACK_IMAGE } from '@/lib/images';
 
@@ -34,7 +35,8 @@ export async function getVisas() {
   }
 }
 
-export async function getPaginatedVisas(page: number = 1, limit: number = 9) {
+export async function getPaginatedVisas(rawPage: number = 1, rawLimit: number = 9) {
+  const { page, limit } = clampPagination(rawPage, rawLimit);
   await dbConnect();
   try {
     const skip = (page - 1) * limit;

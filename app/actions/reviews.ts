@@ -120,9 +120,13 @@ Focus on what people love most. Start with "Travelers say...". Return ONLY the s
 }
 
 export async function getReviews(destinationId: number) {
+    // Callers can POST any JSON here; an object like {"$gt":0} would become a
+    // query operator and return every destination's reviews.
+    const destId = Number(destinationId);
+    if (!Number.isInteger(destId) || destId <= 0) return [];
     await dbConnect();
     try {
-        const reviews = await Review.find({ destinationId }).sort({ createdAt: -1 }).lean();
+        const reviews = await Review.find({ destinationId: destId }).sort({ createdAt: -1 }).limit(200).lean();
         return JSON.parse(JSON.stringify(reviews));
     } catch (error) {
         return [];

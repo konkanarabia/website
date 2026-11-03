@@ -5,6 +5,7 @@ import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Restaurant from '@/lib/models/Restaurant';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth';
+import { clampPagination } from '@/lib/pagination';
 import { sanitizeRichHtml } from '@/lib/sanitize';
 import { FALLBACK_IMAGE } from '@/lib/images';
 
@@ -34,7 +35,8 @@ export async function getRestaurants() {
   }
 }
 
-export async function getPaginatedRestaurants(page: number = 1, limit: number = 9) {
+export async function getPaginatedRestaurants(rawPage: number = 1, rawLimit: number = 9) {
+  const { page, limit } = clampPagination(rawPage, rawLimit);
   await dbConnect();
   try {
     const skip = (page - 1) * limit;
