@@ -14,13 +14,13 @@ export default function ReviewSection({ destinationId, reviews: initialReviews }
   useEffect(() => {
     async function fetchSummary() {
       if (reviews.length > 0) {
-        const res = await getReviewSummary(reviews);
+        const res = await getReviewSummary(destinationId);
         if (res?.success && res.text) setSummary(res.text);
       }
       setLoadingSummary(false);
     }
     fetchSummary();
-  }, [reviews]);
+  }, [reviews, destinationId]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

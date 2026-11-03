@@ -18,6 +18,7 @@ export async function GET(
     
     return NextResponse.json({ success: true, destination });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    console.error('GET /api/destinations/[id] failed:', error);
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }
