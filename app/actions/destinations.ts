@@ -1,11 +1,12 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Destination from '@/lib/models/Destination';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth';
 import { sanitizeRichHtml } from '@/lib/sanitize';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteDestination(id: number) {
   await requireAdmin();
@@ -13,6 +14,9 @@ export async function deleteDestination(id: number) {
   try {
     await Destination.findOneAndDelete({ id });
     revalidatePath('/admin');
+    revalidatePath('/');
+    revalidatePath('/destinations');
+    revalidatePath(`/destinations/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -20,6 +24,8 @@ export async function deleteDestination(id: number) {
 }
 
 export async function getDestinations() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   try {
     await dbConnect();
     const destinations = await Destination.find().sort({ createdAt: -1 }).lean();
@@ -100,14 +106,17 @@ export async function addDestination(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else {
-      payload.image = '/placeholder.jpg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     payload.details = sanitizeRichHtml(payload.details);
 
     const newDest = new Destination(payload);
     await newDest.save();
-    
+
+    revalidatePath('/admin');
+    revalidatePath('/');
+    revalidatePath('/destinations');
     return { success: true, id: newDest._id.toString() };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -150,6 +159,8 @@ export async function updateDestination(id: string | number, formData: FormData)
     if (!updated) throw new Error("Destination not found");
     
     revalidatePath('/admin');
+    revalidatePath('/');
+    revalidatePath('/destinations');
     revalidatePath(`/destinations/${id}`);
     
     return { success: true };

@@ -2,15 +2,17 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Event from "@/lib/models/Event";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
 import { jsonLd } from '@/lib/json-ld';
 import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const event = await Event.findOne({ id: Number(id) }).lean();
+  const event = await Event.findOne({ id }).lean();
   if (!event) return { title: 'Event Not Found' };
 
   const title = `${event.name} | Luxury Event Management | KonkanArabia`;
@@ -40,9 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function EventPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const event = await Event.findOne({ id: Number(id) }).lean();
+  const event = await Event.findOne({ id }).lean();
   const allEvents = await Event.find().select('id name').lean();
   if (!event) notFound();
 

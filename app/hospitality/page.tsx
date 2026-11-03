@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import ItemList from "../components/item-list";
 import { getHospitality } from "../actions/hospitality";
-import dbConnect from "@/lib/mongodb";
+
+// Rendered at build time and re-rendered at most every 5 minutes. Without
+// MONGO_URI (CI, local builds) the getter returns [] and the page builds empty.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Premium Stays & Resorts | KonkanArabia Hospitality',
@@ -9,7 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HospitalityPage() {
-  await dbConnect();
   const hospitality = await getHospitality();
   
   return (

@@ -1,11 +1,12 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Vehicle from '@/lib/models/Vehicle';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth';
 import { sanitizeRichHtml } from '@/lib/sanitize';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteVehicle(id: number) {
   await requireAdmin();
@@ -14,6 +15,7 @@ export async function deleteVehicle(id: number) {
     await Vehicle.findOneAndDelete({ id });
     revalidatePath('/admin');
     revalidatePath('/vehicles');
+    revalidatePath(`/vehicles/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -21,6 +23,8 @@ export async function deleteVehicle(id: number) {
 }
 
 export async function getVehicles() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const vehicles = await Vehicle.find().sort({ id: 1 }).lean();
@@ -98,7 +102,7 @@ export async function addVehicle(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     payload.details = sanitizeRichHtml(payload.details);

@@ -6,6 +6,7 @@ import { Calendar, Globe, Pin, Sparkles } from "lucide-react";
 import { getDestinations } from "@/app/actions/destinations";
 import { Price } from "@/components/ui/price";
 import TranslatedText from "@/components/TranslatedText";
+import { imageOrFallback } from "@/lib/images";
 
 export default async function DestinationList() {
   const allDestinations = await getDestinations();
@@ -49,7 +50,7 @@ export default async function DestinationList() {
               <Card key={dest.id} className="group overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 rounded-3xl bg-white relative">
                 <div className="relative h-64 overflow-hidden">
                   <Image
-                    src={optImage || '/placeholder.jpg'}
+                    src={imageOrFallback(optImage)}
                     alt={dest.name}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"

@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Type check, lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      # Builds with placeholder values and no MONGO_URI on purpose: the DB-backed
+      # list pages prerender empty, so the build must not need the real database.
+      - name: Build
+        run: npm run build
+        env:
+          ADMIN_PASSWORD: ci-placeholder
+          ADMIN_TOKEN_SECRET: ci-placeholder-secret
+          GEMINI_API_KEY: ci-placeholder
+          RESEND_API_KEY: re_ci_placeholder
+          EMAIL_FROM: CI <ci@example.com>
+          EMAIL_TO: ci@example.com
+          CLOUDINARY_CLOUD_NAME: ci-placeholder
+          CLOUDINARY_API_KEY: ci-placeholder
+          CLOUDINARY_API_SECRET: ci-placeholder
+
+  audit:
+    name: npm audit (production deps)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit
+        run: npm audit --omit=dev --audit-level=high

@@ -9,6 +9,7 @@ import { unstable_noStore as noStore } from "next/cache";
 
 import Hospitality from "@/lib/models/Hospitality";
 import Restaurant from "@/lib/models/Restaurant";
+import { imageOrFallback } from '@/lib/images';
 
 export default async function SpecializedServices() {
   noStore(); // Always fetch fresh data — no static cache
@@ -90,7 +91,7 @@ export default async function SpecializedServices() {
               <Card className="group h-full overflow-hidden border-none shadow-2xl hover:shadow-slate-900/10 transition-all duration-500 bg-white rounded-3xl">
                 <div className="relative h-80 overflow-hidden">
                   <Image
-                    src={service.image || '/placeholder.svg'}
+                    src={imageOrFallback(service.image)}
                     alt={service.name}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-105"

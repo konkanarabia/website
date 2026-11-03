@@ -3,6 +3,10 @@ import OurServices from "../components/services";
 import DestinationList from "../components/destination-list";
 import { Sparkles } from 'lucide-react';
 
+// Rendered at build time and re-rendered at most every 5 minutes. Without
+// MONGO_URI (CI, local builds) getDestinations returns [] and the page builds empty.
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: 'Luxury Holiday Packages | Domestic & International Tours',
   description: 'Explore our handpicked collection of luxury holiday packages. From the serene beaches of Konkan to international dream destinations, plan your perfect getaway with KonkanArabia.',

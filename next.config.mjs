@@ -1,13 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-let userConfig = undefined;
-try {
-  userConfig = await import('./v0-user-next.config');
-} catch (e) {
-  // ignore error
-}
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -46,11 +39,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
   async headers() {
     return [
       {
@@ -75,30 +63,14 @@ const nextConfig = {
         destination: '/franchise',
         permanent: true,
       },
+      {
+        // The old /hotels page was template filler; hotel stays live under /hospitality.
+        source: '/hotels',
+        destination: '/hospitality',
+        permanent: true,
+      },
     ];
   },
 };
-
-mergeConfig(nextConfig, userConfig);
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return;
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
-      };
-    } else {
-      nextConfig[key] = userConfig[key];
-    }
-  }
-}
 
 export default nextConfig;

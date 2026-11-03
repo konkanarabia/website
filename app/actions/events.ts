@@ -1,11 +1,12 @@
 'use server'
 
 import { v2 as cloudinary } from 'cloudinary';
-import dbConnect from '@/lib/mongodb';
+import dbConnect, { isMongoConfigured } from '@/lib/mongodb';
 import Event from '@/lib/models/Event';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth';
 import { sanitizeRichHtml } from '@/lib/sanitize';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteEvent(id: number) {
   await requireAdmin();
@@ -14,6 +15,7 @@ export async function deleteEvent(id: number) {
     await Event.findOneAndDelete({ id });
     revalidatePath('/admin');
     revalidatePath('/events');
+    revalidatePath(`/events/${id}`);
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
@@ -21,6 +23,8 @@ export async function deleteEvent(id: number) {
 }
 
 export async function getEvents() {
+  // No database at build time (CI, local builds): prerender an empty list.
+  if (!isMongoConfigured()) return [];
   await dbConnect();
   try {
     const events = await Event.find().sort({ id: 1 }).lean();
@@ -98,7 +102,7 @@ export async function addEvent(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     payload.details = sanitizeRichHtml(payload.details);

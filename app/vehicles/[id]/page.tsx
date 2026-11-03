@@ -2,15 +2,17 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Vehicle from "@/lib/models/Vehicle";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
 import { jsonLd } from '@/lib/json-ld';
 import { withSanitizedDetails } from '@/lib/sanitize';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const vehicle = await Vehicle.findOne({ id: Number(id) }).lean();
+  const vehicle = await Vehicle.findOne({ id }).lean();
   if (!vehicle) return { title: 'Vehicle Not Found' };
 
   const title = `${vehicle.name} Rental | KonkanArabia Luxury Transport`;
@@ -40,9 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function VehiclePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const vehicle = await Vehicle.findOne({ id: Number(id) }).lean();
+  const vehicle = await Vehicle.findOne({ id }).lean();
   const allVehicles = await Vehicle.find().select('id name').lean();
   if (!vehicle) notFound();
 

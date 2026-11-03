@@ -312,8 +312,8 @@ export default function VehicleRentalSection() {
                   <span className="font-medium">
                     <strong><TranslatedText text="Direct Call Lines:" /></strong>{" "}
                     <a href="tel:+918625807465" className="hover:text-amber-400 transition-colors underline font-semibold">+91 8625807465</a> •{" "}
-                    <a href="tel:09326380922" className="hover:text-amber-400 transition-colors underline font-semibold">09326380922</a> •{" "}
-                    <a href="tel:9370528517" className="hover:text-amber-400 transition-colors underline font-semibold">9370528517</a>
+                    <a href="tel:+919326380922" className="hover:text-amber-400 transition-colors underline font-semibold">09326380922</a> •{" "}
+                    <a href="tel:+919370528517" className="hover:text-amber-400 transition-colors underline font-semibold">9370528517</a>
                   </span>
                 </div>
               </div>
