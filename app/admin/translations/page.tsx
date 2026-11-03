@@ -20,20 +20,24 @@ export default function TranslationsAdminPage() {
   const [loadingStats, setLoadingStats] = useState(true);
   const [runMessage, setRunMessage] = useState('');
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
   const fetchStats = async () => {
     setLoadingStats(true);
-    const res = await getTranslationStats();
-    if (res.success) {
-      setStats({ count: res.count });
-    } else {
-      toast.error('Failed to load translation stats: ' + res.error);
+    try {
+      const res = await getTranslationStats();
+      if (res.success) {
+        setStats({ count: res.count });
+      } else {
+        toast.error('Failed to load translation stats: ' + res.error);
+      }
+    } catch {
+      toast.error('Failed to load translation stats. Please log in again.');
     }
     setLoadingStats(false);
   };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   const handleClearCache = async () => {
     if (!confirm('Are you sure you want to clear the entire translation cache in the database? This will reset all cached translation texts.')) {

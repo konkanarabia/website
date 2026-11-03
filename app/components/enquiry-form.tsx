@@ -35,22 +35,6 @@ export default function EnquiryForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [today, setToday] = useState<string>("");
 
-  useEffect(() => {
-    setToday(format(new Date(), "yyyy-MM-dd"));
-    
-    // Handle query parameters
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get("service");
-    if (service) {
-      setFormData(prev => ({ ...prev, travelType: service }));
-      if (service === "hospitality") {
-        setFormData(prev => ({ ...prev, destination: "Siddhivinayak Devbag Beach Resort" }));
-      } else if (service === "food-beverages") {
-        setFormData(prev => ({ ...prev, destination: "Konkan Swad Restaurant" }));
-      }
-    }
-  }, []);
-
   const [formLoadedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     name: "",
@@ -70,6 +54,22 @@ export default function EnquiryForm() {
     website_hp: "", // Honeypot field for bot protection
     business_url: "", // Decoy bot honeypot
   });
+
+  useEffect(() => {
+    setToday(format(new Date(), "yyyy-MM-dd"));
+    
+    // Handle query parameters
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service");
+    if (service) {
+      setFormData(prev => ({ ...prev, travelType: service }));
+      if (service === "hospitality") {
+        setFormData(prev => ({ ...prev, destination: "Siddhivinayak Devbag Beach Resort" }));
+      } else if (service === "food-beverages") {
+        setFormData(prev => ({ ...prev, destination: "Konkan Swad Restaurant" }));
+      }
+    }
+  }, []);
   // Helper function to parse date strings to Date objects
   const parseDate = (dateString: string): Date | null => {
     if (!dateString) return null;
