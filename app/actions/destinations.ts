@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from '@/lib/mongodb';
 import Destination from '@/lib/models/Destination';
 import { revalidatePath } from 'next/cache';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteDestination(id: number) {
   await dbConnect();
@@ -96,7 +97,7 @@ export async function addDestination(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else {
-      payload.image = '/placeholder.jpg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     const newDest = new Destination(payload);

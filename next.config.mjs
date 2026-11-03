@@ -49,6 +49,12 @@ const nextConfig = {
         destination: '/franchise',
         permanent: true,
       },
+      {
+        // The old /hotels page was template filler; hotel stays live under /hospitality.
+        source: '/hotels',
+        destination: '/hospitality',
+        permanent: true,
+      },
     ];
   },
 };

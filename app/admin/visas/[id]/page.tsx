@@ -7,6 +7,7 @@ import { Loader2, ArrowLeft, Plus, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import TiptapEditor from '@/components/TiptapEditor';
+import { isPlaceholderImage } from '@/lib/images';
 
 export default function EditVisaAdmin({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -214,7 +215,7 @@ export default function EditVisaAdmin({ params }: { params: Promise<{ id: string
           {!formData.isCustomLink && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1.5">Cover Image</label>
-              {currentImageUrl && currentImageUrl !== '/placeholder.svg' && (
+              {!isPlaceholderImage(currentImageUrl) && (
                 <div className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 mb-3 shadow-sm">
                   <img src={currentImageUrl} alt="Preview" className="w-full h-full object-cover" />
                 </div>

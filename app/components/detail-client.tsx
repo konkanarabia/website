@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import { Price } from "@/components/ui/price";
 import { CheckCircle2, ShieldCheck, Clock, Shield, Sparkles } from "lucide-react";
+import { FALLBACK_IMAGE, imageOrFallback } from "@/lib/images";
 
 const getIcon = (iconName: string, className: string) => {
 	switch (iconName) {
@@ -90,7 +91,7 @@ export default function DetailClient({ item, allItems, category, categoryTitle }
 				<div className="space-y-4">
 					<div className="relative aspect-video lg:aspect-[4/3] overflow-hidden rounded-2xl shadow-xl border border-slate-200">
 						<Image
-							src={imageError ? "/placeholder.svg" : activeImage}
+							src={imageError ? FALLBACK_IMAGE : imageOrFallback(activeImage)}
 							alt={item.name}
 							fill
 							className="object-cover transition-all duration-700 hover:scale-105"

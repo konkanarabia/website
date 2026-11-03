@@ -36,6 +36,7 @@ import VisaDeleteButton from './VisaDeleteButton';
 import EventDeleteButton from './EventDeleteButton';
 import HospitalityDeleteButton from './HospitalityDeleteButton';
 import RestaurantDeleteButton from './RestaurantDeleteButton';
+import { isPlaceholderImage } from '@/lib/images';
 
 export const dynamic = 'force-dynamic';
 
@@ -446,7 +447,7 @@ export default async function AdminDashboard(props: {
                 {vehicles.map((v: any) => (
                   <tr key={v._id} className="hover:bg-blue-50/30 transition-colors group">
                     <td className="px-6 py-4">
-                      {v.image && v.image !== '/placeholder.svg' ? (
+                      {!isPlaceholderImage(v.image) ? (
                         <div className="w-16 h-12 rounded-md overflow-hidden bg-gray-100 relative shadow-sm border border-gray-200">
                           <img src={v.image} alt={v.name} className="w-full h-full object-cover" />
                         </div>
@@ -559,7 +560,7 @@ export default async function AdminDashboard(props: {
                 {visas.map((v: any) => (
                   <tr key={v._id} className="hover:bg-blue-50/30 transition-colors group">
                     <td className="px-6 py-4">
-                      {v.image && v.image !== '/placeholder.svg' ? (
+                      {!isPlaceholderImage(v.image) ? (
                         <div className="w-16 h-12 rounded-md overflow-hidden bg-gray-100 relative shadow-sm border border-gray-200">
                           <img src={v.image} alt={v.name} className="w-full h-full object-cover" />
                         </div>
@@ -672,7 +673,7 @@ export default async function AdminDashboard(props: {
                 {events.map((e: any) => (
                   <tr key={e._id} className="hover:bg-blue-50/30 transition-colors group">
                     <td className="px-6 py-4">
-                      {e.image && e.image !== '/placeholder.svg' ? (
+                      {!isPlaceholderImage(e.image) ? (
                         <div className="w-16 h-12 rounded-md overflow-hidden bg-gray-100 relative shadow-sm border border-gray-200">
                           <img src={e.image} alt={e.name} className="w-full h-full object-cover" />
                         </div>

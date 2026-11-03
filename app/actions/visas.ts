@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from '@/lib/mongodb';
 import Visa from '@/lib/models/Visa';
 import { revalidatePath } from 'next/cache';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteVisa(id: number) {
   await dbConnect();
@@ -94,7 +95,7 @@ export async function addVisa(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     const newVisa = new Visa(payload);

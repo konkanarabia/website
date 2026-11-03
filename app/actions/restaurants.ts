@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from '@/lib/mongodb';
 import Restaurant from '@/lib/models/Restaurant';
 import { revalidatePath } from 'next/cache';
+import { FALLBACK_IMAGE } from '@/lib/images';
 
 export async function deleteRestaurant(id: number) {
   await dbConnect();
@@ -94,7 +95,7 @@ export async function addRestaurant(formData: FormData) {
           payload.image = aiImageUrl; // Fallback to raw AI URL
       }
     } else if (!payload.image) {
-      payload.image = '/placeholder.svg';
+      payload.image = FALLBACK_IMAGE;
     }
 
     const newRestaurant = new Restaurant(payload);
