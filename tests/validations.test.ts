@@ -151,7 +151,20 @@ describe('error messages', () => {
   it('does not report a wrong type as "required"', () => {
     const r = nameSchema.safeParse(42);
     expect(r.success).toBe(false);
-    if (!r.success) expect(r.error.issues[0].message).not.toBe('Full name is required');
+    if (!r.success) expect(r.error.issues[0].message).toBe('Expected string, received number');
+  });
+
+  it('keeps the zod 3 wording for built-in messages', () => {
+    const vehicle = { ...person, dropoffLocation: 'Panjim', pickupDate: inAWeek, dropoffDate: inAWeek, passengers: 1 };
+    expect(firstError(vehicleEnquirySchema.safeParse({ ...vehicle, pickupLocation: 'x'.repeat(121) })))
+      .toEqual({ pickupLocation: 'String must contain at most 120 character(s)' });
+    expect(firstError(vehicleEnquirySchema.safeParse({ ...vehicle, pickupLocation: 'Mopa', vehicleType: 'van' })))
+      .toEqual({ vehicleType: "Invalid enum value. Expected 'car' | 'bike', received 'van'" });
+    expect(firstError(franchiseFormSchema.safeParse({
+      fname: 'Priya Sharma', email: person.email, phone: person.phone, itype: 'individual', format: 'kiosk', budget: '100k',
+    }))).toEqual({ country: 'Required' });
+    expect(firstError(contactFormSchema.safeParse({ ...person, message: 'Hello there', website_hp: null })))
+      .toEqual({ website_hp: 'Expected string, received null' });
   });
 
   it('returns the first failing check for a field', () => {

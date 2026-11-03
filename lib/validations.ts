@@ -5,8 +5,55 @@ import { validateCountryPhoneNumber } from './country-codes';
  * Common field validation primitives
  */
 
-// Message for a missing (undefined) value. Other type mismatches keep zod's
-// default "Invalid input" message, matching the old required_error behaviour.
+// zod 4 reworded its built-in messages ("Too big: expected string to have
+// <=120 characters", "Invalid option: ..."). Fields without a custom message
+// show these to users through formatZodErrors, so keep the zod 3 wording.
+function parsedType(input: unknown): string {
+  if (input === null) return 'null';
+  if (Array.isArray(input)) return 'array';
+  if (typeof input === 'number') return Number.isNaN(input) ? 'nan' : 'number';
+  if (input instanceof Date) return 'date';
+  return typeof input;
+}
+
+z.config({
+  customError: (issue) => {
+    switch (issue.code) {
+      case 'invalid_type':
+        if (issue.input === undefined) return 'Required';
+        return `Expected ${issue.expected}, received ${parsedType(issue.input)}`;
+      case 'invalid_value': {
+        const options = issue.values.map((v) => `'${String(v)}'`).join(' | ');
+        if (issue.input === undefined) return 'Required';
+        if (typeof issue.input !== 'string') {
+          return `Expected ${options}, received ${parsedType(issue.input)}`;
+        }
+        return `Invalid enum value. Expected ${options}, received '${issue.input}'`;
+      }
+      case 'too_big':
+        if (issue.origin === 'string') {
+          return `String must contain at most ${issue.maximum} character(s)`;
+        }
+        if (issue.origin === 'number') {
+          return `Number must be less than ${issue.inclusive ? 'or equal to ' : ''}${issue.maximum}`;
+        }
+        return undefined;
+      case 'too_small':
+        if (issue.origin === 'string') {
+          return `String must contain at least ${issue.minimum} character(s)`;
+        }
+        if (issue.origin === 'number') {
+          return `Number must be greater than ${issue.inclusive ? 'or equal to ' : ''}${issue.minimum}`;
+        }
+        return undefined;
+      default:
+        return undefined;
+    }
+  },
+});
+
+// Message for a missing (undefined) value. Other type mismatches fall through
+// to the messages above, matching the old required_error behaviour.
 const requiredMessage =
   (message: string): z.core.$ZodErrorMap =>
   (issue) =>
