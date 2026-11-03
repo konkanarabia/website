@@ -66,6 +66,10 @@ export default function Header() {
     };
   }, []);
 
+  // "Services" has no page of its own, so it is active on any of its sub-pages.
+  const isServiceActive = (subItems?: { href: string }[]) =>
+    !!subItems?.some((s) => pathname === s.href || pathname.startsWith(`${s.href}/`));
+
   const navItems = [
     { name: t('home'), href: "/" },
     { name: t('about'), href: "/about" },
@@ -193,7 +197,7 @@ export default function Header() {
                         <button
                           onClick={toggleServicesDropdown}
                           className={`flex items-center text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                            pathname.startsWith(item.href)
+                            isServiceActive(item.subItems)
                               ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
                               : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
                           }`}
@@ -277,7 +281,7 @@ export default function Header() {
                         <button
                           onClick={toggleMobileServicesDropdown}
                           className={`flex items-center justify-between w-full py-2.5 text-left font-medium transition-colors ${
-                            pathname.startsWith(item.href)
+                            isServiceActive(item.subItems)
                               ? "font-semibold text-amber-800"
                               : "text-slate-700"
                           }`}
