@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Visa from "@/lib/models/Visa";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const visa = await Visa.findOne({ id: Number(id) }).lean();
+  const visa = await Visa.findOne({ id }).lean();
   if (!visa) return { title: 'Visa Service Not Found' };
 
   const title = `${visa.name} Visa Assistance | KonkanArabia Travel Services`;
@@ -38,9 +40,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function VisaPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const visa = await Visa.findOne({ id: Number(id) }).lean();
+  const visa = await Visa.findOne({ id }).lean();
   const allVisas = await Visa.find().select('id name').lean();
   if (!visa) notFound();
 

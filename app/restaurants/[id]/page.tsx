@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import dbConnect from "@/lib/mongodb";
 import Restaurant from "@/lib/models/Restaurant";
 import { notFound } from "next/navigation";
+import { parseItemId } from "@/lib/route-id";
 import DetailClient from "@/app/components/detail-client";
 import { getItemDetailSchema, getBreadcrumbSchema } from "@/lib/structured-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const res = await Restaurant.findOne({ id: Number(id) }).lean();
+  const res = await Restaurant.findOne({ id }).lean();
   if (!res) return { title: 'Restaurant Not Found' };
 
   const title = `${res.name} | Authentic Malvani & Coastal Dining | KonkanArabia`;
@@ -38,9 +40,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const id = parseItemId((await params).id);
+  if (id === null) notFound();
   await dbConnect();
-  const res = await Restaurant.findOne({ id: Number(id) }).lean();
+  const res = await Restaurant.findOne({ id }).lean();
   const allRes = await Restaurant.find().select('id name').lean();
   if (!res) notFound();
 
