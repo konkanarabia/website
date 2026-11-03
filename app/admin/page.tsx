@@ -751,7 +751,15 @@ export default async function AdminDashboard(props: {
               <Hotel className="w-5 h-5 text-blue-600" />
               Hospitality & Stays
             </h2>
-            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">PROPERTIES</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">PROPERTIES</span>
+              <Link
+                href="/admin/hospitality/new"
+                className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+              >
+                Add Stay
+              </Link>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[640px]">
@@ -769,7 +777,7 @@ export default async function AdminDashboard(props: {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-4">
                           <div className="relative h-12 w-16 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 flex-shrink-0">
-                            {h.image ? (
+                            {!isPlaceholderImage(h.image) ? (
                               <img src={h.image} alt={h.name} className="h-full w-full object-cover" />
                             ) : (
                               <div className="flex h-full w-full items-center justify-center text-slate-400">
@@ -804,7 +812,10 @@ export default async function AdminDashboard(props: {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={3} className="px-6 py-12 text-center text-slate-500 font-medium">No stays found.</td>
+                    <td colSpan={3} className="px-6 py-12 text-center text-slate-500 font-medium">
+                      <p className="mb-2">No stays found.</p>
+                      <Link href="/admin/hospitality/new" className="text-blue-600 font-semibold hover:underline">Add a stay</Link>
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -833,7 +844,15 @@ export default async function AdminDashboard(props: {
               <Utensils className="w-5 h-5 text-red-600" />
               Dining & Restaurants
             </h2>
-            <span className="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded">DINING</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded">DINING</span>
+              <Link
+                href="/admin/restaurants/new"
+                className="text-sm bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+              >
+                Add Restaurant
+              </Link>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[640px]">
@@ -851,7 +870,7 @@ export default async function AdminDashboard(props: {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-4">
                           <div className="relative h-12 w-16 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 flex-shrink-0">
-                            {r.image ? (
+                            {!isPlaceholderImage(r.image) ? (
                               <img src={r.image} alt={r.name} className="h-full w-full object-cover" />
                             ) : (
                               <div className="flex h-full w-full items-center justify-center text-slate-400">
@@ -886,7 +905,10 @@ export default async function AdminDashboard(props: {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={3} className="px-6 py-12 text-center text-slate-500 font-medium">No restaurants found.</td>
+                    <td colSpan={3} className="px-6 py-12 text-center text-slate-500 font-medium">
+                      <p className="mb-2">No restaurants found.</p>
+                      <Link href="/admin/restaurants/new" className="text-blue-600 font-semibold hover:underline">Add a restaurant</Link>
+                    </td>
                   </tr>
                 )}
               </tbody>
