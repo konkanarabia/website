@@ -136,3 +136,101 @@ describe('form schemas', () => {
     if (r.success) expect(r.data.guestCount).toBe(150);
   });
 });
+
+describe('error messages', () => {
+  const firstError = (r: { success: boolean; error?: Parameters<typeof formatZodErrors>[0] }) =>
+    r.success || !r.error ? {} : formatZodErrors(r.error);
+
+  it('uses the "required" message when a field is missing', () => {
+    expect(firstError(contactFormSchema.safeParse({ email: person.email, message: 'Hello there' })))
+      .toMatchObject({ name: 'Full name is required' });
+    expect(firstError(vehicleEnquirySchema.safeParse({ ...person, pickupLocation: 'Mopa', dropoffLocation: 'Panjim', dropoffDate: inAWeek, passengers: 1 })))
+      .toMatchObject({ pickupDate: 'Pickup date is required' });
+  });
+
+  it('does not report a wrong type as "required"', () => {
+    const r = nameSchema.safeParse(42);
+    expect(r.success).toBe(false);
+    if (!r.success) expect(r.error.issues[0].message).not.toBe('Full name is required');
+  });
+
+  it('returns the first failing check for a field', () => {
+    expect(firstError(nameSchema.safeParse('A'))).toEqual({ form: 'Name must be at least 2 characters' });
+    expect(firstError(emailSchema.safeParse('someone@gmai.com'))).toEqual({
+      form: 'Did you mean @gmail.com? Please verify your email domain.',
+    });
+  });
+
+  it('rejects a blank optional phone only when it is filled in badly', () => {
+    expect(contactFormSchema.safeParse({ ...person, phone: '', message: 'Hello there' }).success).toBe(true);
+    expect(firstError(contactFormSchema.safeParse({ ...person, phone: '+91 12', message: 'Hello there' })))
+      .toHaveProperty('phone');
+  });
+
+  it('reports a date-order error alongside unrelated field errors', () => {
+    const r = travelEnquirySchema.safeParse({
+      ...person,
+      name: 'x',
+      travelType: 'holiday',
+      destination: 'Dubai',
+      travelers: 2,
+      departureDate: '2030-05-10',
+      returnDate: '2030-05-01',
+    });
+    expect(firstError(r)).toMatchObject({
+      name: 'Name must be at least 2 characters',
+      returnDate: 'Return date must be on or after departure date',
+    });
+  });
+
+  it('reports the field error first when a compared date is itself invalid', () => {
+    const r = vehicleEnquirySchema.safeParse({
+      ...person,
+      pickupLocation: 'Mopa',
+      dropoffLocation: 'Panjim',
+      pickupDate: inAWeek,
+      dropoffDate: lastWeek,
+      passengers: 1,
+    });
+    expect(firstError(r)).toEqual({ dropoffDate: 'Drop-off date cannot be in the past' });
+  });
+
+  it('hospitality check-out before check-in fails only for stays', () => {
+    const base = { ...person, destination: 'Beach Resort', checkInDate: inAWeek, checkOutDate: '2020-01-01', guests: 2 };
+    expect(firstError(hospitalityEnquirySchema.safeParse(base))).toEqual({
+      checkOutDate: 'Check-out date must be on or after check-in date',
+    });
+    expect(hospitalityEnquirySchema.safeParse({ ...base, serviceType: 'food-beverages' }).success).toBe(true);
+  });
+});
+
+describe('defaults and coercion', () => {
+  it('fills enum defaults and numeric fallbacks', () => {
+    const r = travelEnquirySchema.safeParse({ ...person, travelType: 'holiday', destination: 'Dubai', travelers: '' });
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.preferredContact).toBe('email');
+      expect(r.data.travelers).toBe(1);
+      expect(r.data.budgetMin).toBe(0);
+      expect(r.data.budgetMax).toBe(0);
+    }
+    const v = vehicleEnquirySchema.safeParse({
+      ...person, pickupLocation: 'Mopa', dropoffLocation: 'Panjim', pickupDate: inAWeek, dropoffDate: inAWeek, passengers: '4',
+    });
+    expect(v.success && v.data.vehicleType).toBe('car');
+    expect(v.success && v.data.passengers).toBe(4);
+  });
+
+  it('trims whitespace before validating', () => {
+    const r = contactFormSchema.safeParse({ ...person, name: '  Priya Sharma  ', email: ' priya.sharma@example.org ', message: 'Hello there' });
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.name).toBe('Priya Sharma');
+      expect(r.data.email).toBe('priya.sharma@example.org');
+    }
+  });
+
+  it('rejects an unknown enum value', () => {
+    expect(travelEnquirySchema.safeParse({ ...person, travelType: 'holiday', destination: 'Dubai', travelers: 1, preferredContact: 'fax' }).success).toBe(false);
+  });
+});
