@@ -1,24 +1,37 @@
 'use server'
 
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { endAdminSession, startAdminSession } from '@/lib/auth';
+import { getAdminAuthConfig, safeEqual } from '@/lib/session-token';
+import { clientIpFromHeaders, rateLimit } from '@/lib/rate-limit';
+
+const LOGIN_LIMIT = 5;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
 export async function login(password: string) {
-  if (password === process.env.ADMIN_PASSWORD) {
-    const cookieStore = await cookies();
-    cookieStore.set('admin_token', process.env.ADMIN_TOKEN_SECRET || 'secret', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: '/',
-    });
-    return { success: true };
+  const config = getAdminAuthConfig();
+  if (!config) {
+    console.error('Admin login disabled: ADMIN_PASSWORD and ADMIN_TOKEN_SECRET must both be set.');
+    return { success: false, error: 'Admin login is not configured on this server.' };
   }
-  return { success: false, error: 'Invalid password' };
+
+  const ip = clientIpFromHeaders(await headers());
+  const limit = rateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_MS);
+  if (!limit.allowed) {
+    const minutes = Math.max(1, Math.ceil(limit.retryAfterMs / 60000));
+    return { success: false, error: `Too many attempts. Try again in ${minutes} minute(s).` };
+  }
+
+  if (typeof password !== 'string' || password.length > 256 || !safeEqual(password, config.password)) {
+    return { success: false, error: 'Invalid password' };
+  }
+
+  await startAdminSession();
+  return { success: true };
 }
 
 export async function logout() {
-  const cookieStore = await cookies();
-  cookieStore.delete('admin_token');
+  await endAdminSession();
   redirect('/admin/login');
 }
