@@ -4,7 +4,9 @@
  * "=HYPERLINK(...)" could execute on the admin's machine. Such cells get a
  * leading apostrophe, which Excel and Sheets show as plain text.
  */
-const FORMULA_START = /^[=+\-@\t\r]/;
+// Leading spaces or newlines don't stop LibreOffice (and some Excel imports)
+// from reading the rest as a formula, so look past them.
+const FORMULA_START = /^\s*[=+\-@]|^[\t\r\n]/;
 
 export function csvCell(value: unknown): string {
   let s = value === null || value === undefined ? '' : String(value);

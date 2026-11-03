@@ -65,7 +65,7 @@ describe('jsonLd', () => {
 });
 
 describe('csvCell', () => {
-  it.each(['=1+1', '+SUM(A1)', '-2+3', '@cmd', '\tTAB', '\rCR', '=HYPERLINK("http://evil.test","x")'])(
+  it.each(['=1+1', '+SUM(A1)', '-2+3', '@cmd', '\tTAB', '\rCR', '=HYPERLINK("http://evil.test","x")', ' =1+1', '\n=cmd', '  @SUM(1)'])(
     'neutralises formula-looking cell %j',
     (value) => {
       const out = csvCell(value);
