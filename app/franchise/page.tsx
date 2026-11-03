@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import FranchiseContent from '../components/franchise-content';
 import { getFranchiseFAQSchema } from '@/lib/structured-data';
+import { jsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'Mumbai to Malabar Food Express — Franchise & Partnership Opportunities | KonkanArabia Hospitality Group',
@@ -33,7 +34,7 @@ export default function FranchisePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getFranchiseFAQSchema()),
+          __html: jsonLd(getFranchiseFAQSchema()),
         }}
       />
       <FranchiseContent />

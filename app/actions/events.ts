@@ -4,8 +4,11 @@ import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from '@/lib/mongodb';
 import Event from '@/lib/models/Event';
 import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '@/lib/auth';
+import { sanitizeRichHtml } from '@/lib/sanitize';
 
 export async function deleteEvent(id: number) {
+  await requireAdmin();
   await dbConnect();
   try {
     await Event.findOneAndDelete({ id });
@@ -52,6 +55,7 @@ cloudinary.config({
 });
 
 export async function addEvent(formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -97,6 +101,8 @@ export async function addEvent(formData: FormData) {
       payload.image = '/placeholder.svg';
     }
 
+    payload.details = sanitizeRichHtml(payload.details);
+
     const newEvent = new Event(payload);
     await newEvent.save();
     
@@ -109,6 +115,7 @@ export async function addEvent(formData: FormData) {
 }
 
 export async function updateEvent(id: string | number, formData: FormData) {
+  await requireAdmin();
   await dbConnect();
   
   try {
@@ -131,6 +138,8 @@ export async function updateEvent(id: string | number, formData: FormData) {
     if (imageUrl) {
       payload.image = imageUrl;
     }
+
+    if ('details' in payload) payload.details = sanitizeRichHtml(payload.details);
 
     const updated = await Event.findOneAndUpdate(
       { id: Number(id) }, 

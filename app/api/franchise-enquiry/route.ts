@@ -8,6 +8,8 @@ import dbConnect from '@/lib/mongodb';
 import Enquiry from '@/lib/models/Enquiry';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
 import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
+import { isSpamVerdict } from '@/lib/spam-verdict';
+import { GENERIC_SERVER_ERROR, clipReason, spamLogFields } from '@/lib/spam-log';
 import { franchiseFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
@@ -18,26 +20,22 @@ export async function POST(request: Request) {
     // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
     const spamResult = evaluateSpam(body, clientIp);
     if (spamResult.isSpam) {
-      console.warn(`[AntiSpam] Blocked spam franchise enquiry from ${clientIp} (${spamResult.reason}):`, {
-        fname: body.fname,
-        email: body.email,
-        phone: body.phone,
-        company: body.company,
-      });
+      const log = spamLogFields(body);
+      console.warn(`[AntiSpam] Blocked spam franchise enquiry from ${clientIp} (${spamResult.reason})`);
 
       try {
         await dbConnect();
         const spamEntry = new Enquiry({
-          name: body.fname || 'Anonymous',
-          email: body.email || 'unknown@example.com',
-          phone: body.phone,
-          destination: body.country,
-          travelType: `Franchise (${body.format || 'Partnership'})`,
-          message: `${body.company ? `Company: ${body.company}. ` : ''}${body.message || ''}`,
+          name: log.name,
+          email: log.email,
+          phone: log.phone,
+          destination: log.country,
+          travelType: `Franchise (${log.format || 'Partnership'})`,
+          message: `${log.company ? `Company: ${log.company}. ` : ''}${log.message || ''}`,
           status: 'Spam',
           isSpam: true,
           spamScore: 1.0,
-          spamReason: spamResult.reason,
+          spamReason: clipReason(spamResult.reason),
           spamCategory: 'gibberish',
         });
         await spamEntry.save();
@@ -69,54 +67,8 @@ export async function POST(request: Request) {
 
     const { fname, company, email, phone, country, itype, format, budget, message } = validation.data;
 
-    // AI Spam Agent Evaluation (Semantic Intelligence)
-    const aiSpam = await analyzeSpamWithAi({
-      name: fname,
-      fname,
-      email,
-      phone,
-      destination: country,
-      travelType: `Franchise (${format})`,
-      message: `${company ? `Company: ${company}. ` : ''}${message || ''}`,
-    });
-
-    if (aiSpam.isSpam && aiSpam.confidence >= 0.65) {
-      console.warn(`[AI Spam Agent] Blocked franchise enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
-
-      try {
-        await dbConnect();
-        const spamEntry = new Enquiry({
-          name: fname,
-          email,
-          phone,
-          destination: country,
-          travelType: `Franchise (${format})`,
-          message: `${company ? `Company: ${company}. ` : ''}${message || ''}`,
-          status: 'Spam',
-          isSpam: true,
-          spamScore: aiSpam.confidence,
-          spamReason: aiSpam.reason,
-          spamCategory: aiSpam.category,
-        });
-        await spamEntry.save();
-      } catch (dbErr) {
-        console.error('Failed to log AI spam franchise enquiry to DB:', dbErr);
-      }
-
-      return NextResponse.json(
-        {
-          success: true,
-          message: 'Franchise enquiry submitted successfully',
-        },
-        { status: 200 }
-      );
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Processing franchise enquiry submission:', { fname, email, phone, format, country });
-    }
-
-    // Save legitimate franchise enquiry to MongoDB
+    // Save the lead first, so a slow or failing AI call can never lose it.
+    let savedId: unknown = null;
     try {
       await dbConnect();
       const validEntry = new Enquiry({
@@ -130,8 +82,50 @@ export async function POST(request: Request) {
         isSpam: false,
       });
       await validEntry.save();
+      savedId = validEntry._id;
     } catch (dbErr) {
       console.error('Failed to save franchise enquiry to DB:', dbErr);
+    }
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name: fname,
+      fname,
+      email,
+      phone,
+      destination: country,
+      travelType: `Franchise (${format})`,
+      message: `${company ? `Company: ${company}. ` : ''}${message || ''}`,
+    });
+
+    if (isSpamVerdict(aiSpam)) {
+      console.warn(`[AI Spam Agent] Flagged franchise enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+
+      if (savedId) {
+        try {
+          await Enquiry.findByIdAndUpdate(savedId, {
+            status: 'Spam',
+            isSpam: true,
+            spamScore: aiSpam.confidence,
+            spamReason: clipReason(aiSpam.reason),
+            spamCategory: aiSpam.category,
+          });
+        } catch (dbErr) {
+          console.error('Failed to tag AI spam franchise enquiry:', dbErr);
+        }
+      }
+
+      return NextResponse.json(
+        {
+          success: true,
+          message: 'Franchise enquiry submitted successfully',
+        },
+        { status: 200 }
+      );
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Processing franchise enquiry submission:', { fname, email, phone, format, country });
     }
 
     // 1. Send Admin Notification Email
@@ -179,21 +173,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error('Error processing franchise enquiry submission:', error);
-
-    let errorMessage = 'Internal server error';
-    let errorDetails = '';
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-      errorDetails = error.stack || '';
-    }
-
-    return NextResponse.json(
-      {
-        error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? errorDetails : undefined,
-      },
-      { status: 500 }
-    );
+    return NextResponse.json(GENERIC_SERVER_ERROR, { status: 500 });
   }
 }

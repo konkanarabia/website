@@ -4,6 +4,8 @@ import crypto from 'crypto';
 import { TRANSLATIONS } from '@/lib/translations';
 import dbConnect from '@/lib/mongodb';
 import Translation from '@/lib/models/Translation';
+import { requireAdmin } from '@/lib/auth';
+import { sanitizeRichHtml } from '@/lib/sanitize';
 
 /**
  * Searches the static TRANSLATIONS dictionary for the English string
@@ -31,8 +33,24 @@ function getStaticTranslation(text: string, lang: string): string | null {
  * Translates a given text (plain text or HTML) using static dictionaries and MongoDB database cache.
  * It NEVER calls the Gemini AI API, avoiding rate limit errors on the user-facing site.
  */
-export async function translateTextAction(text: string, locale: string): Promise<{ success: boolean; text?: string; error?: string }> {
+export async function translateTextAction(
+  text: string,
+  locale: string,
+  options?: { html?: boolean },
+): Promise<{ success: boolean; text?: string; error?: string }> {
+  const result = await translateTextInner(text, locale);
+  // Cached translations come from the DB, so clean HTML before the client renders it raw.
+  if (options?.html && result.success && typeof result.text === 'string') {
+    return { ...result, text: sanitizeRichHtml(result.text) };
+  }
+  return result;
+}
+
+async function translateTextInner(text: string, locale: string): Promise<{ success: boolean; text?: string; error?: string }> {
   try {
+    if (typeof text !== 'string' || typeof locale !== 'string' || text.length > 20000) {
+      return { success: false, error: 'Invalid input' };
+    }
     if (!text.trim()) {
       return { success: true, text };
     }
@@ -63,7 +81,7 @@ export async function translateTextAction(text: string, locale: string): Promise
     return { success: true, text };
   } catch (error: unknown) {
     console.error('Translation error:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    return { success: false, error: 'Translation failed' };
   }
 }
 
@@ -87,6 +105,7 @@ function getLanguageName(locale: string): string {
  * Returns statistics about the cached translations in MongoDB.
  */
 export async function getTranslationStats() {
+  await requireAdmin();
   try {
     await dbConnect();
     const count = await Translation.countDocuments();
@@ -100,6 +119,7 @@ export async function getTranslationStats() {
  * Clears the translation database cache.
  */
 export async function clearTranslationCache() {
+  await requireAdmin();
   try {
     await dbConnect();
     await Translation.deleteMany({});

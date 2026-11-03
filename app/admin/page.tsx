@@ -8,6 +8,8 @@ import { getPaginatedRestaurants } from '@/app/actions/restaurants';
 import { getEnquiryCount, getPaginatedEnquiries, getEnquiryStats } from '@/app/actions/enquiries';
 import { getReviewCount, getPaginatedReviews } from '@/app/actions/reviews';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { isAdmin } from '@/lib/auth';
 
 import {
   Edit,
@@ -71,6 +73,10 @@ function adminHref(tab: AdminTab, page?: number, filter?: string, q?: string) {
 export default async function AdminDashboard(props: {
   searchParams: Promise<{ page?: string; tab?: string; filter?: string; q?: string }>;
 }) {
+  // The proxy only checks the cookie signature; a revoked or expired
+  // session goes back to the login page instead of an error screen.
+  if (!(await isAdmin())) redirect('/admin/login');
+
   const params = await props.searchParams;
   const pageRaw = params.page ? parseInt(params.page, 10) : 1;
   const page = Number.isFinite(pageRaw) && pageRaw > 0 ? pageRaw : 1;

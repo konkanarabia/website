@@ -104,6 +104,11 @@ export function checkRateLimit(
  * Extract client IP address from Next.js request headers
  */
 export function getClientIp(request: Request): string {
+  // Netlify's own header first: clients can't spoof it.
+  const nfIp = request.headers.get('x-nf-client-connection-ip');
+  if (nfIp) {
+    return nfIp.trim();
+  }
   const xForwardedFor = request.headers.get('x-forwarded-for');
   if (xForwardedFor) {
     return xForwardedFor.split(',')[0].trim();

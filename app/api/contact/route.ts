@@ -8,6 +8,8 @@ import dbConnect from '@/lib/mongodb';
 import Enquiry from '@/lib/models/Enquiry';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
 import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
+import { isSpamVerdict } from '@/lib/spam-verdict';
+import { GENERIC_SERVER_ERROR, clipReason, spamLogFields } from '@/lib/spam-log';
 import { contactFormSchema, formatZodErrors } from '@/lib/validations';
 
 export async function POST(request: Request) {
@@ -19,24 +21,21 @@ export async function POST(request: Request) {
     // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
     const spamResult = evaluateSpam(body, clientIp);
     if (spamResult.isSpam) {
-      console.warn(`[AntiSpam] Blocked spam contact submission from ${clientIp} (${spamResult.reason}):`, {
-        name: body.name,
-        email: body.email,
-        phone: body.phone,
-      });
+      const log = spamLogFields(body);
+      console.warn(`[AntiSpam] Blocked spam contact submission from ${clientIp} (${spamResult.reason})`);
 
       try {
         await dbConnect();
         const spamEntry = new Enquiry({
-          name: body.name || 'Anonymous',
-          email: body.email || 'unknown@example.com',
-          phone: body.phone,
-          message: body.message,
+          name: log.name,
+          email: log.email,
+          phone: log.phone,
+          message: log.message,
           travelType: 'Contact Inquiry',
           status: 'Spam',
           isSpam: true,
           spamScore: 1.0,
-          spamReason: spamResult.reason,
+          spamReason: clipReason(spamResult.reason),
           spamCategory: 'gibberish',
         });
         await spamEntry.save();
@@ -68,53 +67,8 @@ export async function POST(request: Request) {
 
     const { name, email, phone, message } = validation.data;
 
-    // AI Spam Agent Evaluation (Semantic Intelligence)
-    const aiSpam = await analyzeSpamWithAi({
-      name,
-      email,
-      phone,
-      message,
-    });
-
-    if (aiSpam.isSpam && aiSpam.confidence >= 0.65) {
-      console.warn(`[AI Spam Agent] Blocked contact submission (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`, {
-        name,
-        email,
-      });
-
-      try {
-        await dbConnect();
-        const spamEntry = new Enquiry({
-          name,
-          email,
-          phone,
-          message,
-          travelType: 'Contact Inquiry',
-          status: 'Spam',
-          isSpam: true,
-          spamScore: aiSpam.confidence,
-          spamReason: aiSpam.reason,
-          spamCategory: aiSpam.category,
-        });
-        await spamEntry.save();
-      } catch (dbErr) {
-        console.error('Failed to log AI spam contact enquiry to DB:', dbErr);
-      }
-
-      return NextResponse.json(
-        { 
-          success: true, 
-          message: 'Contact form submitted successfully' 
-        },
-        { status: 200 }
-      );
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Processing contact form submission');
-    }
-
-    // Save legitimate contact enquiry to MongoDB
+    // Save the lead first, so a slow or failing AI call can never lose it.
+    let savedId: unknown = null;
     try {
       await dbConnect();
       const validEntry = new Enquiry({
@@ -127,8 +81,43 @@ export async function POST(request: Request) {
         isSpam: false,
       });
       await validEntry.save();
+      savedId = validEntry._id;
     } catch (dbErr) {
       console.error('Failed to save contact enquiry to DB:', dbErr);
+    }
+
+    // AI Spam Agent Evaluation (Semantic Intelligence)
+    const aiSpam = await analyzeSpamWithAi({
+      name,
+      email,
+      phone,
+      message,
+    });
+
+    if (isSpamVerdict(aiSpam)) {
+      console.warn(`[AI Spam Agent] Flagged contact submission (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+
+      if (savedId) {
+        try {
+          await Enquiry.findByIdAndUpdate(savedId, {
+            status: 'Spam',
+            isSpam: true,
+            spamScore: aiSpam.confidence,
+            spamReason: clipReason(aiSpam.reason),
+            spamCategory: aiSpam.category,
+          });
+        } catch (dbErr) {
+          console.error('Failed to tag AI spam contact enquiry:', dbErr);
+        }
+      }
+
+      return NextResponse.json(
+        {
+          success: true,
+          message: 'Contact form submitted successfully'
+        },
+        { status: 200 }
+      );
     }
 
     try {
@@ -162,29 +151,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error('Error processing contact form submission:', error);
-    
-    // Provide more detailed error message for debugging
-    let errorMessage = 'Internal server error';
-    let errorDetails = '';
-    
-    if (error instanceof Error) {
-      errorMessage = error.message;
-      errorDetails = error.stack || '';
-    }
-    
-    // Log environment variables for debugging (excluding sensitive info)
-    console.log('Environment check:', {
-      RESEND_API_KEY: process.env.RESEND_API_KEY ? 'set' : 'missing',
-      EMAIL_TO: process.env.EMAIL_TO ? 'set' : 'missing',
-      EMAIL_FROM: process.env.EMAIL_FROM ? 'set' : 'missing',
-    });
-    
-    return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? errorDetails : undefined
-      },
-      { status: 500 }
-    );
+    return NextResponse.json(GENERIC_SERVER_ERROR, { status: 500 });
   }
 }

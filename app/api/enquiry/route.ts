@@ -9,6 +9,8 @@ import { formatServerDate, formatServerDuration } from '@/lib/server-date';
 import dbConnect from '@/lib/mongodb';
 import { evaluateSpam, getClientIp } from '@/lib/antispam';
 import { analyzeSpamWithAi } from '@/lib/ai-spam-agent';
+import { isSpamVerdict } from '@/lib/spam-verdict';
+import { GENERIC_SERVER_ERROR, clipReason, spamLogFields } from '@/lib/spam-log';
 import { travelEnquirySchema, formatZodErrors } from '@/lib/validations';
 import Enquiry from '@/lib/models/Enquiry';
 
@@ -21,26 +23,23 @@ export async function POST(request: Request) {
     // Anti-spam evaluation (honeypots, rate limiting, timing, keyword heuristics)
     const spamResult = evaluateSpam(body, clientIp);
     if (spamResult.isSpam) {
-      console.warn(`[AntiSpam] Blocked spam travel enquiry from ${clientIp} (${spamResult.reason}):`, {
-        name: body.name,
-        email: body.email,
-        phone: body.phone,
-      });
+      const log = spamLogFields(body);
+      console.warn(`[AntiSpam] Blocked spam travel enquiry from ${clientIp} (${spamResult.reason})`);
 
       try {
         await dbConnect();
         const spamEntry = new Enquiry({
-          name: body.name || 'Anonymous',
-          email: body.email || 'unknown@example.com',
-          phone: body.phone,
-          preferredContact: body.preferredContact,
-          travelType: body.travelType || 'Travel Enquiry',
-          destination: body.destination,
-          message: body.message,
+          name: log.name,
+          email: log.email,
+          phone: log.phone,
+          preferredContact: log.preferredContact,
+          travelType: log.travelType || 'Travel Enquiry',
+          destination: log.destination,
+          message: log.message,
           status: 'Spam',
           isSpam: true,
           spamScore: 1.0,
-          spamReason: spamResult.reason,
+          spamReason: clipReason(spamResult.reason),
           spamCategory: 'gibberish',
         });
         await spamEntry.save();
@@ -85,6 +84,25 @@ export async function POST(request: Request) {
       subscribe
     } = validation.data;
 
+    // Save the lead first, so a slow or failing AI call can never lose it.
+    await dbConnect();
+    const newEnquiry = new Enquiry({
+      name,
+      email,
+      phone,
+      preferredContact,
+      travelType,
+      destination,
+      departureDate: departureDate ? new Date(departureDate) : undefined,
+      returnDate: returnDate ? new Date(returnDate) : undefined,
+      travelers: travelers !== undefined ? String(travelers) : undefined,
+      budgetMin,
+      budgetMax,
+      message,
+      subscribe: Boolean(subscribe),
+    });
+    await newEnquiry.save();
+
     // AI Spam Agent Evaluation (Semantic Intelligence)
     const aiSpam = await analyzeSpamWithAi({
       name,
@@ -95,21 +113,20 @@ export async function POST(request: Request) {
       message,
     });
 
-    // If AI detects spam, save tagged as Spam for admin review, but SUPPRESS emails
-    if (aiSpam.isSpam && aiSpam.confidence >= 0.65) {
-      console.warn(`[AI Spam Agent] Blocked spam enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
-      await dbConnect();
-      const newEnquiry = new Enquiry({
-        ...body,
-        departureDate: departureDate ? new Date(departureDate) : undefined,
-        returnDate: returnDate ? new Date(returnDate) : undefined,
-        status: 'Spam',
-        isSpam: true,
-        spamScore: aiSpam.confidence,
-        spamReason: aiSpam.reason,
-        spamCategory: aiSpam.category,
-      });
-      await newEnquiry.save();
+    // If AI detects spam, tag the saved lead as Spam for admin review and SUPPRESS emails
+    if (isSpamVerdict(aiSpam)) {
+      console.warn(`[AI Spam Agent] Flagged spam enquiry (${aiSpam.category}, ${Math.round(aiSpam.confidence * 100)}%): ${aiSpam.reason}`);
+      try {
+        await Enquiry.findByIdAndUpdate(newEnquiry._id, {
+          status: 'Spam',
+          isSpam: true,
+          spamScore: aiSpam.confidence,
+          spamReason: clipReason(aiSpam.reason),
+          spamCategory: aiSpam.category,
+        });
+      } catch (dbErr) {
+        console.error('Failed to tag AI spam enquiry:', dbErr);
+      }
 
       return NextResponse.json(
         { 
@@ -120,7 +137,9 @@ export async function POST(request: Request) {
         },
         { status: 200 }
       );
-    }    // Format dates for display
+    }
+
+    // Format dates for display
     let formattedDepartureDate = 'Not specified';
     let formattedReturnDate = 'Not specified';
     let tripDuration;
@@ -143,15 +162,6 @@ export async function POST(request: Request) {
       console.log('Processing travel enquiry');
     }
 
-    // Save to database
-    await dbConnect();
-    const newEnquiry = new Enquiry({
-        ...body,
-        departureDate: departureDate ? new Date(departureDate) : undefined,
-        returnDate: returnDate ? new Date(returnDate) : undefined,
-    });
-    await newEnquiry.save();
-    
     let adminEmailSent = false;
     let customerEmailSent = false;
     
@@ -221,29 +231,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error('Error processing travel enquiry:', error);
-    
-    // Provide more detailed error message for debugging
-    let errorMessage = 'Internal server error';
-    let errorDetails = '';
-    
-    if (error instanceof Error) {
-      errorMessage = error.message;
-      errorDetails = error.stack || '';
-    }
-    
-    // Log environment variables for debugging (excluding sensitive info)
-    console.log('Environment check:', {
-      RESEND_API_KEY: process.env.RESEND_API_KEY ? 'set' : 'missing',
-      EMAIL_TO: process.env.EMAIL_TO ? 'set' : 'missing',
-      EMAIL_FROM: process.env.EMAIL_FROM ? 'set' : 'missing',
-    });
-    
-    return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? errorDetails : undefined
-      },
-      { status: 500 }
-    );
+    return NextResponse.json(GENERIC_SERVER_ERROR, { status: 500 });
   }
 }

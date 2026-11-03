@@ -32,7 +32,7 @@ export function TranslatedText({
     async function performTranslation() {
       setLoading(true);
       try {
-        const result = await translateTextAction(text, locale);
+        const result = await translateTextAction(text, locale, { html: isHtml });
         if (result.success && result.text && isMounted) {
           setTranslated(result.text);
         }
@@ -48,7 +48,7 @@ export function TranslatedText({
     return () => {
       isMounted = false;
     };
-  }, [text, locale]);
+  }, [text, locale, isHtml]);
 
   if (loading && fallback) {
     return <span className={className}>{fallback}</span>;
