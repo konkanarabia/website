@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import FeaturedDestinations from './components/featured-destinations'
 import Hero from './components/hero'
+import ServiceMarquee from './components/service-marquee'
+import SkillsShowcase from './components/skills-showcase'
 import Testimonials from './components/testimonials'
 import CertificateShowcase from './components/certificate-showcase'
 import Partners from './components/partners'
@@ -51,6 +53,8 @@ export default function Home() {
         }}
       />
       <Hero />
+      <ServiceMarquee />
+      <SkillsShowcase />
       <FeaturedDestinations />
       <VehicleRentalSection />
       <SpecializedServices />

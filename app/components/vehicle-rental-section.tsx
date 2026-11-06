@@ -1,5 +1,8 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -19,6 +22,7 @@ import {
   Award
 } from "lucide-react";
 import TranslatedText from "@/components/TranslatedText";
+import { fadeUp, inView, spring, stagger } from "@/lib/motion";
 
 export default function VehicleRentalSection() {
   const services = [
@@ -87,7 +91,11 @@ export default function VehicleRentalSection() {
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-16 text-center">
+        <motion.div
+          variants={fadeUp}
+          {...inView}
+          className="flex flex-col items-center mb-16 text-center"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100/80 text-amber-900 border border-amber-300/60 rounded-full text-xs sm:text-sm font-bold tracking-widest uppercase mb-4 shadow-sm">
             <Award className="w-4 h-4 text-amber-600" />
             <TranslatedText text="PedneCar • Your Goa Travel Partner (EST. 2010)" />
@@ -100,10 +108,14 @@ export default function VehicleRentalSection() {
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-medium">
             <TranslatedText text="Experience premier travel across Goa with PedneCar. Featuring the Toyota Rumion 7-seater MUV, 24/7 airport pickups at MOPA & Dabolim, full-day beach excursions, and luxury group Tempo Travelers." />
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Banner Hero Card */}
-        <div className="mb-20 rounded-3xl overflow-hidden shadow-2xl border border-amber-200/60 bg-slate-900 text-white relative group">
+        <motion.div
+          variants={fadeUp}
+          {...inView}
+          className="mb-20 rounded-3xl overflow-hidden shadow-2xl border border-amber-200/60 bg-slate-900 text-white relative group"
+        >
           <div className="relative h-72 sm:h-96 md:h-[460px] w-full overflow-hidden">
             <Image
               src="/vehicles/pednecar-hero-banner.jpg"
@@ -131,23 +143,35 @@ export default function VehicleRentalSection() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <Link href="/pednecar">
-                  <Button className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-6 rounded-xl shadow-lg shadow-amber-500/30 flex items-center gap-2 group/btn">
-                    <TranslatedText text="View PedneCar Details" />
-                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={spring}
+                  >
+                    <Button className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-6 rounded-xl shadow-lg shadow-amber-500/30 flex items-center gap-2 group/btn cursor-pointer">
+                      <TranslatedText text="View PedneCar Details" />
+                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                  </motion.div>
                 </Link>
                 <a href="tel:+918625807465">
-                  <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md px-6 py-6 rounded-xl font-bold flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-amber-400" />
-                    <span>+91 8625807465</span>
-                  </Button>
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={spring}
+                  >
+                    <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md px-6 py-6 rounded-xl font-bold flex items-center gap-2 cursor-pointer">
+                      <Phone className="w-4 h-4 text-amber-400" />
+                      <span>+91 8625807465</span>
+                    </Button>
+                  </motion.div>
                 </a>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* 4 Core Services Grid */}
+        {/* 4 Core Services Grid with Stagger */}
         <div className="mb-20">
           <div className="text-center mb-10">
             <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-3">
@@ -158,29 +182,44 @@ export default function VehicleRentalSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            variants={stagger(0.08, 0.1)}
+            {...inView}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {services.map((service, index) => (
-              <Card key={index} className="border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl bg-white group hover:-translate-y-1">
-                <CardContent className="p-6 flex flex-col h-full">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    {service.icon}
-                  </div>
-                  <span className="text-[11px] font-bold tracking-wider text-amber-700 uppercase mb-1">
-                    <TranslatedText text={service.tag} />
-                  </span>
-                  <h4 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-amber-600 transition-colors">
-                    <TranslatedText text={service.title} />
-                  </h4>
-                  <p className="text-sm text-slate-600 leading-relaxed font-medium mt-auto">
-                    <TranslatedText text={service.description} />
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                transition={spring}
+              >
+                <Card className="border border-slate-200/80 shadow-soft hover:shadow-lift transition-all duration-300 rounded-3xl bg-white group h-full">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <motion.div
+                      whileHover={{ rotate: -8, scale: 1.1 }}
+                      transition={spring}
+                      className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200/60 flex items-center justify-center mb-4"
+                    >
+                      {service.icon}
+                    </motion.div>
+                    <span className="text-[11px] font-bold tracking-wider text-amber-700 uppercase mb-1">
+                      <TranslatedText text={service.tag} />
+                    </span>
+                    <h4 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-amber-600 transition-colors">
+                      <TranslatedText text={service.title} />
+                    </h4>
+                    <p className="text-sm text-slate-600 leading-relaxed font-medium mt-auto">
+                      <TranslatedText text={service.description} />
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Fleet Showcase Cards */}
+        {/* Fleet Showcase Cards with Stagger */}
         <div className="mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
@@ -197,53 +236,74 @@ export default function VehicleRentalSection() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            variants={stagger(0.08, 0.1)}
+            {...inView}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
             {fleetHighlights.map((fleet, index) => (
-              <Card key={index} className="overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-500 rounded-3xl bg-white flex flex-col group">
-                <div className="relative h-56 w-full overflow-hidden bg-slate-100">
-                  <Image
-                    src={fleet.image}
-                    alt={fleet.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
-                    <TranslatedText text={fleet.badge} />
-                  </div>
-                </div>
-
-                <CardContent className="p-6 flex flex-col flex-grow">
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">
-                    <TranslatedText text={fleet.name} />
-                  </h4>
-                  <p className="text-xs font-bold text-amber-700 mb-3 tracking-wide uppercase">
-                    <TranslatedText text={fleet.models} />
-                  </p>
-
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 mb-4 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <Users className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span><TranslatedText text={fleet.capacity} /></span>
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                transition={spring}
+              >
+                <Card className="overflow-hidden border border-slate-200/80 shadow-soft hover:shadow-lift transition-all duration-500 rounded-3xl bg-white flex flex-col h-full group">
+                  <div className="relative h-56 w-full overflow-hidden bg-slate-100">
+                    <Image
+                      src={fleet.image}
+                      alt={fleet.name}
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-700"
+                    />
+                    <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                      <TranslatedText text={fleet.badge} />
+                    </div>
                   </div>
 
-                  <p className="text-sm text-slate-600 mb-6 leading-relaxed font-medium">
-                    <TranslatedText text={fleet.features} />
-                  </p>
+                  <CardContent className="p-6 flex flex-col flex-grow">
+                    <h4 className="text-xl font-bold text-slate-900 mb-1">
+                      <TranslatedText text={fleet.name} />
+                    </h4>
+                    <p className="text-xs font-bold text-amber-700 mb-3 tracking-wide uppercase">
+                      <TranslatedText text={fleet.models} />
+                    </p>
 
-                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                    <Link href={fleet.link} className="w-full">
-                      <Button variant="outline" className="w-full border-amber-300 hover:bg-amber-50 hover:text-amber-900 text-slate-800 font-bold rounded-xl py-2.5 text-sm transition-colors">
-                        <TranslatedText text="View Details & Pricing" />
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 mb-4 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                      <Users className="w-4 h-4 text-amber-600 shrink-0" />
+                      <span><TranslatedText text={fleet.capacity} /></span>
+                    </div>
+
+                    <p className="text-sm text-slate-600 mb-6 leading-relaxed font-medium">
+                      <TranslatedText text={fleet.features} />
+                    </p>
+
+                    <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                      <Link href={fleet.link} className="w-full">
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={spring}
+                        >
+                          <Button variant="outline" className="w-full border-amber-300 hover:bg-amber-50 hover:text-amber-900 text-slate-800 font-bold rounded-xl py-2.5 text-sm transition-colors cursor-pointer">
+                            <TranslatedText text="View Details & Pricing" />
+                          </Button>
+                        </motion.div>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Trust Badges Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 p-6 sm:p-8 bg-white rounded-3xl border border-slate-200/80 shadow-md">
+        <motion.div
+          variants={fadeUp}
+          {...inView}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 p-6 sm:p-8 bg-white rounded-3xl border border-slate-200/80 shadow-soft"
+        >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-5 h-5" />
@@ -283,10 +343,14 @@ export default function VehicleRentalSection() {
               <p className="text-xs text-slate-500"><TranslatedText text="No hidden charges or surge" /></p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Office & Direct Contact Card */}
-        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden border border-amber-500/20">
+        <motion.div
+          variants={fadeUp}
+          {...inView}
+          className="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden border border-amber-500/20"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
@@ -326,21 +390,33 @@ export default function VehicleRentalSection() {
                 rel="noopener noreferrer"
                 className="w-full"
               >
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-6 rounded-2xl text-base shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 transition-all">
-                  <MessageCircle className="w-5 h-5" />
-                  <TranslatedText text="Instant WhatsApp Booking" />
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={spring}
+                >
+                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-6 rounded-2xl text-base shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 cursor-pointer">
+                    <MessageCircle className="w-5 h-5" />
+                    <TranslatedText text="Instant WhatsApp Booking" />
+                  </Button>
+                </motion.div>
               </a>
 
               <Link href="/pednecar" className="w-full">
-                <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-6 rounded-2xl text-base shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 transition-all">
-                  <TranslatedText text="Visit Dedicated PedneCar Page" />
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={spring}
+                >
+                  <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-6 rounded-2xl text-base shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer">
+                    <TranslatedText text="Visit Dedicated PedneCar Page" />
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </motion.div>
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

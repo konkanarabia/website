@@ -4,11 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { useI18n } from "@/lib/i18n-provider";
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "./social-icons";
+import { ease, spring } from "@/lib/motion";
 
 export default function Header() {
   const { t } = useI18n();
@@ -17,6 +19,7 @@ export default function Header() {
   const [isMobileServicesDropdownOpen, setIsMobileServicesDropdownOpen] =
     useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -88,7 +91,7 @@ export default function Header() {
       ],
     },
     { name: 'PedneCar', href: "/pednecar" },
-      { name: t('our_partners'), href: "/partners" },
+    { name: t('our_partners'), href: "/partners" },
     { name: t('europe_jv'), href: "/europe-joint-venture" },
     { name: t('franchise_offer'), href: "/franchise" },
     { name: t('contact'), href: "/contact" },
@@ -147,21 +150,25 @@ export default function Header() {
 
       <header
         className={`bg-white relative ${
-          isScrolled ? "shadow-sm sticky top-0 z-50 py-0" : "py-1"
+          isScrolled ? "shadow-md sticky top-0 z-50 py-0" : "py-1"
         } transition-all duration-300 border-b border-slate-100`}
       >
         <div className="container mx-auto px-3 sm:px-4 flex justify-between items-center relative max-w-[1536px]">
           <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group transition-all duration-300 flex-shrink-0 mr-2 xl:mr-4">
-            <div className="relative flex-shrink-0">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              transition={spring}
+              className="relative flex-shrink-0"
+            >
                 <Image
                   src="/logo/KonkanArabia-New-Logo.webp"
                   alt="KonkanArabia Logo"
                   width={88}
                   height={88}
-                  className="relative z-10 transition-transform duration-500 group-hover:scale-105 w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] xl:w-[82px] xl:h-[82px] object-contain px-1"
+                  className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px] xl:w-[82px] xl:h-[82px] object-contain px-1"
                   style={{ height: "auto" }}
                 />
-            </div>
+            </motion.div>
             <div className="flex flex-col justify-center flex-shrink-0">
               <div className="flex flex-col items-center sm:items-start">
                 <div className="flex items-center w-full min-w-0">
@@ -188,195 +195,268 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center justify-end flex-shrink-0 min-w-0 gap-1.5 xl:gap-3">
-            <nav className="hidden lg:block flex-shrink-0" suppressHydrationWarning>
+            {/* Desktop Navigation with animated hover indicator pill (freshcart-landing layoutId pattern) */}
+            <nav 
+              className="hidden lg:block flex-shrink-0" 
+              suppressHydrationWarning
+              onMouseLeave={() => setHoveredNav(null)}
+            >
               <ul className="flex items-center gap-0.5 xl:gap-1 2xl:gap-2">
-                {navItems.map((item) => (
-                  <li key={item.href} className="relative flex-shrink-0">
-                    {item.dropdown ? (
-                      <div ref={dropdownRef}>
-                        <button
-                          onClick={toggleServicesDropdown}
-                          className={`flex items-center text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                            isServiceActive(item.subItems)
+                {navItems.map((item) => {
+                  const isActive = item.dropdown 
+                    ? isServiceActive(item.subItems)
+                    : pathname === item.href;
+
+                  return (
+                    <li 
+                      key={item.href} 
+                      className="relative flex-shrink-0"
+                      onMouseEnter={() => setHoveredNav(item.href)}
+                    >
+                      {/* Shared layoutId hover pill */}
+                      {hoveredNav === item.href && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          transition={{
+                            type: "spring",
+                            stiffness: 420,
+                            damping: 34,
+                          }}
+                          className="absolute inset-0 -z-10 rounded-lg bg-amber-500/10"
+                        />
+                      )}
+
+                      {item.dropdown ? (
+                        <div ref={dropdownRef} className="relative">
+                          <button
+                            onClick={toggleServicesDropdown}
+                            className={`flex items-center text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
+                              isActive
+                                ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
+                                : "text-slate-700 hover:text-[#00558a]"
+                            }`}
+                          >
+                            {item.name}
+                            <ChevronDown
+                              className={`ml-1 h-3 w-3 xl:h-3.5 xl:w-3.5 transition-transform duration-200 ${
+                                isServicesDropdownOpen ? "rotate-180" : ""
+                              }`}
+                            />
+                          </button>
+                          
+                          <AnimatePresence>
+                            {isServicesDropdownOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                                transition={{ duration: 0.2, ease }}
+                                className="absolute top-full right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl py-2 z-[100] border border-slate-100 overflow-hidden"
+                              >
+                                {item.subItems.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#00558a] hover:text-white font-medium transition-colors whitespace-nowrap"
+                                    onClick={() => setIsServicesDropdownOpen(false)}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors block whitespace-nowrap ${
+                            item.href === "/europe-joint-venture"
+                              ? isActive
+                                ? "bg-amber-500 text-slate-950 font-bold shadow-sm"
+                                : "bg-amber-500/10 text-amber-800 hover:bg-amber-500/20 border border-amber-300/80 font-semibold"
+                              : isActive
                               ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
-                              : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
+                              : "text-slate-700 hover:text-[#00558a]"
                           }`}
                         >
                           {item.name}
-                          <ChevronDown
-                            className={`ml-1 h-3 w-3 xl:h-3.5 xl:w-3.5 transition-transform ${
-                              isServicesDropdownOpen ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-                        {isServicesDropdownOpen && (
-                          <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl py-2 z-[100] border border-slate-100 overflow-hidden">
-                            {item.subItems.map((subItem) => (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#00558a] hover:text-white font-medium transition-colors whitespace-nowrap"
-                                onClick={() => setIsServicesDropdownOpen(false)}
-                              >
-                                {subItem.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className={`text-[11.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-all block whitespace-nowrap ${
-                          item.href === "/europe-joint-venture"
-                            ? pathname === item.href
-                              ? "bg-amber-500 text-slate-950 font-bold shadow-sm"
-                              : "bg-amber-500/10 text-amber-800 hover:bg-amber-500/20 border border-amber-300/80 font-semibold"
-                            : pathname === item.href
-                            ? "text-[#00558a] bg-slate-50 font-bold border border-slate-200/80"
-                            : "text-slate-700 hover:text-[#00558a] hover:bg-slate-50"
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
+
             <Link href="/enquiry" className="hidden lg:block flex-shrink-0 ml-1">
-              <Button
-                className="bg-[#00558a] hover:bg-[#00406c] text-white font-bold px-2.5 xl:px-3.5 py-2 rounded-lg shadow-md shadow-blue-900/10 transition-all hover:scale-[1.02] active:scale-[0.98] text-[11px] xl:text-xs 2xl:text-sm whitespace-nowrap"
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={spring}
               >
-                {t('enquire_now')}
-              </Button>
+                <Button
+                  className="bg-[#00558a] hover:bg-[#00406c] text-white font-bold px-3 xl:px-4 py-2 rounded-xl shadow-md shadow-blue-900/10 transition-all text-[11px] xl:text-xs 2xl:text-sm whitespace-nowrap cursor-pointer"
+                >
+                  {t('enquire_now')}
+                </Button>
+              </motion.div>
             </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden ml-2 sm:ml-4 text-slate-800"
-              onClick={toggleMobileMenu}
+
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              transition={spring}
             >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-slate-900" />
-              ) : (
-                <Menu className="h-6 w-6 text-slate-900" />
-              )}
-              <span className="sr-only">Toggle menu</span>
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden ml-2 sm:ml-4 text-slate-800"
+                onClick={toggleMobileMenu}
+                aria-label="Toggle navigation menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6 text-slate-900" />
+                ) : (
+                  <Menu className="h-6 w-6 text-slate-900" />
+                )}
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </motion.div>
           </div>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="lg:hidden">
-            <nav className="bg-white px-4 pt-3 pb-6 shadow-2xl border-t border-slate-100" suppressHydrationWarning>
-              <ul className="space-y-2">
-                {navItems.map((item) => (
-                  <li key={item.href}>
-                    {item.dropdown ? (
-                      <div
-                        ref={mobileDropdownRef}
-                        className="border-b border-slate-100 pb-2"
-                      >
-                        <button
-                          onClick={toggleMobileServicesDropdown}
-                          className={`flex items-center justify-between w-full py-2.5 text-left font-medium transition-colors ${
-                            isServiceActive(item.subItems)
-                              ? "font-semibold text-amber-800"
-                              : "text-slate-700"
+        {/* Animated Mobile Drawer with AnimatePresence & Spring physics */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease }}
+              className="lg:hidden overflow-hidden border-t border-slate-100"
+            >
+              <nav className="bg-white px-4 pt-3 pb-6 shadow-2xl" suppressHydrationWarning>
+                <ul className="space-y-2">
+                  {navItems.map((item) => (
+                    <li key={item.href}>
+                      {item.dropdown ? (
+                        <div
+                          ref={mobileDropdownRef}
+                          className="border-b border-slate-100 pb-2"
+                        >
+                          <button
+                            onClick={toggleMobileServicesDropdown}
+                            className={`flex items-center justify-between w-full py-2.5 text-left font-medium transition-colors ${
+                              isServiceActive(item.subItems)
+                                ? "font-semibold text-amber-800"
+                                : "text-slate-700"
+                            }`}
+                          >
+                            <span>{item.name}</span>
+                            <ChevronDown
+                              className={`ml-1 h-4 w-4 transition-transform ${
+                                isMobileServicesDropdownOpen ? "rotate-180" : ""
+                              }`}
+                            />
+                          </button>
+                          <AnimatePresence>
+                            {isMobileServicesDropdownOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.25, ease }}
+                                className="pl-4 mt-1 space-y-1.5 border-l-2 border-amber-400/40 my-1 overflow-hidden"
+                              >
+                                {item.subItems.map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className="block py-2 text-sm text-slate-600 hover:text-amber-700 font-medium"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`block py-2.5 transition-all ${
+                            item.href === "/europe-joint-venture"
+                              ? "bg-amber-500/10 text-amber-800 font-bold border border-amber-300/80 rounded-xl px-3.5 py-2.5 my-1 flex items-center justify-between shadow-xs"
+                              : pathname === item.href
+                              ? "font-bold text-amber-800 border-b border-slate-100"
+                              : "text-slate-700 border-b border-slate-100"
                           }`}
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <span>{item.name}</span>
-                          <ChevronDown
-                            className={`ml-1 h-4 w-4 transition-transform ${
-                              isMobileServicesDropdownOpen ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-                        {isMobileServicesDropdownOpen && (
-                          <div className="pl-4 mt-1 space-y-1.5 border-l-2 border-amber-400/40 my-1">
-                            {item.subItems.map((subItem) => (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="block py-2 text-sm text-slate-600 hover:text-amber-700 font-medium"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {subItem.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className={`block py-2.5 transition-all ${
-                          item.href === "/europe-joint-venture"
-                            ? "bg-amber-500/10 text-amber-800 font-bold border border-amber-300/80 rounded-xl px-3.5 py-2.5 my-1 flex items-center justify-between shadow-xs"
-                            : pathname === item.href
-                            ? "font-bold text-amber-800 border-b border-slate-100"
-                            : "text-slate-700 border-b border-slate-100"
-                        }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                          {item.href === "/europe-joint-venture" && (
+                            <span className="text-[10px] uppercase font-bold tracking-widest bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full">
+                              New
+                            </span>
+                          )}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                  <li className="pt-3">
+                    <Link href="/enquiry" onClick={() => setIsMobileMenuOpen(false)}>
+                      <motion.div
+                        whileTap={{ scale: 0.98 }}
+                        transition={spring}
                       >
-                        <span>{item.name}</span>
-                        {item.href === "/europe-joint-venture" && (
-                          <span className="text-[10px] uppercase font-bold tracking-widest bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full">
-                            New
-                          </span>
-                        )}
-                      </Link>
-                    )}
+                        <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-3.5 rounded-xl shadow-md border border-amber-400/50">
+                          {t('enquire_now')}
+                        </Button>
+                      </motion.div>
+                    </Link>
                   </li>
-                ))}
-                <li className="pt-3">
-                  <Link href="/enquiry" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-3 shadow-md border border-amber-400/50">
-                      {t('enquire_now')}
-                    </Button>
-                  </Link>
-                </li>
-                <li className="pt-4 flex flex-col items-center gap-3 border-t border-slate-100 mt-3">
-                  <LocaleSwitcher />
-                  <div className="flex items-center gap-4 pt-1">
-                    <Link
-                      href="https://www.facebook.com/konkanarabiahospitalitygroup"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:scale-110 transition-transform"
-                      title="Facebook"
-                    >
-                      <FacebookIcon size={24} className="w-6 h-6" />
-                    </Link>
-                    <Link
-                      href="https://www.instagram.com/konkanarabiaholidays"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:scale-110 transition-transform"
-                      title="Instagram"
-                    >
-                      <InstagramIcon size={24} className="w-6 h-6" />
-                    </Link>
-                    <Link
-                      href="https://www.youtube.com/@KonkanArabiaholiday"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:scale-110 transition-transform"
-                      title="YouTube"
-                    >
-                      <YoutubeIcon size={24} className="w-6 h-6" />
-                    </Link>
-                  </div>
-                  <div className="text-center text-xs text-slate-500 space-y-1 pt-1">
-                    <p className="font-semibold text-slate-700">📞 +91-9370528517 | +971-555995260</p>
-                    <p className="text-[11px] text-slate-400">bookings@konkanarabiahospitalitygroup.com</p>
-                  </div>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        )}
+                  <li className="pt-4 flex flex-col items-center gap-3 border-t border-slate-100 mt-3">
+                    <LocaleSwitcher />
+                    <div className="flex items-center gap-4 pt-1">
+                      <Link
+                        href="https://www.facebook.com/konkanarabiahospitalitygroup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:scale-110 transition-transform"
+                        title="Facebook"
+                      >
+                        <FacebookIcon size={24} className="w-6 h-6" />
+                      </Link>
+                      <Link
+                        href="https://www.instagram.com/konkanarabiaholidays"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:scale-110 transition-transform"
+                        title="Instagram"
+                      >
+                        <InstagramIcon size={24} className="w-6 h-6" />
+                      </Link>
+                      <Link
+                        href="https://www.youtube.com/@KonkanArabiaholiday"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:scale-110 transition-transform"
+                        title="YouTube"
+                      >
+                        <YoutubeIcon size={24} className="w-6 h-6" />
+                      </Link>
+                    </div>
+                    <div className="text-center text-xs text-slate-500 space-y-1 pt-1">
+                      <p className="font-semibold text-slate-700">📞 +91-9370528517 | +971-555995260</p>
+                      <p className="text-[11px] text-slate-400">bookings@konkanarabiahospitalitygroup.com</p>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );

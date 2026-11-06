@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -13,6 +14,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { ZoomIn, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { fadeUp, inView, spring, stagger } from "@/lib/motion";
 
 const certificates = [
   {
@@ -72,18 +74,28 @@ export default function CertificateShowcase() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto mb-20">
+        <motion.div
+          variants={stagger(0.08, 0.1)}
+          {...inView}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto mb-20"
+        >
           {certificates.map((cert, index) => (
-            <Dialog key={index}>
-              <DialogTrigger asChild>
-                <div className="cursor-pointer group flex flex-col">
-                  <Card className="flex-1 overflow-hidden border-none shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 rounded-xl md:rounded-2xl">
-                    <CardContent className="p-0 relative aspect-[3/4]">
+            <motion.div
+              key={index}
+              variants={fadeUp}
+              whileHover={{ y: -6 }}
+              transition={spring}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="cursor-pointer group flex flex-col h-full">
+                    <Card className="flex-1 overflow-hidden border border-slate-200/80 shadow-soft transition-all duration-500 group-hover:shadow-lift rounded-3xl bg-white">
+                      <CardContent className="p-0 relative aspect-[3/4]">
                       <Image
                         src={cert.pages[0]}
                         alt={cert.title}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover transition-transform duration-700 group-hover:scale-108"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
@@ -112,7 +124,7 @@ export default function CertificateShowcase() {
                   </Card>
                   
                   <div className="mt-6 md:mt-8">
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors font-serif">
                       {cert.title}
                     </h3>
                     <p className="text-primary font-bold uppercase tracking-wider text-xs md:text-sm mb-3">
@@ -177,8 +189,9 @@ export default function CertificateShowcase() {
                 </div>
               </DialogContent>
             </Dialog>
-          ))}
-        </div>
+          </motion.div>
+        ))}
+      </motion.div>
 
         {/* Additional Documents Section */}
         <div className="max-w-4xl mx-auto pt-10 border-t border-gray-200">
