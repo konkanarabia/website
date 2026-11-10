@@ -136,7 +136,7 @@ export function getPedneCarFAQSchema() {
         name: 'How do I book a tourist taxi in Mapusa Goa with PedneCar?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'You can book directly via WhatsApp (+91-8625807465) or call our 24/7 Mapusa booking desk at 09326380922 or 9370528517 for instant vehicle dispatch and sightseeing bookings.',
+          text: 'You can book directly via WhatsApp (+91-8625807465) or call our 24/7 Mapusa booking desk at +91 86258 07465, 09326380922, or 9370528517 for instant vehicle dispatch and sightseeing bookings.',
         },
       },
       {

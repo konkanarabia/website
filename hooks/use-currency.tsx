@@ -44,7 +44,7 @@ export function useCurrencyFormatter() {
   }, [isInitialized]);
 
   // Wrap the utility functions with the current context values
-  const formatCurrency = (
+  const formatCurrency = useCallback((
     amount: number,
     options?: Parameters<typeof formatCurrencyUtil>[1]
   ) => {
@@ -53,9 +53,9 @@ export function useCurrencyFormatter() {
       currency,
       ...options,
     });
-  };
+  }, [locale, currency]);
 
-  const formatPriceRange = (
+  const formatPriceRange = useCallback((
     min: number,
     max: number,
     options?: Parameters<typeof formatCurrencyUtil>[1]
@@ -65,7 +65,7 @@ export function useCurrencyFormatter() {
       currency,
       ...options,
     });
-  };
+  }, [locale, currency]);
 
   /**
    * Convert an amount from the source currency to the current user-selected currency

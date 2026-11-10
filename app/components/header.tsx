@@ -104,7 +104,7 @@ export default function Header() {
           <div className="text-[11px] sm:text-[12px] flex items-center flex-wrap gap-y-2 font-medium">
             <span className="flex items-center mr-4 sm:mr-6 whitespace-nowrap text-white/90">
               <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2 text-amber-300" /> 
-              <span className="hidden xs:inline">+91-9370528517 | 9326380922 | +971-555995260 | 0557337618</span>
+              <span className="hidden xs:inline">+91-9370528517 | PedneCar: +91 86258 07465 | 9326380922 | +971-555995260</span>
               <span className="xs:hidden">+91 9370528517</span>
             </span>
             <a

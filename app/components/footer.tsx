@@ -96,6 +96,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/pednecar"
+                  className="text-slate-600 hover:text-amber-600 font-medium transition-colors duration-300 flex items-center"
+                >
+                  <span className="mr-2 text-amber-500">→</span> PedneCar (Goa Fleet)
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact"
                   className="text-slate-600 hover:text-amber-600 font-medium transition-colors duration-300 flex items-center"
                 >
@@ -120,6 +128,7 @@ export default function Footer() {
                 <span className="font-bold text-slate-800 mr-2 whitespace-nowrap">Phone:</span>
                 <div className="flex flex-col font-medium">
                   <span>India: +91-9370528517 | 9326380922</span>
+                  <span>PedneCar (Goa): +91 86258 07465</span>
                   <span>UAE: +971-555995260 | 0557337618</span>
                 </div>
               </div>
@@ -132,6 +141,12 @@ export default function Footer() {
                 </p>
                 <p className="text-slate-600 leading-relaxed break-words text-sm md:text-base">
                   Office No:S-144, 2nd Floor, Haware Fantasia Business Park, Sector 30A, Behind Inorbit Mall, Near Railway Station, Vashi, Navi Mumbai 400703
+                </p>
+              </div>
+              <div className="pt-3 border-t border-slate-200">
+                <p className="text-slate-800 font-bold mb-1">Goa: PedneCar Tourist Vehicle Division</p>
+                <p className="text-slate-600 leading-relaxed break-words text-sm md:text-base">
+                  Flat No.203, Magic Marvel, Peddem, Mapusa, Goa 403507 • Tel: +91 86258 07465
                 </p>
               </div>
               <div className="pt-3 border-t border-slate-200">

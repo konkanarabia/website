@@ -162,7 +162,7 @@ export default function VehicleRentalSection() {
                   >
                     <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md px-6 py-6 rounded-xl font-bold flex items-center gap-2 cursor-pointer">
                       <Phone className="w-4 h-4 text-amber-400" />
-                      <span>+91 8625807465</span>
+                      <span>+91 86258 07465</span>
                     </Button>
                   </motion.div>
                 </a>
@@ -375,7 +375,7 @@ export default function VehicleRentalSection() {
                   <Phone className="w-5 h-5 text-amber-400 shrink-0" />
                   <span className="font-medium">
                     <strong><TranslatedText text="Direct Call Lines:" /></strong>{" "}
-                    <a href="tel:+918625807465" className="hover:text-amber-400 transition-colors underline font-semibold">+91 8625807465</a> •{" "}
+                    <a href="tel:+918625807465" className="hover:text-amber-400 transition-colors underline font-semibold">+91 86258 07465</a> •{" "}
                     <a href="tel:+919326380922" className="hover:text-amber-400 transition-colors underline font-semibold">09326380922</a> •{" "}
                     <a href="tel:+919370528517" className="hover:text-amber-400 transition-colors underline font-semibold">9370528517</a>
                   </span>

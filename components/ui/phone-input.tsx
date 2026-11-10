@@ -71,15 +71,20 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     const [searchQuery, setSearchQuery] = useState("");
     const internalInputRef = useRef<HTMLInputElement | null>(null);
 
+    const selectedCountryRef = useRef(selectedCountry);
+    selectedCountryRef.current = selectedCountry;
+    const localNumberRef = useRef(localNumber);
+    localNumberRef.current = localNumber;
+
     // Keep internal state synchronized if parent value changes externally (e.g. form reset)
     useEffect(() => {
       if (value === "" || value === undefined) {
         setLocalNumber("");
         setIsTouched(false);
       } else {
-        const next = parsePhoneNumber(value, selectedCountry.code);
+        const next = parsePhoneNumber(value, selectedCountryRef.current.code);
         const cleanDigits = next.nationalNumber.replace(/\D/g, "").slice(0, next.country.maxLength);
-        if (cleanDigits !== localNumber || next.country.code !== selectedCountry.code) {
+        if (cleanDigits !== localNumberRef.current || next.country.code !== selectedCountryRef.current.code) {
           setSelectedCountry(next.country);
           setLocalNumber(cleanDigits);
         }

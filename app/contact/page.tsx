@@ -214,6 +214,45 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+
+            <div className="bg-white p-8 rounded-3xl shadow-xl border border-amber-200/80 bg-gradient-to-br from-amber-50/40 to-white">
+              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900">
+                <span className="p-2 bg-amber-100 rounded-lg">🚗</span>
+                <TranslatedText text="PedneCar • Goa Branch" />
+              </h2>
+              <div className="space-y-6">
+                <div className="flex gap-4 text-slate-900">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1 text-slate-900">PedneCar Tourist Vehicle Service</h3>
+                    <p className="text-amber-800 text-xs font-bold uppercase tracking-wider mb-1">
+                      <TranslatedText text="Goa Head Office & Booking Desk:" />
+                    </p>
+                    <p className="text-slate-700 leading-relaxed text-sm font-medium">
+                      <TranslatedText text="Flat No.203, Magic Marvel, Peddem, Mapusa, Goa 403507" />
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1 text-slate-900">
+                      <TranslatedText text="Phone & WhatsApp" />
+                    </h3>
+                    <p className="text-slate-950 font-bold">
+                      <a href="tel:+918625807465" className="hover:text-amber-600 transition-colors underline">+91 86258 07465</a>
+                    </p>
+                    <p className="text-slate-600 text-sm">
+                      <a href="tel:+919326380922" className="hover:text-amber-600 transition-colors">09326380922</a> • <a href="tel:+919370528517" className="hover:text-amber-600 transition-colors">9370528517</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Contact Form */}

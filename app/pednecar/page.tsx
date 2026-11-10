@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import TranslatedText from '@/components/TranslatedText';
 import { getPedneCarSchema, getPedneCarFAQSchema } from '@/lib/structured-data';
+import { jsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'PedneCar • Your Goa Travel Partner | Tourist Taxi & Vehicle Rental Service Mapusa',
@@ -150,6 +151,18 @@ export default function PedneCarPage() {
 
   return (
     <main className="bg-slate-50 min-h-screen pt-24 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(getPedneCarSchema()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(getPedneCarFAQSchema()),
+        }}
+      />
       <div className="container mx-auto px-4 max-w-7xl">
 
         {/* Hero Banner Section */}
@@ -185,7 +198,7 @@ export default function PedneCarPage() {
                 <a href="tel:+918625807465">
                   <Button className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-6 rounded-2xl shadow-lg shadow-amber-500/30 flex items-center gap-2">
                     <Phone className="w-4 h-4" />
-                    <span>+91 8625807465</span>
+                    <span>+91 86258 07465</span>
                   </Button>
                 </a>
                 <a
@@ -331,12 +344,19 @@ export default function PedneCarPage() {
                     ))}
                   </ul>
 
-                  <Link href="/enquiry/vehicle-rental" className="w-full">
-                    <Button className="w-full bg-slate-900 hover:bg-amber-600 text-white hover:text-slate-950 font-bold py-5 rounded-xl text-sm transition-all duration-300 flex items-center justify-center gap-2">
-                      <TranslatedText text="Book This Vehicle" />
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
+                  <div className="flex gap-2 w-full">
+                    <Link href="/enquiry/vehicle-rental" className="flex-1">
+                      <Button className="w-full bg-slate-900 hover:bg-amber-600 text-white hover:text-slate-950 font-bold py-5 rounded-xl text-sm transition-all duration-300 flex items-center justify-center gap-2">
+                        <TranslatedText text="Book Online" />
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                    <a href="tel:+918625807465" title="Call PedneCar at +91 86258 07465">
+                      <Button variant="outline" className="h-full px-4 border-slate-300 hover:border-amber-500 hover:bg-amber-50 text-slate-800 rounded-xl" aria-label="Call PedneCar">
+                        <Phone className="w-4 h-4 text-amber-600" />
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -369,7 +389,7 @@ export default function PedneCarPage() {
                   <Phone className="w-5 h-5 text-amber-400 shrink-0" />
                   <span>
                     <strong><TranslatedText text="Call Desk:" /></strong>{' '}
-                    <a href="tel:+918625807465" className="hover:text-amber-400 transition-colors underline font-semibold">+91 8625807465</a> •{' '}
+                    <a href="tel:+918625807465" className="hover:text-amber-400 transition-colors underline font-semibold">+91 86258 07465</a> •{' '}
                     <a href="tel:+919326380922" className="hover:text-amber-400 transition-colors underline font-semibold">09326380922</a> •{' '}
                     <a href="tel:+919370528517" className="hover:text-amber-400 transition-colors underline font-semibold">9370528517</a>
                   </span>
